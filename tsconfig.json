@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "skipLibCheck": true,
+    "outDir": "dist",
+    "lib": ["es2015"],
+    "types": ["mocha", "node"],
+    "target": "es2020",
+    "module": "Node16",
+    "moduleResolution": "node16",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "downlevelIteration": true,
+    "jsx": "react",
+    "allowJs": true
+  },
+  "exclude": ["node_modules", "dist", "test/data"],
+  "include": ["src", "test"]
+}

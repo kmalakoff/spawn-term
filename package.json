@@ -1,0 +1,65 @@
+{
+  "name": "spawn-term",
+  "version": "0.0.0",
+  "description": "Formats spawn with for terminal grouping",
+  "keywords": [
+    "spawn",
+    "cross-spawn",
+    "cross-spawn-cb",
+    "streaming",
+    "format",
+    "terminal",
+    "groups",
+    "grouping",
+    "group"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/kmalakoff/spawn-term.git"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    "import": "./dist/esm/index.mjs",
+    "types": "./dist/types/index.d.ts"
+  },
+  "module": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsds build",
+    "format": "biome check --write --unsafe src/ test/",
+    "test": "tsds test:node --no-timeouts",
+    "test:engines": "nvu engines npm test",
+    "version": "tsds version"
+  },
+  "dependencies": {
+    "cross-spawn-cb": "^2.1.8",
+    "end-of-stream": "^1.4.4",
+    "ink": "^5.1.0",
+    "is-unicode-supported": "^2.1.0",
+    "lodash.throttle": "^4.1.1",
+    "queue-cb": "^1.4.13",
+    "react": "^18.3.1",
+    "readable-stream": "^2.3.8"
+  },
+  "devDependencies": {
+    "@types/mocha": "*",
+    "@types/node": "*",
+    "@types/react": "*",
+    "cr": "*",
+    "is-version": "*",
+    "pinkie-promise": "*"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "tsds": {
+    "source": "src/index.ts",
+    "targets": [
+      "esm"
+    ]
+  }
+}
