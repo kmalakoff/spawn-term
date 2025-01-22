@@ -1,10 +1,10 @@
 // @ts-ignore
 import { Box, Text } from 'ink';
 import React from 'react';
-import RenderSpinner from '../lib/RenderSpinner.js';
 import figures from '../lib/figures.js';
+import Spinner from './Spinner.js';
 
-type State = 'running' | 'success' | 'error';
+import type { Line, State } from '../types.js';
 
 // From: https://github.com/sindresorhus/cli-spinners/blob/00de8fbeee16fa49502fa4f687449f70f2c8ca2c/spinners.json#L2
 const spinner = {
@@ -15,7 +15,7 @@ const spinner = {
 const ICONS = {
   error: <Text color="red">{figures.cross}</Text>,
   success: <Text color="green">{figures.tick}</Text>,
-  running: <RenderSpinner spinner={spinner} />,
+  running: <Spinner {...spinner} />,
 };
 
 const POINTERS = {
@@ -26,7 +26,7 @@ const POINTERS = {
 type ChildProcessProps = {
   title: string;
   state: State;
-  lines: string[];
+  lines: Line[];
   isExpanded?: boolean;
 };
 
