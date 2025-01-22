@@ -3,11 +3,12 @@ import spawn, { crossSpawn, type SpawnResult } from 'cross-spawn-cb';
 import eos from 'end-of-stream';
 import Queue from 'queue-cb';
 
+import createApp from './createApp.js';
 import addLines from './lib/addLines.js';
 import concatWritable from './lib/concatWritable.js';
-import createApp from './terminal/createApp.js';
 
 import type { SpawnOptions, TerminalOptions } from './types.js';
+import { LineType } from './types.js';
 
 const terminal = createApp();
 
@@ -35,8 +36,8 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
   const queue = new Queue();
   if (cp.stdout) {
     if (stdio === 'inherit') {
-      outputs.stdout = addLines((line) => {
-        item.lines.push(line);
+      outputs.stdout = addLines((text) => {
+        item.lines.push({ type: LineType.stdout, text });
         rerender();
       });
       queue.defer(eos.bind(null, cp.stdout.pipe(outputs.stdout)));
@@ -49,8 +50,8 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
   }
   if (cp.stderr) {
     if (stdio === 'inherit') {
-      outputs.stderr = addLines((line) => {
-        item.lines.push(line);
+      outputs.stderr = addLines((text) => {
+        item.lines.push({ type: LineType.stderr, text });
         rerender();
       });
       cp.stderr.pipe(outputs.stderr);

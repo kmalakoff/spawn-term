@@ -1,8 +1,8 @@
 import { type Instance, render } from 'ink';
 import React from 'react';
-import type { ChildProcess } from '../types.js';
 import App from './components/App.js';
 import uuid from './lib/uuid.js';
+import type { ChildProcess } from './types.js';
 
 export default function createApp() {
   let refCount = 0;
