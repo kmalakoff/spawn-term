@@ -1,7 +1,7 @@
 // @ts-ignore
 import { Box } from 'ink';
 import React from 'react';
-import type { ChildProcess as ChildProcessT } from '../../types.js';
+import type { ChildProcess as ChildProcessT } from '../types.js';
 import ChildProcess from './ChildProcess.js';
 
 export interface AppProps {
