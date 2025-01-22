@@ -1,3 +1,4 @@
+import eos from 'end-of-stream';
 import { Writable } from 'readable-stream';
 
 const regEx = /\r\n|[\n\v\f\r\x85\u2028\u2029]/g;
@@ -14,7 +15,7 @@ export default function addLines(addLine) {
       callback();
     },
   });
-  stream.on('finish', () => {
+  eos(stream, () => {
     if (last.length) addLine(last);
     last = '';
   });
