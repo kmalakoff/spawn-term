@@ -1,6 +1,6 @@
 // @ts-ignore
 import spawn, { crossSpawn, type SpawnResult } from 'cross-spawn-cb';
-import eos from 'end-of-stream';
+import oo from 'on-one';
 import Queue from 'queue-cb';
 
 import createApp from './createApp.js';
@@ -40,13 +40,12 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
         item.lines.push({ type: LineType.stdout, text });
         rerender();
       });
-      queue.defer(eos.bind(null, cp.stdout.pipe(outputs.stdout)));
     } else {
       outputs.stdout = concatWritable((output) => {
         outputs.stdout.output = output.toString(encoding || 'utf8');
       });
-      queue.defer(eos.bind(null, cp.stdout.pipe(outputs.stdout)));
     }
+    queue.defer(oo.bind(null, cp.stdout.pipe(outputs.stdout), ['error', 'end', 'close', 'finish']));
   }
   if (cp.stderr) {
     if (stdio === 'inherit') {
@@ -55,13 +54,12 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
         rerender();
       });
       cp.stderr.pipe(outputs.stderr);
-      queue.defer(eos.bind(null, cp.stderr.pipe(outputs.stderr)));
     } else {
       outputs.stderr = concatWritable((output) => {
         outputs.stderr.output = output.toString(encoding || 'utf8');
       });
-      queue.defer(eos.bind(null, cp.stderr.pipe(outputs.stderr)));
     }
+    queue.defer(oo.bind(null, cp.stderr.pipe(outputs.stderr), ['error', 'end', 'close', 'finish']));
   }
   queue.defer(spawn.worker.bind(null, cp, { ...csOptions, encoding: 'utf8' }));
   queue.await((err) => {
