@@ -1,8 +1,16 @@
-import { type Instance, render } from 'ink';
-import React from 'react';
-import App from './components/App.js';
-import uuid from './lib/uuid.js';
-import type { ChildProcess } from './types.js';
+import React, { type ReactNode } from 'react';
+// @ts-ignore
+import * as ink from '../../assets/ink.cjs';
+import App from './components/App';
+import uuid from './lib/uuid';
+import type { ChildProcess } from './types';
+
+interface Instance {
+  rerender(node: ReactNode): void;
+  unmount(): void;
+}
+type RenderFunction = (node: ReactNode) => Instance;
+const render: RenderFunction = (ink.default || ink).render;
 
 export default function createApp() {
   let refCount = 0;
