@@ -9,7 +9,12 @@ import spawnTerminal from 'spawn-term';
 const isWindows = process.platform === 'win32' || /^(msys|cygwin)$/.test(process.env.OSTYPE);
 const NODE = isWindows ? 'node.exe' : 'node';
 
+const _major = +process.versions.node.split('.')[0];
+
 describe('index', () => {
+  if (typeof spawnTerminal === 'undefined') {
+    return console.log(`Not available in ${process.versions.node}`);
+  }
   (() => {
     // patch and restore promise
     // @ts-ignore
@@ -24,7 +29,7 @@ describe('index', () => {
   })();
 
   it('inherit', (done) => {
-    spawnTerminal('npm', ['install'], { stdio: 'inherit' }, (err, res) => {
+    spawnTerminal('ls', ['-la'], { stdio: 'inherit' }, (err, res) => {
       if (err) return done(err.message);
       assert.equal(res.stdout, null);
       assert.equal(res.stderr, null);
@@ -32,8 +37,17 @@ describe('index', () => {
     });
   });
 
+  it('inherit with errors', (done) => {
+    spawnTerminal('ls', ['-junk'], { stdio: 'inherit' }, (err) => {
+      assert.ok(!!err);
+      assert.equal(err.stdout, null);
+      assert.equal(err.stderr, null);
+      done();
+    });
+  });
+
   it('inherit multiple', async () => {
-    await Promise.all([spawnTerminal(NODE, ['--version'], { stdio: 'inherit' }), spawnTerminal('npm', ['install'], { stdio: 'inherit' })]);
+    await Promise.all([spawnTerminal(NODE, ['--version'], { stdio: 'inherit' }), spawnTerminal('ls', ['-la'], { stdio: 'inherit' })]);
     // assert.equal(res.stdout, null);
     // assert.equal(res.stderr, null);
   });
@@ -43,6 +57,15 @@ describe('index', () => {
       if (err) return done(err.message);
       assert.ok(isVersion(getLines(res.stdout).slice(-1)[0], 'v'));
       assert.equal(res.stderr, '');
+      done();
+    });
+  });
+
+  it('encoding utf8 with errors', (done) => {
+    spawnTerminal('ls', ['-junk'], { encoding: 'utf8' }, (err) => {
+      assert.ok(!!err);
+      assert.equal(typeof err.stdout, 'string');
+      assert.equal(typeof err.stderr, 'string');
       done();
     });
   });

@@ -1,8 +1,10 @@
-// @ts-ignore
-import { Box } from 'ink';
 import React from 'react';
-import type { ChildProcess as ChildProcessT } from '../types.js';
-import ChildProcess from './ChildProcess.js';
+// @ts-ignore
+import * as ink from '../../../assets/ink.cjs';
+import type { ChildProcess as ChildProcessT } from '../types';
+import ChildProcess from './ChildProcess';
+
+const { Box } = ink.default || ink;
 
 export interface AppProps {
   list: ChildProcessT[];
