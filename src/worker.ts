@@ -3,12 +3,12 @@ import spawn, { crossSpawn, type SpawnResult } from 'cross-spawn-cb';
 import oo from 'on-one';
 import Queue from 'queue-cb';
 
-import createApp from './createApp.js';
-import addLines from './lib/addLines.js';
-import concatWritable from './lib/concatWritable.js';
+import createApp from './createApp';
+import addLines from './lib/addLines';
+import concatWritable from './lib/concatWritable';
 
-import type { SpawnOptions, TerminalOptions } from './types.js';
-import { LineType } from './types.js';
+import type { SpawnOptions, TerminalOptions } from './types';
+import { LineType } from './types';
 
 const terminal = createApp();
 
@@ -53,7 +53,6 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
         item.lines.push({ type: LineType.stderr, text });
         rerender();
       });
-      cp.stderr.pipe(outputs.stderr);
     } else {
       outputs.stderr = concatWritable((output) => {
         outputs.stderr.output = output.toString(encoding || 'utf8');

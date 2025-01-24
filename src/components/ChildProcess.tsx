@@ -1,10 +1,13 @@
-// @ts-ignore
-import { Box, Text } from 'ink';
 import React from 'react';
-import figures from '../lib/figures.js';
-import Spinner from './Spinner.js';
+// @ts-ignore
+import * as ink from '../../../assets/ink.cjs';
+import figures from '../lib/figures';
+import Spinner from './Spinner';
 
-import type { Line, State } from '../types.js';
+const { Box, Text } = ink.default || ink;
+
+import type { Line, State } from '../types';
+import { LineType } from '../types';
 
 // From: https://github.com/sindresorhus/cli-spinners/blob/00de8fbeee16fa49502fa4f687449f70f2c8ca2c/spinners.json#L2
 const spinner = {
@@ -33,6 +36,7 @@ type ChildProcessProps = {
 export default function ChildProcess({ title, state, lines, isExpanded }: ChildProcessProps) {
   const icon = isExpanded ? POINTERS[state] || POINTERS.default : ICONS[state];
   const output = state === 'running' && lines.length ? lines[lines.length - 1] : undefined;
+  const errors = state !== 'running' ? lines.filter((line) => line.type === LineType.stderr) : [];
 
   return (
     <Box flexDirection="column">
@@ -44,19 +48,19 @@ export default function ChildProcess({ title, state, lines, isExpanded }: ChildP
       </Box>
       {output ? (
         <Box marginLeft={2}>
-          <Text color="gray">{`${figures.arrowRight} ${output}`}</Text>
+          <Text color="gray">{`${figures.arrowRight} ${output.text}`}</Text>
         </Box>
       ) : undefined}
-      {/* {state === 'running' && lines.length > 0 && (
+      {errors.length > 0 && (
         <Box flexDirection="column" marginLeft={2}>
           {lines.map((line, index) => (
             // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
             <Box key={index} flexDirection="column" height={1}>
-              <Text>{line}</Text>
+              <Text>{line.text}</Text>
             </Box>
           ))}
         </Box>
-      )} */}
+      )}
     </Box>
   );
 }
