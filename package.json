@@ -20,13 +20,16 @@
   "license": "MIT",
   "type": "module",
   "exports": {
-    "import": "./dist/esm/index.mjs",
-    "types": "./dist/types/index.d.ts"
+    "import": "./dist/esm/index.esm.mjs",
+    "require": "./dist/cjs/index.cjs.cjs",
+    "types": "./dist/types/index.esm.d.ts"
   },
-  "module": "dist/esm/index.mjs",
-  "types": "dist/types/index.d.ts",
+  "main": "dist/cjs/index.cjs.cjs",
+  "module": "dist/esm/index.esm.mjs",
+  "types": "dist/types/index.esm.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "assets"
   ],
   "scripts": {
     "build": "tsds build",
@@ -36,14 +39,15 @@
     "version": "tsds version"
   },
   "dependencies": {
+    "core-js": "^3.40.0",
     "cross-spawn-cb": "^2.1.21",
-    "ink": "^5.1.0",
-    "is-unicode-supported": "^2.1.0",
     "lodash.throttle": "^4.1.1",
     "on-one": "^0.1.4",
     "queue-cb": "^1.4.16",
     "react": "^18.3.1",
-    "readable-stream": "^2.3.8"
+    "readable-stream": "^2.3.8",
+    "unicode-segmenter": "^0.11.3",
+    "yoga-wasm-web": "^0.3.3"
   },
   "devDependencies": {
     "@types/mocha": "*",
@@ -54,12 +58,9 @@
     "pinkie-promise": "*"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=0.8"
   },
   "tsds": {
-    "source": "src/index.ts",
-    "targets": [
-      "esm"
-    ]
+    "source": "src/index.esm.ts"
   }
 }

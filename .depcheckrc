@@ -1,1 +1,1 @@
-ignores: ["spawn-term"]
+ignores: ["spawn-term", "react-devtools-core", "bufferutil", "utf-8-validate"]
