@@ -24,7 +24,7 @@ export default function createApp() {
       if (++refCount > 1) return;
       if (inkApp) throw new Error('Not expecting app');
       list = [];
-      inkApp = render(<App list={list} />);
+      inkApp = render(<App list={list} />, { patchConsole: false });
     },
     release() {
       if (--refCount > 0) return;
@@ -32,6 +32,7 @@ export default function createApp() {
       inkApp.unmount();
       inkApp = null;
       list = null;
+      process.stdout.write('\x1b[?25h'); // show cursor
     },
   };
 }
