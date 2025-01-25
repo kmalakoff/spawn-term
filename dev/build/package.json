@@ -6,7 +6,9 @@
     "build": "node scripts/assets.mjs"
   },
   "dependencies": {
-    "ink": "^5.1.0"
+    "@rollup/plugin-replace": "^6.0.2",
+    "ink": "^5.1.0",
+    "unicode-segmenter": "^0.11.3"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.2",

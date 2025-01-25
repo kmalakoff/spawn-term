@@ -2,7 +2,7 @@
 export type { SpawnOptions, SpawnCallback, SpawnResult } from 'cross-spawn-cb';
 
 export type TerminalOptions = {
-  summary?: boolean;
+  group?: string;
 };
 
 export enum LineType {
