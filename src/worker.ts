@@ -13,12 +13,12 @@ import { LineType } from './types';
 
 const terminal = createApp();
 
-export default function spawnTerminal(command: string, args: string[], spawnOptions: SpawnOptions, _options: TerminalOptions, callback) {
+export default function spawnTerminal(command: string, args: string[], spawnOptions: SpawnOptions, options: TerminalOptions, callback) {
   const { encoding, stdio, ...csOptions } = spawnOptions;
 
   terminal.retain((store) => {
     const id = uuid();
-    store.getState().addProcess({ id, title: [command].concat(args).join(' '), state: 'running', lines: [] });
+    store.getState().addProcess({ id, title: [command].concat(args).join(' '), state: 'running', lines: [], ...options });
 
     const cp = crossSpawn(command, args, csOptions);
     const outputs = { stdout: null, stderr: null };
@@ -70,8 +70,12 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
       res.output = [res.stdout, res.stderr, null];
       const item = store.getState().processes.find((x) => x.id === id);
       store.getState().updateProcess({ ...item, state: err ? 'error' : 'success' });
-      terminal.release();
-      err ? callback(err) : callback(null, res);
+
+      // let rendering complete
+      setTimeout(() => {
+        terminal.release();
+        err ? callback(err) : callback(null, res);
+      });
     });
   });
 }

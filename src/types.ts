@@ -3,6 +3,7 @@ export type { SpawnOptions, SpawnCallback, SpawnResult } from 'cross-spawn-cb';
 
 export type TerminalOptions = {
   group?: string;
+  expanded?: string;
 };
 
 export enum LineType {
@@ -20,7 +21,8 @@ export type ChildProcess = {
   title: string;
   state: State;
   lines: Line[];
-  isExpanded: boolean;
+  group?: string;
+  expanded?: string;
 };
 
 export interface AppState {
