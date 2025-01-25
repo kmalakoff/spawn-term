@@ -1,5 +1,6 @@
 // @ts-ignore
 import spawn, { crossSpawn, type SpawnResult } from 'cross-spawn-cb';
+import uuid from 'lil-uuid';
 import oo from 'on-one';
 import Queue from 'queue-cb';
 
@@ -12,18 +13,18 @@ import { LineType } from './types';
 
 const terminal = createApp();
 
-import throttle from 'lodash.throttle';
-const THROTTLE = 100;
-const rerender = throttle(() => {
-  terminal.rerender();
-}, THROTTLE);
+// import throttle from 'lodash.throttle';
+// const THROTTLE = 100;
+// const rerender = throttle(() => {
+//   terminal.rerender();
+// }, THROTTLE);
 
 export default function spawnTerminal(command: string, args: string[], spawnOptions: SpawnOptions, _options: TerminalOptions, callback) {
   const { encoding, stdio, ...csOptions } = spawnOptions;
 
-  terminal.retain();
-  const item = terminal.addItem({ title: [command].concat(args).join(' '), state: 'running' });
-  terminal.rerender();
+  const store = terminal.retain();
+  const id = uuid();
+  store.getState().addProcess({ id, title: [command].concat(args).join(' '), state: 'running', lines: [] });
 
   const cp = crossSpawn(command, args, csOptions);
   const outputs = { stdout: null, stderr: null };
@@ -36,9 +37,10 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
   const queue = new Queue();
   if (cp.stdout) {
     if (stdio === 'inherit') {
-      outputs.stdout = addLines((text) => {
-        item.lines.push({ type: LineType.stdout, text });
-        rerender();
+      outputs.stdout = addLines((texts) => {
+        const item = store.getState().processes.find((x) => x.id === id);
+        const lines = item.lines.concat(texts.map((text) => ({ type: LineType.stdout, text })));
+        store.getState().updateProcess({ ...item, lines });
       });
     } else {
       outputs.stdout = concatWritable((output) => {
@@ -49,9 +51,10 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
   }
   if (cp.stderr) {
     if (stdio === 'inherit') {
-      outputs.stderr = addLines((text) => {
-        item.lines.push({ type: LineType.stderr, text });
-        rerender();
+      outputs.stderr = addLines((texts) => {
+        const item = store.getState().processes.find((x) => x.id === id);
+        const lines = item.lines.concat(texts.map((text) => ({ type: LineType.stderr, text })));
+        store.getState().updateProcess({ ...item, lines });
       });
     } else {
       outputs.stderr = concatWritable((output) => {
@@ -71,8 +74,8 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
     res.stdout = outputs.stdout ? outputs.stdout.output : null;
     res.stderr = outputs.stderr ? outputs.stderr.output : null;
     res.output = [res.stdout, res.stderr, null];
-    item.state = err ? 'error' : 'success';
-    terminal.rerender();
+    const item = store.getState().processes.find((x) => x.id === id);
+    store.getState().updateProcess({ ...item, state: err ? 'error' : 'success' });
     terminal.release();
     err ? callback(err) : callback(null, res);
   });

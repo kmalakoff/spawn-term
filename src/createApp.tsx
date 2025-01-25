@@ -1,37 +1,40 @@
-import uuid from 'lil-uuid';
 import React from 'react';
+import { createStore } from 'zustand';
 import App from './components/App';
+import StoreContext from './contexts/Store';
+
 // @ts-ignore
 import { type Instance, render } from './ink.mjs';
-import type { ChildProcess } from './types';
+import type { AppState } from './types';
 
 export default function createApp() {
   let refCount = 0;
-  let list: ChildProcess[] | null = null;
+  let store = null;
   let inkApp: Instance | null = null;
 
   return {
-    addItem(data: Partial<ChildProcess>) {
-      if (!list) throw new Error('Expecting list');
-      const item = { id: uuid(), title: '', state: 'pending', lines: [], ...data } as ChildProcess;
-      list.push(item);
-      return item;
-    },
-    rerender() {
-      if (inkApp) inkApp.rerender(<App list={list} />);
-    },
     retain() {
-      if (++refCount > 1) return;
+      if (++refCount > 1) return store;
       if (inkApp) throw new Error('Not expecting app');
-      list = [];
-      inkApp = render(<App list={list} />, { patchConsole: false });
+      store = createStore<AppState>()((set) => ({
+        processes: [],
+        addProcess: (process) => set((state) => ({ processes: [...state.processes, process] })),
+        updateProcess: (process) => set((state) => ({ processes: state.processes.map((x) => (x.id === process.id ? process : x)) })),
+      }));
+      inkApp = render(
+        <StoreContext.Provider value={store}>
+          <App />
+        </StoreContext.Provider>,
+        { patchConsole: false }
+      );
+      return store;
     },
     release() {
       if (--refCount > 0) return;
       if (!inkApp) throw new Error('Expecting app');
       inkApp.unmount();
       inkApp = null;
-      list = null;
+      store = null;
       process.stdout.write('\x1b[?25h'); // show cursor
     },
   };
