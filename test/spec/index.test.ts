@@ -46,8 +46,17 @@ describe('index', () => {
     });
   });
 
+  it('inherit with expanded', (done) => {
+    spawnTerminal('ls', ['-la'], { stdio: 'inherit' }, { expanded: true }, (err, res) => {
+      if (err) return done(err.message);
+      assert.equal(res.stdout, null);
+      assert.equal(res.stderr, null);
+      done();
+    });
+  });
+
   it('inherit multiple', async () => {
-    await Promise.all([spawnTerminal(NODE, ['--version'], { stdio: 'inherit' }), spawnTerminal('ls', ['-la'], { stdio: 'inherit' })]);
+    await Promise.all([spawnTerminal(NODE, ['--version'], { stdio: 'inherit' }, { group: 'Group 1' }), spawnTerminal('ls', ['-la'], { stdio: 'inherit' }, { group: 'Group 2' })]);
     // assert.equal(res.stdout, null);
     // assert.equal(res.stderr, null);
   });

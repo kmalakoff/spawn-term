@@ -29,18 +29,14 @@ type ChildProcessProps = {
   id: string;
 };
 
-export default function ChildProcess({ id }: ChildProcessProps) {
-  const store = useContext(StoreContext);
-  const appState = useStore(store) as AppState;
-  const item = appState.processes.find((x) => x.id === id);
-  const { title, state, lines, isExpanded } = item;
-
-  const icon = isExpanded ? POINTERS[state] || POINTERS.default : ICONS[state];
+function Content({ item }) {
+  const { title, state, lines, expanded } = item;
+  const icon = ICONS[state];
   const output = state === 'running' && lines.length ? lines[lines.length - 1] : undefined;
   const errors = state !== 'running' ? lines.filter((line) => line.type === LineType.stderr) : [];
 
   return (
-    <Box flexDirection="column">
+    <React.Fragment>
       <Box>
         <Box marginRight={1}>
           <Text>{icon}</Text>
@@ -52,16 +48,51 @@ export default function ChildProcess({ id }: ChildProcessProps) {
           <Text color="gray">{`${figures.arrowRight} ${output.text}`}</Text>
         </Box>
       ) : undefined}
-      {errors.length > 0 && (
+      {expanded && (
         <Box flexDirection="column" marginLeft={2}>
           {lines.map((line, index) => (
             // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
             <Box key={index} flexDirection="column" height={1}>
-              <Text>{line.text}</Text>
+              <Text color={line.type === LineType.stderr ? 'red' : 'black'}>{line.text}</Text>
             </Box>
           ))}
         </Box>
       )}
+      {!expanded && errors.length > 0 && (
+        <Box flexDirection="column" marginLeft={2}>
+          {errors.map((line, index) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+            <Box key={index} flexDirection="column" height={1}>
+              <Text color={line.type === LineType.stderr ? 'red' : 'black'}>{line.text}</Text>
+            </Box>
+          ))}
+        </Box>
+      )}
+    </React.Fragment>
+  );
+}
+
+export default function ChildProcess({ id }: ChildProcessProps) {
+  const store = useContext(StoreContext);
+  const appState = useStore(store) as AppState;
+  const item = appState.processes.find((x) => x.id === id);
+  const { state, group } = item;
+  const pointer = POINTERS[state] || POINTERS.default;
+
+  return (
+    <Box flexDirection="column">
+      {group && (
+        <Box flexDirection="column">
+          <Box>
+            <Box marginRight={1}>
+              <Text>{pointer}</Text>
+            </Box>
+            <Text>{group}</Text>
+          </Box>
+          <Content item={item} />
+        </Box>
+      )}
+      {!group && <Content item={item} />}
     </Box>
   );
 }
