@@ -1,10 +1,7 @@
 import React from 'react';
-// @ts-ignore
-import * as ink from '../../../assets/ink.cjs';
+import { Box, Text } from '../ink.mjs';
 import figures from '../lib/figures';
 import Spinner from './Spinner';
-
-const { Box, Text } = ink.default || ink;
 
 import type { Line, State } from '../types';
 import { LineType } from '../types';
