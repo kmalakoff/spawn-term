@@ -17,4 +17,5 @@ const major = +process.versions.node.split('.')[0];
 
 export * from './types';
 export { default as figures } from './lib/figures';
+export { default as formatArguments } from './lib/formatArguments';
 export default major > 10 ? spawnTerminal : undefined;

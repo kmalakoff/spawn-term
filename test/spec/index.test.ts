@@ -46,6 +46,15 @@ describe('index', () => {
     });
   });
 
+  it('inherit with errors and group', (done) => {
+    spawnTerminal('ls', ['-junk'], { stdio: 'inherit' }, { group: 'Group 1' }, (err) => {
+      assert.ok(!!err);
+      assert.equal(err.stdout, null);
+      assert.equal(err.stderr, null);
+      done();
+    });
+  });
+
   it('inherit with expanded', (done) => {
     spawnTerminal('ls', ['-la'], { stdio: 'inherit' }, { expanded: true }, (err, res) => {
       if (err) return done(err.message);
