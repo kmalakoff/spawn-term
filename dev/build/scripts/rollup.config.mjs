@@ -15,7 +15,7 @@ const replacements = {}
 replacements['Intl.Segmenter'] = 'IntlSegmenter';
 replacements['await import'] = '// await import';
 replacements['import{readFile as E}from"node:fs/promises";import{createRequire as _}from"node:module";'] = '';
-replacements['let Yoga=await a(await E(_(import.meta.url).resolve("./yoga.wasm")));'] = 'var Yoga = null; a(require(\'fs\').readFileSync(require.resolve("yoga-wasm-web/dist/yoga.wasm"))).then(function (_Y) { Yoga = _Y });';
+replacements['let Yoga=await a(await E(_(import.meta.url).resolve("./yoga.wasm")));'] = 'var Yoga = null; a(require(\'fs\').readFileSync(require.resolve("yoga-wasm-web/dist/yoga.wasm"))).then(function (_Y) { Yoga = _Y; _notifyInitialized(); });';
 replacements['export { Box as B, Newline as N, Static as S, Text as T, Transform as a, Spacer as b, useApp as c, useStdin as d, useStdout as e, useStderr as f, getDefaultExportFromCjs as g, useFocus as h, useFocusManager as i, measureElement as m, render as r, useInput as u };'] = 'export { Box, Newline, Static, Text, Transform, Spacer, useApp, useStdin, useStdout, useStderr, getDefaultExportFromCjs, useFocus, useFocusManager, measureElement, render, useInput };';
 replacements['defaultIgnorableCodePointRegex'] = 'dicpregex';
 // replacements['const defaultIgnorableCodePointRegex = /^\p{Default_Ignorable_Code_Point}$/u;'] = 'var dicpregex; try { dicpregex = RegExp("^\\p{Default_Ignorable_Code_Point}$", "u"); } catch(_) { RegExp("^\\p{Default_Ignorable_Code_Point}$", "g"); }';
@@ -33,7 +33,8 @@ export default {
       if (chunkInfo.name === 'index') return 'ink.cjs'
       if (chunkInfo.name === 'devtools') return 'devtools.mjs'
       return '[name].[hash].mjs'
-    }
+    },
+    strict: false
   },
   external: (id) => moduleRegEx.test(id) ? externals.indexOf(id) >= 0 : false,
   plugins: [replace(replacements), resolve(), stripBuiltins(), json(), commonjs()],

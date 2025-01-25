@@ -1,20 +1,16 @@
 import React from 'react';
-import resolveOnce from 'resolve-once-cb';
 import { createStore } from 'zustand';
 import App from './components/App';
 import StoreContext from './contexts/Store';
 
 // @ts-ignore
-import { type Instance, render } from './ink.mjs';
+import { type Instance, initialize, render } from './ink.mjs';
 import type { AppState } from './types';
-
-const initialize = resolveOnce((cb) => setTimeout(() => cb(), 0));
 
 export default function createApp() {
   let refCount = 0;
   let store = null;
   let inkApp: Instance | null = null;
-  const _waiting = [];
 
   return {
     retain(fn) {
