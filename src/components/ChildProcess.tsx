@@ -29,46 +29,74 @@ type ChildProcessProps = {
   id: string;
 };
 
+function Header({ icon, title }) {
+  return (
+    <Box>
+      <Box marginRight={1}>
+        <Text>{icon}</Text>
+      </Box>
+      <Text>{title}</Text>
+    </Box>
+  );
+}
+
+function Output({ output }) {
+  return (
+    <Box marginLeft={2}>
+      <Text color="gray">{`${figures.arrowRight} ${output.text}`}</Text>
+    </Box>
+  );
+}
+
+function Lines({ lines }) {
+  return (
+    <Box flexDirection="column" marginLeft={2}>
+      {lines.map((line, index) => (
+        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+        <Box key={index} flexDirection="column" height={1}>
+          <Text color={line.type === LineType.stderr ? 'red' : 'black'}>{line.text}</Text>
+        </Box>
+      ))}
+    </Box>
+  );
+}
+
 function Content({ item }) {
   const { title, state, lines, expanded } = item;
   const icon = ICONS[state];
-  const output = state === 'running' && lines.length ? lines[lines.length - 1] : undefined;
-  const errors = state !== 'running' ? lines.filter((line) => line.type === LineType.stderr) : [];
+  const output = lines.length ? lines[lines.length - 1] : undefined;
+  const errors = lines.filter((line) => line.type === LineType.stderr);
 
   return (
     <React.Fragment>
-      <Box>
-        <Box marginRight={1}>
-          <Text>{icon}</Text>
-        </Box>
-        <Text>{title}</Text>
-      </Box>
-      {output ? (
-        <Box marginLeft={2}>
-          <Text color="gray">{`${figures.arrowRight} ${output.text}`}</Text>
-        </Box>
-      ) : undefined}
-      {expanded && (
-        <Box flexDirection="column" marginLeft={2}>
-          {lines.map((line, index) => (
-            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-            <Box key={index} flexDirection="column" height={1}>
-              <Text color={line.type === LineType.stderr ? 'red' : 'black'}>{line.text}</Text>
-            </Box>
-          ))}
-        </Box>
-      )}
-      {!expanded && errors.length > 0 && (
-        <Box flexDirection="column" marginLeft={2}>
-          {errors.map((line, index) => (
-            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-            <Box key={index} flexDirection="column" height={1}>
-              <Text color={line.type === LineType.stderr ? 'red' : 'black'}>{line.text}</Text>
-            </Box>
-          ))}
-        </Box>
-      )}
+      <Header icon={icon} title={title} />
+      {state === 'running' && output && <Output output={output} />}
+      {expanded && <Lines lines={lines} />}
+      {!expanded && errors.length > 0 && <Lines lines={errors} />}
     </React.Fragment>
+  );
+}
+function Group({ item }) {
+  const { title, state, lines, group, expanded } = item;
+  const icon = ICONS[state];
+  const pointer = POINTERS[state] || POINTERS.default;
+  const errors = lines.filter((line) => line.type === LineType.stderr);
+
+  if (state === 'running') {
+    return (
+      <Box flexDirection="column">
+        <Header icon={pointer} title={group} />
+        <Content item={item} />
+      </Box>
+    );
+  }
+
+  return (
+    <Box flexDirection="column">
+      <Header icon={icon} title={`${group}: ${title}`} />
+      {expanded && <Lines lines={lines} />}
+      {!expanded && errors.length > 0 && <Lines lines={errors} />}
+    </Box>
   );
 }
 
@@ -76,23 +104,13 @@ export default function ChildProcess({ id }: ChildProcessProps) {
   const store = useContext(StoreContext);
   const appState = useStore(store) as AppState;
   const item = appState.processes.find((x) => x.id === id);
-  const { state, group } = item;
-  const pointer = POINTERS[state] || POINTERS.default;
+  const { group } = item;
+
+  if (group) return <Group item={item} />;
 
   return (
     <Box flexDirection="column">
-      {group && (
-        <Box flexDirection="column">
-          <Box>
-            <Box marginRight={1}>
-              <Text>{pointer}</Text>
-            </Box>
-            <Text>{group}</Text>
-          </Box>
-          <Content item={item} />
-        </Box>
-      )}
-      {!group && <Content item={item} />}
+      <Content item={item} />
     </Box>
   );
 }
