@@ -76,7 +76,7 @@ export default function ChildProcess({ id }: ChildProcessProps) {
       </Box>
     );
   }
-  const runs = lines.filter((line) => RUNS.some((run) => line.text.indexOf(run) >= 0));
+  const runs = lines.filter((line) => RUNS.some((run) => line.text[0] === run));
   const errors = lines.filter((line) => line.type === LineType.stderr && runs.indexOf(line) < 0);
   const output = lines.length ? lines[lines.length - 1] : undefined;
 
