@@ -2,6 +2,17 @@
 
 var IntlSegmenter = typeof Intl === 'undefined' || !Intl.Segmenter ? require('./intl-adapter.cjs').Segmenter : Intl.Segmenter;
 var globalThis = global;
+
+var _waiting = [];
+var _isReady = false;
+function _notifyInitialized() {
+  _isReady = true;
+  _waiting.slice(0).forEach(function (fn) { fn(); })
+}
+exports.initialize = function _initialize(fn) {
+  _isReady ? fn() : _waiting.push(fn);
+  return;
+}
 "use strict";
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -2206,6 +2217,7 @@ function _initYoga() {
 var Yoga = null;
 initYoga(require('fs').readFileSync(require.resolve("yoga-wasm-web/dist/yoga.wasm"))).then(function(_Y) {
     Yoga = _Y;
+    _notifyInitialized();
 });
 var reactReconciler = {
     exports: {}
