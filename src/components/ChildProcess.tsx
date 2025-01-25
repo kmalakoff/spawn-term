@@ -68,19 +68,20 @@ function Content({ item }) {
   const errors = lines.filter((line) => line.type === LineType.stderr);
 
   if (expanded) {
-    <React.Fragment>
-      <Header icon={icon} title={title} />
-      <Lines lines={lines} />
-    </React.Fragment>;
-  } else {
     return (
       <React.Fragment>
         <Header icon={icon} title={title} />
-        {state === 'running' && output && <Output output={output} />}
-        {errors.length > 0 && <Lines lines={errors} />}
+        <Lines lines={lines} />
       </React.Fragment>
     );
   }
+  return (
+    <React.Fragment>
+      <Header icon={icon} title={title} />
+      {state === 'running' && output && <Output output={output} />}
+      {errors.length > 0 && <Lines lines={errors} />}
+    </React.Fragment>
+  );
 }
 function Group({ item }) {
   const { title, state, lines, group, expanded } = item;
@@ -96,7 +97,6 @@ function Group({ item }) {
       </Box>
     );
   }
-
   return (
     <Box flexDirection="column">
       <Header icon={icon} title={`${group}: ${title}`} />
@@ -113,7 +113,6 @@ export default function ChildProcess({ id }: ChildProcessProps) {
   const { group } = item;
 
   if (group) return <Group item={item} />;
-
   return (
     <Box flexDirection="column">
       <Content item={item} />
