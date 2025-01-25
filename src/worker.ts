@@ -7,6 +7,7 @@ import Queue from 'queue-cb';
 import createApp from './createApp';
 import addLines from './lib/addLines';
 import concatWritable from './lib/concatWritable';
+import formatArguments from './lib/formatArguments';
 
 import type { SpawnOptions, TerminalOptions } from './types';
 import { LineType } from './types';
@@ -18,7 +19,7 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
 
   terminal.retain((store) => {
     const id = uuid();
-    store.getState().addProcess({ id, title: [command].concat(args).join(' '), state: 'running', lines: [], ...options });
+    store.getState().addProcess({ id, title: [command].concat(formatArguments(args)).join(' '), state: 'running', lines: [], ...options });
 
     const cp = crossSpawn(command, args, csOptions);
     const outputs = { stdout: null, stderr: null };
