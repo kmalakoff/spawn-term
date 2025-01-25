@@ -40,13 +40,13 @@
   },
   "dependencies": {
     "core-js": "^3.40.0",
-    "cross-spawn-cb": "^2.1.21",
+    "cross-spawn-cb": "^2.1.22",
+    "lil-uuid": "^0.1.1",
     "lodash.throttle": "^4.1.1",
     "on-one": "^0.1.4",
     "queue-cb": "^1.4.16",
     "react": "^18.3.1",
     "readable-stream": "^2.3.8",
-    "unicode-segmenter": "^0.11.3",
     "yoga-wasm-web": "^0.3.3"
   },
   "devDependencies": {

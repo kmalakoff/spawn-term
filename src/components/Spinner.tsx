@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// @ts-ignore
-import * as ink from '../../../assets/ink.cjs';
-
-const { Text } = ink.default || ink;
+import { Text } from '../ink.mjs';
 
 export type SpinnerProps = {
   interval: number;

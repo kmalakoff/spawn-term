@@ -1,5 +1,3 @@
-import 'core-js/actual/array/at.js';
-import 'core-js/actual/object/has-own.js';
 import worker from './worker';
 
 import type { SpawnCallback, SpawnOptions, TerminalOptions } from './types';
