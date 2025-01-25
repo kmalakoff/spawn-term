@@ -78,7 +78,7 @@ export default function ChildProcess({ id }: ChildProcessProps) {
   }
   const runs = lines.filter((line) => RUNS.some((run) => line.text[0] === run));
   const errors = lines.filter((line) => line.type === LineType.stderr && runs.indexOf(line) < 0);
-  const output = lines.length ? lines[lines.length - 1] : undefined;
+  const output = lines.filter((line) => line.text.length > 0).pop();
 
   return (
     <Box flexDirection="column">
