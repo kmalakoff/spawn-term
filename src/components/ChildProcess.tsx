@@ -67,14 +67,20 @@ function Content({ item }) {
   const output = lines.length ? lines[lines.length - 1] : undefined;
   const errors = lines.filter((line) => line.type === LineType.stderr);
 
-  return (
+  if (expanded) {
     <React.Fragment>
       <Header icon={icon} title={title} />
-      {state === 'running' && output && <Output output={output} />}
-      {expanded && <Lines lines={lines} />}
-      {!expanded && errors.length > 0 && <Lines lines={errors} />}
-    </React.Fragment>
-  );
+      <Lines lines={lines} />
+    </React.Fragment>;
+  } else {
+    return (
+      <React.Fragment>
+        <Header icon={icon} title={title} />
+        {state === 'running' && output && <Output output={output} />}
+        {errors.length > 0 && <Lines lines={errors} />}
+      </React.Fragment>
+    );
+  }
 }
 function Group({ item }) {
   const { title, state, lines, group, expanded } = item;
