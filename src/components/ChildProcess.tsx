@@ -14,27 +14,28 @@ const spinner = {
   frames: ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'],
 };
 
+const RUNS = [figures.cross, figures.tick].concat(spinner.frames);
+
 const ICONS = {
   error: <Text color="red">{figures.cross}</Text>,
   success: <Text color="green">{figures.tick}</Text>,
   running: <Spinner {...spinner} />,
 };
 
-const POINTERS = {
-  error: <Text color="red">{figures.pointer}</Text>,
-  default: <Text color="yellow">{figures.pointer}</Text>,
-};
-
 type ChildProcessProps = {
   id: string;
 };
 
-function Header({ icon, title }) {
+function Header({ item }) {
+  const { group, title, state } = item;
+  const icon = ICONS[state];
+
   return (
     <Box>
       <Box marginRight={1}>
         <Text>{icon}</Text>
       </Box>
+      {group && <Text>{`${group}${figures.pointer} `}</Text>}
       <Text>{title}</Text>
     </Box>
   );
@@ -61,61 +62,30 @@ function Lines({ lines }) {
   );
 }
 
-function Content({ item }) {
-  const { title, state, lines, expanded } = item;
-  const icon = ICONS[state];
-  const output = lines.length ? lines[lines.length - 1] : undefined;
-  const errors = lines.filter((line) => line.type === LineType.stderr);
-
-  if (expanded) {
-    return (
-      <React.Fragment>
-        <Header icon={icon} title={title} />
-        <Lines lines={lines} />
-      </React.Fragment>
-    );
-  }
-  return (
-    <React.Fragment>
-      <Header icon={icon} title={title} />
-      {state === 'running' && output && <Output output={output} />}
-      {errors.length > 0 && <Lines lines={errors} />}
-    </React.Fragment>
-  );
-}
-function Group({ item }) {
-  const { title, state, lines, group, expanded } = item;
-  const icon = ICONS[state];
-  const pointer = POINTERS[state] || POINTERS.default;
-  const errors = lines.filter((line) => line.type === LineType.stderr);
-
-  if (state === 'running') {
-    return (
-      <Box flexDirection="column">
-        <Header icon={pointer} title={group} />
-        <Content item={item} />
-      </Box>
-    );
-  }
-  return (
-    <Box flexDirection="column">
-      <Header icon={icon} title={`${group}: ${title}`} />
-      {expanded && <Lines lines={lines} />}
-      {!expanded && errors.length > 0 && <Lines lines={errors} />}
-    </Box>
-  );
-}
-
 export default function ChildProcess({ id }: ChildProcessProps) {
   const store = useContext(StoreContext);
   const appState = useStore(store) as AppState;
   const item = appState.processes.find((x) => x.id === id);
-  const { group } = item;
+  const { state, lines, expanded } = item;
 
-  if (group) return <Group item={item} />;
+  if (expanded) {
+    return (
+      <Box flexDirection="column">
+        <Header item={item} />
+        <Lines lines={lines} />
+      </Box>
+    );
+  }
+  const runs = lines.filter((line) => RUNS.some((run) => line.text.indexOf(run) >= 0));
+  const errors = lines.filter((line) => line.type === LineType.stderr && runs.indexOf(line) < 0);
+  const output = lines.length ? lines[lines.length - 1] : undefined;
+
   return (
     <Box flexDirection="column">
-      <Content item={item} />
+      <Header item={item} />
+      {runs.length > 0 && <Lines lines={runs} />}
+      {state === 'running' && output && runs.indexOf(output) < 0 && <Output output={output} />}
+      {errors.length > 0 && <Lines lines={errors} />}
     </Box>
   );
 }
