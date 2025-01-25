@@ -20,4 +20,11 @@ export type ChildProcess = {
   title: string;
   state: State;
   lines: Line[];
+  isExpanded: boolean;
 };
+
+export interface AppState {
+  processes: ChildProcess[];
+  addProcess: (process: ChildProcess) => void;
+  updateProcess: (process: ChildProcess) => void;
+}
