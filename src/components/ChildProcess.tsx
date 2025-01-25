@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useStore } from 'zustand';
+import StoreContext from '../contexts/Store';
 import { Box, Text } from '../ink.mjs';
 import figures from '../lib/figures';
 import Spinner from './Spinner';
 
-import type { Line, State } from '../types';
+import type { AppState } from '../types';
 import { LineType } from '../types';
 
 // From: https://github.com/sindresorhus/cli-spinners/blob/00de8fbeee16fa49502fa4f687449f70f2c8ca2c/spinners.json#L2
@@ -24,13 +26,15 @@ const POINTERS = {
 };
 
 type ChildProcessProps = {
-  title: string;
-  state: State;
-  lines: Line[];
-  isExpanded?: boolean;
+  id: string;
 };
 
-export default function ChildProcess({ title, state, lines, isExpanded }: ChildProcessProps) {
+export default function ChildProcess({ id }: ChildProcessProps) {
+  const store = useContext(StoreContext);
+  const appState = useStore(store) as AppState;
+  const item = appState.processes.find((x) => x.id === id);
+  const { title, state, lines, isExpanded } = item;
+
   const icon = isExpanded ? POINTERS[state] || POINTERS.default : ICONS[state];
   const output = state === 'running' && lines.length ? lines[lines.length - 1] : undefined;
   const errors = state !== 'running' ? lines.filter((line) => line.type === LineType.stderr) : [];
