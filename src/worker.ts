@@ -6,14 +6,12 @@ import Queue from 'queue-cb';
 
 import createApp from './createApp';
 import addLines from './lib/addLines';
-import _ansiRegex from './lib/ansiRegex';
 import concatWritable from './lib/concatWritable';
 import formatArguments from './lib/formatArguments';
 
 import type { SpawnOptions, TerminalOptions } from './types';
 import { LineType } from './types';
 
-const ansiRegex = _ansiRegex();
 const terminal = createApp();
 
 export default function spawnTerminal(command: string, args: string[], spawnOptions: SpawnOptions, options: TerminalOptions, callback) {
@@ -31,7 +29,7 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
       if (cp.stdout) {
         outputs.stdout = addLines((texts) => {
           const item = store.getState().processes.find((x) => x.id === id);
-          const lines = item.lines.concat(texts.map((text) => ({ type: LineType.stdout, text: text.replace(ansiRegex, '') })));
+          const lines = item.lines.concat(texts.map((text) => ({ type: LineType.stdout, text })));
           store.getState().updateProcess({ ...item, lines });
         });
         queue.defer(oo.bind(null, cp.stdout.pipe(outputs.stdout), ['error', 'end', 'close', 'finish']));
@@ -39,7 +37,7 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
       if (cp.stderr) {
         outputs.stderr = addLines((texts) => {
           const item = store.getState().processes.find((x) => x.id === id);
-          const lines = item.lines.concat(texts.map((text) => ({ type: LineType.stderr, text: text.replace(ansiRegex, '') })));
+          const lines = item.lines.concat(texts.map((text) => ({ type: LineType.stderr, text })));
           store.getState().updateProcess({ ...item, lines });
         });
         queue.defer(oo.bind(null, cp.stderr.pipe(outputs.stderr), ['error', 'end', 'close', 'finish']));
