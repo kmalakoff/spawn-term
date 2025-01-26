@@ -75,6 +75,8 @@ var _process = /*#__PURE__*/ _interop_require_wildcard(require("process"));
 var _react = /*#__PURE__*/ _interop_require_wildcard(require("react"));
 var _assert = /*#__PURE__*/ _interop_require_default(require("assert"));
 var _events = /*#__PURE__*/ _interop_require_wildcard(require("events"));
+var _util = /*#__PURE__*/ _interop_require_default(require("util"));
+var _os = /*#__PURE__*/ _interop_require_default(require("os"));
 var _fs = /*#__PURE__*/ _interop_require_wildcard(require("fs"));
 var _module = /*#__PURE__*/ _interop_require_default(require("module"));
 var _buffer = require("buffer");
@@ -25868,26 +25870,26 @@ var measureText = function(text) {
         height: height
     };
 };
-var ANSI_BACKGROUND_OFFSET$1 = 10;
-var wrapAnsi16$1 = function() {
+var ANSI_BACKGROUND_OFFSET = 10;
+var wrapAnsi16 = function() {
     var offset = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0;
     return function(code) {
         return "\x1b[".concat(code + offset, "m");
     };
 };
-var wrapAnsi256$1 = function() {
+var wrapAnsi256 = function() {
     var offset = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0;
     return function(code) {
         return "\x1b[".concat(38 + offset, ";5;").concat(code, "m");
     };
 };
-var wrapAnsi16m$1 = function() {
+var wrapAnsi16m = function() {
     var offset = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0;
     return function(red, green, blue) {
         return "\x1b[".concat(38 + offset, ";2;").concat(red, ";").concat(green, ";").concat(blue, "m");
     };
 };
-var styles$3 = {
+var styles$2 = {
     modifier: {
         reset: [
             0,
@@ -26078,26 +26080,26 @@ var styles$3 = {
         ]
     }
 };
-Object.keys(styles$3.modifier);
-var foregroundColorNames$1 = Object.keys(styles$3.color);
-var backgroundColorNames$1 = Object.keys(styles$3.bgColor);
-_to_consumable_array(foregroundColorNames$1).concat(_to_consumable_array(backgroundColorNames$1));
-function assembleStyles$1() {
-    var _styles$3;
+Object.keys(styles$2.modifier);
+var foregroundColorNames = Object.keys(styles$2.color);
+var backgroundColorNames = Object.keys(styles$2.bgColor);
+_to_consumable_array(foregroundColorNames).concat(_to_consumable_array(backgroundColorNames));
+function assembleStyles() {
+    var _styles$2;
     var codes = new Map();
     var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
     try {
-        for(var _iterator = Object.entries(styles$3)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+        for(var _iterator = Object.entries(styles$2)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
             var _step_value = _sliced_to_array(_step.value, 2), groupName = _step_value[0], group = _step_value[1];
             var _iteratorNormalCompletion1 = true, _didIteratorError1 = false, _iteratorError1 = undefined;
             try {
                 for(var _iterator1 = Object.entries(group)[Symbol.iterator](), _step1; !(_iteratorNormalCompletion1 = (_step1 = _iterator1.next()).done); _iteratorNormalCompletion1 = true){
                     var _step_value1 = _sliced_to_array(_step1.value, 2), styleName = _step_value1[0], style = _step_value1[1];
-                    styles$3[styleName] = {
+                    styles$2[styleName] = {
                         open: "\x1b[".concat(style[0], "m"),
                         close: "\x1b[".concat(style[1], "m")
                     };
-                    group[styleName] = styles$3[styleName];
+                    group[styleName] = styles$2[styleName];
                     codes.set(style[0], style[1]);
                 }
             } catch (err) {
@@ -26114,7 +26116,7 @@ function assembleStyles$1() {
                     }
                 }
             }
-            Object.defineProperty(styles$3, groupName, {
+            Object.defineProperty(styles$2, groupName, {
                 value: group,
                 enumerable: false
             });
@@ -26133,20 +26135,20 @@ function assembleStyles$1() {
             }
         }
     }
-    Object.defineProperty(styles$3, 'codes', {
+    Object.defineProperty(styles$2, 'codes', {
         value: codes,
         enumerable: false
     });
-    styles$3.color.close = '\u001B[39m';
-    styles$3.bgColor.close = '\u001B[49m';
-    styles$3.color.ansi = wrapAnsi16$1();
-    styles$3.color.ansi256 = wrapAnsi256$1();
-    styles$3.color.ansi16m = wrapAnsi16m$1();
-    styles$3.bgColor.ansi = wrapAnsi16$1(ANSI_BACKGROUND_OFFSET$1);
-    styles$3.bgColor.ansi256 = wrapAnsi256$1(ANSI_BACKGROUND_OFFSET$1);
-    styles$3.bgColor.ansi16m = wrapAnsi16m$1(ANSI_BACKGROUND_OFFSET$1);
+    styles$2.color.close = '\u001B[39m';
+    styles$2.bgColor.close = '\u001B[49m';
+    styles$2.color.ansi = wrapAnsi16();
+    styles$2.color.ansi256 = wrapAnsi256();
+    styles$2.color.ansi16m = wrapAnsi16m();
+    styles$2.bgColor.ansi = wrapAnsi16(ANSI_BACKGROUND_OFFSET);
+    styles$2.bgColor.ansi256 = wrapAnsi256(ANSI_BACKGROUND_OFFSET);
+    styles$2.bgColor.ansi16m = wrapAnsi16m(ANSI_BACKGROUND_OFFSET);
     // From https://github.com/Qix-/color-convert/blob/3f0e0d4e92e235796ccb17f6e85c72094a651f49/conversions.js
-    Object.defineProperties(styles$3, {
+    Object.defineProperties(styles$2, {
         rgbToAnsi256: {
             value: function(red, green, blue) {
                 // We use the extended greyscale palette here, with the exception of
@@ -26191,7 +26193,7 @@ function assembleStyles$1() {
         },
         hexToAnsi256: {
             value: function(hex) {
-                return (_styles$3 = styles$3).rgbToAnsi256.apply(_styles$3, _to_consumable_array(styles$3.hexToRgb(hex)));
+                return (_styles$2 = styles$2).rgbToAnsi256.apply(_styles$2, _to_consumable_array(styles$2.hexToRgb(hex)));
             },
             enumerable: false
         },
@@ -26232,20 +26234,20 @@ function assembleStyles$1() {
         },
         rgbToAnsi: {
             value: function(red, green, blue) {
-                return styles$3.ansi256ToAnsi(styles$3.rgbToAnsi256(red, green, blue));
+                return styles$2.ansi256ToAnsi(styles$2.rgbToAnsi256(red, green, blue));
             },
             enumerable: false
         },
         hexToAnsi: {
             value: function(hex) {
-                return styles$3.ansi256ToAnsi(styles$3.hexToAnsi256(hex));
+                return styles$2.ansi256ToAnsi(styles$2.hexToAnsi256(hex));
             },
             enumerable: false
         }
     });
-    return styles$3;
+    return styles$2;
 }
-var ansiStyles$1 = assembleStyles$1();
+var ansiStyles = assembleStyles();
 var ESCAPES$3 = new Set([
     '\u001B',
     '\u009B'
@@ -26443,7 +26445,7 @@ var exec = function(string, columns) {
                     escapeUrl = groups.uri.length === 0 ? undefined : groups.uri;
                 }
             }
-            var code1 = ansiStyles$1.codes.get(Number(escapeCode));
+            var code1 = ansiStyles.codes.get(Number(escapeCode));
             if (pre[index1 + 1] === '\n') {
                 if (escapeUrl) {
                     returnValue += wrapAnsiHyperlink('');
@@ -26525,7 +26527,7 @@ var checkAnsi = function(ansiCodes, isEscapes, endAnsiCode) {
             if (ansiCode.includes(';')) {
                 ansiCode = ansiCode.split(';')[0][0] + '0';
             }
-            var item = ansiStyles$1.codes.get(Number.parseInt(ansiCode, 10));
+            var item = ansiStyles.codes.get(Number.parseInt(ansiCode, 10));
             if (item) {
                 var indexEscape = ansiCodes.indexOf(item.toString());
                 if (indexEscape === -1) {
@@ -26559,7 +26561,7 @@ var checkAnsi = function(ansiCodes, isEscapes, endAnsiCode) {
             return output.indexOf(element) === index;
         });
         if (endAnsiCode !== undefined) {
-            var fistEscapeCode = wrapAnsi(ansiStyles$1.codes.get(Number.parseInt(endAnsiCode, 10)));
+            var fistEscapeCode = wrapAnsi(ansiStyles.codes.get(Number.parseInt(endAnsiCode, 10)));
             // TODO: Remove the use of `.reduce` here.
             // eslint-disable-next-line unicorn/no-array-reduce
             output = output.reduce(function(current, next) {
@@ -27100,7 +27102,7 @@ var applyGapStyles = function(node, style) {
         node.setGap(Yoga.GUTTER_ROW, (_style_rowGap = style.rowGap) !== null && _style_rowGap !== void 0 ? _style_rowGap : 0);
     }
 };
-var styles$2 = function(node) {
+var styles$1 = function(node) {
     var style = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
     applyPositionStyles(node, style);
     applyMarginStyles(node, style);
@@ -27241,7 +27243,7 @@ var reconciler = createReconciler({
                 if (key === 'style') {
                     setStyle(node, value);
                     if (node.yogaNode) {
-                        styles$2(node.yogaNode, value);
+                        styles$1(node.yogaNode, value);
                     }
                     continue;
                 }
@@ -27384,7 +27386,7 @@ var reconciler = createReconciler({
             }
         }
         if (style && node.yogaNode) {
-            styles$2(node.yogaNode, style);
+            styles$1(node.yogaNode, style);
         }
     },
     commitTextUpdate: function commitTextUpdate(node, _oldText, newText) {
@@ -27524,678 +27526,1238 @@ function requireCliBoxes() {
 }
 var cliBoxesExports = requireCliBoxes();
 var cliBoxes = /*@__PURE__*/ getDefaultExportFromCjs(cliBoxesExports);
-var ANSI_BACKGROUND_OFFSET = 10;
-var wrapAnsi16 = function() {
-    var offset = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0;
-    return function(code) {
-        return "\x1b[".concat(code + offset, "m");
-    };
+var lib = {
+    exports: {}
 };
-var wrapAnsi256 = function() {
-    var offset = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0;
-    return function(code) {
-        return "\x1b[".concat(38 + offset, ";5;").concat(code, "m");
-    };
+var colors = {
+    exports: {}
 };
-var wrapAnsi16m = function() {
-    var offset = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0;
-    return function(red, green, blue) {
-        return "\x1b[".concat(38 + offset, ";2;").concat(red, ";").concat(green, ";").concat(blue, "m");
-    };
+var styles = {
+    exports: {}
 };
-var styles$1 = {
-    modifier: {
-        reset: [
-            0,
-            0
-        ],
-        // 21 isn't widely supported and 22 does the same thing
-        bold: [
-            1,
-            22
-        ],
-        dim: [
-            2,
-            22
-        ],
-        italic: [
-            3,
-            23
-        ],
-        underline: [
-            4,
-            24
-        ],
-        overline: [
-            53,
-            55
-        ],
-        inverse: [
-            7,
-            27
-        ],
-        hidden: [
-            8,
-            28
-        ],
-        strikethrough: [
-            9,
-            29
-        ]
-    },
-    color: {
-        black: [
-            30,
-            39
-        ],
-        red: [
-            31,
-            39
-        ],
-        green: [
-            32,
-            39
-        ],
-        yellow: [
-            33,
-            39
-        ],
-        blue: [
-            34,
-            39
-        ],
-        magenta: [
-            35,
-            39
-        ],
-        cyan: [
-            36,
-            39
-        ],
-        white: [
-            37,
-            39
-        ],
-        // Bright color
-        blackBright: [
-            90,
-            39
-        ],
-        gray: [
-            90,
-            39
-        ],
-        grey: [
-            90,
-            39
-        ],
-        redBright: [
-            91,
-            39
-        ],
-        greenBright: [
-            92,
-            39
-        ],
-        yellowBright: [
-            93,
-            39
-        ],
-        blueBright: [
-            94,
-            39
-        ],
-        magentaBright: [
-            95,
-            39
-        ],
-        cyanBright: [
-            96,
-            39
-        ],
-        whiteBright: [
-            97,
-            39
-        ]
-    },
-    bgColor: {
-        bgBlack: [
-            40,
-            49
-        ],
-        bgRed: [
-            41,
-            49
-        ],
-        bgGreen: [
-            42,
-            49
-        ],
-        bgYellow: [
-            43,
-            49
-        ],
-        bgBlue: [
-            44,
-            49
-        ],
-        bgMagenta: [
-            45,
-            49
-        ],
-        bgCyan: [
-            46,
-            49
-        ],
-        bgWhite: [
-            47,
-            49
-        ],
-        // Bright color
-        bgBlackBright: [
-            100,
-            49
-        ],
-        bgGray: [
-            100,
-            49
-        ],
-        bgGrey: [
-            100,
-            49
-        ],
-        bgRedBright: [
-            101,
-            49
-        ],
-        bgGreenBright: [
-            102,
-            49
-        ],
-        bgYellowBright: [
-            103,
-            49
-        ],
-        bgBlueBright: [
-            104,
-            49
-        ],
-        bgMagentaBright: [
-            105,
-            49
-        ],
-        bgCyanBright: [
-            106,
-            49
-        ],
-        bgWhiteBright: [
-            107,
-            49
-        ]
-    }
-};
-Object.keys(styles$1.modifier);
-var foregroundColorNames = Object.keys(styles$1.color);
-var backgroundColorNames = Object.keys(styles$1.bgColor);
-_to_consumable_array(foregroundColorNames).concat(_to_consumable_array(backgroundColorNames));
-function assembleStyles() {
-    var _styles$1;
-    var codes = new Map();
-    var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
-    try {
-        for(var _iterator = Object.entries(styles$1)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
-            var _step_value = _sliced_to_array(_step.value, 2), groupName = _step_value[0], group = _step_value[1];
-            var _iteratorNormalCompletion1 = true, _didIteratorError1 = false, _iteratorError1 = undefined;
-            try {
-                for(var _iterator1 = Object.entries(group)[Symbol.iterator](), _step1; !(_iteratorNormalCompletion1 = (_step1 = _iterator1.next()).done); _iteratorNormalCompletion1 = true){
-                    var _step_value1 = _sliced_to_array(_step1.value, 2), styleName = _step_value1[0], style = _step_value1[1];
-                    styles$1[styleName] = {
-                        open: "\x1b[".concat(style[0], "m"),
-                        close: "\x1b[".concat(style[1], "m")
-                    };
-                    group[styleName] = styles$1[styleName];
-                    codes.set(style[0], style[1]);
-                }
-            } catch (err) {
-                _didIteratorError1 = true;
-                _iteratorError1 = err;
-            } finally{
-                try {
-                    if (!_iteratorNormalCompletion1 && _iterator1.return != null) {
-                        _iterator1.return();
-                    }
-                } finally{
-                    if (_didIteratorError1) {
-                        throw _iteratorError1;
-                    }
-                }
-            }
-            Object.defineProperty(styles$1, groupName, {
-                value: group,
-                enumerable: false
-            });
-        }
-    } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-    } finally{
-        try {
-            if (!_iteratorNormalCompletion && _iterator.return != null) {
-                _iterator.return();
-            }
-        } finally{
-            if (_didIteratorError) {
-                throw _iteratorError;
-            }
-        }
-    }
-    Object.defineProperty(styles$1, 'codes', {
-        value: codes,
-        enumerable: false
-    });
-    styles$1.color.close = '\u001B[39m';
-    styles$1.bgColor.close = '\u001B[49m';
-    styles$1.color.ansi = wrapAnsi16();
-    styles$1.color.ansi256 = wrapAnsi256();
-    styles$1.color.ansi16m = wrapAnsi16m();
-    styles$1.bgColor.ansi = wrapAnsi16(ANSI_BACKGROUND_OFFSET);
-    styles$1.bgColor.ansi256 = wrapAnsi256(ANSI_BACKGROUND_OFFSET);
-    styles$1.bgColor.ansi16m = wrapAnsi16m(ANSI_BACKGROUND_OFFSET);
-    // From https://github.com/Qix-/color-convert/blob/3f0e0d4e92e235796ccb17f6e85c72094a651f49/conversions.js
-    Object.defineProperties(styles$1, {
-        rgbToAnsi256: {
-            value: function value(red, green, blue) {
-                // We use the extended greyscale palette here, with the exception of
-                // black and white. normal palette only has 4 greyscale shades.
-                if (red === green && green === blue) {
-                    if (red < 8) {
-                        return 16;
-                    }
-                    if (red > 248) {
-                        return 231;
-                    }
-                    return Math.round((red - 8) / 247 * 24) + 232;
-                }
-                return 16 + 36 * Math.round(red / 255 * 5) + 6 * Math.round(green / 255 * 5) + Math.round(blue / 255 * 5);
-            },
-            enumerable: false
-        },
-        hexToRgb: {
-            value: function value(hex) {
-                var matches = /[a-f\d]{6}|[a-f\d]{3}/i.exec(hex.toString(16));
-                if (!matches) {
-                    return [
-                        0,
-                        0,
-                        0
-                    ];
-                }
-                var _matches = _sliced_to_array(matches, 1), colorString = _matches[0];
-                if (colorString.length === 3) {
-                    colorString = _to_consumable_array(colorString).map(function(character) {
-                        return character + character;
-                    }).join('');
-                }
-                var integer = Number.parseInt(colorString, 16);
-                return [
-                    /* eslint-disable no-bitwise */ integer >> 16 & 0xFF,
-                    integer >> 8 & 0xFF,
-                    integer & 0xFF
-                ];
-            },
-            enumerable: false
-        },
-        hexToAnsi256: {
-            value: function(hex) {
-                return (_styles$1 = styles$1).rgbToAnsi256.apply(_styles$1, _to_consumable_array(styles$1.hexToRgb(hex)));
-            },
-            enumerable: false
-        },
-        ansi256ToAnsi: {
-            value: function value(code) {
-                if (code < 8) {
-                    return 30 + code;
-                }
-                if (code < 16) {
-                    return 90 + (code - 8);
-                }
-                var red;
-                var green;
-                var blue;
-                if (code >= 232) {
-                    red = ((code - 232) * 10 + 8) / 255;
-                    green = red;
-                    blue = red;
-                } else {
-                    code -= 16;
-                    var remainder = code % 36;
-                    red = Math.floor(code / 36) / 5;
-                    green = Math.floor(remainder / 6) / 5;
-                    blue = remainder % 6 / 5;
-                }
-                var value = Math.max(red, green, blue) * 2;
-                if (value === 0) {
-                    return 30;
-                }
-                // eslint-disable-next-line no-bitwise
-                var result = 30 + (Math.round(blue) << 2 | Math.round(green) << 1 | Math.round(red));
-                if (value === 2) {
-                    result += 60;
-                }
-                return result;
-            },
-            enumerable: false
-        },
-        rgbToAnsi: {
-            value: function(red, green, blue) {
-                return styles$1.ansi256ToAnsi(styles$1.rgbToAnsi256(red, green, blue));
-            },
-            enumerable: false
-        },
-        hexToAnsi: {
-            value: function(hex) {
-                return styles$1.ansi256ToAnsi(styles$1.hexToAnsi256(hex));
-            },
-            enumerable: false
-        }
-    });
-    return styles$1;
-}
-var ansiStyles = assembleStyles();
-/* eslint-env browser */ var level = function() {
-    if (!('navigator' in globalThis)) {
-        return 0;
-    }
-    if (globalThis.navigator.userAgentData) {
-        var brand = navigator.userAgentData.brands.find(function(param) {
-            var brand = param.brand;
-            return brand === 'Chromium';
+/*
+The MIT License (MIT)
+
+Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+*/ var hasRequiredStyles;
+function requireStyles() {
+    if (hasRequiredStyles) return styles.exports;
+    hasRequiredStyles = 1;
+    (function(module) {
+        var styles = {};
+        module['exports'] = styles;
+        var codes = {
+            reset: [
+                0,
+                0
+            ],
+            bold: [
+                1,
+                22
+            ],
+            dim: [
+                2,
+                22
+            ],
+            italic: [
+                3,
+                23
+            ],
+            underline: [
+                4,
+                24
+            ],
+            inverse: [
+                7,
+                27
+            ],
+            hidden: [
+                8,
+                28
+            ],
+            strikethrough: [
+                9,
+                29
+            ],
+            black: [
+                30,
+                39
+            ],
+            red: [
+                31,
+                39
+            ],
+            green: [
+                32,
+                39
+            ],
+            yellow: [
+                33,
+                39
+            ],
+            blue: [
+                34,
+                39
+            ],
+            magenta: [
+                35,
+                39
+            ],
+            cyan: [
+                36,
+                39
+            ],
+            white: [
+                37,
+                39
+            ],
+            gray: [
+                90,
+                39
+            ],
+            grey: [
+                90,
+                39
+            ],
+            brightRed: [
+                91,
+                39
+            ],
+            brightGreen: [
+                92,
+                39
+            ],
+            brightYellow: [
+                93,
+                39
+            ],
+            brightBlue: [
+                94,
+                39
+            ],
+            brightMagenta: [
+                95,
+                39
+            ],
+            brightCyan: [
+                96,
+                39
+            ],
+            brightWhite: [
+                97,
+                39
+            ],
+            bgBlack: [
+                40,
+                49
+            ],
+            bgRed: [
+                41,
+                49
+            ],
+            bgGreen: [
+                42,
+                49
+            ],
+            bgYellow: [
+                43,
+                49
+            ],
+            bgBlue: [
+                44,
+                49
+            ],
+            bgMagenta: [
+                45,
+                49
+            ],
+            bgCyan: [
+                46,
+                49
+            ],
+            bgWhite: [
+                47,
+                49
+            ],
+            bgGray: [
+                100,
+                49
+            ],
+            bgGrey: [
+                100,
+                49
+            ],
+            bgBrightRed: [
+                101,
+                49
+            ],
+            bgBrightGreen: [
+                102,
+                49
+            ],
+            bgBrightYellow: [
+                103,
+                49
+            ],
+            bgBrightBlue: [
+                104,
+                49
+            ],
+            bgBrightMagenta: [
+                105,
+                49
+            ],
+            bgBrightCyan: [
+                106,
+                49
+            ],
+            bgBrightWhite: [
+                107,
+                49
+            ],
+            // legacy styles for colors pre v1.0.0
+            blackBG: [
+                40,
+                49
+            ],
+            redBG: [
+                41,
+                49
+            ],
+            greenBG: [
+                42,
+                49
+            ],
+            yellowBG: [
+                43,
+                49
+            ],
+            blueBG: [
+                44,
+                49
+            ],
+            magentaBG: [
+                45,
+                49
+            ],
+            cyanBG: [
+                46,
+                49
+            ],
+            whiteBG: [
+                47,
+                49
+            ]
+        };
+        Object.keys(codes).forEach(function(key) {
+            var val = codes[key];
+            var style = styles[key] = [];
+            style.open = '\u001b[' + val[0] + 'm';
+            style.close = '\u001b[' + val[1] + 'm';
         });
-        if (brand && brand.version > 93) {
+    })(styles);
+    return styles.exports;
+}
+/*
+MIT License
+
+Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/ var hasFlag;
+var hasRequiredHasFlag;
+function requireHasFlag() {
+    if (hasRequiredHasFlag) return hasFlag;
+    hasRequiredHasFlag = 1;
+    hasFlag = function hasFlag(flag, argv) {
+        argv = argv || process.argv;
+        var terminatorPos = argv.indexOf('--');
+        var prefix = /^-{1,2}/.test(flag) ? '' : '--';
+        var pos = argv.indexOf(prefix + flag);
+        return pos !== -1 && (terminatorPos === -1 ? true : pos < terminatorPos);
+    };
+    return hasFlag;
+}
+/*
+The MIT License (MIT)
+
+Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+*/ var supportsColors;
+var hasRequiredSupportsColors;
+function requireSupportsColors() {
+    if (hasRequiredSupportsColors) return supportsColors;
+    hasRequiredSupportsColors = 1;
+    var os = _os.default;
+    var hasFlag = requireHasFlag();
+    var _$env = process.env;
+    var forceColor = undefined;
+    if (hasFlag('no-color') || hasFlag('no-colors') || hasFlag('color=false')) {
+        forceColor = false;
+    } else if (hasFlag('color') || hasFlag('colors') || hasFlag('color=true') || hasFlag('color=always')) {
+        forceColor = true;
+    }
+    if ('FORCE_COLOR' in _$env) {
+        forceColor = _$env.FORCE_COLOR.length === 0 || parseInt(_$env.FORCE_COLOR, 10) !== 0;
+    }
+    function translateLevel(level) {
+        if (level === 0) {
+            return false;
+        }
+        return {
+            level: level,
+            hasBasic: true,
+            has256: level >= 2,
+            has16m: level >= 3
+        };
+    }
+    function supportsColor(stream) {
+        if (forceColor === false) {
+            return 0;
+        }
+        if (hasFlag('color=16m') || hasFlag('color=full') || hasFlag('color=truecolor')) {
             return 3;
         }
-    }
-    if (/\b(Chrome|Chromium)\//.test(globalThis.navigator.userAgent)) {
-        return 1;
-    }
-    return 0;
-}();
-var colorSupport = level !== 0 && {
-    level: level,
-    hasBasic: true,
-    has256: level >= 2,
-    has16m: level >= 3
-};
-var supportsColor = {
-    stdout: colorSupport,
-    stderr: colorSupport
-};
-// TODO: When targeting Node.js 16, use `String.prototype.replaceAll`.
-function stringReplaceAll(string, substring, replacer) {
-    var index = string.indexOf(substring);
-    if (index === -1) {
-        return string;
-    }
-    var substringLength = substring.length;
-    var endIndex = 0;
-    var returnValue = '';
-    do {
-        returnValue += string.slice(endIndex, index) + substring + replacer;
-        endIndex = index + substringLength;
-        index = string.indexOf(substring, endIndex);
-    }while (index !== -1);
-    returnValue += string.slice(endIndex);
-    return returnValue;
-}
-function stringEncaseCRLFWithFirstIndex(string, prefix, postfix, index) {
-    var endIndex = 0;
-    var returnValue = '';
-    do {
-        var gotCR = string[index - 1] === '\r';
-        returnValue += string.slice(endIndex, gotCR ? index - 1 : index) + prefix + (gotCR ? '\r\n' : '\n') + postfix;
-        endIndex = index + 1;
-        index = string.indexOf('\n', endIndex);
-    }while (index !== -1);
-    returnValue += string.slice(endIndex);
-    return returnValue;
-}
-var stdoutColor = supportsColor.stdout, stderrColor = supportsColor.stderr;
-var GENERATOR = Symbol('GENERATOR');
-var STYLER = Symbol('STYLER');
-var IS_EMPTY = Symbol('IS_EMPTY');
-// `supportsColor.level` → `ansiStyles.color[name]` mapping
-var levelMapping = [
-    'ansi',
-    'ansi',
-    'ansi256',
-    'ansi16m'
-];
-var styles = Object.create(null);
-var applyOptions = function(object) {
-    var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
-    if (options.level && !(Number.isInteger(options.level) && options.level >= 0 && options.level <= 3)) {
-        throw new Error('The `level` option should be an integer from 0 to 3');
-    }
-    // Detect level if not set manually
-    var colorLevel = stdoutColor ? stdoutColor.level : 0;
-    object.level = options.level === undefined ? colorLevel : options.level;
-};
-var chalkFactory = function(options) {
-    var chalk = function() {
-        for(var _len = arguments.length, strings = new Array(_len), _key = 0; _key < _len; _key++){
-            strings[_key] = arguments[_key];
+        if (hasFlag('color=256')) {
+            return 2;
         }
-        return strings.join(' ');
+        if (stream && !stream.isTTY && forceColor !== true) {
+            return 0;
+        }
+        var min = forceColor ? 1 : 0;
+        if (process.platform === 'win32') {
+            // Node.js 7.5.0 is the first version of Node.js to include a patch to
+            // libuv that enables 256 color output on Windows. Anything earlier and it
+            // won't work. However, here we target Node.js 8 at minimum as it is an LTS
+            // release, and Node.js 7 is not. Windows 10 build 10586 is the first
+            // Windows release that supports 256 colors. Windows 10 build 14931 is the
+            // first release that supports 16m/TrueColor.
+            var osRelease = os.release().split('.');
+            if (Number(process.versions.node.split('.')[0]) >= 8 && Number(osRelease[0]) >= 10 && Number(osRelease[2]) >= 10586) {
+                return Number(osRelease[2]) >= 14931 ? 3 : 2;
+            }
+            return 1;
+        }
+        if ('CI' in _$env) {
+            if ([
+                'TRAVIS',
+                'CIRCLECI',
+                'APPVEYOR',
+                'GITLAB_CI'
+            ].some(function(sign) {
+                return sign in _$env;
+            }) || _$env.CI_NAME === 'codeship') {
+                return 1;
+            }
+            return min;
+        }
+        if ('TEAMCITY_VERSION' in _$env) {
+            return /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(_$env.TEAMCITY_VERSION) ? 1 : 0;
+        }
+        if ('TERM_PROGRAM' in _$env) {
+            var version = parseInt((_$env.TERM_PROGRAM_VERSION || '').split('.')[0], 10);
+            switch(_$env.TERM_PROGRAM){
+                case 'iTerm.app':
+                    return version >= 3 ? 3 : 2;
+                case 'Hyper':
+                    return 3;
+                case 'Apple_Terminal':
+                    return 2;
+            }
+        }
+        if (/-256(color)?$/i.test(_$env.TERM)) {
+            return 2;
+        }
+        if (/^screen|^xterm|^vt100|^rxvt|color|ansi|cygwin|linux/i.test(_$env.TERM)) {
+            return 1;
+        }
+        if ('COLORTERM' in _$env) {
+            return 1;
+        }
+        if (_$env.TERM === 'dumb') {
+            return min;
+        }
+        return min;
+    }
+    function getSupportLevel(stream) {
+        var level = supportsColor(stream);
+        return translateLevel(level);
+    }
+    supportsColors = {
+        supportsColor: getSupportLevel,
+        stdout: getSupportLevel(process.stdout),
+        stderr: getSupportLevel(process.stderr)
     };
-    applyOptions(chalk, options);
-    Object.setPrototypeOf(chalk, createChalk.prototype);
-    return chalk;
-};
-function createChalk(options) {
-    return chalkFactory(options);
+    return supportsColors;
 }
-Object.setPrototypeOf(createChalk.prototype, Function.prototype);
-var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
-try {
-    var _loop = function() {
-        var _step_value = _sliced_to_array(_step.value, 2), styleName = _step_value[0], style = _step_value[1];
-        styles[styleName] = {
-            get: function get() {
-                var builder = createBuilder(this, createStyler(style.open, style.close, this[STYLER]), this[IS_EMPTY]);
-                Object.defineProperty(this, styleName, {
-                    value: builder
+var trap = {
+    exports: {}
+};
+var hasRequiredTrap;
+function requireTrap() {
+    if (hasRequiredTrap) return trap.exports;
+    hasRequiredTrap = 1;
+    (function(module) {
+        module['exports'] = function runTheTrap(text, options) {
+            var result = '';
+            text = text || 'Run the trap, drop the bass';
+            text = text.split('');
+            var trap = {
+                a: [
+                    '\u0040',
+                    '\u0104',
+                    '\u023a',
+                    '\u0245',
+                    '\u0394',
+                    '\u039b',
+                    '\u0414'
+                ],
+                b: [
+                    '\u00df',
+                    '\u0181',
+                    '\u0243',
+                    '\u026e',
+                    '\u03b2',
+                    '\u0e3f'
+                ],
+                c: [
+                    '\u00a9',
+                    '\u023b',
+                    '\u03fe'
+                ],
+                d: [
+                    '\u00d0',
+                    '\u018a',
+                    '\u0500',
+                    '\u0501',
+                    '\u0502',
+                    '\u0503'
+                ],
+                e: [
+                    '\u00cb',
+                    '\u0115',
+                    '\u018e',
+                    '\u0258',
+                    '\u03a3',
+                    '\u03be',
+                    '\u04bc',
+                    '\u0a6c'
+                ],
+                f: [
+                    '\u04fa'
+                ],
+                g: [
+                    '\u0262'
+                ],
+                h: [
+                    '\u0126',
+                    '\u0195',
+                    '\u04a2',
+                    '\u04ba',
+                    '\u04c7',
+                    '\u050a'
+                ],
+                i: [
+                    '\u0f0f'
+                ],
+                j: [
+                    '\u0134'
+                ],
+                k: [
+                    '\u0138',
+                    '\u04a0',
+                    '\u04c3',
+                    '\u051e'
+                ],
+                l: [
+                    '\u0139'
+                ],
+                m: [
+                    '\u028d',
+                    '\u04cd',
+                    '\u04ce',
+                    '\u0520',
+                    '\u0521',
+                    '\u0d69'
+                ],
+                n: [
+                    '\u00d1',
+                    '\u014b',
+                    '\u019d',
+                    '\u0376',
+                    '\u03a0',
+                    '\u048a'
+                ],
+                o: [
+                    '\u00d8',
+                    '\u00f5',
+                    '\u00f8',
+                    '\u01fe',
+                    '\u0298',
+                    '\u047a',
+                    '\u05dd',
+                    '\u06dd',
+                    '\u0e4f'
+                ],
+                p: [
+                    '\u01f7',
+                    '\u048e'
+                ],
+                q: [
+                    '\u09cd'
+                ],
+                r: [
+                    '\u00ae',
+                    '\u01a6',
+                    '\u0210',
+                    '\u024c',
+                    '\u0280',
+                    '\u042f'
+                ],
+                s: [
+                    '\u00a7',
+                    '\u03de',
+                    '\u03df',
+                    '\u03e8'
+                ],
+                t: [
+                    '\u0141',
+                    '\u0166',
+                    '\u0373'
+                ],
+                u: [
+                    '\u01b1',
+                    '\u054d'
+                ],
+                v: [
+                    '\u05d8'
+                ],
+                w: [
+                    '\u0428',
+                    '\u0460',
+                    '\u047c',
+                    '\u0d70'
+                ],
+                x: [
+                    '\u04b2',
+                    '\u04fe',
+                    '\u04fc',
+                    '\u04fd'
+                ],
+                y: [
+                    '\u00a5',
+                    '\u04b0',
+                    '\u04cb'
+                ],
+                z: [
+                    '\u01b5',
+                    '\u0240'
+                ]
+            };
+            text.forEach(function(c) {
+                c = c.toLowerCase();
+                var chars = trap[c] || [
+                    ' '
+                ];
+                var rand = Math.floor(Math.random() * chars.length);
+                if (typeof trap[c] !== 'undefined') {
+                    result += trap[c][rand];
+                } else {
+                    result += c;
+                }
+            });
+            return result;
+        };
+    })(trap);
+    return trap.exports;
+}
+var zalgo = {
+    exports: {}
+};
+var hasRequiredZalgo;
+function requireZalgo() {
+    if (hasRequiredZalgo) return zalgo.exports;
+    hasRequiredZalgo = 1;
+    (function(module) {
+        // please no
+        module['exports'] = function zalgo(text, options) {
+            text = text || '   he is here   ';
+            var soul = {
+                'up': [
+                    '̍',
+                    '̎',
+                    '̄',
+                    '̅',
+                    '̿',
+                    '̑',
+                    '̆',
+                    '̐',
+                    '͒',
+                    '͗',
+                    '͑',
+                    '̇',
+                    '̈',
+                    '̊',
+                    '͂',
+                    '̓',
+                    '̈',
+                    '͊',
+                    '͋',
+                    '͌',
+                    '̃',
+                    '̂',
+                    '̌',
+                    '͐',
+                    '̀',
+                    '́',
+                    '̋',
+                    '̏',
+                    '̒',
+                    '̓',
+                    '̔',
+                    '̽',
+                    '̉',
+                    'ͣ',
+                    'ͤ',
+                    'ͥ',
+                    'ͦ',
+                    'ͧ',
+                    'ͨ',
+                    'ͩ',
+                    'ͪ',
+                    'ͫ',
+                    'ͬ',
+                    'ͭ',
+                    'ͮ',
+                    'ͯ',
+                    '̾',
+                    '͛',
+                    '͆',
+                    '̚'
+                ],
+                'down': [
+                    '̖',
+                    '̗',
+                    '̘',
+                    '̙',
+                    '̜',
+                    '̝',
+                    '̞',
+                    '̟',
+                    '̠',
+                    '̤',
+                    '̥',
+                    '̦',
+                    '̩',
+                    '̪',
+                    '̫',
+                    '̬',
+                    '̭',
+                    '̮',
+                    '̯',
+                    '̰',
+                    '̱',
+                    '̲',
+                    '̳',
+                    '̹',
+                    '̺',
+                    '̻',
+                    '̼',
+                    'ͅ',
+                    '͇',
+                    '͈',
+                    '͉',
+                    '͍',
+                    '͎',
+                    '͓',
+                    '͔',
+                    '͕',
+                    '͖',
+                    '͙',
+                    '͚',
+                    '̣'
+                ],
+                'mid': [
+                    '̕',
+                    '̛',
+                    '̀',
+                    '́',
+                    '͘',
+                    '̡',
+                    '̢',
+                    '̧',
+                    '̨',
+                    '̴',
+                    '̵',
+                    '̶',
+                    '͜',
+                    '͝',
+                    '͞',
+                    '͟',
+                    '͠',
+                    '͢',
+                    '̸',
+                    '̷',
+                    '͡',
+                    ' ҉'
+                ]
+            };
+            var all = [].concat(soul.up, soul.down, soul.mid);
+            function randomNumber(range) {
+                var r = Math.floor(Math.random() * range);
+                return r;
+            }
+            function isChar(character) {
+                var bool = false;
+                all.filter(function(i) {
+                    bool = i === character;
                 });
-                return builder;
+                return bool;
             }
-        };
-    };
-    for(var _iterator = Object.entries(ansiStyles)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true)_loop();
-} catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
-} finally{
-    try {
-        if (!_iteratorNormalCompletion && _iterator.return != null) {
-            _iterator.return();
-        }
-    } finally{
-        if (_didIteratorError) {
-            throw _iteratorError;
-        }
-    }
-}
-styles.visible = {
-    get: function get() {
-        var builder = createBuilder(this, this[STYLER], true);
-        Object.defineProperty(this, 'visible', {
-            value: builder
-        });
-        return builder;
-    }
-};
-var getModelAnsi = function(model, level, type) {
-    for(var _len = arguments.length, arguments_ = new Array(_len > 3 ? _len - 3 : 0), _key = 3; _key < _len; _key++){
-        arguments_[_key - 3] = arguments[_key];
-    }
-    var _ansiStyles_type;
-    if (model === 'rgb') {
-        var _ansiStyles;
-        if (level === 'ansi16m') {
-            var _ansiStyles_type1;
-            return (_ansiStyles_type1 = ansiStyles[type]).ansi16m.apply(_ansiStyles_type1, _to_consumable_array(arguments_));
-        }
-        if (level === 'ansi256') {
-            var _ansiStyles1;
-            return ansiStyles[type].ansi256((_ansiStyles1 = ansiStyles).rgbToAnsi256.apply(_ansiStyles1, _to_consumable_array(arguments_)));
-        }
-        return ansiStyles[type].ansi((_ansiStyles = ansiStyles).rgbToAnsi.apply(_ansiStyles, _to_consumable_array(arguments_)));
-    }
-    if (model === 'hex') {
-        var _ansiStyles2;
-        return getModelAnsi.apply(void 0, [
-            'rgb',
-            level,
-            type
-        ].concat(_to_consumable_array((_ansiStyles2 = ansiStyles).hexToRgb.apply(_ansiStyles2, _to_consumable_array(arguments_)))));
-    }
-    return (_ansiStyles_type = ansiStyles[type])[model].apply(_ansiStyles_type, _to_consumable_array(arguments_));
-};
-var usedModels = [
-    'rgb',
-    'hex',
-    'ansi256'
-];
-var _iteratorNormalCompletion1 = true, _didIteratorError1 = false, _iteratorError1 = undefined;
-try {
-    var _loop1 = function() {
-        var model = _step1.value;
-        styles[model] = {
-            get: function get() {
-                var level = this.level;
-                return function() {
-                    for(var _len = arguments.length, arguments_ = new Array(_len), _key = 0; _key < _len; _key++){
-                        arguments_[_key] = arguments[_key];
+            function heComes(text, options) {
+                var result = '';
+                var counts;
+                var l;
+                options = options || {};
+                options['up'] = typeof options['up'] !== 'undefined' ? options['up'] : true;
+                options['mid'] = typeof options['mid'] !== 'undefined' ? options['mid'] : true;
+                options['down'] = typeof options['down'] !== 'undefined' ? options['down'] : true;
+                options['size'] = typeof options['size'] !== 'undefined' ? options['size'] : 'maxi';
+                text = text.split('');
+                for(l in text){
+                    if (isChar(l)) {
+                        continue;
                     }
-                    var styler = createStyler(getModelAnsi.apply(void 0, [
-                        model,
-                        levelMapping[level],
-                        'color'
-                    ].concat(_to_consumable_array(arguments_))), ansiStyles.color.close, this[STYLER]);
-                    return createBuilder(this, styler, this[IS_EMPTY]);
-                };
-            }
-        };
-        var bgModel = 'bg' + model[0].toUpperCase() + model.slice(1);
-        styles[bgModel] = {
-            get: function get() {
-                var level = this.level;
-                return function() {
-                    for(var _len = arguments.length, arguments_ = new Array(_len), _key = 0; _key < _len; _key++){
-                        arguments_[_key] = arguments[_key];
+                    result = result + text[l];
+                    counts = {
+                        'up': 0,
+                        'down': 0,
+                        'mid': 0
+                    };
+                    switch(options.size){
+                        case 'mini':
+                            counts.up = randomNumber(8);
+                            counts.mid = randomNumber(2);
+                            counts.down = randomNumber(8);
+                            break;
+                        case 'maxi':
+                            counts.up = randomNumber(16) + 3;
+                            counts.mid = randomNumber(4) + 1;
+                            counts.down = randomNumber(64) + 3;
+                            break;
+                        default:
+                            counts.up = randomNumber(8) + 1;
+                            counts.mid = randomNumber(6) / 2;
+                            counts.down = randomNumber(8) + 1;
+                            break;
                     }
-                    var styler = createStyler(getModelAnsi.apply(void 0, [
-                        model,
-                        levelMapping[level],
-                        'bgColor'
-                    ].concat(_to_consumable_array(arguments_))), ansiStyles.bgColor.close, this[STYLER]);
-                    return createBuilder(this, styler, this[IS_EMPTY]);
+                    var arr = [
+                        'up',
+                        'mid',
+                        'down'
+                    ];
+                    for(var d in arr){
+                        var index = arr[d];
+                        for(var i = 0; i <= counts[index]; i++){
+                            if (options[index]) {
+                                result = result + soul[index][randomNumber(soul[index].length)];
+                            }
+                        }
+                    }
+                }
+                return result;
+            }
+            // don't summon him
+            return heComes(text, options);
+        };
+    })(zalgo);
+    return zalgo.exports;
+}
+var america = {
+    exports: {}
+};
+var hasRequiredAmerica;
+function requireAmerica() {
+    if (hasRequiredAmerica) return america.exports;
+    hasRequiredAmerica = 1;
+    (function(module) {
+        module['exports'] = function(colors) {
+            return function(letter, i, exploded) {
+                if (letter === ' ') return letter;
+                switch(i % 3){
+                    case 0:
+                        return colors.red(letter);
+                    case 1:
+                        return colors.white(letter);
+                    case 2:
+                        return colors.blue(letter);
+                }
+            };
+        };
+    })(america);
+    return america.exports;
+}
+var zebra = {
+    exports: {}
+};
+var hasRequiredZebra;
+function requireZebra() {
+    if (hasRequiredZebra) return zebra.exports;
+    hasRequiredZebra = 1;
+    (function(module) {
+        module['exports'] = function(colors) {
+            return function(letter, i, exploded) {
+                return i % 2 === 0 ? letter : colors.inverse(letter);
+            };
+        };
+    })(zebra);
+    return zebra.exports;
+}
+var rainbow = {
+    exports: {}
+};
+var hasRequiredRainbow;
+function requireRainbow() {
+    if (hasRequiredRainbow) return rainbow.exports;
+    hasRequiredRainbow = 1;
+    (function(module) {
+        module['exports'] = function(colors) {
+            // RoY G BiV
+            var rainbowColors = [
+                'red',
+                'yellow',
+                'green',
+                'blue',
+                'magenta'
+            ];
+            return function(letter, i, exploded) {
+                if (letter === ' ') {
+                    return letter;
+                } else {
+                    return colors[rainbowColors[i++ % rainbowColors.length]](letter);
+                }
+            };
+        };
+    })(rainbow);
+    return rainbow.exports;
+}
+var random = {
+    exports: {}
+};
+var hasRequiredRandom;
+function requireRandom() {
+    if (hasRequiredRandom) return random.exports;
+    hasRequiredRandom = 1;
+    (function(module) {
+        module['exports'] = function(colors) {
+            var available = [
+                'underline',
+                'inverse',
+                'grey',
+                'yellow',
+                'red',
+                'green',
+                'blue',
+                'white',
+                'cyan',
+                'magenta',
+                'brightYellow',
+                'brightRed',
+                'brightGreen',
+                'brightBlue',
+                'brightWhite',
+                'brightCyan',
+                'brightMagenta'
+            ];
+            return function(letter, i, exploded) {
+                return letter === ' ' ? letter : colors[available[Math.round(Math.random() * (available.length - 2))]](letter);
+            };
+        };
+    })(random);
+    return random.exports;
+}
+/*
+
+The MIT License (MIT)
+
+Original Library
+  - Copyright (c) Marak Squires
+
+Additional functionality
+ - Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+*/ var hasRequiredColors;
+function requireColors() {
+    if (hasRequiredColors) return colors.exports;
+    hasRequiredColors = 1;
+    (function(module) {
+        var colors = {};
+        module['exports'] = colors;
+        colors.themes = {};
+        var util = _util.default;
+        var ansiStyles = colors.styles = requireStyles();
+        var defineProps = Object.defineProperties;
+        var newLineRegex = new RegExp(/[\r\n]+/g);
+        colors.supportsColor = requireSupportsColors().supportsColor;
+        if (typeof colors.enabled === 'undefined') {
+            colors.enabled = colors.supportsColor() !== false;
+        }
+        colors.enable = function() {
+            colors.enabled = true;
+        };
+        colors.disable = function() {
+            colors.enabled = false;
+        };
+        colors.stripColors = colors.strip = function(str) {
+            return ('' + str).replace(/\x1B\[\d+m/g, '');
+        };
+        // eslint-disable-next-line no-unused-vars
+        colors.stylize = function stylize(str, style) {
+            if (!colors.enabled) {
+                return str + '';
+            }
+            var styleMap = ansiStyles[style];
+            // Stylize should work for non-ANSI styles, too
+            if (!styleMap && style in colors) {
+                // Style maps like trap operate as functions on strings;
+                // they don't have properties like open or close.
+                return colors[style](str);
+            }
+            return styleMap.open + str + styleMap.close;
+        };
+        var matchOperatorsRe = /[|\\{}()[\]^$+*?.]/g;
+        var escapeStringRegexp = function escapeStringRegexp(str) {
+            if (typeof str !== 'string') {
+                throw new TypeError('Expected a string');
+            }
+            return str.replace(matchOperatorsRe, '\\$&');
+        };
+        function build(_styles) {
+            var builder = function builder() {
+                return applyStyle.apply(builder, arguments);
+            };
+            builder._styles = _styles;
+            // __proto__ is used because we must return a function, but there is
+            // no way to create a function with a different prototype.
+            builder.__proto__ = proto;
+            return builder;
+        }
+        var styles = function() {
+            var ret = {};
+            ansiStyles.grey = ansiStyles.gray;
+            Object.keys(ansiStyles).forEach(function(key) {
+                ansiStyles[key].closeRe = new RegExp(escapeStringRegexp(ansiStyles[key].close), 'g');
+                ret[key] = {
+                    get: function get() {
+                        return build(this._styles.concat(key));
+                    }
                 };
+            });
+            return ret;
+        }();
+        var proto = defineProps(function colors() {}, styles);
+        function applyStyle() {
+            var args = Array.prototype.slice.call(arguments);
+            var str = args.map(function(arg) {
+                // Use weak equality check so we can colorize null/undefined in safe mode
+                if (arg != null && arg.constructor === String) {
+                    return arg;
+                } else {
+                    return util.inspect(arg);
+                }
+            }).join(' ');
+            if (!colors.enabled || !str) {
+                return str;
+            }
+            var newLinesPresent = str.indexOf('\n') != -1;
+            var nestedStyles = this._styles;
+            var i = nestedStyles.length;
+            while(i--){
+                var code = ansiStyles[nestedStyles[i]];
+                str = code.open + str.replace(code.closeRe, code.open) + code.close;
+                if (newLinesPresent) {
+                    str = str.replace(newLineRegex, function(match) {
+                        return code.close + match + code.open;
+                    });
+                }
+            }
+            return str;
+        }
+        colors.setTheme = function(theme) {
+            if (typeof theme === 'string') {
+                console.log('colors.setTheme now only accepts an object, not a string.  ' + 'If you are trying to set a theme from a file, it is now your (the ' + 'caller\'s) responsibility to require the file.  The old syntax ' + 'looked like colors.setTheme(__dirname + ' + '\'/../themes/generic-logging.js\'); The new syntax looks like ' + 'colors.setTheme(require(__dirname + ' + '\'/../themes/generic-logging.js\'));');
+                return;
+            }
+            for(var style in theme){
+                (function(style) {
+                    colors[style] = function(str) {
+                        if (_type_of(theme[style]) === 'object') {
+                            var out = str;
+                            for(var i in theme[style]){
+                                out = colors[theme[style][i]](out);
+                            }
+                            return out;
+                        }
+                        return colors[theme[style]](str);
+                    };
+                })(style);
             }
         };
-    };
-    for(var _iterator1 = usedModels[Symbol.iterator](), _step1; !(_iteratorNormalCompletion1 = (_step1 = _iterator1.next()).done); _iteratorNormalCompletion1 = true)_loop1();
-} catch (err) {
-    _didIteratorError1 = true;
-    _iteratorError1 = err;
-} finally{
-    try {
-        if (!_iteratorNormalCompletion1 && _iterator1.return != null) {
-            _iterator1.return();
+        function init() {
+            var ret = {};
+            Object.keys(styles).forEach(function(name) {
+                ret[name] = {
+                    get: function get() {
+                        return build([
+                            name
+                        ]);
+                    }
+                };
+            });
+            return ret;
         }
-    } finally{
-        if (_didIteratorError1) {
-            throw _iteratorError1;
+        var sequencer = function sequencer(map, str) {
+            var exploded = str.split('');
+            exploded = exploded.map(map);
+            return exploded.join('');
+        };
+        // custom formatter methods
+        colors.trap = requireTrap();
+        colors.zalgo = requireZalgo();
+        // maps
+        colors.maps = {};
+        colors.maps.america = requireAmerica()(colors);
+        colors.maps.zebra = requireZebra()(colors);
+        colors.maps.rainbow = requireRainbow()(colors);
+        colors.maps.random = requireRandom()(colors);
+        for(var map in colors.maps){
+            (function(map) {
+                colors[map] = function(str) {
+                    return sequencer(colors.maps[map], str);
+                };
+            })(map);
         }
-    }
+        defineProps(colors, init());
+    })(colors);
+    return colors.exports;
 }
-var proto = Object.defineProperties(function() {}, _object_spread_props(_object_spread({}, styles), {
-    level: {
-        enumerable: true,
-        get: function get() {
-            return this[GENERATOR].level;
-        },
-        set: function set(level) {
-            this[GENERATOR].level = level;
-        }
-    }
-}));
-var createStyler = function(open, close, parent) {
-    var openAll;
-    var closeAll;
-    if (parent === undefined) {
-        openAll = open;
-        closeAll = close;
-    } else {
-        openAll = parent.openAll + open;
-        closeAll = close + parent.closeAll;
-    }
-    return {
-        open: open,
-        close: close,
-        openAll: openAll,
-        closeAll: closeAll,
-        parent: parent
-    };
+var extendStringPrototype = {
+    exports: {}
 };
-var createBuilder = function(self1, _styler, _isEmpty) {
-    // Single argument is hot path, implicit coercion is faster than anything
-    // eslint-disable-next-line no-implicit-coercion
-    var builder = function() {
-        for(var _len = arguments.length, arguments_ = new Array(_len), _key = 0; _key < _len; _key++){
-            arguments_[_key] = arguments[_key];
-        }
-        return applyStyle(builder, arguments_.length === 1 ? '' + arguments_[0] : arguments_.join(' '));
-    };
-    // We alter the prototype because we must return a function, but there is
-    // no way to create a function with a different prototype
-    Object.setPrototypeOf(builder, proto);
-    builder[GENERATOR] = self1;
-    builder[STYLER] = _styler;
-    builder[IS_EMPTY] = _isEmpty;
-    return builder;
-};
-var applyStyle = function(self1, string) {
-    if (self1.level <= 0 || !string) {
-        return self1[IS_EMPTY] ? '' : string;
-    }
-    var styler = self1[STYLER];
-    if (styler === undefined) {
-        return string;
-    }
-    var openAll = styler.openAll, closeAll = styler.closeAll;
-    if (string.includes('\u001B')) {
-        while(styler !== undefined){
-            // Replace any instances already present with a re-opening code
-            // otherwise only the part of the string until said closing code
-            // will be colored, and the rest will simply be 'plain'.
-            string = stringReplaceAll(string, styler.close, styler.open);
-            styler = styler.parent;
-        }
-    }
-    // We can move both next actions out of loop, because remaining actions in loop won't have
-    // any/visible effect on parts we add here. Close the styling before a linebreak and reopen
-    // after next line to fix a bleed issue on macOS: https://github.com/chalk/chalk/pull/92
-    var lfIndex = string.indexOf('\n');
-    if (lfIndex !== -1) {
-        string = stringEncaseCRLFWithFirstIndex(string, closeAll, openAll, lfIndex);
-    }
-    return openAll + string + closeAll;
-};
-Object.defineProperties(createChalk.prototype, styles);
-var chalk = createChalk();
-createChalk({
-    level: stderrColor ? stderrColor.level : 0
-});
+var hasRequiredExtendStringPrototype;
+function requireExtendStringPrototype() {
+    if (hasRequiredExtendStringPrototype) return extendStringPrototype.exports;
+    hasRequiredExtendStringPrototype = 1;
+    (function(module) {
+        var colors = requireColors();
+        module['exports'] = function() {
+            //
+            // Extends prototype of native string object to allow for "foo".red syntax
+            //
+            var addProperty = function addProperty(color, func) {
+                String.prototype.__defineGetter__(color, func);
+            };
+            addProperty('strip', function() {
+                return colors.strip(this);
+            });
+            addProperty('stripColors', function() {
+                return colors.strip(this);
+            });
+            addProperty('trap', function() {
+                return colors.trap(this);
+            });
+            addProperty('zalgo', function() {
+                return colors.zalgo(this);
+            });
+            addProperty('zebra', function() {
+                return colors.zebra(this);
+            });
+            addProperty('rainbow', function() {
+                return colors.rainbow(this);
+            });
+            addProperty('random', function() {
+                return colors.random(this);
+            });
+            addProperty('america', function() {
+                return colors.america(this);
+            });
+            //
+            // Iterate through all default styles and colors
+            //
+            var x = Object.keys(colors.styles);
+            x.forEach(function(style) {
+                addProperty(style, function() {
+                    return colors.stylize(this, style);
+                });
+            });
+            function applyTheme(theme) {
+                //
+                // Remark: This is a list of methods that exist
+                // on String that you should not overwrite.
+                //
+                var stringPrototypeBlacklist = [
+                    '__defineGetter__',
+                    '__defineSetter__',
+                    '__lookupGetter__',
+                    '__lookupSetter__',
+                    'charAt',
+                    'constructor',
+                    'hasOwnProperty',
+                    'isPrototypeOf',
+                    'propertyIsEnumerable',
+                    'toLocaleString',
+                    'toString',
+                    'valueOf',
+                    'charCodeAt',
+                    'indexOf',
+                    'lastIndexOf',
+                    'length',
+                    'localeCompare',
+                    'match',
+                    'repeat',
+                    'replace',
+                    'search',
+                    'slice',
+                    'split',
+                    'substring',
+                    'toLocaleLowerCase',
+                    'toLocaleUpperCase',
+                    'toLowerCase',
+                    'toUpperCase',
+                    'trim',
+                    'trimLeft',
+                    'trimRight'
+                ];
+                Object.keys(theme).forEach(function(prop) {
+                    if (stringPrototypeBlacklist.indexOf(prop) !== -1) {
+                        console.log('warn: '.red + ('String.prototype' + prop).magenta + ' is probably something you don\'t want to override.  ' + 'Ignoring style name');
+                    } else {
+                        if (typeof theme[prop] === 'string') {
+                            colors[prop] = colors[theme[prop]];
+                            addProperty(prop, function() {
+                                return colors[prop](this);
+                            });
+                        } else {
+                            var themePropApplicator = function themePropApplicator(str) {
+                                var ret = str || this;
+                                for(var t = 0; t < theme[prop].length; t++){
+                                    ret = colors[theme[prop][t]](ret);
+                                }
+                                return ret;
+                            };
+                            addProperty(prop, themePropApplicator);
+                            colors[prop] = function(str) {
+                                return themePropApplicator(str);
+                            };
+                        }
+                    }
+                });
+            }
+            colors.setTheme = function(theme) {
+                if (typeof theme === 'string') {
+                    console.log('colors.setTheme now only accepts an object, not a string. ' + 'If you are trying to set a theme from a file, it is now your (the ' + 'caller\'s) responsibility to require the file.  The old syntax ' + 'looked like colors.setTheme(__dirname + ' + '\'/../themes/generic-logging.js\'); The new syntax looks like ' + 'colors.setTheme(require(__dirname + ' + '\'/../themes/generic-logging.js\'));');
+                    return;
+                } else {
+                    applyTheme(theme);
+                }
+            };
+        };
+    })(extendStringPrototype);
+    return extendStringPrototype.exports;
+}
+var hasRequiredLib;
+function requireLib() {
+    if (hasRequiredLib) return lib.exports;
+    hasRequiredLib = 1;
+    (function(module) {
+        var colors = requireColors();
+        module['exports'] = colors;
+        // Remark: By default, colors will add style properties to String.prototype.
+        //
+        // If you don't wish to extend String.prototype, you can do this instead and
+        // native String will not be touched:
+        //
+        //   var colors = require('colors/safe);
+        //   colors.red("foo")
+        //
+        //
+        requireExtendStringPrototype()();
+    })(lib);
+    return lib.exports;
+}
+var libExports = requireLib();
+var chalk = /*@__PURE__*/ getDefaultExportFromCjs(libExports);
 var rgbRegex = /^rgb\(\s?(\d+),\s?(\d+),\s?(\d+)\s?\)$/;
 var ansiRegex = /^ansi256\(\s?(\d+)\s?\)$/;
 var isNamedColor = function(color) {
@@ -28428,24 +28990,24 @@ var CODE_POINT_0 = '0'.codePointAt(0);
 var CODE_POINT_9 = '9'.codePointAt(0);
 var endCodesSet$1 = new Set();
 var endCodesMap$1 = new Map();
-var _iteratorNormalCompletion2 = true, _didIteratorError2 = false, _iteratorError2 = undefined;
+var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
 try {
-    for(var _iterator2 = ansiStyles$1.codes[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true){
-        var _step_value = _sliced_to_array(_step2.value, 2), start = _step_value[0], end = _step_value[1];
-        endCodesSet$1.add(ansiStyles$1.color.ansi(end));
-        endCodesMap$1.set(ansiStyles$1.color.ansi(start), ansiStyles$1.color.ansi(end));
+    for(var _iterator = ansiStyles.codes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+        var _step_value = _sliced_to_array(_step.value, 2), start = _step_value[0], end = _step_value[1];
+        endCodesSet$1.add(ansiStyles.color.ansi(end));
+        endCodesMap$1.set(ansiStyles.color.ansi(start), ansiStyles.color.ansi(end));
     }
 } catch (err) {
-    _didIteratorError2 = true;
-    _iteratorError2 = err;
+    _didIteratorError = true;
+    _iteratorError = err;
 } finally{
     try {
-        if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
-            _iterator2.return();
+        if (!_iteratorNormalCompletion && _iterator.return != null) {
+            _iterator.return();
         }
     } finally{
-        if (_didIteratorError2) {
-            throw _iteratorError2;
+        if (_didIteratorError) {
+            throw _iteratorError;
         }
     }
 }
@@ -28460,11 +29022,11 @@ function getEndCode$1(code) {
     if (code.includes(';')) {
         code = code[0] + '0';
     }
-    var returnValue = ansiStyles$1.codes.get(Number.parseInt(code, 10));
+    var returnValue = ansiStyles.codes.get(Number.parseInt(code, 10));
     if (returnValue) {
-        return ansiStyles$1.color.ansi(returnValue);
+        return ansiStyles.color.ansi(returnValue);
     }
-    return ansiStyles$1.reset.open;
+    return ansiStyles.reset.open;
 }
 function findNumberIndex$1(string) {
     for(var index = 0; index < string.length; index++){
@@ -28526,7 +29088,7 @@ function reduceAnsiCodes$1(codes) {
     try {
         var _loop = function() {
             var code = _step.value;
-            if (code.code === ansiStyles$1.reset.open) {
+            if (code.code === ansiStyles.reset.open) {
                 // Reset code, disable all codes
                 returnValue = [];
             } else if (endCodesSet$1.has(code.code)) {
@@ -28626,24 +29188,24 @@ var ESCAPES = new Set([
 ]); // \x1b and \x9b
 var endCodesSet = new Set();
 var endCodesMap = new Map();
-var _iteratorNormalCompletion3 = true, _didIteratorError3 = false, _iteratorError3 = undefined;
+var _iteratorNormalCompletion1 = true, _didIteratorError1 = false, _iteratorError1 = undefined;
 try {
-    for(var _iterator3 = ansiStyles$1.codes[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true){
-        var _step_value1 = _sliced_to_array(_step3.value, 2), start1 = _step_value1[0], end1 = _step_value1[1];
-        endCodesSet.add(ansiStyles$1.color.ansi(end1));
-        endCodesMap.set(ansiStyles$1.color.ansi(start1), ansiStyles$1.color.ansi(end1));
+    for(var _iterator1 = ansiStyles.codes[Symbol.iterator](), _step1; !(_iteratorNormalCompletion1 = (_step1 = _iterator1.next()).done); _iteratorNormalCompletion1 = true){
+        var _step_value1 = _sliced_to_array(_step1.value, 2), start1 = _step_value1[0], end1 = _step_value1[1];
+        endCodesSet.add(ansiStyles.color.ansi(end1));
+        endCodesMap.set(ansiStyles.color.ansi(start1), ansiStyles.color.ansi(end1));
     }
 } catch (err) {
-    _didIteratorError3 = true;
-    _iteratorError3 = err;
+    _didIteratorError1 = true;
+    _iteratorError1 = err;
 } finally{
     try {
-        if (!_iteratorNormalCompletion3 && _iterator3.return != null) {
-            _iterator3.return();
+        if (!_iteratorNormalCompletion1 && _iterator1.return != null) {
+            _iterator1.return();
         }
     } finally{
-        if (_didIteratorError3) {
-            throw _iteratorError3;
+        if (_didIteratorError1) {
+            throw _iteratorError1;
         }
     }
 }
@@ -28661,11 +29223,11 @@ function getEndCode(code) {
     if (code.includes(";")) {
         code = code[0] + "0";
     }
-    var ret = ansiStyles$1.codes.get(parseInt(code, 10));
+    var ret = ansiStyles.codes.get(parseInt(code, 10));
     if (ret) {
-        return ansiStyles$1.color.ansi(ret);
+        return ansiStyles.color.ansi(ret);
     } else {
-        return ansiStyles$1.reset.open;
+        return ansiStyles.reset.open;
     }
 }
 function ansiCodesToString(codes) {
@@ -28682,7 +29244,7 @@ function ansiCodesToString(codes) {
     try {
         var _loop = function() {
             var code = _step.value;
-            if (code.code === ansiStyles$1.reset.open) {
+            if (code.code === ansiStyles.reset.open) {
                 // Reset code, disable all codes
                 ret = [];
             } else if (endCodesSet.has(code.code)) {
