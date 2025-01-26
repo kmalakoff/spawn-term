@@ -12,6 +12,7 @@ const stripBuiltins = () => ({
 })
 
 const replacements = {}
+replacements["'chalk';"] = "'colors';";
 replacements['Intl.Segmenter'] = 'IntlSegmenter';
 replacements['await import'] = '// await import';
 replacements['import{readFile as E}from"node:fs/promises";import{createRequire as _}from"node:module";'] = '';

@@ -31,7 +31,7 @@ function Header({ item }) {
   return (
     <Box>
       <Box marginRight={1}>{icon}</Box>
-      {group && <Text>{`${group}${figures.pointer} `}</Text>}
+      {group && <Text bold>{`${group}${figures.pointer} `}</Text>}
       <Text>{title}</Text>
     </Box>
   );
