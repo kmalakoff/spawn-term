@@ -2,11 +2,14 @@ import React, { useContext } from 'react';
 import { useStore } from 'zustand';
 import StoreContext from '../contexts/Store';
 import { Box, Text } from '../ink.mjs';
+import _ansiRegex from '../lib/ansiRegex';
 import figures from '../lib/figures';
 import Spinner from './Spinner';
 
 import type { AppState } from '../types';
 import { LineType } from '../types';
+
+const ansiRegex = _ansiRegex();
 
 // From: https://github.com/sindresorhus/cli-spinners/blob/00de8fbeee16fa49502fa4f687449f70f2c8ca2c/spinners.json#L2
 const spinner = {
@@ -72,8 +75,10 @@ export default function ChildProcess({ id }: ChildProcessProps) {
       </Box>
     );
   }
-  const errors = lines.filter((line) => line.type === LineType.stderr);
-  const output = lines.filter((line) => line.text.length > 0).pop();
+  // remove ansi codes when displaying single lines
+  const cleaned = lines.map((x) => ({ type: x.type, text: x.text.replace(ansiRegex, '') }));
+  const errors = cleaned.filter((line) => line.type === LineType.stderr);
+  const output = cleaned.filter((line) => line.text.length > 0).pop();
 
   return (
     <Box flexDirection="column">
