@@ -14,8 +14,6 @@ const spinner = {
   frames: ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'],
 };
 
-const _RUNS = [figures.cross, figures.tick].concat(spinner.frames);
-
 const ICONS = {
   error: <Text color="red">{figures.cross}</Text>,
   success: <Text color="green">{figures.tick}</Text>,
@@ -74,16 +72,13 @@ export default function ChildProcess({ id }: ChildProcessProps) {
       </Box>
     );
   }
-  // const runs = lines.filter((line) => RUNS.some((run) => line.text[0] === run));
-  const runs = [];
-  const errors = lines.filter((line) => line.type === LineType.stderr && runs.indexOf(line) < 0);
+  const errors = lines.filter((line) => line.type === LineType.stderr);
   const output = lines.filter((line) => line.text.length > 0).pop();
 
   return (
     <Box flexDirection="column">
       <Header item={item} />
-      {runs.length > 0 && <Lines lines={runs} />}
-      {state === 'running' && output && runs.indexOf(output) < 0 && <Output output={output} />}
+      {state === 'running' && output && <Output output={output} />}
       {errors.length > 0 && <Lines lines={errors} />}
     </Box>
   );
