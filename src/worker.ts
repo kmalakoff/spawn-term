@@ -75,7 +75,7 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
       });
       queue.defer(oo.bind(null, cp.stderr.pipe(outputs.stderr), ['error', 'end', 'close', 'finish']));
     }
-    queue.defer(spawn.worker.bind(null, cp, { ...csOptions, encoding: 'utf8' }));
+    queue.defer(spawn.worker.bind(null, cp, { ...csOptions, encoding: encoding || 'utf8' }));
     queue.await((err) => {
       const res = (err ? err : {}) as SpawnResult;
       res.stdout = outputs.stdout ? outputs.stdout.output : null;
