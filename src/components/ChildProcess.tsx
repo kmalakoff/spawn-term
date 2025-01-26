@@ -40,7 +40,7 @@ function Header({ item }) {
 function Output({ output }) {
   return (
     <Box marginLeft={2}>
-      <Text color="gray">{`${figures.arrowRight} ${output.text}`}</Text>
+      <Text color="gray">{output.text}</Text>
     </Box>
   );
 }
@@ -58,17 +58,6 @@ function Lines({ lines }) {
   );
 }
 
-const HEADINGS = [figures.tick, figures.cross, spinner.frames[0]];
-function filterHeadings(lines) {
-  const headings = [];
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    if (!HEADINGS.some((x) => line[0] === x)) break;
-    headings.push(line);
-  }
-  return headings;
-}
-
 export default function ChildProcess({ id }: ChildProcessProps) {
   const store = useContext(StoreContext);
   const appState = useStore(store) as AppState;
@@ -83,14 +72,12 @@ export default function ChildProcess({ id }: ChildProcessProps) {
       </Box>
     );
   }
-  const headings = filterHeadings(lines);
   const errors = lines.filter((line) => line.type === LineType.stderr);
   const output = lines.filter((line) => line.text.length > 0).pop();
 
   return (
     <Box flexDirection="column">
       <Header item={item} />
-      {headings.length > 0 && <Lines lines={headings} />}
       {state === 'running' && output && <Output output={output} />}
       {errors.length > 0 && <Lines lines={errors} />}
     </Box>
