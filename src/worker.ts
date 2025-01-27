@@ -5,12 +5,12 @@ import oo from 'on-one';
 import Queue from 'queue-cb';
 
 import createApp from './createApp';
-import addLines from './lib/addLines';
+import addData from './lib/addData';
 import concatWritable from './lib/concatWritable';
 import formatArguments from './lib/formatArguments';
 
 import type { SpawnOptions, TerminalOptions } from './types';
-import { LineType } from './types';
+import { DataType } from './types';
 
 const terminal = createApp();
 
@@ -20,25 +20,23 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
   if (stdio === 'inherit') {
     terminal.retain((store) => {
       const id = uuid();
-      store.getState().addProcess({ id, title: [command].concat(formatArguments(args)).join(' '), state: 'running', lines: [], ...options });
+      store.getState().addProcess({ id, title: [command].concat(formatArguments(args)).join(' '), state: 'running', data: [], ...options });
 
       const cp = crossSpawn(command, args, csOptions);
       const outputs = { stdout: null, stderr: null };
 
       const queue = new Queue();
       if (cp.stdout) {
-        outputs.stdout = addLines((texts) => {
+        outputs.stdout = addData((data) => {
           const item = store.getState().processes.find((x) => x.id === id);
-          const lines = item.lines.concat(texts.map((text) => ({ type: LineType.stdout, text })));
-          store.getState().updateProcess({ ...item, lines });
+          store.getState().updateProcess({ ...item, data: item.data.concat([{ type: DataType.stdout, text: data.toString('utf8') }]) });
         });
         queue.defer(oo.bind(null, cp.stdout.pipe(outputs.stdout), ['error', 'end', 'close', 'finish']));
       }
       if (cp.stderr) {
-        outputs.stderr = addLines((texts) => {
+        outputs.stderr = addData((data) => {
           const item = store.getState().processes.find((x) => x.id === id);
-          const lines = item.lines.concat(texts.map((text) => ({ type: LineType.stderr, text })));
-          store.getState().updateProcess({ ...item, lines });
+          store.getState().updateProcess({ ...item, data: item.data.concat([{ type: DataType.stderr, text: data.toString('utf8') }]) });
         });
         queue.defer(oo.bind(null, cp.stderr.pipe(outputs.stderr), ['error', 'end', 'close', 'finish']));
       }
