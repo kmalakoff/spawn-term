@@ -100,12 +100,12 @@ const Contracted = memo(function Contracted({ item }: ItemProps) {
 
   // remove ansi codes when displaying single lines
   const errors = useMemo(() => lines.filter((line) => line.type === DataType.stderr), [lines]);
-  const output = useMemo(() => lines.filter((line) => line.text.length > 0).pop(), [lines]);
+  const output = useMemo(() => lines.filter((line) => line.text.length > 0).pop() || '', [lines]);
 
   return (
     <Box flexDirection="column">
       <Header group={item.group} title={item.title} state={item.state} />
-      {state === 'running' && output && <Output output={output} />}
+      {state === 'running' && <Output output={output} />}
       {errors.length > 0 && <Lines lines={errors} />}
     </Box>
   );
