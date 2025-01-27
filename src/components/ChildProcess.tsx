@@ -66,7 +66,8 @@ const Lines = memo(function Lines({ lines }: LinesProps) {
       {lines.map((line, index) => (
         // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
         <Box key={index} flexDirection="column">
-          <Text color={line.type === DataType.stderr ? 'red' : 'black'}>{line.text}</Text>
+          {/* <Text color={line.type === DataType.stderr ? 'red' : 'black'}>{line.text}</Text> */}
+          <Text>{line.text}</Text>
         </Box>
       ))}
     </Box>
