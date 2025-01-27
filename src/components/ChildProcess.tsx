@@ -1,14 +1,13 @@
 import React, { memo, useMemo } from 'react';
-import { Box, Text, useStderr, useStdout } from '../ink.mjs';
-import ansiRegex from '../lib/ansiRegex';
+import { Box, Text } from '../ink.mjs';
 import figures from '../lib/figures';
 import Spinner from './Spinner';
 
 import type { ChildProcess as ChildProcessT, Data, State } from '../types';
 import { DataType } from '../types';
 
-const NEW_LINE_REGEX = /\r\n|[\n\v\f\r\x85\u2028\u2029]/g;
-const ANSI_REGEX = ansiRegex();
+const NEW_LINE_REGEX = /\r\n|\n/g;
+// const ANSI_REGEX = ansiRegex();
 
 type ItemProps = {
   item: ChildProcessT;
@@ -95,7 +94,7 @@ const Contracted = memo(function Contracted({ item }: ItemProps) {
   const lines = useMemo(() => {
     const lines = [];
     data.forEach((x) => {
-      x.text.split(NEW_LINE_REGEX).forEach((text) => lines.push({ type: x.type, text: text.replace(ANSI_REGEX, '') }));
+      x.text.split(NEW_LINE_REGEX).forEach((text) => lines.push({ type: x.type, text }));
     });
     return lines;
   }, [data]);
