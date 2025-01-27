@@ -1,11 +1,14 @@
 import React, { memo, useMemo } from 'react';
-import { Box, Text } from '../ink.mjs';
+import { Box, Text, useStderr, useStdout } from '../ink.mjs';
+import ansiRegex from '../lib/ansiRegex';
 import figures from '../lib/figures';
-import regexANSI from '../lib/regexANSI';
 import Spinner from './Spinner';
 
 import type { ChildProcess as ChildProcessT, Data, State } from '../types';
 import { DataType } from '../types';
+
+const NEW_LINE_REGEX = /\r\n|[\n\v\f\r\x85\u2028\u2029]/g;
+const ANSI_REGEX = ansiRegex();
 
 type ItemProps = {
   item: ChildProcessT;
@@ -67,31 +70,21 @@ const Lines = memo(function Lines({ lines }: LinesProps) {
         // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
         <Box key={index} flexDirection="column">
           {/* <Text color={line.type === DataType.stderr ? 'red' : 'black'}>{line.text}</Text> */}
-          <Text>{line.text}</Text>
+          {/* @ts-ignore */}
+          <ink-text>{line.text}</ink-text>
         </Box>
       ))}
     </Box>
   );
 });
 
-const linesRegex = /\r\n|[\n\v\f\r\x85\u2028\u2029]/g;
-const ansiRegex = regexANSI();
-
 const Expanded = memo(function Expanded({ item }: ItemProps) {
   const { data } = item;
-
-  const lines = useMemo(() => {
-    const lines = [];
-    data.forEach((x) => {
-      x.text.split(linesRegex).forEach((text) => lines.push({ type: x.type, text: text.replace(ansiRegex, '') }));
-    });
-    return lines;
-  }, [data]);
 
   return (
     <Box flexDirection="column">
       <Header group={item.group} title={item.title} state={item.state} />
-      <Lines lines={lines} />
+      <Lines lines={data} />
     </Box>
   );
 });
@@ -102,7 +95,7 @@ const Contracted = memo(function Contracted({ item }: ItemProps) {
   const lines = useMemo(() => {
     const lines = [];
     data.forEach((x) => {
-      x.text.split(linesRegex).forEach((text) => lines.push({ type: x.type, text: text.replace(ansiRegex, '') }));
+      x.text.split(NEW_LINE_REGEX).forEach((text) => lines.push({ type: x.type, text: text.replace(ANSI_REGEX, '') }));
     });
     return lines;
   }, [data]);
