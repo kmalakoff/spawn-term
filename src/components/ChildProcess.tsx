@@ -1,15 +1,15 @@
-import React, { useContext } from 'react';
-import { useStore } from 'zustand';
-import StoreContext from '../contexts/Store';
+import React, { memo, useMemo } from 'react';
 import { Box, Text } from '../ink.mjs';
 import _ansiRegex from '../lib/ansiRegex';
 import figures from '../lib/figures';
 import Spinner from './Spinner';
 
-import type { AppState } from '../types';
-import { LineType } from '../types';
+import type { ChildProcess as ChildProcessT, Data, State } from '../types';
+import { DataType } from '../types';
 
-const ansiRegex = _ansiRegex();
+type ItemProps = {
+  item: ChildProcessT;
+};
 
 // From: https://github.com/sindresorhus/cli-spinners/blob/00de8fbeee16fa49502fa4f687449f70f2c8ca2c/spinners.json#L2
 const spinner = {
@@ -23,68 +23,95 @@ const ICONS = {
   running: <Spinner {...spinner} />,
 };
 
-type ChildProcessProps = {
-  id: string;
+type HeaderProps = {
+  group?: string;
+  title: string;
+  state: State;
 };
 
-function Header({ item }) {
-  const { group, title, state } = item;
-  const icon = ICONS[state];
+const Header = memo(
+  function Header({ group, title, state }: HeaderProps) {
+    const icon = ICONS[state];
 
-  return (
-    <Box>
-      <Box marginRight={1}>{icon}</Box>
-      {group && <Text bold>{`${group}${figures.pointer} `}</Text>}
-      <Text>{title}</Text>
-    </Box>
-  );
-}
+    return (
+      <Box>
+        <Box marginRight={1}>{icon}</Box>
+        {group && <Text bold>{`${group}${figures.pointer} `}</Text>}
+        <Text>{title}</Text>
+      </Box>
+    );
+  },
+  (a, b) => a.group === b.group && a.title === b.title && a.state === b.state
+);
 
-function Output({ output }) {
+type OutputProps = {
+  output: Data;
+};
+
+const Output = memo(function Output({ output }: OutputProps) {
   return (
     <Box marginLeft={2}>
       <Text color="gray">{output.text}</Text>
     </Box>
   );
-}
+});
 
-function Lines({ lines }) {
+type LinesProps = {
+  lines: Data[];
+};
+
+const Lines = memo(function Lines({ lines }: LinesProps) {
   return (
     <Box flexDirection="column" marginLeft={2}>
       {lines.map((line, index) => (
         // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-        <Box key={index} flexDirection="column" height={1}>
-          <Text color={line.type === LineType.stderr ? 'red' : 'black'}>{line.text}</Text>
+        <Box key={index} flexDirection="column">
+          <Text color={line.type === DataType.stderr ? 'red' : 'black'}>{line.text}</Text>
         </Box>
       ))}
     </Box>
   );
-}
+});
 
-export default function ChildProcess({ id }: ChildProcessProps) {
-  const store = useContext(StoreContext);
-  const appState = useStore(store) as AppState;
-  const item = appState.processes.find((x) => x.id === id);
-  const { state, lines, expanded } = item;
-
-  if (expanded) {
-    return (
-      <Box flexDirection="column">
-        <Header item={item} />
-        <Lines lines={lines} />
-      </Box>
-    );
-  }
-  // remove ansi codes when displaying single lines
-  const cleaned = lines.map((x) => ({ type: x.type, text: x.text.replace(ansiRegex, '') }));
-  const errors = cleaned.filter((line) => line.type === LineType.stderr);
-  const output = cleaned.filter((line) => line.text.length > 0).pop();
+const Expanded = memo(function Expanded({ item }: ItemProps) {
+  const { data } = item;
 
   return (
     <Box flexDirection="column">
-      <Header item={item} />
+      <Header group={item.group} title={item.title} state={item.state} />
+      <Lines lines={data} />
+    </Box>
+  );
+});
+
+const linesRegex = /\r\n|\n/g;
+const ansiRegex = _ansiRegex();
+
+const Contracted = memo(function Contracted({ item }: ItemProps) {
+  const { state, data } = item;
+
+  const lines = useMemo(() => {
+    const lines = [];
+    data.forEach((x) => {
+      x.text.split(linesRegex).forEach((text) => lines.push({ type: x.type, text: text.replace(ansiRegex, '') }));
+    });
+    return lines;
+  }, [data]);
+
+  // remove ansi codes when displaying single lines
+  const errors = useMemo(() => lines.filter((line) => line.type === DataType.stderr), [lines]);
+  const output = useMemo(() => lines.filter((line) => line.text.length > 0).pop(), [lines]);
+
+  return (
+    <Box flexDirection="column">
+      <Header group={item.group} title={item.title} state={item.state} />
       {state === 'running' && output && <Output output={output} />}
       {errors.length > 0 && <Lines lines={errors} />}
     </Box>
   );
-}
+});
+
+export default memo(function ChildProcess({ item }: ItemProps) {
+  const { expanded } = item;
+  return expanded ? <Expanded item={item} /> : <Contracted item={item} />;
+});

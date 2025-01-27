@@ -12,7 +12,7 @@ export default function App() {
   return (
     <Box flexDirection="column">
       {appState.processes.map((item: ChildProcessT) => (
-        <ChildProcess key={item.id} id={item.id} />
+        <ChildProcess key={item.id} item={item} />
       ))}
     </Box>
   );
