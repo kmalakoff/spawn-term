@@ -1,1 +1,1 @@
-ignores: ["ink", "colors", "unicode-segmenter"]
+ignores: ["ink", "ansi-colors", "unicode-segmenter"]
