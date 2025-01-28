@@ -7,9 +7,7 @@ import Spinner from './Spinner';
 import type { ChildProcess as ChildProcessT, Line, State } from '../types';
 import { LineType } from '../types';
 
-const _REGEX_NEW_LINE = /\r\n|[\n\v\f\r\x85\u2028\u2029]/g;
 const REGEX_ANSI = ansiRegex();
-const _DEFAULT_SUMMARY = { type: LineType.stdout, text: '' };
 
 type ItemProps = {
   item: ChildProcessT;
@@ -39,7 +37,7 @@ const Header = memo(
 
     return (
       <Box>
-        <Box marginRight={1}>{icon}</Box>
+        {icon}
         {group && <Text bold>{`${group}${figures.pointer} `}</Text>}
         <Text>{title}</Text>
       </Box>
