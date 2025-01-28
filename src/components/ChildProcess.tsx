@@ -63,7 +63,7 @@ type LinesProps = {
 };
 
 // @ts-ignore
-const renderLine = (line, index) => <ink-text key={index}>{line.text}</ink-text>;
+const renderLine = (line, index) => <ink-text key={index}>{line.text.length > 0 ? line.text : '\n'}</ink-text>;
 
 const Lines = memo(function Lines({ lines }: LinesProps) {
   return (
