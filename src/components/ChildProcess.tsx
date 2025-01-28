@@ -1,13 +1,15 @@
 import React, { memo, useMemo } from 'react';
 import { Box, Text } from '../ink.mjs';
+import ansiRegex from '../lib/ansiRegex';
 import figures from '../lib/figures';
 import Spinner from './Spinner';
 
 import type { ChildProcess as ChildProcessT, Data, State } from '../types';
 import { DataType } from '../types';
 
-const NEW_LINE_REGEX = /\r\n|\n/g;
-// const ANSI_REGEX = ansiRegex();
+const REGEX_NEW_LINE = /\r\n|[\n\v\f\r\x85\u2028\u2029]/g;
+const REGEX_ANSI = ansiRegex();
+const DEFAULT_SUMMARY = { type: DataType.stdout, text: '' };
 
 type ItemProps = {
   item: ChildProcessT;
@@ -46,14 +48,14 @@ const Header = memo(
   (a, b) => a.group === b.group && a.title === b.title && a.state === b.state
 );
 
-type OutputProps = {
-  output: Data;
+type RunningSummaryProps = {
+  line: Data;
 };
 
-const Output = memo(function Output({ output }: OutputProps) {
+const RunningSummary = memo(function RunningSummary({ line }: RunningSummaryProps) {
   return (
     <Box marginLeft={2}>
-      <Text color="gray">{output.text}</Text>
+      <Text color="gray">{line.text.replace(REGEX_ANSI, '')}</Text>
     </Box>
   );
 });
@@ -68,7 +70,6 @@ const Lines = memo(function Lines({ lines }: LinesProps) {
       {lines.map((line, index) => (
         // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
         <Box key={index} flexDirection="column">
-          {/* <Text color={line.type === DataType.stderr ? 'red' : 'black'}>{line.text}</Text> */}
           {/* @ts-ignore */}
           <ink-text>{line.text}</ink-text>
         </Box>
@@ -79,11 +80,18 @@ const Lines = memo(function Lines({ lines }: LinesProps) {
 
 const Expanded = memo(function Expanded({ item }: ItemProps) {
   const { data } = item;
+  const lines = useMemo(() => {
+    const lines = [];
+    data.forEach((x) => {
+      x.text.split(REGEX_NEW_LINE).forEach((text) => lines.push({ type: x.type, text }));
+    });
+    return lines;
+  }, [data]) as Data[];
 
   return (
     <Box flexDirection="column">
       <Header group={item.group} title={item.title} state={item.state} />
-      <Lines lines={data} />
+      <Lines lines={lines} />
     </Box>
   );
 });
@@ -94,19 +102,19 @@ const Contracted = memo(function Contracted({ item }: ItemProps) {
   const lines = useMemo(() => {
     const lines = [];
     data.forEach((x) => {
-      x.text.split(NEW_LINE_REGEX).forEach((text) => lines.push({ type: x.type, text }));
+      x.text.split(REGEX_NEW_LINE).forEach((text) => lines.push({ type: x.type, text }));
     });
     return lines;
   }, [data]);
 
   // remove ansi codes when displaying single lines
   const errors = useMemo(() => lines.filter((line) => line.type === DataType.stderr), [lines]);
-  const output = useMemo(() => lines.filter((line) => line.text.length > 0 && errors.indexOf(line) < 0).pop() || '', [lines, errors]);
+  const summary = useMemo(() => lines.filter((line) => line.text.length > 0 && errors.indexOf(line) < 0).pop() || DEFAULT_SUMMARY, [lines, errors]);
 
   return (
     <Box flexDirection="column">
       <Header group={item.group} title={item.title} state={item.state} />
-      {state === 'running' && <Output output={output} />}
+      {state === 'running' && <RunningSummary line={summary} />}
       {errors.length > 0 && <Lines lines={errors} />}
     </Box>
   );
