@@ -18,5 +18,5 @@ export default function Spinner({ interval, frames }: SpinnerProps) {
     };
   }, [interval, frames]);
 
-  return <Text>{`${frames[index]} `}</Text>;
+  return <Text>{frames[index]}</Text>;
 }
