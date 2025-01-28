@@ -70,8 +70,7 @@ const Lines = memo(function Lines({ lines }: LinesProps) {
       {lines.map((line, index) => (
         // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
         <Box key={index} flexDirection="column">
-          {/* @ts-ignore */}
-          <ink-text>{line.text}</ink-text>
+          <Text>{line.text}</Text>
         </Box>
       ))}
     </Box>
