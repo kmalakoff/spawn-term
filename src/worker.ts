@@ -29,14 +29,14 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
       if (cp.stdout) {
         outputs.stdout = addData((data) => {
           const item = store.getState().processes.find((x) => x.id === id);
-          store.getState().updateProcess({ ...item, data: item.data.concat([{ type: DataType.stdout, text: data.toString('utf8') }]) });
+          store.getState().updateProcess({ ...item, data: item.data.concat([{ type: DataType.stdout, text: data === null ? null : data.toString('utf8') }]) });
         });
         queue.defer(oo.bind(null, cp.stdout.pipe(outputs.stdout), ['error', 'end', 'close', 'finish']));
       }
       if (cp.stderr) {
         outputs.stderr = addData((data) => {
           const item = store.getState().processes.find((x) => x.id === id);
-          store.getState().updateProcess({ ...item, data: item.data.concat([{ type: DataType.stderr, text: data.toString('utf8') }]) });
+          store.getState().updateProcess({ ...item, data: item.data.concat([{ type: DataType.stderr, text: data === null ? null : data.toString('utf8') }]) });
         });
         queue.defer(oo.bind(null, cp.stderr.pipe(outputs.stderr), ['error', 'end', 'close', 'finish']));
       }
