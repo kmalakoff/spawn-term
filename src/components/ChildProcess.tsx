@@ -104,6 +104,7 @@ const Expanded = memo(function Expanded({ item }: ItemProps) {
 
 const Contracted = memo(function Contracted({ item }: ItemProps) {
   const { state, data } = item;
+  const finished = data.length > 0 ? data[data.length - 1].text === null : false;
   const lines = useLines(data);
 
   // remove ansi codes when displaying single lines
@@ -113,7 +114,7 @@ const Contracted = memo(function Contracted({ item }: ItemProps) {
   return (
     <Box flexDirection="column">
       <Header group={item.group} title={item.title} state={item.state} />
-      {state === 'running' && <RunningSummary line={summary} />}
+      {state === 'running' && !finished && <RunningSummary line={summary} />}
       {errors.length > 0 && <Lines lines={errors} />}
     </Box>
   );
