@@ -4,12 +4,12 @@ import ansiRegex from '../lib/ansiRegex';
 import figures from '../lib/figures';
 import Spinner from './Spinner';
 
-import type { ChildProcess as ChildProcessT, Data, State } from '../types';
-import { DataType } from '../types';
+import type { ChildProcess as ChildProcessT, Line, State } from '../types';
+import { LineType } from '../types';
 
-const REGEX_NEW_LINE = /\r\n|[\n\v\f\r\x85\u2028\u2029]/g;
+const _REGEX_NEW_LINE = /\r\n|[\n\v\f\r\x85\u2028\u2029]/g;
 const REGEX_ANSI = ansiRegex();
-const DEFAULT_SUMMARY = { type: DataType.stdout, text: '' };
+const _DEFAULT_SUMMARY = { type: LineType.stdout, text: '' };
 
 type ItemProps = {
   item: ChildProcessT;
@@ -49,7 +49,7 @@ const Header = memo(
 );
 
 type RunningSummaryProps = {
-  line: Data;
+  line: Line;
 };
 
 const RunningSummary = memo(function RunningSummary({ line }: RunningSummaryProps) {
@@ -61,7 +61,7 @@ const RunningSummary = memo(function RunningSummary({ line }: RunningSummaryProp
 });
 
 type LinesProps = {
-  lines: Data[];
+  lines: Line[];
 };
 
 const Lines = memo(function Lines({ lines }: LinesProps) {
@@ -77,21 +77,8 @@ const Lines = memo(function Lines({ lines }: LinesProps) {
   );
 });
 
-const useLines = (data: Data[]) =>
-  useMemo(() => {
-    const finished = data.length > 0 ? data[data.length - 1].text === null : false;
-    if (finished) data.pop(); // null at end means done
-    const lines = [];
-    data.forEach((x) => {
-      x.text.split(REGEX_NEW_LINE).forEach((text) => lines.push({ type: x.type, text }));
-    });
-    if (!finished) lines.pop(); // remove partial lines
-    return lines;
-  }, [data]) as Data[];
-
 const Expanded = memo(function Expanded({ item }: ItemProps) {
-  const { data } = item;
-  const lines = useLines(data);
+  const { lines } = item;
 
   return (
     <Box flexDirection="column">
@@ -102,17 +89,11 @@ const Expanded = memo(function Expanded({ item }: ItemProps) {
 });
 
 const Contracted = memo(function Contracted({ item }: ItemProps) {
-  const { state, data } = item;
-  const lines = useLines(data);
+  const { state, lines } = item;
 
   // remove ansi codes when displaying single lines
-  const errors = useMemo(() => lines.filter((line) => line.type === DataType.stderr), [lines]);
-  const summary = useMemo(() => {
-    const finished = data.length > 0 ? data[data.length - 1].text === null : false;
-    let summary = lines.filter((line) => line.text.length > 0 && errors.indexOf(line) < 0).pop();
-    if (!summary && !finished) summary = DEFAULT_SUMMARY;
-    return summary;
-  }, [data, lines, errors]);
+  const errors = useMemo(() => lines.filter((line) => line.type === LineType.stderr), [lines]);
+  const summary = useMemo(() => lines.filter((line) => line.text.length > 0 && errors.indexOf(line) < 0).pop(), [lines, errors]);
 
   return (
     <Box flexDirection="column">

@@ -6,12 +6,12 @@ export type TerminalOptions = {
   expanded?: string;
 };
 
-export enum DataType {
+export enum LineType {
   stdout = 1,
   stderr = 2,
 }
-export type Data = {
-  type: DataType;
+export type Line = {
+  type: LineType;
   text: string;
 };
 
@@ -21,7 +21,7 @@ export type ChildProcess = {
   group?: string;
   title: string;
   state: State;
-  data: Data[];
+  lines: Line[];
   expanded?: string;
 };
 
