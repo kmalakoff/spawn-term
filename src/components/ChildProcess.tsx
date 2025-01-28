@@ -78,15 +78,21 @@ const Lines = memo(function Lines({ lines }: LinesProps) {
   );
 });
 
-const Expanded = memo(function Expanded({ item }: ItemProps) {
-  const { data } = item;
-  const lines = useMemo(() => {
+const useLines = (data: Data[]) =>
+  useMemo(() => {
+    const finished = data.length > 0 ? data[data.length - 1].text === null : false;
+    if (finished) data.pop(); // null at end means done
     const lines = [];
     data.forEach((x) => {
       x.text.split(REGEX_NEW_LINE).forEach((text) => lines.push({ type: x.type, text }));
     });
+    if (!finished) lines.pop(); // remove partial lines
     return lines;
   }, [data]) as Data[];
+
+const Expanded = memo(function Expanded({ item }: ItemProps) {
+  const { data } = item;
+  const lines = useLines(data);
 
   return (
     <Box flexDirection="column">
@@ -98,14 +104,7 @@ const Expanded = memo(function Expanded({ item }: ItemProps) {
 
 const Contracted = memo(function Contracted({ item }: ItemProps) {
   const { state, data } = item;
-
-  const lines = useMemo(() => {
-    const lines = [];
-    data.forEach((x) => {
-      x.text.split(REGEX_NEW_LINE).forEach((text) => lines.push({ type: x.type, text }));
-    });
-    return lines;
-  }, [data]);
+  const lines = useLines(data);
 
   // remove ansi codes when displaying single lines
   const errors = useMemo(() => lines.filter((line) => line.type === DataType.stderr), [lines]);
