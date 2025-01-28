@@ -5,12 +5,12 @@ import oo from 'on-one';
 import Queue from 'queue-cb';
 
 import createApp from './createApp';
-import addData from './lib/addData';
+import addLines from './lib/addLines';
 import concatWritable from './lib/concatWritable';
 import formatArguments from './lib/formatArguments';
 
 import type { SpawnOptions, TerminalOptions } from './types';
-import { DataType } from './types';
+import { LineType } from './types';
 
 const terminal = createApp();
 
@@ -20,23 +20,23 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
   if (stdio === 'inherit') {
     terminal.retain((store) => {
       const id = uuid();
-      store.getState().addProcess({ id, title: [command].concat(formatArguments(args)).join(' '), state: 'running', data: [], ...options });
+      store.getState().addProcess({ id, title: [command].concat(formatArguments(args)).join(' '), state: 'running', lines: [], ...options });
 
       const cp = crossSpawn(command, args, csOptions);
       const outputs = { stdout: null, stderr: null };
 
       const queue = new Queue();
       if (cp.stdout) {
-        outputs.stdout = addData((data) => {
+        outputs.stdout = addLines((lines) => {
           const item = store.getState().processes.find((x) => x.id === id);
-          store.getState().updateProcess({ ...item, data: item.data.concat([{ type: DataType.stdout, text: data === null ? null : data.toString('utf8') }]) });
+          store.getState().updateProcess({ ...item, lines: item.lines.concat(lines.map((text) => ({ type: LineType.stdout, text }))) });
         });
         queue.defer(oo.bind(null, cp.stdout.pipe(outputs.stdout), ['error', 'end', 'close', 'finish']));
       }
       if (cp.stderr) {
-        outputs.stderr = addData((data) => {
+        outputs.stderr = addLines((lines) => {
           const item = store.getState().processes.find((x) => x.id === id);
-          store.getState().updateProcess({ ...item, data: item.data.concat([{ type: DataType.stderr, text: data === null ? null : data.toString('utf8') }]) });
+          store.getState().updateProcess({ ...item, lines: item.lines.concat(lines.map((text) => ({ type: LineType.stderr, text }))) });
         });
         queue.defer(oo.bind(null, cp.stderr.pipe(outputs.stderr), ['error', 'end', 'close', 'finish']));
       }
