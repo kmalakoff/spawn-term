@@ -7,5 +7,6 @@ export default function addLines(fn) {
       callback();
     },
   });
+  stream.on('finish', () => fn(null));
   return stream;
 }
