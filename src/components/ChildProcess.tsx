@@ -104,17 +104,21 @@ const Expanded = memo(function Expanded({ item }: ItemProps) {
 
 const Contracted = memo(function Contracted({ item }: ItemProps) {
   const { state, data } = item;
-  const finished = data.length > 0 ? data[data.length - 1].text === null : false;
   const lines = useLines(data);
 
   // remove ansi codes when displaying single lines
   const errors = useMemo(() => lines.filter((line) => line.type === DataType.stderr), [lines]);
-  const summary = useMemo(() => lines.filter((line) => line.text.length > 0 && errors.indexOf(line) < 0).pop() || DEFAULT_SUMMARY, [lines, errors]);
+  const summary = useMemo(() => {
+    const finished = data.length > 0 ? data[data.length - 1].text === null : false;
+    let summary = lines.filter((line) => line.text.length > 0 && errors.indexOf(line) < 0).pop();
+    if (!summary && !finished) summary = DEFAULT_SUMMARY;
+    return summary;
+  }, [data, lines, errors]);
 
   return (
     <Box flexDirection="column">
       <Header group={item.group} title={item.title} state={item.state} />
-      {state === 'running' && !finished && <RunningSummary line={summary} />}
+      {state === 'running' && summary && <RunningSummary line={summary} />}
       {errors.length > 0 && <Lines lines={errors} />}
     </Box>
   );
