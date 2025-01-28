@@ -64,15 +64,13 @@ type LinesProps = {
   lines: Line[];
 };
 
+// @ts-ignore
+const renderLine = (line, index) => <ink-text key={index}>{line.text}</ink-text>;
+
 const Lines = memo(function Lines({ lines }: LinesProps) {
   return (
     <Box flexDirection="column" marginLeft={2}>
-      {lines.map((line, index) => (
-        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-        <Box key={index} flexDirection="column">
-          <Text>{line.text}</Text>
-        </Box>
-      ))}
+      {lines.map(renderLine)}
     </Box>
   );
 });
