@@ -1,3 +1,4 @@
+import c from 'ansi-colors';
 import React, { memo, useMemo } from 'react';
 import { Box, Text } from '../ink.mjs';
 import ansiRegex from '../lib/ansiRegex';
@@ -20,8 +21,10 @@ const spinner = {
 };
 
 const ICONS = {
-  error: <Text color="red">{figures.cross}</Text>,
-  success: <Text color="green">{figures.tick}</Text>,
+  // @ts-ignore
+  error: <ink-text>{c.red(figures.cross)}</ink-text>,
+  // @ts-ignore
+  success: <ink-text color="green">{c.green(figures.tick)}</ink-text>,
   running: <Spinner {...spinner} />,
 };
 
@@ -62,8 +65,17 @@ type LinesProps = {
   lines: Line[];
 };
 
-// @ts-ignore
-const renderLine = (line, index) => <ink-text key={index}>{line.text.length > 0 ? line.text : '\n'}</ink-text>;
+const renderLine = (line, index) => {
+  return (
+    <React.Fragment key={index}>
+      {/* @ts-ignore */}
+      <ink-text style={{ minHeight: 1 }}>
+        {line.text}
+        {/* @ts-ignore */}
+      </ink-text>
+    </React.Fragment>
+  );
+};
 
 const Lines = memo(function Lines({ lines }: LinesProps) {
   return (
