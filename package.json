@@ -43,7 +43,6 @@
     "core-js": "^3.40.0",
     "cross-spawn-cb": "^2.1.22",
     "lil-uuid": "^0.1.1",
-    "newline-iterator": "^0.3.29",
     "on-one": "^0.1.4",
     "queue-cb": "^1.4.16",
     "react": "^18.3.1",
