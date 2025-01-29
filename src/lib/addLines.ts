@@ -1,6 +1,6 @@
 import { Writable } from 'readable-stream';
 
-const REGEX_NEW_LINE = /\r\n|[\n\v\f\r\x85\u2028\u2029]/g;
+const REGEX_NEW_LINE = /\r?\n|\r/g;
 
 export default function addLines(fn) {
   let last = '';
