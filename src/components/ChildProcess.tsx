@@ -21,10 +21,10 @@ const spinner = {
 };
 
 const ICONS = {
-  // @ts-ignore
+  // @ts-expect-error
   error: <ink-text>{c.red(figures.cross)}</ink-text>,
-  // @ts-ignore
-  success: <ink-text color="green">{c.green(figures.tick)}</ink-text>,
+  // @ts-expect-error
+  success: <ink-text>{c.green(figures.tick)}</ink-text>,
   running: <Spinner {...spinner} />,
 };
 
@@ -67,13 +67,11 @@ type LinesProps = {
 
 const renderLine = (line, index) => {
   return (
-    <React.Fragment key={index}>
-      {/* @ts-ignore */}
-      <ink-text style={{ minHeight: 1 }}>
-        {line.text}
-        {/* @ts-ignore */}
-      </ink-text>
-    </React.Fragment>
+    // @ts-expect-error
+    <ink-text key={index} style={{ minHeight: 1 }}>
+      {line.text}
+      {/* @ts-expect-error */}
+    </ink-text>
   );
 };
 
