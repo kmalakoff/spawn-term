@@ -6,12 +6,13 @@ export type TerminalOptions = {
   expanded?: string;
 };
 
-export enum LineType {
-  stdout = 1,
-  stderr = 2,
-}
+export const LineType = {
+  stdout: 1,
+  stderr: 2,
+} as const;
+
 export type Line = {
-  type: LineType;
+  type: (typeof LineType)[keyof typeof LineType];
   text: string;
 };
 
