@@ -9,23 +9,24 @@ import type { ChildProcess as ChildProcessT, Line, State } from '../types';
 import { LineType } from '../types';
 
 const REGEX_ANSI = ansiRegex();
-
-type ItemProps = {
-  item: ChildProcessT;
-};
+const BLANK_LINE = { type: LineType.stdout, text: '' };
 
 // From: https://github.com/sindresorhus/cli-spinners/blob/00de8fbeee16fa49502fa4f687449f70f2c8ca2c/spinners.json#L2
-const spinner = {
+const SPINNER = {
   interval: 80,
   frames: ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'],
 };
 
 const ICONS = {
-  // @ts-expect-error
+  // @ts-ignore
   error: <ink-text>{c.red(figures.cross)}</ink-text>,
-  // @ts-expect-error
+  // @ts-ignore
   success: <ink-text>{c.green(figures.tick)}</ink-text>,
-  running: <Spinner {...spinner} />,
+  running: <Spinner {...SPINNER} />,
+};
+
+type ItemProps = {
+  item: ChildProcessT;
 };
 
 type HeaderProps = {
@@ -67,10 +68,10 @@ type LinesProps = {
 
 const renderLine = (line, index) => {
   return (
-    // @ts-expect-error
+    // @ts-ignore
     <ink-text key={index} style={{ minHeight: 1 }}>
       {line.text}
-      {/* @ts-expect-error */}
+      {/* @ts-ignore */}
     </ink-text>
   );
 };
@@ -104,7 +105,7 @@ const Contracted = memo(function Contracted({ item }: ItemProps) {
   return (
     <Box flexDirection="column">
       <Header group={item.group} title={item.title} state={item.state} />
-      {state === 'running' && summary && <RunningSummary line={summary} />}
+      {state === 'running' && <RunningSummary line={summary || BLANK_LINE} />}
       {errors.length > 0 && <Lines lines={errors} />}
     </Box>
   );
