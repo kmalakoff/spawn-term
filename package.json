@@ -20,13 +20,14 @@
   "license": "MIT",
   "type": "module",
   "exports": {
-    "import": "./dist/esm/index.esm.mjs",
-    "require": "./dist/cjs/index.cjs.cjs",
-    "types": "./dist/types/index.esm.d.ts"
+    ".": {
+      "import": "./dist/esm/index-esm.mjs",
+      "require": "./dist/cjs/index-cjs.cjs"
+    },
+    "./package.json": "./package.json"
   },
-  "main": "dist/cjs/index.cjs.cjs",
-  "module": "dist/esm/index.esm.mjs",
-  "types": "dist/types/index.esm.d.ts",
+  "main": "dist/cjs/index-cjs.cjs",
+  "types": "dist/cjs/index-cjs.d.cts",
   "files": [
     "dist",
     "assets"
@@ -40,7 +41,7 @@
   },
   "dependencies": {
     "ansi-colors": "^4.1.3",
-    "core-js": "^3.41.0",
+    "core-js": "^3.42.0",
     "cross-spawn-cb": "^2.1.23",
     "lil-uuid": "^0.1.1",
     "on-one": "^0.1.4",
@@ -48,7 +49,7 @@
     "react": "^18.3.1",
     "readable-stream": "^2.3.8",
     "yoga-wasm-web": "^0.3.3",
-    "zustand": "^5.0.3"
+    "zustand": "^5.0.4"
   },
   "devDependencies": {
     "@types/mocha": "*",
@@ -62,6 +63,6 @@
     "node": ">=0.8"
   },
   "tsds": {
-    "source": "src/index.esm.ts"
+    "source": "src/index-esm.ts"
   }
 }
