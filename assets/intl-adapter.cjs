@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 Object.defineProperty(exports, "default", {
     enumerable: true,
-    get: function() {
+    get: function () {
         return intlAdapter;
     }
 });
@@ -16,7 +16,7 @@ function _class_call_check(instance, Constructor) {
 function _ts_generator(thisArg, body) {
     var f, y, t, g, _ = {
         label: 0,
-        sent: function() {
+        sent: function () {
             if (t[0] & 1) throw t[1];
             return t[1];
         },
@@ -27,11 +27,11 @@ function _ts_generator(thisArg, body) {
         next: verb(0),
         "throw": verb(1),
         "return": verb(2)
-    }, typeof Symbol === "function" && (g[Symbol.iterator] = function() {
+    }, typeof Symbol === "function" && (g[Symbol.iterator] = function () {
         return this;
     }), g;
     function verb(n) {
-        return function(v) {
+        return function (v) {
             return step([
                 n,
                 v
@@ -40,13 +40,13 @@ function _ts_generator(thisArg, body) {
     }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while(_)try {
+        while (_) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [
                 op[0] & 2,
                 t.value
             ];
-            switch(op[0]){
+            switch (op[0]) {
                 case 0:
                 case 1:
                     t = op;
@@ -98,9 +98,9 @@ function _ts_generator(thisArg, body) {
                 e
             ];
             y = 0;
-        } finally{
-            f = t = 0;
-        }
+        } finally {
+                f = t = 0;
+            }
         if (op[0] & 5) throw op[1];
         return {
             value: op[0] ? op[1] : void 0,
@@ -175,7 +175,7 @@ function requireCore() {
         var sliceFrom = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : 0, sliceTo = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : buffer.length;
         var lo = sliceFrom;
         var hi = sliceTo - 2;
-        while(lo <= hi){
+        while (lo <= hi) {
             var mid = lo + hi >> 1 & -2;
             var l = buffer[mid], h = buffer[mid + 1];
             if (l <= x && x <= h) {
@@ -195,10 +195,10 @@ function requireCore() {
 	 * @return {LookupTableBuffer}
 	 */ function initLookupTableBuffer(buffer, value) {
         var sep = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : '';
-        var nums = value.split(sep).map(function(s) {
+        var nums = value.split(sep).map(function (s) {
             return s ? parseInt(s, 36) : 0;
         });
-        for(var i = 0; i < nums.length; i++)buffer[i] = nums[i];
+        for (var i = 0; i < nums.length; i++)buffer[i] = nums[i];
         return /** @type {LookupTableBuffer} */ buffer;
     }
     /**
@@ -206,10 +206,10 @@ function requireCore() {
 	 * @param {UnicodeRangeEncoding} value
 	 * @return {UnicodeRangeBuffer}
 	 */ function initUnicodeRangeBuffer(buffer, value) {
-        var nums = value.split(',').map(function(s) {
+        var nums = value.split(',').map(function (s) {
             return s ? parseInt(s, 36) : 0;
         });
-        for(var i = 0, n = 0; i < nums.length; i++)buffer[i] = i % 2 ? n + nums[i] : n = nums[i];
+        for (var i = 0, n = 0; i < nums.length; i++)buffer[i] = i % 2 ? n + nums[i] : n = nums[i];
         return /** @type {UnicodeRangeBuffer} */ buffer;
     }
     return core;
@@ -518,7 +518,7 @@ function requireGrapheme() {
             return [
                 0,
                 0,
-                0 /* GC_Any */ 
+                0 /* GC_Any */
             ];
         }
         return [
@@ -537,8 +537,8 @@ function requireGrapheme() {
 	 * @return {GraphemeSegmenter} iterator for grapheme cluster segments
 	 */ function graphemeSegments(input) {
         var cursor, len, catBefore, catAfter, catBegin, cache, risCount, emoji, consonant, linker, incb, cp, index, segment;
-        return _ts_generator(this, function(_state) {
-            switch(_state.label){
+        return _ts_generator(this, function (_state) {
+            switch (_state.label) {
                 case 0:
                     // do nothing on empty string
                     if (input === '') {
@@ -554,7 +554,7 @@ function requireGrapheme() {
                     /** @type {import('./_grapheme_data.js').GraphemeCategoryRange} */ cache = [
                         0,
                         0,
-                        2 /* GC_Control */ 
+                        2 /* GC_Control */
                     ];
                     /** @type {number} The number of RIS codepoints preceding `cursor`. */ risCount = 0;
                     /** Emoji state */ emoji = false;
@@ -585,7 +585,7 @@ function requireGrapheme() {
                     // which is a extra overhead only for Hindi text.
                     if (!consonant && catBefore === 0) {
                         consonant = isIndicConjunctCosonant(cp);
-                    } else if (catBefore === 3 /* Extend */ ) {
+                    } else if (catBefore === 3 /* Extend */) {
                         // Note: \p{InCB=Linker} is a subset of \p{Extend}
                         linker = isIndicConjunctLinker(cp);
                     }
@@ -616,13 +616,13 @@ function requireGrapheme() {
                         2
                     ];
                 case 4:
-                    if (catBefore === 10 /* Regional_Indicator */ ) {
+                    if (catBefore === 10 /* Regional_Indicator */) {
                         risCount += 1;
                     } else {
                         risCount = 0;
-                        if (catAfter === 14 /* ZWJ */  && (catBefore === 3 /* Extend */  || catBefore === 4 /* Extended_Pictographic */ )) {
+                        if (catAfter === 14 /* ZWJ */ && (catBefore === 3 /* Extend */ || catBefore === 4 /* Extended_Pictographic */)) {
                             emoji = true;
-                        } else if (catAfter === 0 /* Any */ ) {
+                        } else if (catAfter === 0 /* Any */) {
                             // Note: Put GB9c rule checking here to reduce.
                             incb = consonant && linker && (consonant = isIndicConjunctCosonant(cp));
                             // It cannot be both a linker and a consonant.
@@ -680,19 +680,19 @@ function requireGrapheme() {
         var count = 0;
         var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
         try {
-            for(var _iterator = graphemeSegments(text)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+            for (var _iterator = graphemeSegments(text)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                 var _ = _step.value;
                 count += 1;
             }
         } catch (err) {
             _didIteratorError = true;
             _iteratorError = err;
-        } finally{
+        } finally {
             try {
                 if (!_iteratorNormalCompletion && _iterator.return != null) {
                     _iterator.return();
                 }
-            } finally{
+            } finally {
                 if (_didIteratorError) {
                     throw _iteratorError;
                 }
@@ -712,8 +712,8 @@ function requireGrapheme() {
 	 * [...splitGraphemes('abc')] // => ['a', 'b', 'c']
 	 */ function splitGraphemes(text) {
         var _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, s, err;
-        return _ts_generator(this, function(_state) {
-            switch(_state.label){
+        return _ts_generator(this, function (_state) {
+            switch (_state.label) {
                 case 0:
                     _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
                     _state.label = 1;
@@ -763,7 +763,7 @@ function requireGrapheme() {
                         if (!_iteratorNormalCompletion && _iterator.return != null) {
                             _iterator.return();
                         }
-                    } finally{
+                    } finally {
                         if (_didIteratorError) {
                             throw _iteratorError;
                         }
@@ -793,13 +793,13 @@ function requireGrapheme() {
             // due to use of punctuation and white space characters from the
             // ascii range.
             if (cp >= 32) {
-                return 0 /* GC_Any */ ;
+                return 0 /* GC_Any */;
             } else if (cp === 10) {
-                return 6 /* GC_LF */ ;
+                return 6 /* GC_LF */;
             } else if (cp === 13) {
-                return 1 /* GC_CR */ ;
+                return 1 /* GC_CR */;
             } else {
-                return 2 /* GC_Control */ ;
+                return 2 /* GC_Control */;
             }
         } else {
             // If this char isn't within the cached range, update the cache to the
@@ -826,7 +826,7 @@ function requireGrapheme() {
 	 * @param {number} cp
 	 * @return {boolean}
 	 */ function isIndicConjunctLinker(cp) {
-        return cp === 2381 /* 0x094D */  || cp === 2509 /* 0x09CD */  || cp === 2765 /* 0x0ACD */  || cp === 2893 /* 0x0B4D */  || cp === 3149 /* 0x0C4D */  || cp === 3405 /* 0x0D4D */ ;
+        return cp === 2381 /* 0x094D */ || cp === 2509 /* 0x09CD */ || cp === 2765 /* 0x0ACD */ || cp === 2893 /* 0x0B4D */ || cp === 3149 /* 0x0C4D */ || cp === 3405 /* 0x0D4D */;
     }
     /**
 	 * @param {GraphemeCategoryNum} catBefore
@@ -906,13 +906,13 @@ function requireIntlAdapter() {
 	 * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter
 	 *
 	 * @implements {IntlSegmenter}
-	 */ var Segmenter = /*#__PURE__*/ function() {
+	 */ var Segmenter = /*#__PURE__*/ function () {
         "use strict";
         function Segmenter(locale) {
             var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
             _class_call_check(this, Segmenter);
             var _options_granularity = options.granularity, granularity = _options_granularity === void 0 ? 'grapheme' : _options_granularity;
-            switch(granularity){
+            switch (granularity) {
                 case 'grapheme':
                     break;
                 case 'word':
@@ -953,7 +953,7 @@ function requireIntlAdapter() {
 	 * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter/segment/Segments
 	 * @implements {Intl.Segments}
 	 */ intlAdapter$1.Segmenter = Segmenter;
-    var SegmentsAdapter = /*#__PURE__*/ function() {
+    var SegmentsAdapter = /*#__PURE__*/ function () {
         "use strict";
         function SegmentsAdapter(input) {
             _class_call_check(this, SegmentsAdapter);
@@ -962,10 +962,10 @@ function requireIntlAdapter() {
         var _proto = SegmentsAdapter.prototype;
         /**
 	   * @return {Intl.SegmentIterator<Intl.SegmentData>}
-	   */ _proto[Symbol.iterator] = function() {
+	   */ _proto[Symbol.iterator] = function () {
             var _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, _step_value, segment, index, input, err;
-            return _ts_generator(this, function(_state) {
-                switch(_state.label){
+            return _ts_generator(this, function (_state) {
+                switch (_state.label) {
                     case 0:
                         _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
                         _state.label = 1;
@@ -1019,7 +1019,7 @@ function requireIntlAdapter() {
                             if (!_iteratorNormalCompletion && _iterator.return != null) {
                                 _iterator.return();
                             }
-                        } finally{
+                        } finally {
                             if (_didIteratorError) {
                                 throw _iteratorError;
                             }
@@ -1047,7 +1047,7 @@ function requireIntlAdapter() {
             var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
             try {
                 // only grapheme segmenter is currently provided
-                for(var _iterator = (0, _grapheme.graphemeSegments)(this.input)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+                for (var _iterator = (0, _grapheme.graphemeSegments)(this.input)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                     var x = _step.value;
                     offset += x.segment.length;
                     if (codeUnitIndex < offset) {
@@ -1057,12 +1057,12 @@ function requireIntlAdapter() {
             } catch (err) {
                 _didIteratorError = true;
                 _iteratorError = err;
-            } finally{
+            } finally {
                 try {
                     if (!_iteratorNormalCompletion && _iterator.return != null) {
                         _iterator.return();
                     }
-                } finally{
+                } finally {
                     if (_didIteratorError) {
                         throw _iteratorError;
                     }
@@ -1080,4 +1080,4 @@ function requireIntlAdapter() {
 var intlAdapterExports = requireIntlAdapter();
 var intlAdapter = /*@__PURE__*/ getDefaultExportFromCjs(intlAdapterExports);
 
-/* CJS INTEROP */ if (exports.__esModule && exports.default) { try { Object.defineProperty(exports.default, '__esModule', { value: true }); for (var key in exports) { exports.default[key] = exports[key]; } } catch (_) { }; module.exports = exports.default; }
+//* CJS INTEROP */ if (exports.__esModule && exports.default) { try { Object.defineProperty(exports.default, '__esModule', { value: true }); for (var key in exports) { exports.default[key] = exports[key]; } } catch (_) { }; module.exports = exports.default; }

@@ -6,67 +6,67 @@ var globalThis = global;
 var _waiting = [];
 var _isReady = false;
 function _notifyInitialized() {
-  _isReady = true;
-  _waiting.slice(0).forEach(function (fn) { fn(); })
+    _isReady = true;
+    _waiting.slice(0).forEach(function (fn) { fn(); })
 }
 exports.initialize = function _initialize(fn) {
-  _isReady ? fn() : _waiting.push(fn);
-  return;
+    _isReady ? fn() : _waiting.push(fn);
+    return;
 }
 "use strict";
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 function _export(target, all) {
-    for(var name in all)Object.defineProperty(target, name, {
+    for (var name in all) Object.defineProperty(target, name, {
         enumerable: true,
         get: all[name]
     });
 }
 _export(exports, {
-    Box: function() {
+    Box: function () {
         return Box;
     },
-    Newline: function() {
+    Newline: function () {
         return Newline;
     },
-    Spacer: function() {
+    Spacer: function () {
         return Spacer;
     },
-    Static: function() {
+    Static: function () {
         return Static;
     },
-    Text: function() {
+    Text: function () {
         return Text;
     },
-    Transform: function() {
+    Transform: function () {
         return Transform;
     },
-    measureElement: function() {
+    measureElement: function () {
         return measureElement;
     },
-    render: function() {
+    render: function () {
         return render;
     },
-    useApp: function() {
+    useApp: function () {
         return useApp;
     },
-    useFocus: function() {
+    useFocus: function () {
         return useFocus;
     },
-    useFocusManager: function() {
+    useFocusManager: function () {
         return useFocusManager;
     },
-    useInput: function() {
+    useInput: function () {
         return useInput;
     },
-    useStderr: function() {
+    useStderr: function () {
         return useStderr;
     },
-    useStdin: function() {
+    useStdin: function () {
         return useStdin;
     },
-    useStdout: function() {
+    useStdout: function () {
         return useStdout;
     }
 });
@@ -80,7 +80,7 @@ var _module = /*#__PURE__*/ _interop_require_default(require("module"));
 var _buffer = require("buffer");
 function _array_like_to_array(arr, len) {
     if (len == null || len > arr.length) len = arr.length;
-    for(var i = 0, arr2 = new Array(len); i < len; i++)arr2[i] = arr[i];
+    for (var i = 0, arr2 = new Array(len); i < len; i++)arr2[i] = arr[i];
     return arr2;
 }
 function _array_with_holes(arr) {
@@ -110,9 +110,9 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
     }
 }
 function _async_to_generator(fn) {
-    return function() {
+    return function () {
         var self1 = this, args = arguments;
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             var gen = fn.apply(self1, args);
             function _next(value) {
                 asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
@@ -181,7 +181,7 @@ function _getRequireWildcardCache(nodeInterop) {
     if (typeof WeakMap !== "function") return null;
     var cacheBabelInterop = new WeakMap();
     var cacheNodeInterop = new WeakMap();
-    return (_getRequireWildcardCache = function(nodeInterop) {
+    return (_getRequireWildcardCache = function (nodeInterop) {
         return nodeInterop ? cacheNodeInterop : cacheBabelInterop;
     })(nodeInterop);
 }
@@ -202,7 +202,7 @@ function _interop_require_wildcard(obj, nodeInterop) {
         __proto__: null
     };
     var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;
-    for(var key in obj){
+    for (var key in obj) {
         if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
             var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;
             if (desc && (desc.get || desc.set)) {
@@ -229,17 +229,17 @@ function _iterable_to_array_limit(arr, i) {
     var _d = false;
     var _s, _e;
     try {
-        for(_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true){
+        for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
             _arr.push(_s.value);
             if (i && _arr.length === i) break;
         }
     } catch (err) {
         _d = true;
         _e = err;
-    } finally{
+    } finally {
         try {
             if (!_n && _i["return"] != null) _i["return"]();
-        } finally{
+        } finally {
             if (_d) throw _e;
         }
     }
@@ -252,15 +252,15 @@ function _non_iterable_spread() {
     throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 function _object_spread(target) {
-    for(var i = 1; i < arguments.length; i++){
+    for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i] != null ? arguments[i] : {};
         var ownKeys = Object.keys(source);
         if (typeof Object.getOwnPropertySymbols === "function") {
-            ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function(sym) {
+            ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
                 return Object.getOwnPropertyDescriptor(source, sym).enumerable;
             }));
         }
-        ownKeys.forEach(function(key) {
+        ownKeys.forEach(function (key) {
             _define_property(target, key, source[key]);
         });
     }
@@ -271,7 +271,7 @@ function ownKeys(object, enumerableOnly) {
     if (Object.getOwnPropertySymbols) {
         var symbols = Object.getOwnPropertySymbols(object);
         if (enumerableOnly) {
-            symbols = symbols.filter(function(sym) {
+            symbols = symbols.filter(function (sym) {
                 return Object.getOwnPropertyDescriptor(object, sym).enumerable;
             });
         }
@@ -284,7 +284,7 @@ function _object_spread_props(target, source) {
     if (Object.getOwnPropertyDescriptors) {
         Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
     } else {
-        ownKeys(Object(source)).forEach(function(key) {
+        ownKeys(Object(source)).forEach(function (key) {
             Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
         });
     }
@@ -296,7 +296,7 @@ function _object_without_properties(source, excluded) {
     var key, i;
     if (Object.getOwnPropertySymbols) {
         var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-        for(i = 0; i < sourceSymbolKeys.length; i++){
+        for (i = 0; i < sourceSymbolKeys.length; i++) {
             key = sourceSymbolKeys[i];
             if (excluded.indexOf(key) >= 0) continue;
             if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
@@ -310,7 +310,7 @@ function _object_without_properties_loose(source, excluded) {
     var target = {};
     var sourceKeys = Object.keys(source);
     var key, i;
-    for(i = 0; i < sourceKeys.length; i++){
+    for (i = 0; i < sourceKeys.length; i++) {
         key = sourceKeys[i];
         if (excluded.indexOf(key) >= 0) continue;
         target[key] = source[key];
@@ -350,16 +350,16 @@ function _unsupported_iterable_to_array(o, minLen) {
 }
 function _is_native_reflect_construct() {
     try {
-        var result = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {}));
-    } catch (_) {}
-    return (_is_native_reflect_construct = function() {
+        var result = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () { }));
+    } catch (_) { }
+    return (_is_native_reflect_construct = function () {
         return !!result;
     })();
 }
 function _ts_generator(thisArg, body) {
     var f, y, t, g, _ = {
         label: 0,
-        sent: function() {
+        sent: function () {
             if (t[0] & 1) throw t[1];
             return t[1];
         },
@@ -370,11 +370,11 @@ function _ts_generator(thisArg, body) {
         next: verb(0),
         "throw": verb(1),
         "return": verb(2)
-    }, typeof Symbol === "function" && (g[Symbol.iterator] = function() {
+    }, typeof Symbol === "function" && (g[Symbol.iterator] = function () {
         return this;
     }), g;
     function verb(n) {
-        return function(v) {
+        return function (v) {
             return step([
                 n,
                 v
@@ -383,13 +383,13 @@ function _ts_generator(thisArg, body) {
     }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while(_)try {
+        while (_) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [
                 op[0] & 2,
                 t.value
             ];
-            switch(op[0]){
+            switch (op[0]) {
                 case 0:
                 case 1:
                     t = op;
@@ -441,9 +441,9 @@ function _ts_generator(thisArg, body) {
                 e
             ];
             y = 0;
-        } finally{
-            f = t = 0;
-        }
+        } finally {
+                f = t = 0;
+            }
         if (op[0] & 5) throw op[1];
         return {
             value: op[0] ? op[1] : void 0,
@@ -458,46 +458,46 @@ function debounce$1(func, debounceMs) {
     var pendingArgs = null;
     var leading = edges != null && edges.includes('leading');
     var trailing = edges == null || edges.includes('trailing');
-    var invoke = function() {
+    var invoke = function () {
         if (pendingArgs !== null) {
             func.apply(pendingThis, pendingArgs);
             pendingThis = undefined;
             pendingArgs = null;
         }
     };
-    var onTimerEnd = function() {
+    var onTimerEnd = function () {
         if (trailing) {
             invoke();
         }
         cancel();
     };
     var timeoutId = null;
-    var schedule = function() {
+    var schedule = function () {
         if (timeoutId != null) {
             clearTimeout(timeoutId);
         }
-        timeoutId = setTimeout(function() {
+        timeoutId = setTimeout(function () {
             timeoutId = null;
             onTimerEnd();
         }, debounceMs);
     };
-    var cancelTimer = function() {
+    var cancelTimer = function () {
         if (timeoutId !== null) {
             clearTimeout(timeoutId);
             timeoutId = null;
         }
     };
-    var cancel = function() {
+    var cancel = function () {
         cancelTimer();
         pendingThis = undefined;
         pendingArgs = null;
     };
-    var flush = function() {
+    var flush = function () {
         cancelTimer();
         invoke();
     };
     var debounced = function debounced() {
-        for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++){
+        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
             args[_key] = arguments[_key];
         }
         if (signal === null || signal === void 0 ? void 0 : signal.aborted) {
@@ -534,8 +534,8 @@ function debounce(func) {
     }
     var result = undefined;
     var pendingAt = null;
-    var _debounced = debounce$1(function() {
-        for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++){
+    var _debounced = debounce$1(function () {
+        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
             args[_key] = arguments[_key];
         }
         result = func.apply(this, args);
@@ -545,7 +545,7 @@ function debounce(func) {
         edges: edges
     });
     var debounced = function debounced() {
-        for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++){
+        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
             args[_key] = arguments[_key];
         }
         if (maxWait != null) {
@@ -564,7 +564,7 @@ function debounce(func) {
         _debounced.apply(this, args);
         return result;
     };
-    var flush = function() {
+    var flush = function () {
         _debounced.flush();
         return result;
     };
@@ -598,24 +598,24 @@ typeof ServiceWorkerGlobalScope !== 'undefined' && _instanceof(globalThis, Servi
 // Note: I'm intentionally not DRYing up the other variables to keep them "lazy".
 var platform = (_globalThis_navigator1 = globalThis.navigator) === null || _globalThis_navigator1 === void 0 ? void 0 : (_globalThis_navigator_userAgentData = _globalThis_navigator1.userAgentData) === null || _globalThis_navigator_userAgentData === void 0 ? void 0 : _globalThis_navigator_userAgentData.platform;
 platform === 'macOS' || ((_globalThis_navigator2 = globalThis.navigator) === null || _globalThis_navigator2 === void 0 ? void 0 : _globalThis_navigator2.platform) === 'MacIntel' // Even on Apple silicon Macs.
- || ((_globalThis_navigator3 = globalThis.navigator) === null || _globalThis_navigator3 === void 0 ? void 0 : (_globalThis_navigator_userAgent1 = _globalThis_navigator3.userAgent) === null || _globalThis_navigator_userAgent1 === void 0 ? void 0 : _globalThis_navigator_userAgent1.includes(' Mac ')) === true || ((_globalThis_process3 = globalThis.process) === null || _globalThis_process3 === void 0 ? void 0 : _globalThis_process3.platform) === 'darwin';
+    || ((_globalThis_navigator3 = globalThis.navigator) === null || _globalThis_navigator3 === void 0 ? void 0 : (_globalThis_navigator_userAgent1 = _globalThis_navigator3.userAgent) === null || _globalThis_navigator_userAgent1 === void 0 ? void 0 : _globalThis_navigator_userAgent1.includes(' Mac ')) === true || ((_globalThis_process3 = globalThis.process) === null || _globalThis_process3 === void 0 ? void 0 : _globalThis_process3.platform) === 'darwin';
 platform === 'Windows' || ((_globalThis_navigator4 = globalThis.navigator) === null || _globalThis_navigator4 === void 0 ? void 0 : _globalThis_navigator4.platform) === 'Win32' || ((_globalThis_process4 = globalThis.process) === null || _globalThis_process4 === void 0 ? void 0 : _globalThis_process4.platform) === 'win32';
 platform === 'Linux' || ((_globalThis_navigator5 = globalThis.navigator) === null || _globalThis_navigator5 === void 0 ? void 0 : (_globalThis_navigator_platform = _globalThis_navigator5.platform) === null || _globalThis_navigator_platform === void 0 ? void 0 : _globalThis_navigator_platform.startsWith('Linux')) === true || ((_globalThis_navigator6 = globalThis.navigator) === null || _globalThis_navigator6 === void 0 ? void 0 : (_globalThis_navigator_userAgent2 = _globalThis_navigator6.userAgent) === null || _globalThis_navigator_userAgent2 === void 0 ? void 0 : _globalThis_navigator_userAgent2.includes(' Linux ')) === true || ((_globalThis_process5 = globalThis.process) === null || _globalThis_process5 === void 0 ? void 0 : _globalThis_process5.platform) === 'linux';
 platform === 'Android' || ((_globalThis_navigator7 = globalThis.navigator) === null || _globalThis_navigator7 === void 0 ? void 0 : _globalThis_navigator7.platform) === 'Android' || ((_globalThis_navigator8 = globalThis.navigator) === null || _globalThis_navigator8 === void 0 ? void 0 : (_globalThis_navigator_userAgent3 = _globalThis_navigator8.userAgent) === null || _globalThis_navigator_userAgent3 === void 0 ? void 0 : _globalThis_navigator_userAgent3.includes(' Android ')) === true || ((_globalThis_process6 = globalThis.process) === null || _globalThis_process6 === void 0 ? void 0 : _globalThis_process6.platform) === 'android';
 var ESC = '\u001B[';
 !isBrowser && _process.default.env.TERM_PROGRAM === 'Apple_Terminal';
 var isWindows = !isBrowser && _process.default.platform === 'win32';
-isBrowser ? function() {
+isBrowser ? function () {
     throw new Error('`process.cwd()` only works in Node.js, not the browser.');
 } : _process.default.cwd;
-var cursorUp = function() {
+var cursorUp = function () {
     var count = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 1;
     return ESC + count + 'A';
 };
 var cursorLeft = ESC + 'G';
-var eraseLines = function(count) {
+var eraseLines = function (count) {
     var clear = '';
-    for(var i = 0; i < count; i++){
+    for (var i = 0; i < count; i++) {
         clear += eraseLine + (i < count - 1 ? cursorUp() : '');
     }
     if (count) {
@@ -626,16 +626,16 @@ var eraseLines = function(count) {
 var eraseLine = ESC + '2K';
 var eraseScreen = ESC + '2J';
 var clearTerminal = isWindows ? "".concat(eraseScreen).concat(ESC, "0f") : "".concat(eraseScreen).concat(ESC, "3J").concat(ESC, "H");
-var isInCi = _process.env.CI !== '0' && _process.env.CI !== 'false' && ('CI' in _process.env || 'CONTINUOUS_INTEGRATION' in _process.env || Object.keys(_process.env).some(function(key) {
+var isInCi = _process.env.CI !== '0' && _process.env.CI !== 'false' && ('CI' in _process.env || 'CONTINUOUS_INTEGRATION' in _process.env || Object.keys(_process.env).some(function (key) {
     return key.startsWith('CI_');
 }));
 // Gets all non-builtin properties up the prototype chain.
-var getAllProperties = function(object) {
+var getAllProperties = function (object) {
     var properties = new Set();
     do {
         var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
         try {
-            for(var _iterator = Reflect.ownKeys(object)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+            for (var _iterator = Reflect.ownKeys(object)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                 var key = _step.value;
                 properties.add([
                     object,
@@ -645,24 +645,24 @@ var getAllProperties = function(object) {
         } catch (err) {
             _didIteratorError = true;
             _iteratorError = err;
-        } finally{
+        } finally {
             try {
                 if (!_iteratorNormalCompletion && _iterator.return != null) {
                     _iterator.return();
                 }
-            } finally{
+            } finally {
                 if (_didIteratorError) {
                     throw _iteratorError;
                 }
             }
         }
-    }while ((object = Reflect.getPrototypeOf(object)) && object !== Object.prototype);
+    } while ((object = Reflect.getPrototypeOf(object)) && object !== Object.prototype);
     return properties;
 };
 function autoBind(self1) {
     var _ref = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, include = _ref.include, exclude = _ref.exclude;
-    var filter = function(key) {
-        var match = function(pattern) {
+    var filter = function (key) {
+        var match = function (pattern) {
             return typeof pattern === 'string' ? key === pattern : pattern.test(key);
         };
         if (include) {
@@ -675,7 +675,7 @@ function autoBind(self1) {
     };
     var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
     try {
-        for(var _iterator = getAllProperties(self1.constructor.prototype)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+        for (var _iterator = getAllProperties(self1.constructor.prototype)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var _step_value = _sliced_to_array(_step.value, 2), object = _step_value[0], key = _step_value[1];
             if (key === 'constructor' || !filter(key)) {
                 continue;
@@ -688,12 +688,12 @@ function autoBind(self1) {
     } catch (err) {
         _didIteratorError = true;
         _iteratorError = err;
-    } finally{
+    } finally {
         try {
             if (!_iteratorNormalCompletion && _iterator.return != null) {
                 _iterator.return();
             }
-        } finally{
+        } finally {
             if (_didIteratorError) {
                 throw _iteratorError;
             }
@@ -715,7 +715,7 @@ var hasRequiredSignals;
 function requireSignals() {
     if (hasRequiredSignals) return signals.exports;
     hasRequiredSignals = 1;
-    (function(module) {
+    (function (module) {
         // This is not the set of all possible signals.
         //
         // It IS, however, the set of all signals that trigger
@@ -766,8 +766,8 @@ function requireSignalExit() {
     };
     // some kind of non-node environment, just no-op
     /* istanbul ignore if */ if (!processOk(process1)) {
-        signalExit$1.exports = function() {
-            return function() {};
+        signalExit$1.exports = function () {
+            return function () { };
         };
     } else {
         var assert = _assert.default;
@@ -793,9 +793,9 @@ function requireSignalExit() {
             emitter.setMaxListeners(Infinity);
             emitter.infinite = true;
         }
-        signalExit$1.exports = function(cb, opts) {
+        signalExit$1.exports = function (cb, opts) {
             /* istanbul ignore if */ if (!processOk(commonjsGlobal.process)) {
-                return function() {};
+                return function () { };
             }
             assert.equal(typeof cb === "undefined" ? "undefined" : _type_of(cb), 'function', 'a callback must be provided for exit handler');
             if (loaded === false) {
@@ -819,10 +819,10 @@ function requireSignalExit() {
                 return;
             }
             loaded = false;
-            signals.forEach(function(sig) {
+            signals.forEach(function (sig) {
                 try {
                     process1.removeListener(sig, sigListeners[sig]);
-                } catch (er) {}
+                } catch (er) { }
             });
             process1.emit = originalProcessEmit;
             process1.reallyExit = originalProcessReallyExit;
@@ -838,7 +838,7 @@ function requireSignalExit() {
         };
         // { <signal>: <listener fn>, ... }
         var sigListeners = {};
-        signals.forEach(function(sig) {
+        signals.forEach(function (sig) {
             sigListeners[sig] = function listener() {
                 /* istanbul ignore if */ if (!processOk(commonjsGlobal.process)) {
                     return;
@@ -861,7 +861,7 @@ function requireSignalExit() {
                 }
             };
         });
-        signalExit$1.exports.signals = function() {
+        signalExit$1.exports.signals = function () {
             return signals;
         };
         var loaded = false;
@@ -875,7 +875,7 @@ function requireSignalExit() {
             // listeners on signals, and don't wait for the other one to
             // handle it instead of us.
             emitter.count += 1;
-            signals = signals.filter(function(sig) {
+            signals = signals.filter(function (sig) {
                 try {
                     process1.on(sig, sigListeners[sig]);
                     return true;
@@ -937,19 +937,19 @@ var consoleMethods = [
     'warn'
 ];
 var originalMethods = {};
-var patchConsole = function(callback) {
+var patchConsole = function (callback) {
     var stdout = new _stream.PassThrough();
     var stderr = new _stream.PassThrough();
-    stdout.write = function(data) {
+    stdout.write = function (data) {
         callback('stdout', data);
     };
-    stderr.write = function(data) {
+    stderr.write = function (data) {
         callback('stderr', data);
     };
     var internalConsole = new console.Console(stdout, stderr);
     var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
     try {
-        for(var _iterator = consoleMethods[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+        for (var _iterator = consoleMethods[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var method = _step.value;
             originalMethods[method] = console[method];
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -958,33 +958,33 @@ var patchConsole = function(callback) {
     } catch (err) {
         _didIteratorError = true;
         _iteratorError = err;
-    } finally{
+    } finally {
         try {
             if (!_iteratorNormalCompletion && _iterator.return != null) {
                 _iterator.return();
             }
-        } finally{
+        } finally {
             if (_didIteratorError) {
                 throw _iteratorError;
             }
         }
     }
-    return function() {
+    return function () {
         var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
         try {
-            for(var _iterator = consoleMethods[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+            for (var _iterator = consoleMethods[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                 var method = _step.value;
                 console[method] = originalMethods[method];
             }
         } catch (err) {
             _didIteratorError = true;
             _iteratorError = err;
-        } finally{
+        } finally {
             try {
                 if (!_iteratorNormalCompletion && _iterator.return != null) {
                     _iterator.return();
                 }
-            } finally{
+            } finally {
                 if (_didIteratorError) {
                     throw _iteratorError;
                 }
@@ -1061,13 +1061,13 @@ YGEnums.UNIT_AUTO = 3;
 YGEnums.WRAP_NO_WRAP = 0;
 YGEnums.WRAP_WRAP = 1;
 YGEnums.WRAP_WRAP_REVERSE = 2;
-var wrapAsm = function(E) {
-    var _loop = function(_i, _iter) {
+var wrapAsm = function (E) {
+    var _loop = function (_i, _iter) {
         var T = _iter[_i];
         var _obj;
         var N = (_obj = {}, _define_property(_obj, YGEnums.UNIT_POINT, E.Node.prototype[T]), _define_property(_obj, YGEnums.UNIT_PERCENT, E.Node.prototype["".concat(T, "Percent")]), _define_property(_obj, YGEnums.UNIT_AUTO, E.Node.prototype["".concat(T, "Auto")]), _obj);
-        _(E.Node.prototype, T, function(E) {
-            for(var _len = arguments.length, _ = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++){
+        _(E.Node.prototype, T, function (E) {
+            for (var _len = arguments.length, _ = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
                 _[_key - 1] = arguments[_key];
             }
             var _N_I, _N_I1;
@@ -1088,8 +1088,8 @@ var wrapAsm = function(E) {
     };
     var _ = function _(E, _, T) {
         var N = E[_];
-        E[_] = function() {
-            for(var _len = arguments.length, _$E = new Array(_len), _key = 0; _key < _len; _key++){
+        E[_] = function () {
+            for (var _len = arguments.length, _$E = new Array(_len), _key = 0; _key < _len; _key++) {
                 _$E[_key] = arguments[_key];
             }
             var _T;
@@ -1101,8 +1101,8 @@ var wrapAsm = function(E) {
     };
     var T = function T(_) {
         return E.MeasureCallback.implement({
-            measure: function() {
-                for(var _len = arguments.length, _$E = new Array(_len), _key = 0; _key < _len; _key++){
+            measure: function () {
+                for (var _len = arguments.length, _$E = new Array(_len), _key = 0; _key < _len; _key++) {
                     _$E[_key] = arguments[_key];
                 }
                 var __apply = _.apply(void 0, _to_consumable_array(_$E)), T = __apply.width, N = __apply.height;
@@ -1118,7 +1118,7 @@ var wrapAsm = function(E) {
             dirtied: _
         });
     };
-    for(var _i = 0, _iter = [
+    for (var _i = 0, _iter = [
         "setPosition",
         "setMargin",
         "setFlexBasis",
@@ -1130,20 +1130,20 @@ var wrapAsm = function(E) {
         "setMaxHeight",
         "setPadding"
     ]; _i < _iter.length; _i++)_loop(_i, _iter);
-    return _(E.Node.prototype, "setMeasureFunc", function(E, _) {
+    return _(E.Node.prototype, "setMeasureFunc", function (E, _) {
         return _ ? E.call(this, T(_)) : this.unsetMeasureFunc();
-    }), _(E.Node.prototype, "setDirtiedFunc", function(E, _) {
+    }), _(E.Node.prototype, "setDirtiedFunc", function (E, _) {
         E.call(this, N(_));
-    }), _(E.Config.prototype, "free", function() {
+    }), _(E.Config.prototype, "free", function () {
         E.Config.destroy(this);
-    }), _(E.Node, "create", function(_, T) {
+    }), _(E.Node, "create", function (_, T) {
         return T ? E.Node.createWithConfig(T) : E.Node.createDefault();
-    }), _(E.Node.prototype, "free", function() {
+    }), _(E.Node.prototype, "free", function () {
         E.Node.destroy(this);
-    }), _(E.Node.prototype, "freeRecursive", function() {
-        for(var _$E = 0, _ = this.getChildCount(); _$E < _; ++_$E)this.getChild(0).freeRecursive();
+    }), _(E.Node.prototype, "freeRecursive", function () {
+        for (var _$E = 0, _ = this.getChildCount(); _$E < _; ++_$E)this.getChild(0).freeRecursive();
         this.free();
-    }), _(E.Node.prototype, "calculateLayout", function(E) {
+    }), _(E.Node.prototype, "calculateLayout", function (E) {
         var _ = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : NaN, T = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : NaN, N = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : YGEnums.DIRECTION_LTR;
         return E.call(this, _, T, N);
     }), _object_spread({
@@ -1151,11 +1151,11 @@ var wrapAsm = function(E) {
         Node: E.Node
     }, YGEnums);
 };
-var yoga = function() {
+var yoga = function () {
     var n = "undefined" != typeof document && document.currentScript ? document.currentScript.src : undefined;
-    return function() {
+    return function () {
         var t = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
-        u || (u = undefined !== t ? t : {}), u.ready = new Promise(function(n, t) {
+        u || (u = undefined !== t ? t : {}), u.ready = new Promise(function (n, t) {
             c = n, f = t;
         });
         var r, e, a = Object.assign({}, u), i = "";
@@ -1165,7 +1165,7 @@ var yoga = function() {
         var u, c, f, l, h = false;
         function p(n, t, r) {
             r = t + r;
-            for(var e = ""; !(t >= r);){
+            for (var e = ""; !(t >= r);) {
                 var a = n[t++];
                 if (!a) break;
                 if (128 & a) {
@@ -1198,7 +1198,7 @@ var yoga = function() {
             }
         }
         function C(n) {
-            for(; 0 < n.length;)n.shift()(u);
+            for (; 0 < n.length;)n.shift()(u);
         }
         function W(n) {
             if (undefined === n) return "_unknown";
@@ -1206,7 +1206,7 @@ var yoga = function() {
             return 48 <= t && 57 >= t ? "_" + n : n;
         }
         function U(n, t) {
-            return n = W(n), function() {
+            return n = W(n), function () {
                 return t.apply(this, arguments);
             };
         }
@@ -1227,10 +1227,10 @@ var yoga = function() {
             }
         ], F = [];
         function D(n) {
-            var t = Error, r = U(n, function(t) {
+            var t = Error, r = U(n, function (t) {
                 this.name = n, this.message = t, undefined !== (t = Error(t).stack) && (this.stack = this.toString() + "\n" + t.replace(/^Error(:[^\n]*)?\n/, ""));
             });
-            return r.prototype = Object.create(t.prototype), r.prototype.constructor = r, r.prototype.toString = function() {
+            return r.prototype = Object.create(t.prototype), r.prototype.constructor = r, r.prototype.toString = function () {
                 return undefined === this.message ? this.name : this.name + ": " + this.message;
             }, r;
         }
@@ -1238,10 +1238,10 @@ var yoga = function() {
         function V(n) {
             throw new k(n);
         }
-        var j = function(n) {
+        var j = function (n) {
             return n || V("Cannot use deleted val. handle = " + n), M[n].value;
-        }, G = function(n) {
-            switch(n){
+        }, G = function (n) {
+            switch (n) {
                 case undefined:
                     return 1;
                 case null:
@@ -1259,19 +1259,19 @@ var yoga = function() {
             }
         }, Y = undefined, X = undefined;
         function B(n) {
-            for(var t = ""; y[n];)t += X[y[n++]];
+            for (var t = ""; y[n];)t += X[y[n++]];
             return t;
         }
         var H = [];
         function x() {
-            for(; H.length;){
+            for (; H.length;) {
                 var n = H.pop();
                 n.L.Z = false, n.delete();
             }
         }
         var z = undefined, $ = {};
         function Z(n, t) {
-            for(undefined === t && V("ptr should not be undefined"); n.P;)t = n.aa(t), n = n.P;
+            for (undefined === t && V("ptr should not be undefined"); n.P;)t = n.aa(t), n = n.P;
             return t;
         }
         var J = {};
@@ -1283,7 +1283,7 @@ var yoga = function() {
             var r = J[n];
             return undefined === r && V(t + " has unknown type " + q(n)), r;
         }
-        function Q() {}
+        function Q() { }
         var nn = false;
         function nt(n) {
             --n.count.value, 0 === n.count.value && (n.S ? n.T.V(n.S) : n.O.M.V(n.N));
@@ -1302,22 +1302,22 @@ var yoga = function() {
             }));
         }
         function no(n) {
-            return "undefined" == typeof FinalizationRegistry ? (no = function(n) {
+            return "undefined" == typeof FinalizationRegistry ? (no = function (n) {
                 return n;
-            }, n) : (nn = new FinalizationRegistry(function(n) {
+            }, n) : (nn = new FinalizationRegistry(function (n) {
                 nt(n.L);
-            }), no = function(n) {
+            }), no = function (n) {
                 var t = n.L;
                 return t.S && nn.register(n, {
                     L: t
                 }, n), n;
-            }, Q = function(n) {
+            }, Q = function (n) {
                 nn.unregister(n);
             }, no(n));
         }
         var ns = {};
         function nu(n) {
-            for(; n.length;){
+            for (; n.length;) {
                 var t = n.pop();
                 n.pop()(t);
             }
@@ -1329,20 +1329,20 @@ var yoga = function() {
         function nh(n, t, r) {
             function e(t) {
                 (t = r(t)).length !== n.length && na("Mismatched type converter count");
-                for(var _$e = 0; _$e < n.length; ++_$e)nv(n[_$e], t[_$e]);
+                for (var _$e = 0; _$e < n.length; ++_$e)nv(n[_$e], t[_$e]);
             }
-            n.forEach(function(n) {
+            n.forEach(function (n) {
                 nl[n] = t;
             });
             var a = Array(t.length), i = [], o = 0;
-            t.forEach(function(n, t) {
-                J.hasOwnProperty(n) ? a[t] = J[n] : (i.push(n), nf.hasOwnProperty(n) || (nf[n] = []), nf[n].push(function() {
+            t.forEach(function (n, t) {
+                J.hasOwnProperty(n) ? a[t] = J[n] : (i.push(n), nf.hasOwnProperty(n) || (nf[n] = []), nf[n].push(function () {
                     a[t] = J[n], ++o === i.length && e(a);
                 }));
             }), 0 === i.length && e(a);
         }
         function np(n) {
-            switch(n){
+            switch (n) {
                 case 1:
                     return 0;
                 case 2:
@@ -1363,18 +1363,18 @@ var yoga = function() {
                 if (r.ta) return;
                 V("Cannot register type '" + e + "' twice");
             }
-            J[n] = t, delete nl[n], nf.hasOwnProperty(n) && (t = nf[n], delete nf[n], t.forEach(function(n) {
+            J[n] = t, delete nl[n], nf.hasOwnProperty(n) && (t = nf[n], delete nf[n], t.forEach(function (n) {
                 return n();
             }));
         }
         function nd(n) {
             V(n.L.O.M.name + " instance already deleted");
         }
-        function ny() {}
+        function ny() { }
         function nm(n, t, r) {
             if (undefined === n[t].R) {
                 var e = n[t];
-                n[t] = function() {
+                n[t] = function () {
                     return n[t].R.hasOwnProperty(arguments.length) || V("Function '" + r + "' called with an invalid number of arguments (" + arguments.length + ") - expects one of (" + n[t].R + ")!"), n[t].R[arguments.length].apply(this, arguments);
                 }, n[t].R = [], n[t].R[e.Y] = e;
             }
@@ -1383,7 +1383,7 @@ var yoga = function() {
             this.name = n, this.constructor = t, this.W = r, this.V = e, this.P = a, this.oa = i, this.aa = o, this.ma = s, this.ia = [];
         }
         function ng(n, t, r) {
-            for(; t !== r;)t.aa || V("Expected null or instance of " + r.name + ", got an instance of " + t.name), n = t.aa(n), t = t.P;
+            for (; t !== r;)t.aa || V("Expected null or instance of " + r.name + ", got an instance of " + t.name), n = t.aa(n), t = t.P;
             return n;
         }
         function n_(n, t) {
@@ -1397,7 +1397,7 @@ var yoga = function() {
                 }
                 return 0;
             }
-            if (t.L || V('Cannot pass "' + nC(t) + '" as a ' + this.name), t.L.N || V("Cannot pass deleted object as a pointer of type " + this.name), !this.ba && t.L.O.ba && V("Cannot convert argument of type " + (t.L.T ? t.L.T.name : t.L.O.name) + " to parameter type " + this.name), r = ng(t.L.N, t.L.O.M, this.M), this.ca) switch(undefined === t.L.S && V("Passing raw pointer to smart pointer is illegal"), this.Aa){
+            if (t.L || V('Cannot pass "' + nC(t) + '" as a ' + this.name), t.L.N || V("Cannot pass deleted object as a pointer of type " + this.name), !this.ba && t.L.O.ba && V("Cannot convert argument of type " + (t.L.T ? t.L.T.name : t.L.O.name) + " to parameter type " + this.name), r = ng(t.L.N, t.L.O.M, this.M), this.ca) switch (undefined === t.L.S && V("Passing raw pointer to smart pointer is illegal"), this.Aa) {
                 case 0:
                     t.L.T === this ? r = t.L.S : V("Cannot convert argument of type " + (t.L.T ? t.L.T.name : t.L.O.name) + " to parameter type " + this.name);
                     break;
@@ -1408,7 +1408,7 @@ var yoga = function() {
                     if (t.L.T === this) r = t.L.S;
                     else {
                         var e = t.clone();
-                        r = this.wa(r, G(function() {
+                        r = this.wa(r, G(function () {
                             e.delete();
                         })), null !== n && n.push(this.V, r);
                     }
@@ -1454,19 +1454,19 @@ var yoga = function() {
             var i = t.length;
             2 > i && V("argTypes array size mismatch! Must at least get return value and 'this' types!");
             var o = null !== t[1] && null !== r, s = false;
-            for(r = 1; r < t.length; ++r)if (null !== t[r] && undefined === t[r].U) {
+            for (r = 1; r < t.length; ++r)if (null !== t[r] && undefined === t[r].U) {
                 s = true;
                 break;
             }
             var u = "void" !== t[0].name, c = i - 2, f = Array(c), l = [], h = [];
-            return function() {
+            return function () {
                 if (arguments.length !== c && V("function " + n + " called with " + arguments.length + " arguments, expected " + c + " args!"), h.length = 0, l.length = o ? 2 : 1, l[0] = a, o) {
                     var _$r = t[1].toWireType(h, this);
                     l[1] = _$r;
                 }
-                for(var i = 0; i < c; ++i)f[i] = t[i + 2].toWireType(h, arguments[i]), l.push(f[i]);
+                for (var i = 0; i < c; ++i)f[i] = t[i + 2].toWireType(h, arguments[i]), l.push(f[i]);
                 if (i = e.apply(null, l), s) nu(h);
-                else for(var p = o ? 1 : 2; p < t.length; p++){
+                else for (var p = o ? 1 : 2; p < t.length; p++) {
                     var v = 1 === p ? _$r : f[p - 2];
                     null !== t[p].U && t[p].U(v);
                 }
@@ -1474,7 +1474,7 @@ var yoga = function() {
             };
         }
         function nS(n, t) {
-            for(var r = [], e = 0; e < n; e++)r.push(_[t + 4 * e >> 2]);
+            for (var r = [], e = 0; e < n; e++)r.push(_[t + 4 * e >> 2]);
             return r;
         }
         function nR(n) {
@@ -1486,7 +1486,7 @@ var yoga = function() {
             return "object" === t || "array" === t || "function" === t ? n.toString() : "" + n;
         }
         function nW(n, t) {
-            for(var r = "", e = 0; !(e >= t / 2); ++e){
+            for (var r = "", e = 0; !(e >= t / 2); ++e) {
                 var a = m[n + 2 * e >> 1];
                 if (0 == a) break;
                 r += String.fromCharCode(a);
@@ -1498,14 +1498,14 @@ var yoga = function() {
             r -= 2;
             var e = t;
             r = r < 2 * n.length ? r / 2 : n.length;
-            for(var a = 0; a < r; ++a)m[t >> 1] = n.charCodeAt(a), t += 2;
+            for (var a = 0; a < r; ++a)m[t >> 1] = n.charCodeAt(a), t += 2;
             return m[t >> 1] = 0, t - e;
         }
         function nM(n) {
             return 2 * n.length;
         }
         function nF(n, t) {
-            for(var r = 0, e = ""; !(r >= t / 4);){
+            for (var r = 0, e = ""; !(r >= t / 4);) {
                 var a = g[n + 4 * r >> 2];
                 if (0 == a) break;
                 ++r, 65536 <= a ? (a -= 65536, e += String.fromCharCode(55296 | a >> 10, 56320 | 1023 & a)) : e += String.fromCharCode(a);
@@ -1516,14 +1516,14 @@ var yoga = function() {
             if (undefined === r && (r = 2147483647), 4 > r) return 0;
             var e = t;
             r = e + r - 4;
-            for(var a = 0; a < n.length; ++a){
+            for (var a = 0; a < n.length; ++a) {
                 var i = n.charCodeAt(a);
                 if (55296 <= i && 57343 >= i && (i = 65536 + ((1023 & i) << 10) | 1023 & n.charCodeAt(++a)), g[t >> 2] = i, (t += 4) + 4 > r) break;
             }
             return g[t >> 2] = 0, t - e;
         }
         function nk(n) {
-            for(var t = 0, r = 0; r < n.length; ++r){
+            for (var t = 0, r = 0; r < n.length; ++r) {
                 var e = n.charCodeAt(r);
                 55296 <= e && 57343 >= e && ++r, t += 4;
             }
@@ -1539,29 +1539,29 @@ var yoga = function() {
             [],
             []
         ];
-        k = u.BindingError = D("BindingError"), u.count_emval_handles = function() {
-            for(var n = 0, t = 5; t < M.length; ++t)undefined !== M[t] && ++n;
+        k = u.BindingError = D("BindingError"), u.count_emval_handles = function () {
+            for (var n = 0, t = 5; t < M.length; ++t)undefined !== M[t] && ++n;
             return n;
-        }, u.get_first_emval = function() {
-            for(var n = 5; n < M.length; ++n)if (undefined !== M[n]) return M[n];
+        }, u.get_first_emval = function () {
+            for (var n = 5; n < M.length; ++n)if (undefined !== M[n]) return M[n];
             return null;
         }, Y = u.PureVirtualError = D("PureVirtualError");
-        for(var nB = Array(256), nH = 0; 256 > nH; ++nH)nB[nH] = String.fromCharCode(nH);
-        X = nB, u.getInheritedInstanceCount = function() {
+        for (var nB = Array(256), nH = 0; 256 > nH; ++nH)nB[nH] = String.fromCharCode(nH);
+        X = nB, u.getInheritedInstanceCount = function () {
             return Object.keys($).length;
-        }, u.getLiveInheritedInstances = function() {
+        }, u.getLiveInheritedInstances = function () {
             var n, t = [];
-            for(n in $)$.hasOwnProperty(n) && t.push($[n]);
+            for (n in $) $.hasOwnProperty(n) && t.push($[n]);
             return t;
-        }, u.flushPendingDeletes = x, u.setDelayFunction = function(n) {
+        }, u.flushPendingDeletes = x, u.setDelayFunction = function (n) {
             z = n, H.length && z && z(x);
-        }, ne = u.InternalError = D("InternalError"), ny.prototype.isAliasOf = function(n) {
+        }, ne = u.InternalError = D("InternalError"), ny.prototype.isAliasOf = function (n) {
             if (!(_instanceof(this, ny) && _instanceof(n, ny))) return false;
             var t = this.L.O.M, r = this.L.N, e = n.L.O.M;
-            for(n = n.L.N; t.P;)r = t.aa(r), t = t.P;
-            for(; e.P;)n = e.aa(n), e = e.P;
+            for (n = n.L.N; t.P;)r = t.aa(r), t = t.P;
+            for (; e.P;)n = e.aa(n), e = e.P;
             return t === e && r === n;
-        }, ny.prototype.clone = function() {
+        }, ny.prototype.clone = function () {
             if (this.L.N || nd(this), this.L.$) return this.L.count.value += 1, this;
             var n = no, t = Object, r = t.create, e = Object.getPrototypeOf(this), a = this.L;
             return n = n(r.call(t, e, {
@@ -1577,19 +1577,19 @@ var yoga = function() {
                     }
                 }
             })), n.L.count.value += 1, n.L.Z = false, n;
-        }, ny.prototype.delete = function() {
+        }, ny.prototype.delete = function () {
             this.L.N || nd(this), this.L.Z && !this.L.$ && V("Object already scheduled for deletion"), Q(this), nt(this.L), this.L.$ || (this.L.S = undefined, this.L.N = undefined);
-        }, ny.prototype.isDeleted = function() {
+        }, ny.prototype.isDeleted = function () {
             return !this.L.N;
-        }, ny.prototype.deleteLater = function() {
+        }, ny.prototype.deleteLater = function () {
             return this.L.N || nd(this), this.L.Z && !this.L.$ && V("Object already scheduled for deletion"), H.push(this), 1 === H.length && z && z(x), this.L.Z = true, this;
-        }, nA.prototype.pa = function(n) {
+        }, nA.prototype.pa = function (n) {
             return this.ja && (n = this.ja(n)), n;
-        }, nA.prototype.ga = function(n) {
+        }, nA.prototype.ga = function (n) {
             this.V && this.V(n);
-        }, nA.prototype.argPackAdvance = 8, nA.prototype.readValueFromPointer = nc, nA.prototype.deleteObject = function(n) {
+        }, nA.prototype.argPackAdvance = 8, nA.prototype.readValueFromPointer = nc, nA.prototype.deleteObject = function (n) {
             null !== n && n.delete();
-        }, nA.prototype.fromWireType = function(n) {
+        }, nA.prototype.fromWireType = function (n) {
             function t() {
                 return this.ca ? ni(this.M.W, {
                     O: this.va,
@@ -1624,13 +1624,13 @@ var yoga = function() {
             q: function q(n, t, r) {
                 n = B(n), t = K(t, "wrapper"), r = j(r);
                 var e = [].slice, a = t.M, i = a.W, o = a.P.W, s = a.P.constructor;
-                for(var u in n = U(n, function() {
-                    a.P.ia.forEach((function(n) {
+                for (var u in n = U(n, function () {
+                    a.P.ia.forEach((function (n) {
                         if (this[n] === o[n]) throw new Y("Pure virtual function " + n + " must be implemented in JavaScript");
                     }).bind(this)), Object.defineProperty(this, "__parent", {
                         value: i
                     }), this.__construct.apply(this, e.call(arguments));
-                }), i.__construct = function() {
+                }), i.__construct = function () {
                     this === i && V("Pass correct 'this' to __construct");
                     var _$n = s.implement.apply(undefined, [
                         this
@@ -1642,11 +1642,11 @@ var yoga = function() {
                             value: _$t
                         }
                     }), no(this), _$n = Z(a, _$n = _$t.N), $.hasOwnProperty(_$n) ? V("Tried to register registered instance: " + _$n) : $[_$n] = this;
-                }, i.__destruct = function() {
+                }, i.__destruct = function () {
                     this === i && V("Pass correct 'this' to __destruct"), Q(this);
                     var _$n = this.L.N;
                     _$n = Z(a, _$n), $.hasOwnProperty(_$n) ? delete $[_$n] : V("Tried to unregister unregistered instance: " + _$n);
-                }, n.prototype = Object.create(i), r)n.prototype[u] = r[u];
+                }, n.prototype = Object.create(i), r) n.prototype[u] = r[u];
                 return G(n);
             },
             l: function l(n) {
@@ -1655,45 +1655,45 @@ var yoga = function() {
                 var r = t.ea, e = t.V, a = t.ha;
                 nh([
                     n
-                ], a.map(function(n) {
+                ], a.map(function (n) {
                     return n.sa;
-                }).concat(a.map(function(n) {
+                }).concat(a.map(function (n) {
                     return n.ya;
-                })), function(n) {
+                })), function (n) {
                     var i = {};
-                    return a.forEach(function(t, r) {
+                    return a.forEach(function (t, r) {
                         var e = n[r], o = t.qa, s = t.ra, u = n[r + a.length], c = t.xa, f = t.za;
                         i[t.na] = {
-                            read: function(n) {
+                            read: function (n) {
                                 return e.fromWireType(o(s, n));
                             },
-                            write: function(n, t) {
+                            write: function (n, t) {
                                 var _$r = [];
                                 c(f, n, u.toWireType(_$r, t)), nu(_$r);
                             }
                         };
                     }), [
-                        {
-                            name: t.name,
-                            fromWireType: function fromWireType(n) {
-                                var t, r = {};
-                                for(t in i)r[t] = i[t].read(n);
-                                return e(n), r;
-                            },
-                            toWireType: function toWireType(n, t) {
-                                for(var a in i)if (!(a in t)) throw TypeError('Missing field:  "' + a + '"');
-                                var o = r();
-                                for(a in i)i[a].write(o, t[a]);
-                                return null !== n && n.push(e, o), o;
-                            },
-                            argPackAdvance: 8,
-                            readValueFromPointer: nc,
-                            U: e
-                        }
-                    ];
+                            {
+                                name: t.name,
+                                fromWireType: function fromWireType(n) {
+                                    var t, r = {};
+                                    for (t in i) r[t] = i[t].read(n);
+                                    return e(n), r;
+                                },
+                                toWireType: function toWireType(n, t) {
+                                    for (var a in i) if (!(a in t)) throw TypeError('Missing field:  "' + a + '"');
+                                    var o = r();
+                                    for (a in i) i[a].write(o, t[a]);
+                                    return null !== n && n.push(e, o), o;
+                                },
+                                argPackAdvance: 8,
+                                readValueFromPointer: nc,
+                                U: e
+                            }
+                        ];
                 });
             },
-            v: function v() {},
+            v: function v() { },
             B: function B1(n, t, r, e, a) {
                 var i = np(r);
                 nv(n, {
@@ -1728,10 +1728,10 @@ var yoga = function() {
                     r
                 ], e ? [
                     e
-                ] : [], function(t) {
+                ] : [], function (t) {
                     if (t = t[0], e) var _$r, _$a = t.M, _$o = _$a.W;
                     else _$o = ny.prototype;
-                    t = U(d, function() {
+                    t = U(d, function () {
                         if (Object.getPrototypeOf(this) !== _$c) throw new k("Use 'new' to construct " + l);
                         if (undefined === _$h.X) throw new k(l + " has no accessible constructor");
                         var _$n = _$h.X[arguments.length];
@@ -1751,24 +1751,24 @@ var yoga = function() {
                         pointerType: _$o,
                         ka: v
                     }, _$r = t, u.hasOwnProperty(d) || na("Replacing nonexistant public symbol"), u[d] = _$r, u[d].Y = undefined, [
-                        _$a,
-                        _$o,
-                        v
-                    ];
+                            _$a,
+                            _$o,
+                            v
+                        ];
                 });
             },
             d: function d(n, t, r, e, a, i, o) {
                 var s = nS(r, e);
                 t = B(t), i = nb(a, i), nh([], [
                     n
-                ], function(n) {
+                ], function (n) {
                     function e() {
                         nI("Cannot call " + _$a + " due to unbound types", s);
                     }
                     var _$a = (n = n[0]).name + "." + t;
                     t.startsWith("@@") && (t = Symbol[t.substring(2)]);
                     var u = n.M.constructor;
-                    return undefined === u[t] ? (e.Y = r - 1, u[t] = e) : (nm(u, t, _$a), u[t].R[r - 1] = e), nh([], s, function(n) {
+                    return undefined === u[t] ? (e.Y = r - 1, u[t] = e) : (nm(u, t, _$a), u[t].R[r - 1] = e), nh([], s, function (n) {
                         return n = nw(_$a, [
                             n[0],
                             null
@@ -1781,12 +1781,12 @@ var yoga = function() {
                 var o = nS(t, r);
                 a = nb(e, a), nh([], [
                     n
-                ], function(n) {
+                ], function (n) {
                     var _$r = "constructor " + (n = n[0]).name;
                     if (undefined === n.M.X && (n.M.X = []), undefined !== n.M.X[t - 1]) throw new k("Cannot register multiple constructors with identical number of parameters (" + (t - 1) + ") for class '" + n.name + "'! Overload resolution is currently only performed using the parameter count, not actual type info!");
-                    return n.M.X[t - 1] = function() {
+                    return n.M.X[t - 1] = function () {
                         nI("Cannot construct " + n.name + " due to unbound types", o);
-                    }, nh([], o, function(e) {
+                    }, nh([], o, function (e) {
                         return e.splice(1, 0, null), n.M.X[t - 1] = nw(_$r, e, null, a, i), [];
                     }), [];
                 });
@@ -1795,14 +1795,14 @@ var yoga = function() {
                 var u = nS(r, e);
                 t = B(t), i = nb(a, i), nh([], [
                     n
-                ], function(n) {
+                ], function (n) {
                     function e() {
                         nI("Cannot call " + _$a + " due to unbound types", u);
                     }
                     var _$a = (n = n[0]).name + "." + t;
                     t.startsWith("@@") && (t = Symbol[t.substring(2)]), s && n.M.ia.push(t);
                     var c = n.M.W, f = c[t];
-                    return undefined === f || undefined === f.R && f.className !== n.name && f.Y === r - 2 ? (e.Y = r - 2, e.className = n.name, c[t] = e) : (nm(c, t, _$a), c[t].R[r - 2] = e), nh([], u, function(e) {
+                    return undefined === f || undefined === f.R && f.className !== n.name && f.Y === r - 2 ? (e.Y = r - 2, e.className = n.name, c[t] = e) : (nm(c, t, _$a), c[t].R[r - 2] = e), nh([], u, function (e) {
                         return e = nw(_$a, e, n, i, o), undefined === c[t].R ? (e.Y = r - 2, c[t] = e) : c[t].R[r - 2] = e, [];
                     }), [];
                 });
@@ -1832,14 +1832,14 @@ var yoga = function() {
                         return t;
                     },
                     argPackAdvance: 8,
-                    readValueFromPointer: function(n, t) {
-                        switch(t){
+                    readValueFromPointer: function (n, t) {
+                        switch (t) {
                             case 2:
-                                return function(n) {
+                                return function (n) {
                                     return this.fromWireType(T[n >> 2]);
                                 };
                             case 3:
-                                return function(n) {
+                                return function (n) {
                                     return this.fromWireType(L[n >> 3]);
                                 };
                             default:
@@ -1851,42 +1851,42 @@ var yoga = function() {
             },
             e: function e(n, t, r, e, a) {
                 t = B(t), -1 === a && (a = 4294967295), a = np(r);
-                var i = function(n) {
+                var i = function (n) {
                     return n;
                 };
                 if (0 === e) {
                     var o = 32 - 8 * r;
-                    i = function(n) {
+                    i = function (n) {
                         return n << o >>> o;
                     };
                 }
                 r = t.includes("unsigned") ? function r(n, t) {
                     return t >>> 0;
-                } : function(n, t) {
+                } : function (n, t) {
                     return t;
                 }, nv(n, {
                     name: t,
                     fromWireType: i,
                     toWireType: r,
                     argPackAdvance: 8,
-                    readValueFromPointer: function(n, t, r) {
-                        switch(t){
+                    readValueFromPointer: function (n, t, r) {
+                        switch (t) {
                             case 0:
-                                return r ? function(n) {
+                                return r ? function (n) {
                                     return d[n];
-                                } : function(n) {
+                                } : function (n) {
                                     return y[n];
                                 };
                             case 1:
-                                return r ? function(n) {
+                                return r ? function (n) {
                                     return m[n >> 1];
-                                } : function(n) {
+                                } : function (n) {
                                     return E[n >> 1];
                                 };
                             case 2:
-                                return r ? function(n) {
+                                return r ? function (n) {
                                     return g[n >> 2];
-                                } : function(n) {
+                                } : function (n) {
                                     return _[n >> 2];
                                 };
                             default:
@@ -1927,7 +1927,7 @@ var yoga = function() {
                     name: t,
                     fromWireType: function fromWireType(n) {
                         var _$t = _[n >> 2], e = n + 4;
-                        if (r) for(var a = e, i = 0; i <= _$t; ++i){
+                        if (r) for (var a = e, i = 0; i <= _$t; ++i) {
                             var o = e + i;
                             if (i == _$t || 0 == y[o]) {
                                 if (a = a ? p(y, a, o - a) : "", undefined === s) var s = a;
@@ -1936,7 +1936,7 @@ var yoga = function() {
                             }
                         }
                         else {
-                            for(i = 0, s = Array(_$t); i < _$t; ++i)s[i] = String.fromCharCode(y[e + i]);
+                            for (i = 0, s = Array(_$t); i < _$t; ++i)s[i] = String.fromCharCode(y[e + i]);
                             s = s.join("");
                         }
                         return nZ(n), s;
@@ -1946,7 +1946,7 @@ var yoga = function() {
                         var e, a = "string" == typeof t;
                         if (a || _instanceof(t, Uint8Array) || _instanceof(t, Uint8ClampedArray) || _instanceof(t, Int8Array) || V("Cannot pass non-string to std::string"), r && a) {
                             var i = 0;
-                            for(e = 0; e < t.length; ++e){
+                            for (e = 0; e < t.length; ++e) {
                                 var o = t.charCodeAt(e);
                                 127 >= o ? i++ : 2047 >= o ? i += 2 : 55296 <= o && 57343 >= o ? (i += 4, ++e) : i += 3;
                             }
@@ -1955,7 +1955,7 @@ var yoga = function() {
                         if (o = (i = n$(4 + e + 1)) + 4, _[i >> 2] = e, r && a) {
                             if (a = o, o = e + 1, e = y, 0 < o) {
                                 o = a + o - 1;
-                                for(var s = 0; s < t.length; ++s){
+                                for (var s = 0; s < t.length; ++s) {
                                     var u = t.charCodeAt(s);
                                     if (55296 <= u && 57343 >= u && (u = 65536 + ((1023 & u) << 10) | 1023 & t.charCodeAt(++s)), 127 >= u) {
                                         if (a >= o) break;
@@ -1979,8 +1979,8 @@ var yoga = function() {
                                 }
                                 e[a] = 0;
                             }
-                        } else if (a) for(a = 0; a < e; ++a)255 < (s = t.charCodeAt(a)) && (nZ(o), V("String has UTF-16 code units that do not fit in 8 bits")), y[o + a] = s;
-                        else for(a = 0; a < e; ++a)y[o + a] = t[a];
+                        } else if (a) for (a = 0; a < e; ++a)255 < (s = t.charCodeAt(a)) && (nZ(o), V("String has UTF-16 code units that do not fit in 8 bits")), y[o + a] = s;
+                        else for (a = 0; a < e; ++a)y[o + a] = t[a];
                         return null !== n && n.push(nZ, i), i;
                     },
                     argPackAdvance: 8,
@@ -1991,16 +1991,16 @@ var yoga = function() {
                 });
             },
             k: function k(n, t, r) {
-                if (r = B(r), 2 === t) var e = nW, a = nU, i = nM, o = function() {
+                if (r = B(r), 2 === t) var e = nW, a = nU, i = nM, o = function () {
                     return E;
                 }, s = 1;
-                else 4 === t && (e = nF, a = nD, i = nk, o = function() {
+                else 4 === t && (e = nF, a = nD, i = nk, o = function () {
                     return _;
                 }, s = 2);
                 nv(n, {
                     name: r,
                     fromWireType: function fromWireType(n) {
-                        for(var _$r, a = _[n >> 2], i = o(), u = n + 4, c = 0; c <= a; ++c){
+                        for (var _$r, a = _[n >> 2], i = o(), u = n + 4, c = 0; c <= a; ++c) {
                             var f = n + 4 + c * t;
                             (c == a || 0 == i[f >> s]) && (u = e(u, f - u), undefined === _$r ? _$r = u : _$r += "\x00" + u, u = f + t);
                         }
@@ -2042,8 +2042,8 @@ var yoga = function() {
                     ua: true,
                     name: t = B(t),
                     argPackAdvance: 0,
-                    fromWireType: function fromWireType() {},
-                    toWireType: function toWireType() {}
+                    fromWireType: function fromWireType() { },
+                    toWireType: function toWireType() { }
                 });
             },
             t: function t(n, t, r, e, a) {
@@ -2056,17 +2056,17 @@ var yoga = function() {
             },
             f: nR,
             g: function g(n, t) {
-                var r, e, a = function(n, t) {
-                    for(var r = Array(n), e = 0; e < n; ++e)r[e] = K(_[t + 4 * e >> 2], "parameter " + e);
+                var r, e, a = function (n, t) {
+                    for (var r = Array(n), e = 0; e < n; ++e)r[e] = K(_[t + 4 * e >> 2], "parameter " + e);
                     return r;
-                }(n, t), i = a[0], o = nY[t = i.name + "_$" + a.slice(1).map(function(n) {
+                }(n, t), i = a[0], o = nY[t = i.name + "_$" + a.slice(1).map(function (n) {
                     return n.name;
                 }).join("_") + "$"];
                 if (undefined !== o) return o;
                 var s = Array(n - 1);
-                return r = function(t, r, e, o) {
-                    for(var u = 0, c = 0; c < n - 1; ++c)s[c] = a[c + 1].readValueFromPointer(o + u), u += a[c + 1].argPackAdvance;
-                    for(c = 0, t = t[r].apply(t, s); c < n - 1; ++c)a[c + 1].la && a[c + 1].la(s[c]);
+                return r = function (t, r, e, o) {
+                    for (var u = 0, c = 0; c < n - 1; ++c)s[c] = a[c + 1].readValueFromPointer(o + u), u += a[c + 1].argPackAdvance;
+                    for (c = 0, t = t[r].apply(t, s); c < n - 1; ++c)a[c + 1].la && a[c + 1].la(s[c]);
                     if (!i.ua) return i.toWireType(e, t);
                 }, e = nG.length, nG.push(r), o = e, nY[t] = o;
             },
@@ -2085,7 +2085,7 @@ var yoga = function() {
             w: function w(n) {
                 var t = y.length;
                 if (2147483648 < (n >>>= 0)) return false;
-                for(var r = 1; 4 >= r; r *= 2){
+                for (var r = 1; 4 >= r; r *= 2) {
                     var e = t * (1 + .2 / r);
                     e = Math.min(e, n + 100663296);
                     var a = Math, i = a.min;
@@ -2096,7 +2096,7 @@ var yoga = function() {
                             l.grow(i.call(a, 2147483648, e) - o.byteLength + 65535 >>> 16), v();
                             var s = 1;
                             break n;
-                        } catch (n) {}
+                        } catch (n) { }
                         s = undefined;
                     }
                     if (s) return true;
@@ -2110,10 +2110,10 @@ var yoga = function() {
                 return 70;
             },
             y: function y1(n, t, r, e) {
-                for(var a = 0, i = 0; i < r; i++){
+                for (var a = 0, i = 0; i < r; i++) {
                     var u = _[t >> 2], c = _[t + 4 >> 2];
                     t += 8;
-                    for(var f = 0; f < c; f++){
+                    for (var f = 0; f < c; f++) {
                         var l = y[u + f], h = nX[n];
                         0 === l || 10 === l ? ((1 === n ? o : s)(p(h, 0)), h.length = 0) : h.push(l);
                     }
@@ -2122,7 +2122,7 @@ var yoga = function() {
                 return _[e >> 2] = a, 0;
             }
         };
-        !function() {
+        !function () {
             function n(n) {
                 u.asm = n.exports, l = u.asm.D, v(), A = u.asm.I, P.unshift(u.asm.E), 0 == --N && I && (n = I, I = null, n());
             }
@@ -2132,18 +2132,18 @@ var yoga = function() {
             function e(n) {
                 return ("function" == typeof fetch ? fetch(r, {
                     credentials: "same-origin"
-                }).then(function(n) {
+                }).then(function (n) {
                     if (!n.ok) throw "failed to load wasm binary file at '" + r + "'";
                     return n.arrayBuffer();
-                }).catch(function() {
+                }).catch(function () {
                     return R();
-                }) : Promise.resolve().then(function() {
+                }) : Promise.resolve().then(function () {
                     return R();
-                })).then(function(n) {
+                })).then(function (n) {
                     return WebAssembly.instantiate(n, a);
-                }).then(function(n) {
+                }).then(function (n) {
                     return n;
-                }).then(n, function(n) {
+                }).then(n, function (n) {
                     s("failed to asynchronously prepare wasm: " + n), w(n);
                 });
             }
@@ -2157,8 +2157,8 @@ var yoga = function() {
             }
             ("function" != typeof WebAssembly.instantiateStreaming || S() || "function" != typeof fetch ? e(t) : fetch(r, {
                 credentials: "same-origin"
-            }).then(function(n) {
-                return WebAssembly.instantiateStreaming(n, a).then(t, function(n) {
+            }).then(function (n) {
+                return WebAssembly.instantiateStreaming(n, a).then(t, function (n) {
                     return s("wasm streaming compile failed: " + n), s("falling back to ArrayBuffer instantiation"), e(t);
                 });
             })).catch(f);
@@ -2175,9 +2175,9 @@ var yoga = function() {
         function nJ() {
             0 < N || (C(O), 0 < N || e || (e = true, u.calledRun = true, h || (C(P), c(u), C(b))));
         }
-        return u.__embind_initialize_bindings = function() {
+        return u.__embind_initialize_bindings = function () {
             return (u.__embind_initialize_bindings = u.asm.G).apply(null, arguments);
-        }, u.dynCall_jiji = function() {
+        }, u.dynCall_jiji = function () {
             return (u.dynCall_jiji = u.asm.K).apply(null, arguments);
         }, I = function n() {
             e || nJ(), e || (I = n);
@@ -2188,16 +2188,16 @@ function initYoga(t) {
     return _initYoga.apply(this, arguments);
 }
 function _initYoga() {
-    _initYoga = _async_to_generator(function(t) {
+    _initYoga = _async_to_generator(function (t) {
         var r;
-        return _ts_generator(this, function(_state) {
-            switch(_state.label){
+        return _ts_generator(this, function (_state) {
+            switch (_state.label) {
                 case 0:
                     return [
                         4,
                         yoga({
                             instantiateWasm: function instantiateWasm(n, r) {
-                                WebAssembly.instantiate(t, n).then(function(n) {
+                                WebAssembly.instantiate(t, n).then(function (n) {
                                     _instanceof(n, WebAssembly.Instance) ? r(n) : r(n.instance);
                                 });
                             }
@@ -2215,7 +2215,7 @@ function _initYoga() {
     return _initYoga.apply(this, arguments);
 }
 var Yoga = null;
-initYoga(require('fs').readFileSync(require.resolve("yoga-wasm-web/dist/yoga.wasm"))).then(function(_Y) {
+initYoga(require('fs').readFileSync(require.resolve("yoga-wasm-web/dist/yoga.wasm"))).then(function (_Y) {
     Yoga = _Y;
     _notifyInitialized();
 });
@@ -2238,11 +2238,11 @@ var scheduler_production_min = {};
 function requireScheduler_production_min() {
     if (hasRequiredScheduler_production_min) return scheduler_production_min;
     hasRequiredScheduler_production_min = 1;
-    (function(exports1) {
+    (function (exports1) {
         function f(a, b) {
             var c = a.length;
             a.push(b);
-            a: for(; 0 < c;){
+            a: for (; 0 < c;) {
                 var d = c - 1 >>> 1, e = a[d];
                 if (0 < g(e, b)) a[d] = b, a[c] = e, c = d;
                 else break a;
@@ -2256,7 +2256,7 @@ function requireScheduler_production_min() {
             var b = a[0], c = a.pop();
             if (c !== b) {
                 a[0] = c;
-                a: for(var d = 0, e = a.length, w = e >>> 1; d < w;){
+                a: for (var d = 0, e = a.length, w = e >>> 1; d < w;) {
                     var m = 2 * (d + 1) - 1, C = a[m], n = m + 1, x = a[n];
                     if (0 > g(C, c)) n < e && 0 > g(x, C) ? (a[d] = x, a[n] = c, d = n) : (a[d] = C, a[m] = c, d = m);
                     else if (n < e && 0 > g(x, c)) a[d] = x, a[n] = c, d = n;
@@ -2271,19 +2271,19 @@ function requireScheduler_production_min() {
         }
         if ("object" === (typeof performance === "undefined" ? "undefined" : _type_of(performance)) && "function" === typeof performance.now) {
             var l = performance;
-            exports1.unstable_now = function() {
+            exports1.unstable_now = function () {
                 return l.now();
             };
         } else {
             var p = Date, q = p.now();
-            exports1.unstable_now = function() {
+            exports1.unstable_now = function () {
                 return p.now() - q;
             };
         }
         var r = [], t = [], u = 1, v = null, y = 3, z = false, A = false, B = false, D = "function" === typeof setTimeout ? setTimeout : null, E = "function" === typeof clearTimeout ? clearTimeout : null, F = "undefined" !== typeof setImmediate ? setImmediate : null;
         "undefined" !== typeof navigator && undefined !== navigator.scheduling && undefined !== navigator.scheduling.isInputPending && navigator.scheduling.isInputPending.bind(navigator.scheduling);
         function G(a) {
-            for(var b = h(t); null !== b;){
+            for (var b = h(t); null !== b;) {
                 if (null === b.callback) k(t);
                 else if (b.startTime <= a) k(t), b.sortIndex = b.expirationTime, f(r, b);
                 else break;
@@ -2306,7 +2306,7 @@ function requireScheduler_production_min() {
             var c = y;
             try {
                 G(b);
-                for(v = h(r); null !== v && (!(v.expirationTime > b) || a && !M());){
+                for (v = h(r); null !== v && (!(v.expirationTime > b) || a && !M());) {
                     var d = v.callback;
                     if ("function" === typeof d) {
                         v.callback = null;
@@ -2325,7 +2325,7 @@ function requireScheduler_production_min() {
                     w = !1;
                 }
                 return w;
-            } finally{
+            } finally {
                 v = null, y = c, z = false;
             }
         }
@@ -2340,7 +2340,7 @@ function requireScheduler_production_min() {
                 var b = true;
                 try {
                     b = O(!0, a);
-                } finally{
+                } finally {
                     b ? S() : (N = false, O = null);
                 }
             } else N = false;
@@ -2363,7 +2363,7 @@ function requireScheduler_production_min() {
             N || (N = true, S());
         }
         function K(a, b) {
-            L = D(function() {
+            L = D(function () {
                 a(exports1.unstable_now());
             }, b);
         }
@@ -2373,23 +2373,23 @@ function requireScheduler_production_min() {
         exports1.unstable_NormalPriority = 3;
         exports1.unstable_Profiling = null;
         exports1.unstable_UserBlockingPriority = 2;
-        exports1.unstable_cancelCallback = function(a) {
+        exports1.unstable_cancelCallback = function (a) {
             a.callback = null;
         };
-        exports1.unstable_continueExecution = function() {
+        exports1.unstable_continueExecution = function () {
             A || z || (A = true, I(J));
         };
-        exports1.unstable_forceFrameRate = function(a) {
+        exports1.unstable_forceFrameRate = function (a) {
             0 > a || 125 < a ? console.error("forceFrameRate takes a positive int between 0 and 125, forcing frame rates higher than 125 fps is not supported") : P = 0 < a ? Math.floor(1E3 / a) : 5;
         };
-        exports1.unstable_getCurrentPriorityLevel = function() {
+        exports1.unstable_getCurrentPriorityLevel = function () {
             return y;
         };
-        exports1.unstable_getFirstCallbackNode = function() {
+        exports1.unstable_getFirstCallbackNode = function () {
             return h(r);
         };
-        exports1.unstable_next = function(a) {
-            switch(y){
+        exports1.unstable_next = function (a) {
+            switch (y) {
                 case 1:
                 case 2:
                 case 3:
@@ -2402,14 +2402,14 @@ function requireScheduler_production_min() {
             y = b;
             try {
                 return a();
-            } finally{
+            } finally {
                 y = c;
             }
         };
-        exports1.unstable_pauseExecution = function() {};
-        exports1.unstable_requestPaint = function() {};
-        exports1.unstable_runWithPriority = function(a, b) {
-            switch(a){
+        exports1.unstable_pauseExecution = function () { };
+        exports1.unstable_requestPaint = function () { };
+        exports1.unstable_runWithPriority = function (a, b) {
+            switch (a) {
                 case 1:
                 case 2:
                 case 3:
@@ -2423,14 +2423,14 @@ function requireScheduler_production_min() {
             y = a;
             try {
                 return b();
-            } finally{
+            } finally {
                 y = c;
             }
         };
-        exports1.unstable_scheduleCallback = function(a, b, c) {
+        exports1.unstable_scheduleCallback = function (a, b, c) {
             var d = exports1.unstable_now();
             "object" === (typeof c === "undefined" ? "undefined" : _type_of(c)) && null !== c ? (c = c.delay, c = "number" === typeof c && 0 < c ? d + c : d) : c = d;
-            switch(a){
+            switch (a) {
                 case 1:
                     var e = -1;
                     break;
@@ -2459,14 +2459,14 @@ function requireScheduler_production_min() {
             return a;
         };
         exports1.unstable_shouldYield = M;
-        exports1.unstable_wrapCallback = function(a) {
+        exports1.unstable_wrapCallback = function (a) {
             var b = y;
-            return function() {
+            return function () {
                 var c = y;
                 y = b;
                 try {
                     return a.apply(this, arguments);
-                } finally{
+                } finally {
                     y = c;
                 }
             };
@@ -2487,9 +2487,9 @@ var scheduler_development = {};
 function requireScheduler_development() {
     if (hasRequiredScheduler_development) return scheduler_development;
     hasRequiredScheduler_development = 1;
-    (function(exports1) {
+    (function (exports1) {
         if (process.env.NODE_ENV !== "production") {
-            (function() {
+            (function () {
                 /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== 'undefined' && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === 'function') {
                     __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
                 }
@@ -2517,7 +2517,7 @@ function requireScheduler_development() {
                 }
                 function siftUp(heap, node, i) {
                     var index = i;
-                    while(index > 0){
+                    while (index > 0) {
                         var parentIndex = index - 1 >>> 1;
                         var parent = heap[parentIndex];
                         if (compare(parent, node) > 0) {
@@ -2535,7 +2535,7 @@ function requireScheduler_development() {
                     var index = i;
                     var length = heap.length;
                     var halfLength = length >>> 1;
-                    while(index < halfLength){
+                    while (index < halfLength) {
                         var leftIndex = (index + 1) * 2 - 1;
                         var left = heap[leftIndex];
                         var rightIndex = leftIndex + 1;
@@ -2571,17 +2571,17 @@ function requireScheduler_development() {
                 var NormalPriority = 3;
                 var LowPriority = 4;
                 var IdlePriority = 5;
-                function markTaskErrored(task, ms) {}
+                function markTaskErrored(task, ms) { }
                 /* eslint-disable no-var */ var hasPerformanceNow = (typeof performance === "undefined" ? "undefined" : _type_of(performance)) === 'object' && typeof performance.now === 'function';
                 if (hasPerformanceNow) {
                     var localPerformance = performance;
-                    exports1.unstable_now = function() {
+                    exports1.unstable_now = function () {
                         return localPerformance.now();
                     };
                 } else {
                     var localDate = Date;
                     var initialTime = localDate.now();
-                    exports1.unstable_now = function() {
+                    exports1.unstable_now = function () {
                         return localDate.now() - initialTime;
                     };
                 } // Max 31 bit integer. The max integer size in V8 for 32-bit systems.
@@ -2608,7 +2608,7 @@ function requireScheduler_development() {
                 function advanceTimers(currentTime) {
                     // Check for tasks that are no longer delayed and add them to the queue.
                     var timer = peek(timerQueue);
-                    while(timer !== null){
+                    while (timer !== null) {
                         if (timer.callback === null) {
                             // Timer was cancelled.
                             pop(timerQueue);
@@ -2650,12 +2650,12 @@ function requireScheduler_development() {
                     var previousPriorityLevel = currentPriorityLevel;
                     try {
                         var currentTime;
-                        if (enableProfiling) ;
+                        if (enableProfiling);
                         else {
                             // No catch in prod code path.
                             return workLoop(hasTimeRemaining, initialTime);
                         }
-                    } finally{
+                    } finally {
                         currentTask = null;
                         currentPriorityLevel = previousPriorityLevel;
                         isPerformingWork = false;
@@ -2665,7 +2665,7 @@ function requireScheduler_development() {
                     var currentTime = initialTime;
                     advanceTimers(currentTime);
                     currentTask = peek(taskQueue);
-                    while(currentTask !== null && true){
+                    while (currentTask !== null && true) {
                         if (currentTask.expirationTime > currentTime && (!hasTimeRemaining || shouldYieldToHost())) {
                             break;
                         }
@@ -2700,7 +2700,7 @@ function requireScheduler_development() {
                     }
                 }
                 function unstable_runWithPriority(priorityLevel, eventHandler) {
-                    switch(priorityLevel){
+                    switch (priorityLevel) {
                         case ImmediatePriority:
                         case UserBlockingPriority:
                         case NormalPriority:
@@ -2714,13 +2714,13 @@ function requireScheduler_development() {
                     currentPriorityLevel = priorityLevel;
                     try {
                         return eventHandler();
-                    } finally{
+                    } finally {
                         currentPriorityLevel = previousPriorityLevel;
                     }
                 }
                 function unstable_next(eventHandler) {
                     var priorityLevel;
-                    switch(currentPriorityLevel){
+                    switch (currentPriorityLevel) {
                         case ImmediatePriority:
                         case UserBlockingPriority:
                         case NormalPriority:
@@ -2736,19 +2736,19 @@ function requireScheduler_development() {
                     currentPriorityLevel = priorityLevel;
                     try {
                         return eventHandler();
-                    } finally{
+                    } finally {
                         currentPriorityLevel = previousPriorityLevel;
                     }
                 }
                 function unstable_wrapCallback(callback) {
                     var parentPriorityLevel = currentPriorityLevel;
-                    return function() {
+                    return function () {
                         // This is a fork of runWithPriority, inlined for performance.
                         var previousPriorityLevel = currentPriorityLevel;
                         currentPriorityLevel = parentPriorityLevel;
                         try {
                             return callback.apply(this, arguments);
-                        } finally{
+                        } finally {
                             currentPriorityLevel = previousPriorityLevel;
                         }
                     };
@@ -2767,7 +2767,7 @@ function requireScheduler_development() {
                         startTime = currentTime;
                     }
                     var timeout;
-                    switch(priorityLevel){
+                    switch (priorityLevel) {
                         case ImmediatePriority:
                             timeout = IMMEDIATE_PRIORITY_TIMEOUT;
                             break;
@@ -2819,7 +2819,7 @@ function requireScheduler_development() {
                     }
                     return newTask;
                 }
-                function unstable_pauseExecution() {}
+                function unstable_pauseExecution() { }
                 function unstable_continueExecution() {
                     if (!isHostCallbackScheduled && !isPerformingWork) {
                         isHostCallbackScheduled = true;
@@ -2854,7 +2854,7 @@ function requireScheduler_development() {
                     } // The main thread has been blocked for a non-negligible amount of time. We
                     return true;
                 }
-                function requestPaint() {}
+                function requestPaint() { }
                 function forceFrameRate(fps) {
                     if (fps < 0 || fps > 125) {
                         // Using console['error'] to evade Babel and ESLint
@@ -2882,7 +2882,7 @@ function requireScheduler_development() {
                         var hasMoreWork = true;
                         try {
                             hasMoreWork = scheduledHostCallback(hasTimeRemaining, currentTime);
-                        } finally{
+                        } finally {
                             if (hasMoreWork) {
                                 // If there's more work, schedule the next message event at the end
                                 // of the preceding one.
@@ -2935,7 +2935,7 @@ function requireScheduler_development() {
                     }
                 }
                 function requestHostTimeout(callback, ms) {
-                    taskTimeoutID = localSetTimeout(function() {
+                    taskTimeoutID = localSetTimeout(function () {
                         callback(exports1.unstable_now());
                     }, ms);
                 }
@@ -2999,7 +2999,7 @@ function requireReactReconciler_production_min() {
         var exports1 = {};
         var aa = _react.default, ba = requireScheduler(), ca = Object.assign;
         function n(a) {
-            for(var b = "https://reactjs.org/docs/error-decoder.html?invariant=" + a, c = 1; c < arguments.length; c++)b += "&args[]=" + encodeURIComponent(arguments[c]);
+            for (var b = "https://reactjs.org/docs/error-decoder.html?invariant=" + a, c = 1; c < arguments.length; c++)b += "&args[]=" + encodeURIComponent(arguments[c]);
             return "Minified React error #" + a + "; visit " + b + " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.";
         }
         var da = aa.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED, ea = Symbol.for("react.element"), fa = Symbol.for("react.portal"), ha = Symbol.for("react.fragment"), ia = Symbol.for("react.strict_mode"), ja = Symbol.for("react.profiler"), ka = Symbol.for("react.provider"), la = Symbol.for("react.context"), ma = Symbol.for("react.forward_ref"), na = Symbol.for("react.suspense"), oa = Symbol.for("react.suspense_list"), pa = Symbol.for("react.memo"), qa = Symbol.for("react.lazy");
@@ -3014,7 +3014,7 @@ function requireReactReconciler_production_min() {
             if (null == a) return null;
             if ("function" === typeof a) return a.displayName || a.name || null;
             if ("string" === typeof a) return a;
-            switch(a){
+            switch (a) {
                 case ha:
                     return "Fragment";
                 case fa:
@@ -3028,7 +3028,7 @@ function requireReactReconciler_production_min() {
                 case oa:
                     return "SuspenseList";
             }
-            if ("object" === (typeof a === "undefined" ? "undefined" : _type_of(a))) switch(a.$$typeof){
+            if ("object" === (typeof a === "undefined" ? "undefined" : _type_of(a))) switch (a.$$typeof) {
                 case la:
                     return (a.displayName || "Context") + ".Consumer";
                 case ka:
@@ -3045,13 +3045,13 @@ function requireReactReconciler_production_min() {
                     a = a._init;
                     try {
                         return ua(a(b));
-                    } catch (c) {}
+                    } catch (c) { }
             }
             return null;
         }
         function va(a) {
             var b = a.type;
-            switch(a.tag){
+            switch (a.tag) {
                 case 24:
                     return "Cache";
                 case 9:
@@ -3101,7 +3101,7 @@ function requireReactReconciler_production_min() {
         }
         function wa(a) {
             var b = a, c = a;
-            if (a.alternate) for(; b.return;)b = b.return;
+            if (a.alternate) for (; b.return;)b = b.return;
             else {
                 a = b;
                 do b = a, 0 !== (b.flags & 4098) && (c = b.return), a = b.return;
@@ -3119,7 +3119,7 @@ function requireReactReconciler_production_min() {
                 if (null === b) throw Error(n(188));
                 return b !== a ? null : a;
             }
-            for(var c = a, d = b;;){
+            for (var c = a, d = b; ;) {
                 var e = c.return;
                 if (null === e) break;
                 var f = e.alternate;
@@ -3132,7 +3132,7 @@ function requireReactReconciler_production_min() {
                     break;
                 }
                 if (e.child === f.child) {
-                    for(f = e.child; f;){
+                    for (f = e.child; f;) {
                         if (f === c) return xa(e), a;
                         if (f === d) return xa(e), b;
                         f = f.sibling;
@@ -3141,7 +3141,7 @@ function requireReactReconciler_production_min() {
                 }
                 if (c.return !== d.return) c = e, d = f;
                 else {
-                    for(var g = false, h = e.child; h;){
+                    for (var g = false, h = e.child; h;) {
                         if (h === c) {
                             g = true;
                             c = e;
@@ -3157,7 +3157,7 @@ function requireReactReconciler_production_min() {
                         h = h.sibling;
                     }
                     if (!g) {
-                        for(h = f.child; h;){
+                        for (h = f.child; h;) {
                             if (h === c) {
                                 g = true;
                                 c = f;
@@ -3186,7 +3186,7 @@ function requireReactReconciler_production_min() {
         }
         function Ba(a) {
             if (5 === a.tag || 6 === a.tag) return a;
-            for(a = a.child; null !== a;){
+            for (a = a.child; null !== a;) {
                 var b = Ba(a);
                 if (null !== b) return b;
                 a = a.sibling;
@@ -3195,7 +3195,7 @@ function requireReactReconciler_production_min() {
         }
         function Ca(a) {
             if (5 === a.tag || 6 === a.tag) return a;
-            for(a = a.child; null !== a;){
+            for (a = a.child; null !== a;) {
                 if (4 !== a.tag) {
                     var b = Ca(a);
                     if (null !== b) return b;
@@ -3252,8 +3252,8 @@ function requireReactReconciler_production_min() {
                 }
             } catch (l) {
                 if (l && d && "string" === typeof l.stack) {
-                    for(var e = l.stack.split("\n"), f = d.stack.split("\n"), g = e.length - 1, h = f.length - 1; 1 <= g && 0 <= h && e[g] !== f[h];)h--;
-                    for(; 1 <= g && 0 <= h; g--, h--)if (e[g] !== f[h]) {
+                    for (var e = l.stack.split("\n"), f = d.stack.split("\n"), g = e.length - 1, h = f.length - 1; 1 <= g && 0 <= h && e[g] !== f[h];)h--;
+                    for (; 1 <= g && 0 <= h; g--, h--)if (e[g] !== f[h]) {
                         if (1 !== g || 1 !== h) {
                             do if (g--, h--, 0 > h || e[g] !== f[h]) {
                                 var k = "\n" + e[g].replace(" at new ", " at ");
@@ -3265,7 +3265,7 @@ function requireReactReconciler_production_min() {
                         break;
                     }
                 }
-            } finally{
+            } finally {
                 dc = false, Error.prepareStackTrace = c;
             }
             return (a = a ? a.displayName || a.name : "") ? cc(a) : "";
@@ -3291,7 +3291,7 @@ function requireReactReconciler_production_min() {
             var d = a.stateNode;
             if (d && d.__reactInternalMemoizedUnmaskedChildContext === b) return d.__reactInternalMemoizedMaskedChildContext;
             var e = {}, f;
-            for(f in c)e[f] = b[f];
+            for (f in c) e[f] = b[f];
             d && (a = a.stateNode, a.__reactInternalMemoizedUnmaskedChildContext = b, a.__reactInternalMemoizedMaskedChildContext = e);
             return e;
         }
@@ -3313,7 +3313,7 @@ function requireReactReconciler_production_min() {
             b = b.childContextTypes;
             if ("function" !== typeof d.getChildContext) return c;
             d = d.getChildContext();
-            for(var e in d)if (!(e in b)) throw Error(n(108, va(a) || "Unknown", e));
+            for (var e in d) if (!(e in b)) throw Error(n(108, va(a) || "Unknown", e));
             return ca({}, c, d);
         }
         function qc(a) {
@@ -3336,7 +3336,7 @@ function requireReactReconciler_production_min() {
         }
         var wc = 64, xc = 4194304;
         function yc(a) {
-            switch(a & -a){
+            switch (a & -a) {
                 case 1:
                     return 1;
                 case 2:
@@ -3396,11 +3396,11 @@ function requireReactReconciler_production_min() {
             if (0 !== b && b !== d && 0 === (b & e) && (e = d & -d, f = b & -b, e >= f || 16 === e && 0 !== (f & 4194240))) return b;
             0 !== (d & 4) && (d |= c & 16);
             b = a.entangledLanes;
-            if (0 !== b) for(a = a.entanglements, b &= d; 0 < b;)c = 31 - tc(b), e = 1 << c, d |= a[c], b &= ~e;
+            if (0 !== b) for (a = a.entanglements, b &= d; 0 < b;)c = 31 - tc(b), e = 1 << c, d |= a[c], b &= ~e;
             return d;
         }
         function Ac(a, b) {
-            switch(a){
+            switch (a) {
                 case 1:
                 case 2:
                 case 4:
@@ -3441,7 +3441,7 @@ function requireReactReconciler_production_min() {
             }
         }
         function Bc(a, b) {
-            for(var c = a.suspendedLanes, d = a.pingedLanes, e = a.expirationTimes, f = a.pendingLanes; 0 < f;){
+            for (var c = a.suspendedLanes, d = a.pingedLanes, e = a.expirationTimes, f = a.pendingLanes; 0 < f;) {
                 var g = 31 - tc(f), h = 1 << g, k = e[g];
                 if (-1 === k) {
                     if (0 === (h & c) || 0 !== (h & d)) e[g] = Ac(h, b);
@@ -3460,7 +3460,7 @@ function requireReactReconciler_production_min() {
             return a;
         }
         function Ec(a) {
-            for(var b = [], c = 0; 31 > c; c++)b.push(a);
+            for (var b = [], c = 0; 31 > c; c++)b.push(a);
             return b;
         }
         function Fc(a, b, c) {
@@ -3480,7 +3480,7 @@ function requireReactReconciler_production_min() {
             a.entangledLanes &= b;
             b = a.entanglements;
             var d = a.eventTimes;
-            for(a = a.expirationTimes; 0 < c;){
+            for (a = a.expirationTimes; 0 < c;) {
                 var e = 31 - tc(c), f = 1 << e;
                 b[e] = 0;
                 d[e] = -1;
@@ -3490,7 +3490,7 @@ function requireReactReconciler_production_min() {
         }
         function Hc(a, b) {
             var c = a.entangledLanes |= b;
-            for(a = a.entanglements; c;){
+            for (a = a.entanglements; c;) {
                 var d = 31 - tc(c), e = 1 << d;
                 e & b | a[d] & b && (a[d] |= b);
                 c &= ~e;
@@ -3505,7 +3505,7 @@ function requireReactReconciler_production_min() {
         function Tc(a) {
             if (Sc && "function" === typeof Sc.onCommitFiberRoot) try {
                 Sc.onCommitFiberRoot(Rc, a, void 0, 128 === (a.current.flags & 128));
-            } catch (b) {}
+            } catch (b) { }
         }
         function Uc(a, b) {
             return a === b && (0 !== a || 1 / a === 1 / b) || a !== a && b !== b;
@@ -3526,7 +3526,7 @@ function requireReactReconciler_production_min() {
                 var a = 0, b = C;
                 try {
                     var c = Wc;
-                    for(C = 1; a < c.length; a++){
+                    for (C = 1; a < c.length; a++) {
                         var d = c[a];
                         do d = d(!0);
                         while (null !== d);
@@ -3535,7 +3535,7 @@ function requireReactReconciler_production_min() {
                     Xc = !1;
                 } catch (e) {
                     throw null !== Wc && (Wc = Wc.slice(a + 1)), Jc(Nc, ad), e;
-                } finally{
+                } finally {
                     C = b, Yc = false;
                 }
             }
@@ -3572,8 +3572,8 @@ function requireReactReconciler_production_min() {
             null !== a.return && (kd(a, 1), ld(a, 1, 0));
         }
         function nd(a) {
-            for(; a === dd;)dd = bd[--cd], bd[cd] = null, ed = bd[--cd], bd[cd] = null;
-            for(; a === hd;)hd = fd[--gd], fd[gd] = null, jd = fd[--gd], fd[gd] = null, id = fd[--gd], fd[gd] = null;
+            for (; a === dd;)dd = bd[--cd], bd[cd] = null, ed = bd[--cd], bd[cd] = null;
+            for (; a === hd;)hd = fd[--gd], fd[gd] = null, jd = fd[--gd], fd[gd] = null, id = fd[--gd], fd[gd] = null;
         }
         var od = null, pd = null, F = false, qd = false, rd = null;
         function sd(a, b) {
@@ -3587,7 +3587,7 @@ function requireReactReconciler_production_min() {
             ], a.flags |= 16) : b.push(c);
         }
         function ud(a, b) {
-            switch(a.tag){
+            switch (a.tag) {
                 case 5:
                     return b = Gb(b, a.type, a.pendingProps), null !== b ? (a.stateNode = b, od = a, pd = Ob(b), true) : false;
                 case 6:
@@ -3640,7 +3640,7 @@ function requireReactReconciler_production_min() {
             }
         }
         function xd(a) {
-            for(a = a.return; null !== a && 5 !== a.tag && 3 !== a.tag && 13 !== a.tag;)a = a.return;
+            for (a = a.return; null !== a && 5 !== a.tag && 3 !== a.tag && 13 !== a.tag;)a = a.return;
             od = a;
         }
         function yd(a) {
@@ -3650,7 +3650,7 @@ function requireReactReconciler_production_min() {
                 var b = pd;
                 if (b) {
                     if (vd(a)) throw zd(), Error(n(418));
-                    for(; b;)sd(a, b), b = Nb(b);
+                    for (; b;)sd(a, b), b = Nb(b);
                 }
             }
             xd(a);
@@ -3664,7 +3664,7 @@ function requireReactReconciler_production_min() {
             return true;
         }
         function zd() {
-            for(var a = pd; a;)a = Nb(a);
+            for (var a = pd; a;)a = Nb(a);
         }
         function Ad() {
             Va && (pd = od = null, qd = F = false);
@@ -3680,14 +3680,14 @@ function requireReactReconciler_production_min() {
             if ("object" !== (typeof a === "undefined" ? "undefined" : _type_of(a)) || null === a || "object" !== (typeof b === "undefined" ? "undefined" : _type_of(b)) || null === b) return false;
             var c = Object.keys(a), d = Object.keys(b);
             if (c.length !== d.length) return false;
-            for(d = 0; d < c.length; d++){
+            for (d = 0; d < c.length; d++) {
                 var e = c[d];
                 if (!fc.call(b, e) || !Vc(a[e], b[e])) return false;
             }
             return true;
         }
         function Ed(a) {
-            switch(a.tag){
+            switch (a.tag) {
                 case 5:
                     return cc(a.type);
                 case 16:
@@ -3751,11 +3751,11 @@ function requireReactReconciler_production_min() {
             }
             function c(c, d) {
                 if (!a) return null;
-                for(; null !== d;)b(c, d), d = d.sibling;
+                for (; null !== d;)b(c, d), d = d.sibling;
                 return null;
             }
             function d(a, b) {
-                for(a = new Map; null !== b;)null !== b.key ? a.set(b.key, b) : a.set(b.index, b), b = b.sibling;
+                for (a = new Map; null !== b;)null !== b.key ? a.set(b.key, b) : a.set(b.index, b), b = b.sibling;
                 return a;
             }
             function e(a, b) {
@@ -3806,7 +3806,7 @@ function requireReactReconciler_production_min() {
             function r(a, b, c) {
                 if ("string" === typeof b && "" !== b || "number" === typeof b) return b = Kd("" + b, a.mode, c), b.return = a, b;
                 if ("object" === (typeof b === "undefined" ? "undefined" : _type_of(b)) && null !== b) {
-                    switch(b.$$typeof){
+                    switch (b.$$typeof) {
                         case ea:
                             return c = Ld(b.type, b.key, b.props, null, a.mode, c), c.ref = Fd(a, null, b), c.return = a, c;
                         case fa:
@@ -3824,7 +3824,7 @@ function requireReactReconciler_production_min() {
                 var e = null !== b ? b.key : null;
                 if ("string" === typeof c && "" !== c || "number" === typeof c) return null !== e ? null : h(a, b, "" + c, d);
                 if ("object" === (typeof c === "undefined" ? "undefined" : _type_of(c)) && null !== c) {
-                    switch(c.$$typeof){
+                    switch (c.$$typeof) {
                         case ea:
                             return c.key === e ? k(a, b, c, d) : null;
                         case fa:
@@ -3840,7 +3840,7 @@ function requireReactReconciler_production_min() {
             function B(a, b, c, d, e) {
                 if ("string" === typeof d && "" !== d || "number" === typeof d) return a = a.get(c) || null, h(b, a, "" + d, e);
                 if ("object" === (typeof d === "undefined" ? "undefined" : _type_of(d)) && null !== d) {
-                    switch(d.$$typeof){
+                    switch (d.$$typeof) {
                         case ea:
                             return a = a.get(null === d.key ? c : d.key) || null, k(b, a, d, e);
                         case fa:
@@ -3855,7 +3855,7 @@ function requireReactReconciler_production_min() {
                 return null;
             }
             function w(e, g, h, k) {
-                for(var l = null, m = null, u = g, t = g = 0, E = null; null !== u && t < h.length; t++){
+                for (var l = null, m = null, u = g, t = g = 0, E = null; null !== u && t < h.length; t++) {
                     u.index > t ? (E = u, u = null) : E = u.sibling;
                     var y = p(e, u, h[t], k);
                     if (null === y) {
@@ -3870,12 +3870,12 @@ function requireReactReconciler_production_min() {
                 }
                 if (t === h.length) return c(e, u), F && kd(e, t), l;
                 if (null === u) {
-                    for(; t < h.length; t++)u = r(e, h[t], k), null !== u && (g = f(u, g, t), null === m ? l = u : m.sibling = u, m = u);
+                    for (; t < h.length; t++)u = r(e, h[t], k), null !== u && (g = f(u, g, t), null === m ? l = u : m.sibling = u, m = u);
                     F && kd(e, t);
                     return l;
                 }
-                for(u = d(e, u); t < h.length; t++)E = B(u, e, t, h[t], k), null !== E && (a && null !== E.alternate && u.delete(null === E.key ? t : E.key), g = f(E, g, t), null === m ? l = E : m.sibling = E, m = E);
-                a && u.forEach(function(a) {
+                for (u = d(e, u); t < h.length; t++)E = B(u, e, t, h[t], k), null !== E && (a && null !== E.alternate && u.delete(null === E.key ? t : E.key), g = f(E, g, t), null === m ? l = E : m.sibling = E, m = E);
+                a && u.forEach(function (a) {
                     return b(e, a);
                 });
                 F && kd(e, t);
@@ -3886,7 +3886,7 @@ function requireReactReconciler_production_min() {
                 if ("function" !== typeof l) throw Error(n(150));
                 h = l.call(h);
                 if (null == h) throw Error(n(151));
-                for(var u = l = null, m = g, t = g = 0, E = null, y = h.next(); null !== m && !y.done; t++, y = h.next()){
+                for (var u = l = null, m = g, t = g = 0, E = null, y = h.next(); null !== m && !y.done; t++, y = h.next()) {
                     m.index > t ? (E = m, m = null) : E = m.sibling;
                     var w = p(e, m, y.value, k);
                     if (null === w) {
@@ -3901,12 +3901,12 @@ function requireReactReconciler_production_min() {
                 }
                 if (y.done) return c(e, m), F && kd(e, t), l;
                 if (null === m) {
-                    for(; !y.done; t++, y = h.next())y = r(e, y.value, k), null !== y && (g = f(y, g, t), null === u ? l = y : u.sibling = y, u = y);
+                    for (; !y.done; t++, y = h.next())y = r(e, y.value, k), null !== y && (g = f(y, g, t), null === u ? l = y : u.sibling = y, u = y);
                     F && kd(e, t);
                     return l;
                 }
-                for(m = d(e, m); !y.done; t++, y = h.next())y = B(m, e, t, y.value, k), null !== y && (a && null !== y.alternate && m.delete(null === y.key ? t : y.key), g = f(y, g, t), null === u ? l = y : u.sibling = y, u = y);
-                a && m.forEach(function(a) {
+                for (m = d(e, m); !y.done; t++, y = h.next())y = B(m, e, t, y.value, k), null !== y && (a && null !== y.alternate && m.delete(null === y.key ? t : y.key), g = f(y, g, t), null === u ? l = y : u.sibling = y, u = y);
+                a && m.forEach(function (a) {
                     return b(e, a);
                 });
                 F && kd(e, t);
@@ -3915,10 +3915,10 @@ function requireReactReconciler_production_min() {
             function ya(a, d, f, h) {
                 "object" === (typeof f === "undefined" ? "undefined" : _type_of(f)) && null !== f && f.type === ha && null === f.key && (f = f.props.children);
                 if ("object" === (typeof f === "undefined" ? "undefined" : _type_of(f)) && null !== f) {
-                    switch(f.$$typeof){
+                    switch (f.$$typeof) {
                         case ea:
                             a: {
-                                for(var k = f.key, l = d; null !== l;){
+                                for (var k = f.key, l = d; null !== l;) {
                                     if (l.key === k) {
                                         k = f.type;
                                         if (k === ha) {
@@ -3947,7 +3947,7 @@ function requireReactReconciler_production_min() {
                             return g(a);
                         case fa:
                             a: {
-                                for(l = f.key; null !== d;){
+                                for (l = f.key; null !== d;) {
                                     if (d.key === l) if (4 === d.tag && d.stateNode.containerInfo === f.containerInfo && d.stateNode.implementation === f.implementation) {
                                         c(a, d.sibling);
                                         d = e(d, f.children || []);
@@ -3990,7 +3990,7 @@ function requireReactReconciler_production_min() {
             Sa ? a._currentValue = b : a._currentValue2 = b;
         }
         function Xd(a, b, c) {
-            for(; null !== a;){
+            for (; null !== a;) {
                 var d = a.alternate;
                 (a.childLanes & b) !== b ? (a.childLanes |= b, null !== d && (d.childLanes |= b)) : null !== d && (d.childLanes & b) !== b && (d.childLanes |= b);
                 if (a === c) break;
@@ -4036,7 +4036,7 @@ function requireReactReconciler_production_min() {
             var c = a.alternate;
             null !== c && (c.lanes |= b);
             c = a;
-            for(a = a.return; null !== a;)a.childLanes |= b, c = a.alternate, null !== c && (c.childLanes |= b), c = a, a = a.return;
+            for (a = a.return; null !== a;)a.childLanes |= b, c = a.alternate, null !== c && (c.childLanes |= b), c = a, a = a.return;
             return 3 === c.tag ? c.stateNode : null;
         }
         var de = false;
@@ -4115,7 +4115,7 @@ function requireReactReconciler_production_min() {
                         };
                         null === f ? e = f = g : f = f.next = g;
                         c = c.next;
-                    }while (null !== c);
+                    } while (null !== c);
                     null === f ? e = f = b : f = f.next = b;
                 } else e = f = b;
                 c = {
@@ -4165,7 +4165,7 @@ function requireReactReconciler_production_min() {
                             var w = a, Y = h;
                             p = b;
                             B = c;
-                            switch(Y.tag){
+                            switch (Y.tag) {
                                 case 1:
                                     w = Y.payload;
                                     if ("function" === typeof w) {
@@ -4200,7 +4200,7 @@ function requireReactReconciler_production_min() {
                     h = h.next;
                     if (null === h) if (h = e.shared.pending, null === h) break;
                     else p = h, h = p.next, p.next = null, e.lastBaseUpdate = p, e.shared.pending = null;
-                }while (1);
+                } while (1);
                 null === m && (k = r);
                 e.baseState = k;
                 e.firstBaseUpdate = l;
@@ -4219,7 +4219,7 @@ function requireReactReconciler_production_min() {
         function me(a, b, c) {
             a = b.effects;
             b.effects = null;
-            if (null !== a) for(b = 0; b < a.length; b++){
+            if (null !== a) for (b = 0; b < a.length; b++) {
                 var d = a[b], e = d.callback;
                 if (null !== e) {
                     d.callback = null;
@@ -4257,7 +4257,7 @@ function requireReactReconciler_production_min() {
         }
         var I = ic(0);
         function we(a) {
-            for(var b = a; null !== b;){
+            for (var b = a; null !== b;) {
                 if (13 === b.tag) {
                     var c = b.memoizedState;
                     if (null !== c && (c = c.dehydrated, null === c || Jb(c) || Kb(c))) return b;
@@ -4269,7 +4269,7 @@ function requireReactReconciler_production_min() {
                     continue;
                 }
                 if (b === a) break;
-                for(; null === b.sibling;){
+                for (; null === b.sibling;) {
                     if (null === b.return || b.return === a) return null;
                     b = b.return;
                 }
@@ -4280,7 +4280,7 @@ function requireReactReconciler_production_min() {
         }
         var xe = [];
         function ye() {
-            for(var a = 0; a < xe.length; a++){
+            for (var a = 0; a < xe.length; a++) {
                 var b = xe[a];
                 Sa ? b._workInProgressVersionPrimary = null : b._workInProgressVersionSecondary = null;
             }
@@ -4292,7 +4292,7 @@ function requireReactReconciler_production_min() {
         }
         function Ge(a, b) {
             if (null === b) return false;
-            for(var c = 0; c < b.length && c < a.length; c++)if (!Vc(a[c], b[c])) return false;
+            for (var c = 0; c < b.length && c < a.length; c++)if (!Vc(a[c], b[c])) return false;
             return true;
         }
         function He(a, b, c, d, e, f) {
@@ -4314,7 +4314,7 @@ function requireReactReconciler_production_min() {
                     b.updateQueue = null;
                     ze.current = Ke;
                     a = c(d, e);
-                }while (De);
+                } while (De);
             }
             ze.current = Le;
             b = null !== K && null !== K.next;
@@ -4404,7 +4404,7 @@ function requireReactReconciler_production_min() {
                         le |= m;
                     }
                     l = l.next;
-                }while (null !== l && l !== f);
+                } while (null !== l && l !== f);
                 null === k ? g = d : k.next = h;
                 Vc(d, b.memoizedState) || (G = true);
                 b.memoizedState = d;
@@ -4443,7 +4443,7 @@ function requireReactReconciler_production_min() {
                 d
             ];
         }
-        function Se() {}
+        function Se() { }
         function Te(a, b) {
             var c = J, d = Oe(), e = b(), f = !Vc(d.memoizedState, e);
             f && (d.memoizedState = e, G = true);
@@ -4481,7 +4481,7 @@ function requireReactReconciler_production_min() {
             Ze(b) && $e(a);
         }
         function Ve(a, b, c) {
-            return c(function() {
+            return c(function () {
                 Ze(b) && $e(a);
             });
         }
@@ -4569,10 +4569,10 @@ function requireReactReconciler_production_min() {
             return ff(4, 4, a, b);
         }
         function kf(a, b) {
-            if ("function" === typeof b) return a = a(), b(a), function() {
+            if ("function" === typeof b) return a = a(), b(a), function () {
                 b(null);
             };
-            if (null !== b && undefined !== b) return a = a(), b.current = a, function() {
+            if (null !== b && undefined !== b) return a = a(), b.current = a, function () {
                 b.current = null;
             };
         }
@@ -4582,7 +4582,7 @@ function requireReactReconciler_production_min() {
             ]) : null;
             return ff(4, 4, kf.bind(null, b, a), c);
         }
-        function mf() {}
+        function mf() { }
         function nf(a, b) {
             var c = Oe();
             b = undefined === b ? null : b;
@@ -4619,7 +4619,7 @@ function requireReactReconciler_production_min() {
             Ae.transition = {};
             try {
                 a(!1), b();
-            } finally{
+            } finally {
                 C = c, Ae.transition = d;
             }
         }
@@ -4663,7 +4663,7 @@ function requireReactReconciler_production_min() {
                         b.interleaved = e;
                         return;
                     }
-                } catch (l) {} finally{}
+                } catch (l) { } finally { }
                 c = be(a, b, e, d);
                 null !== c && (e = O(), af(c, a, d, e), wf(c, b, d));
             }
@@ -4779,7 +4779,7 @@ function requireReactReconciler_production_min() {
                     a
                 ];
             },
-            useMutableSource: function useMutableSource() {},
+            useMutableSource: function useMutableSource() { },
             useSyncExternalStore: function useSyncExternalStore(a, b, c) {
                 var d = J, e = Ne();
                 if (F) {
@@ -4882,7 +4882,7 @@ function requireReactReconciler_production_min() {
             if (a && a.defaultProps) {
                 b = ca({}, b);
                 a = a.defaultProps;
-                for(var c in a)undefined === b[c] && (b[c] = a[c]);
+                for (var c in a) undefined === b[c] && (b[c] = a[c]);
                 return b;
             }
             return b;
@@ -4988,7 +4988,7 @@ function requireReactReconciler_production_min() {
             try {
                 console.error(b.value);
             } catch (c) {
-                setTimeout(function() {
+                setTimeout(function () {
                     throw c;
                 });
             }
@@ -5001,7 +5001,7 @@ function requireReactReconciler_production_min() {
                 element: null
             };
             var d = b.value;
-            c.callback = function() {
+            c.callback = function () {
                 Jf || (Jf = true, Kf = d);
                 Gf(a, b);
             };
@@ -5013,15 +5013,15 @@ function requireReactReconciler_production_min() {
             var d = a.type.getDerivedStateFromError;
             if ("function" === typeof d) {
                 var e = b.value;
-                c.payload = function() {
+                c.payload = function () {
                     return d(e);
                 };
-                c.callback = function() {
+                c.callback = function () {
                     Gf(a, b);
                 };
             }
             var f = a.stateNode;
-            null !== f && "function" === typeof f.componentDidCatch && (c.callback = function() {
+            null !== f && "function" === typeof f.componentDidCatch && (c.callback = function () {
                 Gf(a, b);
                 "function" !== typeof d && (null === Mf ? Mf = new Set([
                     this
@@ -5048,7 +5048,7 @@ function requireReactReconciler_production_min() {
                 if (b = 13 === a.tag) b = a.memoizedState, b = null !== b ? null !== b.dehydrated ? true : false : true;
                 if (b) return a;
                 a = a.return;
-            }while (null !== a);
+            } while (null !== a);
             return null;
         }
         function Qf(a, b, c, d, e) {
@@ -5329,7 +5329,7 @@ function requireReactReconciler_production_min() {
             if (G || c) {
                 d = N;
                 if (null !== d) {
-                    switch(g & -g){
+                    switch (g & -g) {
                         case 4:
                             e = 2;
                             break;
@@ -5402,7 +5402,7 @@ function requireReactReconciler_production_min() {
             d = I.current;
             if (0 !== (d & 2)) d = d & 1 | 2, b.flags |= 128;
             else {
-                if (null !== a && 0 !== (a.flags & 128)) a: for(a = b.child; null !== a;){
+                if (null !== a && 0 !== (a.flags & 128)) a: for (a = b.child; null !== a;) {
                     if (13 === a.tag) null !== a.memoizedState && pg(a, c, b);
                     else if (19 === a.tag) pg(a, c, b);
                     else if (null !== a.child) {
@@ -5411,7 +5411,7 @@ function requireReactReconciler_production_min() {
                         continue;
                     }
                     if (a === b) break a;
-                    for(; null === a.sibling;){
+                    for (; null === a.sibling;) {
                         if (null === a.return || a.return === b) break a;
                         a = a.return;
                     }
@@ -5422,10 +5422,10 @@ function requireReactReconciler_production_min() {
             }
             v(I, d);
             if (0 === (b.mode & 1)) b.memoizedState = null;
-            else switch(e){
+            else switch (e) {
                 case "forwards":
                     c = b.child;
-                    for(e = null; null !== c;)a = c.alternate, null !== a && null === we(a) && (e = c), c = c.sibling;
+                    for (e = null; null !== c;)a = c.alternate, null !== a && null === we(a) && (e = c), c = c.sibling;
                     c = e;
                     null === c ? (e = b.child, b.child = null) : (e = c.sibling, c.sibling = null);
                     qg(b, false, e, c, f);
@@ -5433,7 +5433,7 @@ function requireReactReconciler_production_min() {
                 case "backwards":
                     c = null;
                     e = b.child;
-                    for(b.child = null; null !== e;){
+                    for (b.child = null; null !== e;) {
                         a = e.alternate;
                         if (null !== a && null === we(a)) {
                             b.child = e;
@@ -5466,13 +5466,13 @@ function requireReactReconciler_production_min() {
                 a = b.child;
                 c = Jd(a, a.pendingProps);
                 b.child = c;
-                for(c.return = b; null !== a.sibling;)a = a.sibling, c = c.sibling = Jd(a, a.pendingProps), c.return = b;
+                for (c.return = b; null !== a.sibling;)a = a.sibling, c = c.sibling = Jd(a, a.pendingProps), c.return = b;
                 c.sibling = null;
             }
             return b.child;
         }
         function sg(a, b, c) {
-            switch(b.tag){
+            switch (b.tag) {
                 case 3:
                     eg(b);
                     Ad();
@@ -5523,7 +5523,7 @@ function requireReactReconciler_production_min() {
         function ug(a, b) {
             if (null !== a && a.child === b.child) return true;
             if (0 !== (b.flags & 16)) return false;
-            for(a = b.child; null !== a;){
+            for (a = b.child; null !== a;) {
                 if (0 !== (a.flags & 12854) || 0 !== (a.subtreeFlags & 12854)) return false;
                 a = a.sibling;
             }
@@ -5531,7 +5531,7 @@ function requireReactReconciler_production_min() {
         }
         var vg, wg, xg, yg;
         if (Ta) vg = function vg(a, b) {
-            for(var c = b.child; null !== c;){
+            for (var c = b.child; null !== c;) {
                 if (5 === c.tag || 6 === c.tag) Ka(a, c.stateNode);
                 else if (4 !== c.tag && null !== c.child) {
                     c.child.return = c;
@@ -5539,14 +5539,14 @@ function requireReactReconciler_production_min() {
                     continue;
                 }
                 if (c === b) break;
-                for(; null === c.sibling;){
+                for (; null === c.sibling;) {
                     if (null === c.return || c.return === b) return;
                     c = c.return;
                 }
                 c.sibling.return = c.return;
                 c = c.sibling;
             }
-        }, wg = function wg() {}, xg = function xg(a, b, c, d, e) {
+        }, wg = function wg() { }, xg = function xg(a, b, c, d, e) {
             a = a.memoizedProps;
             if (a !== d) {
                 var f = b.stateNode, g = re(oe.current);
@@ -5557,8 +5557,8 @@ function requireReactReconciler_production_min() {
             c !== d && tg(b);
         };
         else if (Ua) {
-            vg = function(a, b, c, d) {
-                for(var e = b.child; null !== e;){
+            vg = function (a, b, c, d) {
+                for (var e = b.child; null !== e;) {
                     if (5 === e.tag) {
                         var f = e.stateNode;
                         c && d && (f = Eb(f, e.type, e.memoizedProps, e));
@@ -5573,7 +5573,7 @@ function requireReactReconciler_production_min() {
                         }
                     }
                     if (e === b) break;
-                    for(; null === e.sibling;){
+                    for (; null === e.sibling;) {
                         if (null === e.return || e.return === b) return;
                         e = e.return;
                     }
@@ -5582,7 +5582,7 @@ function requireReactReconciler_production_min() {
                 }
             };
             var zg = function zg1(a, b, c, d) {
-                for(var e = b.child; null !== e;){
+                for (var e = b.child; null !== e;) {
                     if (5 === e.tag) {
                         var f = e.stateNode;
                         c && d && (f = Eb(f, e.type, e.memoizedProps, e));
@@ -5597,7 +5597,7 @@ function requireReactReconciler_production_min() {
                         }
                     }
                     if (e === b) break;
-                    for(; null === e.sibling;){
+                    for (; null === e.sibling;) {
                         if (null === e.return || e.return === b) return;
                         e = e.return;
                     }
@@ -5628,24 +5628,24 @@ function requireReactReconciler_production_min() {
             yg = function yg(a, b, c, d) {
                 c !== d ? (a = re(qe.current), c = re(oe.current), b.stateNode = Oa(d, a, c, b), tg(b)) : b.stateNode = a.stateNode;
             };
-        } else wg = function wg() {}, xg = function xg() {}, yg = function yg() {};
+        } else wg = function wg() { }, xg = function xg() { }, yg = function yg() { };
         function Ag(a, b) {
-            if (!F) switch(a.tailMode){
+            if (!F) switch (a.tailMode) {
                 case "hidden":
                     b = a.tail;
-                    for(var c = null; null !== b;)null !== b.alternate && (c = b), b = b.sibling;
+                    for (var c = null; null !== b;)null !== b.alternate && (c = b), b = b.sibling;
                     null === c ? a.tail = null : c.sibling = null;
                     break;
                 case "collapsed":
                     c = a.tail;
-                    for(var d = null; null !== c;)null !== c.alternate && (d = c), c = c.sibling;
+                    for (var d = null; null !== c;)null !== c.alternate && (d = c), c = c.sibling;
                     null === d ? b || null === a.tail ? a.tail = null : a.tail.sibling = null : d.sibling = null;
             }
         }
         function Q(a) {
             var b = null !== a.alternate && a.alternate.child === a.child, c = 0, d = 0;
-            if (b) for(var e = a.child; null !== e;)c |= e.lanes | e.childLanes, d |= e.subtreeFlags & 14680064, d |= e.flags & 14680064, e.return = a, e = e.sibling;
-            else for(e = a.child; null !== e;)c |= e.lanes | e.childLanes, d |= e.subtreeFlags, d |= e.flags, e.return = a, e = e.sibling;
+            if (b) for (var e = a.child; null !== e;)c |= e.lanes | e.childLanes, d |= e.subtreeFlags & 14680064, d |= e.flags & 14680064, e.return = a, e = e.sibling;
+            else for (e = a.child; null !== e;)c |= e.lanes | e.childLanes, d |= e.subtreeFlags, d |= e.flags, e.return = a, e = e.sibling;
             a.subtreeFlags |= d;
             a.childLanes = c;
             return b;
@@ -5653,7 +5653,7 @@ function requireReactReconciler_production_min() {
         function Bg(a, b, c) {
             var d = b.pendingProps;
             nd(b);
-            switch(b.tag){
+            switch (b.tag) {
                 case 2:
                 case 16:
                 case 15:
@@ -5716,7 +5716,7 @@ function requireReactReconciler_production_min() {
                             a = b.stateNode;
                             c = b.memoizedProps;
                             if (d = Sb(a, c, b, !qd)) {
-                                if (e = od, null !== e) switch(e.tag){
+                                if (e = od, null !== e) switch (e.tag) {
                                     case 3:
                                         $b(e.stateNode.containerInfo, a, c, 0 !== (e.mode & 1));
                                         break;
@@ -5768,7 +5768,7 @@ function requireReactReconciler_production_min() {
                     f = e.rendering;
                     if (null === f) if (d) Ag(e, false);
                     else {
-                        if (0 !== R || null !== a && 0 !== (a.flags & 128)) for(a = b.child; null !== a;){
+                        if (0 !== R || null !== a && 0 !== (a.flags & 128)) for (a = b.child; null !== a;) {
                             f = we(a);
                             if (null !== f) {
                                 b.flags |= 128;
@@ -5777,7 +5777,7 @@ function requireReactReconciler_production_min() {
                                 null !== a && (b.updateQueue = a, b.flags |= 4);
                                 b.subtreeFlags = 0;
                                 a = c;
-                                for(c = b.child; null !== c;)d = c, e = a, d.flags &= 14680066, f = d.alternate, null === f ? (d.childLanes = 0, d.lanes = e, d.child = null, d.subtreeFlags = 0, d.memoizedProps = null, d.memoizedState = null, d.updateQueue = null, d.dependencies = null, d.stateNode = null) : (d.childLanes = f.childLanes, d.lanes = f.lanes, d.child = f.child, d.subtreeFlags = 0, d.deletions = null, d.memoizedProps = f.memoizedProps, d.memoizedState = f.memoizedState, d.updateQueue = f.updateQueue, d.type = f.type, e = f.dependencies, d.dependencies = null === e ? null : {
+                                for (c = b.child; null !== c;)d = c, e = a, d.flags &= 14680066, f = d.alternate, null === f ? (d.childLanes = 0, d.lanes = e, d.child = null, d.subtreeFlags = 0, d.memoizedProps = null, d.memoizedState = null, d.updateQueue = null, d.dependencies = null, d.stateNode = null) : (d.childLanes = f.childLanes, d.lanes = f.lanes, d.child = f.child, d.subtreeFlags = 0, d.deletions = null, d.memoizedProps = f.memoizedProps, d.memoizedState = f.memoizedState, d.updateQueue = f.updateQueue, d.type = f.type, e = f.dependencies, d.dependencies = null === e ? null : {
                                     lanes: e.lanes,
                                     firstContext: e.firstContext
                                 }), c = c.sibling;
@@ -5809,7 +5809,7 @@ function requireReactReconciler_production_min() {
         }
         function Fg(a, b) {
             nd(b);
-            switch(b.tag){
+            switch (b.tag) {
                 case 1:
                     return A(b.type) && nc(), a = b.flags, a & 65536 ? (b.flags = a & -65537 | 128, b) : null;
                 case 3:
@@ -5860,12 +5860,12 @@ function requireReactReconciler_production_min() {
         var Kg = false;
         function Lg(a, b) {
             Ha(a.containerInfo);
-            for(T = b; null !== T;)if (a = T, b = a.child, 0 !== (a.subtreeFlags & 1028) && null !== b) b.return = a, T = b;
-            else for(; null !== T;){
+            for (T = b; null !== T;)if (a = T, b = a.child, 0 !== (a.subtreeFlags & 1028) && null !== b) b.return = a, T = b;
+            else for (; null !== T;) {
                 a = T;
                 try {
                     var c = a.alternate;
-                    if (0 !== (a.flags & 1024)) switch(a.tag){
+                    if (0 !== (a.flags & 1024)) switch (a.tag) {
                         case 0:
                         case 11:
                         case 15:
@@ -5914,7 +5914,7 @@ function requireReactReconciler_production_min() {
                         undefined !== f && Jg(b, c, f);
                     }
                     e = e.next;
-                }while (e !== d);
+                } while (e !== d);
             }
         }
         function Ng(a, b) {
@@ -5928,14 +5928,14 @@ function requireReactReconciler_production_min() {
                         c.destroy = d();
                     }
                     c = c.next;
-                }while (c !== b);
+                } while (c !== b);
             }
         }
         function Og(a) {
             var b = a.ref;
             if (null !== b) {
                 var c = a.stateNode;
-                switch(a.tag){
+                switch (a.tag) {
                     case 5:
                         a = Ea(c);
                         break;
@@ -5965,13 +5965,13 @@ function requireReactReconciler_production_min() {
             return 5 === a.tag || 3 === a.tag || 4 === a.tag;
         }
         function Rg(a) {
-            a: for(;;){
-                for(; null === a.sibling;){
+            a: for (; ;) {
+                for (; null === a.sibling;) {
                     if (null === a.return || Qg(a.return)) return null;
                     a = a.return;
                 }
                 a.sibling.return = a.return;
-                for(a = a.sibling; 5 !== a.tag && 6 !== a.tag && 18 !== a.tag;){
+                for (a = a.sibling; 5 !== a.tag && 6 !== a.tag && 18 !== a.tag;) {
                     if (a.flags & 2) continue a;
                     if (null === a.child || 4 === a.tag) continue a;
                     else a.child.return = a, a = a.child;
@@ -5982,22 +5982,22 @@ function requireReactReconciler_production_min() {
         function Sg(a, b, c) {
             var d = a.tag;
             if (5 === d || 6 === d) a = a.stateNode, b ? pb(c, a, b) : kb(c, a);
-            else if (4 !== d && (a = a.child, null !== a)) for(Sg(a, b, c), a = a.sibling; null !== a;)Sg(a, b, c), a = a.sibling;
+            else if (4 !== d && (a = a.child, null !== a)) for (Sg(a, b, c), a = a.sibling; null !== a;)Sg(a, b, c), a = a.sibling;
         }
         function Tg(a, b, c) {
             var d = a.tag;
             if (5 === d || 6 === d) a = a.stateNode, b ? ob(c, a, b) : jb(c, a);
-            else if (4 !== d && (a = a.child, null !== a)) for(Tg(a, b, c), a = a.sibling; null !== a;)Tg(a, b, c), a = a.sibling;
+            else if (4 !== d && (a = a.child, null !== a)) for (Tg(a, b, c), a = a.sibling; null !== a;)Tg(a, b, c), a = a.sibling;
         }
         var V = null, Ug = false;
         function Vg(a, b, c) {
-            for(c = c.child; null !== c;)Wg(a, b, c), c = c.sibling;
+            for (c = c.child; null !== c;)Wg(a, b, c), c = c.sibling;
         }
         function Wg(a, b, c) {
             if (Sc && "function" === typeof Sc.onCommitFiberUnmount) try {
                 Sc.onCommitFiberUnmount(Rc, c);
-            } catch (h) {}
-            switch(c.tag){
+            } catch (h) { }
+            switch (c.tag) {
                 case 5:
                     S || Ig(c, b);
                 case 6:
@@ -6027,7 +6027,7 @@ function requireReactReconciler_production_min() {
                             f = f.tag;
                             undefined !== g && (0 !== (f & 2) ? Jg(c, b, g) : 0 !== (f & 4) && Jg(c, b, g));
                             e = e.next;
-                        }while (e !== d);
+                        } while (e !== d);
                     }
                     Vg(a, b, c);
                     break;
@@ -6055,7 +6055,7 @@ function requireReactReconciler_production_min() {
                 a.updateQueue = null;
                 var c = a.stateNode;
                 null === c && (c = a.stateNode = new Hg);
-                b.forEach(function(b) {
+                b.forEach(function (b) {
                     var d = Yg.bind(null, a, b);
                     c.has(b) || (c.add(b), b.then(d, d));
                 });
@@ -6063,14 +6063,14 @@ function requireReactReconciler_production_min() {
         }
         function Zg(a, b) {
             var c = b.deletions;
-            if (null !== c) for(var d = 0; d < c.length; d++){
+            if (null !== c) for (var d = 0; d < c.length; d++) {
                 var e = c[d];
                 try {
                     var f = a, g = b;
                     if (Ta) {
                         var h = g;
-                        a: for(; null !== h;){
-                            switch(h.tag){
+                        a: for (; null !== h;) {
+                            switch (h.tag) {
                                 case 5:
                                     V = h.stateNode;
                                     Ug = !1;
@@ -6098,11 +6098,11 @@ function requireReactReconciler_production_min() {
                     U(e, b, l);
                 }
             }
-            if (b.subtreeFlags & 12854) for(b = b.child; null !== b;)$g(b, a), b = b.sibling;
+            if (b.subtreeFlags & 12854) for (b = b.child; null !== b;)$g(b, a), b = b.sibling;
         }
         function $g(a, b) {
             var c = a.alternate, d = a.flags;
-            switch(a.tag){
+            switch (a.tag) {
                 case 0:
                 case 11:
                 case 14:
@@ -6216,11 +6216,11 @@ function requireReactReconciler_production_min() {
                     ah(a);
                     if (d & 8192) {
                         c = null !== a.memoizedState;
-                        if ((a.stateNode.isHidden = c) && !g && 0 !== (a.mode & 1)) for(T = a, d = a.child; null !== d;){
-                            for(b = T = d; null !== T;){
+                        if ((a.stateNode.isHidden = c) && !g && 0 !== (a.mode & 1)) for (T = a, d = a.child; null !== d;) {
+                            for (b = T = d; null !== T;) {
                                 g = T;
                                 var h = g.child;
-                                switch(g.tag){
+                                switch (g.tag) {
                                     case 0:
                                     case 11:
                                     case 14:
@@ -6256,7 +6256,7 @@ function requireReactReconciler_production_min() {
                             d = d.sibling;
                         }
                         if (Ta) {
-                            a: if (d = null, Ta) for(b = a;;){
+                            a: if (d = null, Ta) for (b = a; ;) {
                                 if (5 === b.tag) {
                                     if (null === d) {
                                         d = b;
@@ -6278,7 +6278,7 @@ function requireReactReconciler_production_min() {
                                     continue;
                                 }
                                 if (b === a) break a;
-                                for(; null === b.sibling;){
+                                for (; null === b.sibling;) {
                                     if (null === b.return || b.return === a) break a;
                                     d === b && (d = null);
                                     b = b.return;
@@ -6307,7 +6307,7 @@ function requireReactReconciler_production_min() {
                 try {
                     if (Ta) {
                         b: {
-                            for(var c = a.return; null !== c;){
+                            for (var c = a.return; null !== c;) {
                                 if (Qg(c)) {
                                     var d = c;
                                     break b;
@@ -6316,7 +6316,7 @@ function requireReactReconciler_production_min() {
                             }
                             throw Error(n(160));
                         }
-                        switch(d.tag){
+                        switch (d.tag) {
                             case 5:
                                 var e = d.stateNode;
                                 d.flags & 32 && (sb(e), d.flags &= -33);
@@ -6344,7 +6344,7 @@ function requireReactReconciler_production_min() {
             eh(a);
         }
         function eh(a, b, c) {
-            for(var d = 0 !== (a.mode & 1); null !== T;){
+            for (var d = 0 !== (a.mode & 1); null !== T;) {
                 var e = T, f = e.child;
                 if (22 === e.tag && d) {
                     var g = null !== e.memoizedState || Gg;
@@ -6353,8 +6353,8 @@ function requireReactReconciler_production_min() {
                         h = Gg;
                         var l = S;
                         Gg = g;
-                        if ((S = k) && !l) for(T = e; null !== T;)g = T, k = g.child, 22 === g.tag && null !== g.memoizedState ? fh(e) : null !== k ? (k.return = g, T = k) : fh(e);
-                        for(; null !== f;)T = f, eh(f), f = f.sibling;
+                        if ((S = k) && !l) for (T = e; null !== T;)g = T, k = g.child, 22 === g.tag && null !== g.memoizedState ? fh(e) : null !== k ? (k.return = g, T = k) : fh(e);
+                        for (; null !== f;)T = f, eh(f), f = f.sibling;
                         T = e;
                         Gg = h;
                         S = l;
@@ -6364,12 +6364,12 @@ function requireReactReconciler_production_min() {
             }
         }
         function gh(a) {
-            for(; null !== T;){
+            for (; null !== T;) {
                 var b = T;
                 if (0 !== (b.flags & 8772)) {
                     var c = b.alternate;
                     try {
-                        if (0 !== (b.flags & 8772)) switch(b.tag){
+                        if (0 !== (b.flags & 8772)) switch (b.tag) {
                             case 0:
                             case 11:
                             case 15:
@@ -6389,7 +6389,7 @@ function requireReactReconciler_production_min() {
                                 var g = b.updateQueue;
                                 if (null !== g) {
                                     c = null;
-                                    if (null !== b.child) switch(b.child.tag){
+                                    if (null !== b.child) switch (b.child.tag) {
                                         case 5:
                                             c = Ea(b.child.stateNode);
                                             break;
@@ -6450,7 +6450,7 @@ function requireReactReconciler_production_min() {
             }
         }
         function ch(a) {
-            for(; null !== T;){
+            for (; null !== T;) {
                 var b = T;
                 if (b === a) {
                     T = null;
@@ -6466,10 +6466,10 @@ function requireReactReconciler_production_min() {
             }
         }
         function fh(a) {
-            for(; null !== T;){
+            for (; null !== T;) {
                 var b = T;
                 try {
-                    switch(b.tag){
+                    switch (b.tag) {
                         case 0:
                         case 11:
                         case 15:
@@ -6541,7 +6541,7 @@ function requireReactReconciler_production_min() {
             return a.stateNode.current;
         }
         function oh(a, b) {
-            switch(b.$$typeof){
+            switch (b.$$typeof) {
                 case hh:
                     if (a.type === b.value) return true;
                     break;
@@ -6552,14 +6552,14 @@ function requireReactReconciler_production_min() {
                             a,
                             0
                         ];
-                        for(var c = 0; c < a.length;){
+                        for (var c = 0; c < a.length;) {
                             var d = a[c++], e = a[c++], f = b[e];
                             if (5 !== d.tag || !fb(d)) {
-                                for(; null != f && oh(d, f);)e++, f = b[e];
+                                for (; null != f && oh(d, f);)e++, f = b[e];
                                 if (e === b.length) {
                                     b = true;
                                     break a;
-                                } else for(d = d.child; null !== d;)a.push(d, e), d = d.sibling;
+                                } else for (d = d.child; null !== d;)a.push(d, e), d = d.sibling;
                             }
                         }
                         b = false;
@@ -6582,7 +6582,7 @@ function requireReactReconciler_production_min() {
             return false;
         }
         function ph(a) {
-            switch(a.$$typeof){
+            switch (a.$$typeof) {
                 case hh:
                     return "<" + (ua(a.value) || "Unknown") + ">";
                 case ih:
@@ -6603,12 +6603,12 @@ function requireReactReconciler_production_min() {
                 a,
                 0
             ];
-            for(var d = 0; d < a.length;){
+            for (var d = 0; d < a.length;) {
                 var e = a[d++], f = a[d++], g = b[f];
                 if (5 !== e.tag || !fb(e)) {
-                    for(; null != g && oh(e, g);)f++, g = b[f];
+                    for (; null != g && oh(e, g);)f++, g = b[f];
                     if (f === b.length) c.push(e);
-                    else for(e = e.child; null !== e;)a.push(e, f), e = e.sibling;
+                    else for (e = e.child; null !== e;)a.push(e, f), e = e.sibling;
                 }
             }
             return c;
@@ -6619,10 +6619,10 @@ function requireReactReconciler_production_min() {
             a = qh(a, b);
             b = [];
             a = Array.from(a);
-            for(var c = 0; c < a.length;){
+            for (var c = 0; c < a.length;) {
                 var d = a[c++];
                 if (5 === d.tag) fb(d) || b.push(d.stateNode);
-                else for(d = d.child; null !== d;)a.push(d), d = d.sibling;
+                else for (d = d.child; null !== d;)a.push(d), d = d.sibling;
             }
             return b;
         }
@@ -6653,11 +6653,11 @@ function requireReactReconciler_production_min() {
             if (0 === d) null !== c && Kc(c), a.callbackNode = null, a.callbackPriority = 0;
             else if (b = d & -d, a.callbackPriority !== b) {
                 null != c && Kc(c);
-                if (1 === b) 0 === a.tag ? $c(Lh.bind(null, a)) : Zc(Lh.bind(null, a)), $a ? ab(function() {
+                if (1 === b) 0 === a.tag ? $c(Lh.bind(null, a)) : Zc(Lh.bind(null, a)), $a ? ab(function () {
                     0 === (H & 6) && ad();
                 }) : Jc(Nc, ad), c = null;
                 else {
-                    switch(Ic(d)){
+                    switch (Ic(d)) {
                         case 1:
                             c = Nc;
                             break;
@@ -6715,7 +6715,7 @@ function requireReactReconciler_production_min() {
                     if (0 === (d & 30) && !Vh(e) && (b = Ph(a, d), 2 === b && (f = Cc(a), 0 !== f && (d = f, b = Uh(a, f))), 1 === b)) throw c = vh, Rh(a, 0), Jh(a, d), Kh(a, D()), c;
                     a.finishedWork = e;
                     a.finishedLanes = d;
-                    switch(b){
+                    switch (b) {
                         case 0:
                         case 1:
                             throw Error(n(345));
@@ -6741,7 +6741,7 @@ function requireReactReconciler_production_min() {
                             Jh(a, d);
                             if ((d & 4194240) === d) break;
                             b = a.eventTimes;
-                            for(e = -1; 0 < d;){
+                            for (e = -1; 0 < d;) {
                                 var g = 31 - tc(d);
                                 f = 1 << g;
                                 g = b[g];
@@ -6779,10 +6779,10 @@ function requireReactReconciler_production_min() {
             null === zh ? zh = a : zh.push.apply(zh, a);
         }
         function Vh(a) {
-            for(var b = a;;){
+            for (var b = a; ;) {
                 if (b.flags & 16384) {
                     var c = b.updateQueue;
-                    if (null !== c && (c = c.stores, null !== c)) for(var d = 0; d < c.length; d++){
+                    if (null !== c && (c = c.stores, null !== c)) for (var d = 0; d < c.length; d++) {
                         var e = c[d], f = e.getSnapshot;
                         e = e.value;
                         try {
@@ -6796,7 +6796,7 @@ function requireReactReconciler_production_min() {
                 if (b.subtreeFlags & 16384 && null !== c) c.return = b, b = c;
                 else {
                     if (b === a) break;
-                    for(; null === b.sibling;){
+                    for (; null === b.sibling;) {
                         if (null === b.return || b.return === a) return true;
                         b = b.return;
                     }
@@ -6811,7 +6811,7 @@ function requireReactReconciler_production_min() {
             b &= ~wh;
             a.suspendedLanes |= b;
             a.pingedLanes &= ~b;
-            for(a = a.expirationTimes; 0 < b;){
+            for (a = a.expirationTimes; 0 < b;) {
                 var c = 31 - tc(b), d = 1 << c;
                 a[c] = -1;
                 b &= ~d;
@@ -6842,7 +6842,7 @@ function requireReactReconciler_production_min() {
             var c = W.transition, d = C;
             try {
                 if (W.transition = null, C = 1, a) return a();
-            } finally{
+            } finally {
                 C = d, W.transition = c, H = b, 0 === (H & 6) && ad();
             }
         }
@@ -6855,10 +6855,10 @@ function requireReactReconciler_production_min() {
             a.finishedLanes = 0;
             var c = a.timeoutHandle;
             c !== Ra && (a.timeoutHandle = Ra, Qa(c));
-            if (null !== X) for(c = X.return; null !== c;){
+            if (null !== X) for (c = X.return; null !== c;) {
                 var d = c;
                 nd(d);
-                switch(d.tag){
+                switch (d.tag) {
                     case 1:
                         d = d.type.childContextTypes;
                         null !== d && undefined !== d && nc();
@@ -6898,7 +6898,7 @@ function requireReactReconciler_production_min() {
             xh = wh = le = 0;
             zh = yh = null;
             if (null !== $d) {
-                for(b = 0; b < $d.length; b++)if (c = $d[b], d = c.interleaved, null !== d) {
+                for (b = 0; b < $d.length; b++)if (c = $d[b], d = c.interleaved, null !== d) {
                     c.interleaved = null;
                     var e = d.next, f = c.pending;
                     if (null !== f) {
@@ -6919,7 +6919,7 @@ function requireReactReconciler_production_min() {
                     Ud();
                     ze.current = Le;
                     if (Ce) {
-                        for(var d = J.memoizedState; null !== d;){
+                        for (var d = J.memoizedState; null !== d;) {
                             var e = d.queue;
                             null !== e && (e.pending = null);
                             d = d.next;
@@ -6985,7 +6985,7 @@ function requireReactReconciler_production_min() {
                         ] : yh.push(f);
                         f = g;
                         do {
-                            switch(f.tag){
+                            switch (f.tag) {
                                 case 3:
                                     f.flags |= 65536;
                                     b &= -b;
@@ -7006,7 +7006,7 @@ function requireReactReconciler_production_min() {
                                     }
                             }
                             f = f.return;
-                        }while (null !== f);
+                        } while (null !== f);
                     }
                     Yh(c);
                 } catch (lc) {
@@ -7015,7 +7015,7 @@ function requireReactReconciler_production_min() {
                     continue;
                 }
                 break;
-            }while (1);
+            } while (1);
         }
         function Qh() {
             var a = th.current;
@@ -7047,10 +7047,10 @@ function requireReactReconciler_production_min() {
             return R;
         }
         function Zh() {
-            for(; null !== X;)$h(X);
+            for (; null !== X;)$h(X);
         }
         function Sh() {
-            for(; null !== X && !Lc();)$h(X);
+            for (; null !== X && !Lc();)$h(X);
         }
         function $h(a) {
             var b = ai(a.alternate, a, $f);
@@ -7088,14 +7088,14 @@ function requireReactReconciler_production_min() {
                     return;
                 }
                 X = b = a;
-            }while (null !== b);
+            } while (null !== b);
             0 === R && (R = 5);
         }
         function Wh(a, b, c) {
             var d = C, e = W.transition;
             try {
                 W.transition = null, C = 1, bi(a, b, c, d);
-            } finally{
+            } finally {
                 W.transition = e, C = d;
             }
             return null;
@@ -7115,7 +7115,7 @@ function requireReactReconciler_production_min() {
             var f = c.lanes | c.childLanes;
             Gc(a, f);
             a === N && (X = N = null, Z = 0);
-            0 === (c.subtreeFlags & 2064) && 0 === (c.flags & 2064) || Ch || (Ch = true, Mh(Pc, function() {
+            0 === (c.subtreeFlags & 2064) && 0 === (c.flags & 2064) || Ch || (Ch = true, Mh(Pc, function () {
                 Oh();
                 return null;
             }));
@@ -7143,7 +7143,7 @@ function requireReactReconciler_production_min() {
             0 === f && (Mf = null);
             Tc(c.stateNode);
             Kh(a, D());
-            if (null !== b) for(d = a.onRecoverableError, c = 0; c < b.length; c++)e = b[c], d(e.value, {
+            if (null !== b) for (d = a.onRecoverableError, c = 0; c < b.length; c++)e = b[c], d(e.value, {
                 componentStack: e.stack,
                 digest: e.digest
             });
@@ -7168,16 +7168,16 @@ function requireReactReconciler_production_min() {
                         if (0 !== (H & 6)) throw Error(n(331));
                         var e = H;
                         H |= 4;
-                        for(T = a.current; null !== T;){
+                        for (T = a.current; null !== T;) {
                             var f = T, g = f.child;
                             if (0 !== (T.flags & 16)) {
                                 var h = f.deletions;
                                 if (null !== h) {
-                                    for(var k = 0; k < h.length; k++){
+                                    for (var k = 0; k < h.length; k++) {
                                         var l = h[k];
-                                        for(T = l; null !== T;){
+                                        for (T = l; null !== T;) {
                                             var m = T;
-                                            switch(m.tag){
+                                            switch (m.tag) {
                                                 case 0:
                                                 case 11:
                                                 case 15:
@@ -7185,7 +7185,7 @@ function requireReactReconciler_production_min() {
                                             }
                                             var r = m.child;
                                             if (null !== r) r.return = m, T = r;
-                                            else for(; null !== T;){
+                                            else for (; null !== T;) {
                                                 m = T;
                                                 var p = m.sibling, B = m.return;
                                                 Pg(m);
@@ -7211,16 +7211,16 @@ function requireReactReconciler_production_min() {
                                                 var ya = Y.sibling;
                                                 Y.sibling = null;
                                                 Y = ya;
-                                            }while (null !== Y);
+                                            } while (null !== Y);
                                         }
                                     }
                                     T = f;
                                 }
                             }
                             if (0 !== (f.subtreeFlags & 2064) && null !== g) g.return = f, T = g;
-                            else b: for(; null !== T;){
+                            else b: for (; null !== T;) {
                                 f = T;
-                                if (0 !== (f.flags & 2048)) switch(f.tag){
+                                if (0 !== (f.flags & 2048)) switch (f.tag) {
                                     case 0:
                                     case 11:
                                     case 15:
@@ -7236,14 +7236,14 @@ function requireReactReconciler_production_min() {
                             }
                         }
                         var u = a.current;
-                        for(T = u; null !== T;){
+                        for (T = u; null !== T;) {
                             g = T;
                             var t = g.child;
                             if (0 !== (g.subtreeFlags & 2064) && null !== t) t.return = g, T = t;
-                            else b: for(g = u; null !== T;){
+                            else b: for (g = u; null !== T;) {
                                 h = T;
                                 if (0 !== (h.flags & 2048)) try {
-                                    switch(h.tag){
+                                    switch (h.tag) {
                                         case 0:
                                         case 11:
                                         case 15:
@@ -7269,11 +7269,11 @@ function requireReactReconciler_production_min() {
                         ad();
                         if (Sc && "function" === typeof Sc.onPostCommitFiberRoot) try {
                             Sc.onPostCommitFiberRoot(Rc, a);
-                        } catch (lc) {}
+                        } catch (lc) { }
                         d = !0;
                     }
                     return d;
-                } finally{
+                } finally {
                     C = c, W.transition = b;
                 }
             }
@@ -7288,7 +7288,7 @@ function requireReactReconciler_production_min() {
         }
         function U(a, b, c) {
             if (3 === a.tag) ci(a, a, c);
-            else for(; null !== b;){
+            else for (; null !== b;) {
                 if (3 === b.tag) {
                     ci(b, a, c);
                     break;
@@ -7327,7 +7327,7 @@ function requireReactReconciler_production_min() {
         }
         function Yg(a, b) {
             var c = 0;
-            switch(a.tag){
+            switch (a.tag) {
                 case 13:
                     var d = a.stateNode;
                     var e = a.memoizedState;
@@ -7351,7 +7351,7 @@ function requireReactReconciler_production_min() {
             }
             else G = false, F && 0 !== (b.flags & 1048576) && ld(b, ed, b.index);
             b.lanes = 0;
-            switch(b.tag){
+            switch (b.tag) {
                 case 2:
                     var d = b.type;
                     cg(a, b);
@@ -7373,7 +7373,7 @@ function requireReactReconciler_production_min() {
                         b.type = d;
                         e = b.tag = ei(d);
                         a = xf(d, a);
-                        switch(e){
+                        switch (e) {
                             case 0:
                                 b = Xf(null, b, d, a, c);
                                 break a;
@@ -7419,7 +7419,7 @@ function requireReactReconciler_production_min() {
                             e = Ef(Error(n(424)), b);
                             b = fg(a, b, d, c, e);
                             break a;
-                        } else for(Va && (pd = Pb(b.stateNode.containerInfo), od = b, F = true, rd = null, qd = false), c = Pd(b, null, d, c), b.child = c; c;)c.flags = c.flags & -3 | 4096, c = c.sibling;
+                        } else for (Va && (pd = Pb(b.stateNode.containerInfo), od = b, F = true, rd = null, qd = false), c = Pd(b, null, d, c), b.child = c; c;)c.flags = c.flags & -3 | 4096, c = c.sibling;
                         else {
                             Ad();
                             if (d === e) {
@@ -7459,11 +7459,11 @@ function requireReactReconciler_production_min() {
                                 b = Tf(a, b, c);
                                 break a;
                             }
-                        } else for(f = b.child, null !== f && (f.return = b); null !== f;){
+                        } else for (f = b.child, null !== f && (f.return = b); null !== f;) {
                             var h = f.dependencies;
                             if (null !== h) {
                                 g = f.child;
-                                for(var k = h.firstContext; null !== k;){
+                                for (var k = h.firstContext; null !== k;) {
                                     if (k.context === d) {
                                         if (1 === f.tag) {
                                             k = ge(-1, c & -c);
@@ -7496,7 +7496,7 @@ function requireReactReconciler_production_min() {
                                 g = f.sibling;
                             } else g = f.child;
                             if (null !== g) g.return = f;
-                            else for(g = f; null !== g;){
+                            else for (g = f; null !== g;) {
                                 if (g === b) {
                                     g = null;
                                     break;
@@ -7588,7 +7588,7 @@ function requireReactReconciler_production_min() {
             d = a;
             if ("function" === typeof a) Vf(a) && (g = 1);
             else if ("string" === typeof a) g = 5;
-            else a: switch(a){
+            else a: switch (a) {
                 case ha:
                     return Nd(c.children, e, f, b);
                 case ia:
@@ -7604,7 +7604,7 @@ function requireReactReconciler_production_min() {
                 case ra:
                     return jg(c, e, f, b);
                 default:
-                    if ("object" === (typeof a === "undefined" ? "undefined" : _type_of(a)) && null !== a) switch(a.$$typeof){
+                    if ("object" === (typeof a === "undefined" ? "undefined" : _type_of(a)) && null !== a) switch (a.$$typeof) {
                         case ka:
                             g = 10;
                             break a;
@@ -7697,7 +7697,7 @@ function requireReactReconciler_production_min() {
                 if (wa(a) !== a || 1 !== a.tag) throw Error(n(170));
                 var b = a;
                 do {
-                    switch(b.tag){
+                    switch (b.tag) {
                         case 3:
                             b = b.stateNode.context;
                             break a;
@@ -7708,7 +7708,7 @@ function requireReactReconciler_production_min() {
                             }
                     }
                     b = b.return;
-                }while (null !== b);
+                } while (null !== b);
                 throw Error(n(171));
             }
             if (1 === a.tag) {
@@ -7745,7 +7745,7 @@ function requireReactReconciler_production_min() {
         function ni() {
             return null;
         }
-        exports1.attemptContinuousHydration = function(a) {
+        exports1.attemptContinuousHydration = function (a) {
             if (13 === a.tag) {
                 var b = ce(a, 134217728);
                 if (null !== b) {
@@ -7755,7 +7755,7 @@ function requireReactReconciler_production_min() {
                 li(a, 134217728);
             }
         };
-        exports1.attemptDiscreteHydration = function(a) {
+        exports1.attemptDiscreteHydration = function (a) {
             if (13 === a.tag) {
                 var b = ce(a, 1);
                 if (null !== b) {
@@ -7765,7 +7765,7 @@ function requireReactReconciler_production_min() {
                 li(a, 1);
             }
         };
-        exports1.attemptHydrationAtCurrentPriority = function(a) {
+        exports1.attemptHydrationAtCurrentPriority = function (a) {
             if (13 === a.tag) {
                 var b = tf(a), c = ce(a, b);
                 if (null !== c) {
@@ -7775,8 +7775,8 @@ function requireReactReconciler_production_min() {
                 li(a, b);
             }
         };
-        exports1.attemptSynchronousHydration = function(a) {
-            switch(a.tag){
+        exports1.attemptSynchronousHydration = function (a) {
+            switch (a.tag) {
                 case 3:
                     var b = a.stateNode;
                     if (b.current.memoizedState.isDehydrated) {
@@ -7785,7 +7785,7 @@ function requireReactReconciler_production_min() {
                     }
                     break;
                 case 13:
-                    Xh(function() {
+                    Xh(function () {
                         var b = ce(a, 1);
                         if (null !== b) {
                             var c = O();
@@ -7794,31 +7794,31 @@ function requireReactReconciler_production_min() {
                     }), li(a, 1);
             }
         };
-        exports1.batchedUpdates = function(a, b) {
+        exports1.batchedUpdates = function (a, b) {
             var c = H;
             H |= 1;
             try {
                 return a(b);
-            } finally{
+            } finally {
                 H = c, 0 === H && (Bh(), Xc && ad());
             }
         };
-        exports1.createComponentSelector = function(a) {
+        exports1.createComponentSelector = function (a) {
             return {
                 $$typeof: hh,
                 value: a
             };
         };
-        exports1.createContainer = function(a, b, c, d, e, f, g) {
+        exports1.createContainer = function (a, b, c, d, e, f, g) {
             return hi(a, b, false, null, c, d, e, f, g);
         };
-        exports1.createHasPseudoClassSelector = function(a) {
+        exports1.createHasPseudoClassSelector = function (a) {
             return {
                 $$typeof: ih,
                 value: a
             };
         };
-        exports1.createHydrationContainer = function(a, b, c, d, e, f, g, h, k) {
+        exports1.createHydrationContainer = function (a, b, c, d, e, f, g, h, k) {
             a = hi(c, d, true, a, e, f, g, h, k);
             a.context = ii(null);
             c = a.current;
@@ -7832,7 +7832,7 @@ function requireReactReconciler_production_min() {
             Kh(a, d);
             return a;
         };
-        exports1.createPortal = function(a, b, c) {
+        exports1.createPortal = function (a, b, c) {
             var d = 3 < arguments.length && undefined !== arguments[3] ? arguments[3] : null;
             return {
                 $$typeof: fa,
@@ -7842,49 +7842,49 @@ function requireReactReconciler_production_min() {
                 implementation: c
             };
         };
-        exports1.createRoleSelector = function(a) {
+        exports1.createRoleSelector = function (a) {
             return {
                 $$typeof: jh,
                 value: a
             };
         };
-        exports1.createTestNameSelector = function(a) {
+        exports1.createTestNameSelector = function (a) {
             return {
                 $$typeof: kh,
                 value: a
             };
         };
-        exports1.createTextSelector = function(a) {
+        exports1.createTextSelector = function (a) {
             return {
                 $$typeof: lh,
                 value: a
             };
         };
-        exports1.deferredUpdates = function(a) {
+        exports1.deferredUpdates = function (a) {
             var b = C, c = W.transition;
             try {
                 return W.transition = null, C = 16, a();
-            } finally{
+            } finally {
                 C = b, W.transition = c;
             }
         };
-        exports1.discreteUpdates = function(a, b, c, d, e) {
+        exports1.discreteUpdates = function (a, b, c, d, e) {
             var f = C, g = W.transition;
             try {
                 return W.transition = null, C = 1, a(b, c, d, e);
-            } finally{
+            } finally {
                 C = f, W.transition = g, 0 === H && Bh();
             }
         };
         exports1.findAllNodes = rh;
-        exports1.findBoundingRects = function(a, b) {
+        exports1.findBoundingRects = function (a, b) {
             if (!bb) throw Error(n(363));
             b = rh(a, b);
             a = [];
-            for(var c = 0; c < b.length; c++)a.push(db(b[c]));
-            for(b = a.length - 1; 0 < b; b--){
+            for (var c = 0; c < b.length; c++)a.push(db(b[c]));
+            for (b = a.length - 1; 0 < b; b--) {
                 c = a[b];
-                for(var d = c.x, e = d + c.width, f = c.y, g = f + c.height, h = b - 1; 0 <= h; h--)if (b !== h) {
+                for (var d = c.x, e = d + c.width, f = c.y, g = f + c.height, h = b - 1; 0 <= h; h--)if (b !== h) {
                     var k = a[h], l = k.x, m = l + k.width, r = k.y, p = r + k.height;
                     if (d >= l && f >= r && e <= m && g <= p) {
                         a.splice(b, 1);
@@ -7905,73 +7905,73 @@ function requireReactReconciler_production_min() {
             return a;
         };
         exports1.findHostInstance = ji;
-        exports1.findHostInstanceWithNoPortals = function(a) {
+        exports1.findHostInstanceWithNoPortals = function (a) {
             a = za(a);
             a = null !== a ? Ca(a) : null;
             return null === a ? null : a.stateNode;
         };
-        exports1.findHostInstanceWithWarning = function(a) {
+        exports1.findHostInstanceWithWarning = function (a) {
             return ji(a);
         };
-        exports1.flushControlled = function(a) {
+        exports1.flushControlled = function (a) {
             var b = H;
             H |= 1;
             var c = W.transition, d = C;
             try {
                 W.transition = null, C = 1, a();
-            } finally{
+            } finally {
                 C = d, W.transition = c, H = b, 0 === H && (Bh(), ad());
             }
         };
         exports1.flushPassiveEffects = Oh;
         exports1.flushSync = Xh;
-        exports1.focusWithin = function(a, b) {
+        exports1.focusWithin = function (a, b) {
             if (!bb) throw Error(n(363));
             a = nh(a);
             b = qh(a, b);
             b = Array.from(b);
-            for(a = 0; a < b.length;){
+            for (a = 0; a < b.length;) {
                 var c = b[a++];
                 if (!fb(c)) {
                     if (5 === c.tag && hb(c.stateNode)) return true;
-                    for(c = c.child; null !== c;)b.push(c), c = c.sibling;
+                    for (c = c.child; null !== c;)b.push(c), c = c.sibling;
                 }
             }
             return false;
         };
-        exports1.getCurrentUpdatePriority = function() {
+        exports1.getCurrentUpdatePriority = function () {
             return C;
         };
-        exports1.getFindAllNodesFailureDescription = function(a, b) {
+        exports1.getFindAllNodesFailureDescription = function (a, b) {
             if (!bb) throw Error(n(363));
             var c = 0, d = [];
             a = [
                 nh(a),
                 0
             ];
-            for(var e = 0; e < a.length;){
+            for (var e = 0; e < a.length;) {
                 var f = a[e++], g = a[e++], h = b[g];
                 if (5 !== f.tag || !fb(f)) {
-                    if (oh(f, h) && (d.push(ph(h)), g++, g > c && (c = g)), g < b.length) for(f = f.child; null !== f;)a.push(f, g), f = f.sibling;
+                    if (oh(f, h) && (d.push(ph(h)), g++, g > c && (c = g)), g < b.length) for (f = f.child; null !== f;)a.push(f, g), f = f.sibling;
                 }
             }
             if (c < b.length) {
-                for(a = []; c < b.length; c++)a.push(ph(b[c]));
+                for (a = []; c < b.length; c++)a.push(ph(b[c]));
                 return "findAllNodes was able to match part of the selector:\n  " + (d.join(" > ") + "\n\nNo matching component was found for:\n  ") + a.join(" > ");
             }
             return null;
         };
-        exports1.getPublicRootInstance = function(a) {
+        exports1.getPublicRootInstance = function (a) {
             a = a.current;
             if (!a.child) return null;
-            switch(a.child.tag){
+            switch (a.child.tag) {
                 case 5:
                     return Ea(a.child.stateNode);
                 default:
                     return a.child.stateNode;
             }
         };
-        exports1.injectIntoDevTools = function(a) {
+        exports1.injectIntoDevTools = function (a) {
             a = {
                 bundleType: a.bundleType,
                 version: a.version,
@@ -8003,16 +8003,16 @@ function requireReactReconciler_production_min() {
                 else {
                     try {
                         Rc = b.inject(a), Sc = b;
-                    } catch (c) {}
+                    } catch (c) { }
                     a = b.checkDCE ? true : false;
                 }
             }
             return a;
         };
-        exports1.isAlreadyRendering = function() {
+        exports1.isAlreadyRendering = function () {
             return false;
         };
-        exports1.observeVisibleRects = function(a, b, c, d) {
+        exports1.observeVisibleRects = function (a, b, c, d) {
             if (!bb) throw Error(n(363));
             a = rh(a, b);
             var e = ib(a, c, d).disconnect;
@@ -8022,7 +8022,7 @@ function requireReactReconciler_production_min() {
                 }
             };
         };
-        exports1.registerMutableSourceForHydration = function(a, b) {
+        exports1.registerMutableSourceForHydration = function (a, b) {
             var c = b._getVersion;
             c = c(b._source);
             null == a.mutableSourceEagerHydrationData ? a.mutableSourceEagerHydrationData = [
@@ -8030,21 +8030,21 @@ function requireReactReconciler_production_min() {
                 c
             ] : a.mutableSourceEagerHydrationData.push(b, c);
         };
-        exports1.runWithPriority = function(a, b) {
+        exports1.runWithPriority = function (a, b) {
             var c = C;
             try {
                 return C = a, b();
-            } finally{
+            } finally {
                 C = c;
             }
         };
-        exports1.shouldError = function() {
+        exports1.shouldError = function () {
             return null;
         };
-        exports1.shouldSuspend = function() {
+        exports1.shouldSuspend = function () {
             return false;
         };
-        exports1.updateContainer = function(a, b, c, d) {
+        exports1.updateContainer = function (a, b, c, d) {
             var e = b.current, f = O(), g = tf(e);
             c = ii(c);
             null === b.context ? b.context = c : b.pendingContext = c;
@@ -8096,7 +8096,7 @@ function requireReactReconciler_development() {
             function warn(format) {
                 {
                     if (!suppressWarning) {
-                        for(var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++){
+                        for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
                             args[_key - 1] = arguments[_key];
                         }
                         printWarning('warn', format, args);
@@ -8106,7 +8106,7 @@ function requireReactReconciler_development() {
             function error(format) {
                 {
                     if (!suppressWarning) {
-                        for(var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++){
+                        for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
                             args[_key2 - 1] = arguments[_key2];
                         }
                         printWarning('error', format, args);
@@ -8125,7 +8125,7 @@ function requireReactReconciler_development() {
                             stack
                         ]);
                     } // eslint-disable-next-line react-internal/safe-string-coercion
-                    var argsWithFormat = args.map(function(item) {
+                    var argsWithFormat = args.map(function (item) {
                         return String(item);
                     }); // Careful: RN currently depends on this prefix
                     argsWithFormat.unshift('Warning: ' + format); // We intentionally don't use spread (or .apply) directly because it
@@ -8248,7 +8248,7 @@ function requireReactReconciler_development() {
                 if (typeof type === 'string') {
                     return type;
                 }
-                switch(type){
+                switch (type) {
                     case REACT_FRAGMENT_TYPE:
                         return 'Fragment';
                     case REACT_PORTAL_TYPE:
@@ -8263,7 +8263,7 @@ function requireReactReconciler_development() {
                         return 'SuspenseList';
                 }
                 if ((typeof type === "undefined" ? "undefined" : _type_of(type)) === 'object') {
-                    switch(type.$$typeof){
+                    switch (type.$$typeof) {
                         case REACT_CONTEXT_TYPE:
                             var context = type;
                             return getContextName(context) + '.Consumer';
@@ -8302,7 +8302,7 @@ function requireReactReconciler_development() {
             }
             function getComponentNameFromFiber(fiber) {
                 var tag = fiber.tag, type = fiber.type;
-                switch(tag){
+                switch (tag) {
                     case CacheComponent:
                         return 'Cache';
                     case ContextConsumer:
@@ -8398,7 +8398,7 @@ function requireReactReconciler_development() {
             var MountPassiveDev = /*              */ 33554432; // Groups of flags that are used in the commit phase to skip over trees that
             // don't contain effects, by checking subtreeFlags.
             var BeforeMutationMask = // flag logic (see #20043)
-            Update | Snapshot | 0;
+                Update | Snapshot | 0;
             var MutationMask = Placement | Update | ChildDeletion | ContentReset | Ref | Hydrating | Visibility;
             var LayoutMask = Update | Callback | Ref | Visibility; // TODO: Split into PassiveMountMask and PassiveUnmountMask
             var PassiveMask = Passive | ChildDeletion; // Union of tags that don't get reset on clones.
@@ -8422,9 +8422,9 @@ function requireReactReconciler_development() {
                             nearestMounted = node.return;
                         }
                         nextNode = node.return;
-                    }while (nextNode);
+                    } while (nextNode);
                 } else {
-                    while(node.return){
+                    while (node.return) {
                         node = node.return;
                     }
                 }
@@ -8479,7 +8479,7 @@ function requireReactReconciler_development() {
                 // special cases and we'll deal with them.
                 var a = fiber;
                 var b = alternate;
-                while(true){
+                while (true) {
                     var parentA = a.return;
                     if (parentA === null) {
                         break;
@@ -8501,7 +8501,7 @@ function requireReactReconciler_development() {
                     // priority: the bailed out fiber's child reuses the current child.
                     if (parentA.child === parentB.child) {
                         var child = parentA.child;
-                        while(child){
+                        while (child) {
                             if (child === a) {
                                 // We've determined that A is the current branch.
                                 assertIsMounted(parentA);
@@ -8532,7 +8532,7 @@ function requireReactReconciler_development() {
                         // Search parent A's child set
                         var didFindChild = false;
                         var _child = parentA.child;
-                        while(_child){
+                        while (_child) {
                             if (_child === a) {
                                 didFindChild = true;
                                 a = parentA;
@@ -8550,7 +8550,7 @@ function requireReactReconciler_development() {
                         if (!didFindChild) {
                             // Search parent B's child set
                             _child = parentB.child;
-                            while(_child){
+                            while (_child) {
                                 if (_child === a) {
                                     didFindChild = true;
                                     a = parentB;
@@ -8594,7 +8594,7 @@ function requireReactReconciler_development() {
                     return node;
                 }
                 var child = node.child;
-                while(child !== null){
+                while (child !== null) {
                     var match = findCurrentHostFiberImpl(child);
                     if (match !== null) {
                         return match;
@@ -8613,7 +8613,7 @@ function requireReactReconciler_development() {
                     return node;
                 }
                 var child = node.child;
-                while(child !== null){
+                while (child !== null) {
                     if (child.tag !== HostPortal) {
                         var match = findCurrentHostFiberWithNoPortalsImpl(child);
                         if (match !== null) {
@@ -8778,7 +8778,7 @@ function requireReactReconciler_development() {
             var prevGroup;
             var prevGroupCollapsed;
             var prevGroupEnd;
-            function disabledLog() {}
+            function disabledLog() { }
             disabledLog.__reactDisabledLog = true;
             function disableLogs() {
                 {
@@ -8805,7 +8805,8 @@ function requireReactReconciler_development() {
                             groupCollapsed: props,
                             groupEnd: props
                         });
-                    /* eslint-enable react-internal/no-production-logging */ }
+                        /* eslint-enable react-internal/no-production-logging */
+}
                     disabledDepth++;
                 }
             }
@@ -8841,7 +8842,8 @@ function requireReactReconciler_development() {
                                 value: prevGroupEnd
                             })
                         });
-                    /* eslint-enable react-internal/no-production-logging */ }
+                        /* eslint-enable react-internal/no-production-logging */
+}
                     if (disabledDepth < 0) {
                         error('disabledDepth fell below zero. ' + 'This is a bug in React. Please file an issue.');
                     }
@@ -8939,7 +8941,7 @@ function requireReactReconciler_development() {
                         var controlLines = control.stack.split('\n');
                         var s = sampleLines.length - 1;
                         var c = controlLines.length - 1;
-                        while(s >= 1 && c >= 0 && sampleLines[s] !== controlLines[c]){
+                        while (s >= 1 && c >= 0 && sampleLines[s] !== controlLines[c]) {
                             // We expect at least one stack frame to be shared.
                             // Typically this will be the root most one. However, stack frames may be
                             // cut off due to maximum stack limits. In this case, one maybe cut off
@@ -8948,7 +8950,7 @@ function requireReactReconciler_development() {
                             // the sample somewhere in the control.
                             c--;
                         }
-                        for(; s >= 1 && c >= 0; s--, c--){
+                        for (; s >= 1 && c >= 0; s--, c--) {
                             // Next we find the first one that isn't the same which should be the
                             // frame that called our sample function and the control.
                             if (sampleLines[s] !== controlLines[c]) {
@@ -8977,13 +8979,13 @@ function requireReactReconciler_development() {
                                             }
                                             return _frame;
                                         }
-                                    }while (s >= 1 && c >= 0);
+                                    } while (s >= 1 && c >= 0);
                                 }
                                 break;
                             }
                         }
                     }
-                } finally{
+                } finally {
                     reentry = false;
                     {
                         ReactCurrentDispatcher.current = previousDispatcher;
@@ -9026,14 +9028,14 @@ function requireReactReconciler_development() {
                 if (typeof type === 'string') {
                     return describeBuiltInComponentFrame(type);
                 }
-                switch(type){
+                switch (type) {
                     case REACT_SUSPENSE_TYPE:
                         return describeBuiltInComponentFrame('Suspense');
                     case REACT_SUSPENSE_LIST_TYPE:
                         return describeBuiltInComponentFrame('SuspenseList');
                 }
                 if ((typeof type === "undefined" ? "undefined" : _type_of(type)) === 'object') {
-                    switch(type.$$typeof){
+                    switch (type.$$typeof) {
                         case REACT_FORWARD_REF_TYPE:
                             return describeFunctionComponentFrame(type.render);
                         case REACT_MEMO_TYPE:
@@ -9047,7 +9049,7 @@ function requireReactReconciler_development() {
                                 try {
                                     // Lazy may contain any component type so we recursively resolve it.
                                     return describeUnknownElementTypeFrameInDEV(init(payload), source, ownerFn);
-                                } catch (x) {}
+                                } catch (x) { }
                             }
                     }
                 }
@@ -9071,7 +9073,7 @@ function requireReactReconciler_development() {
                 {
                     // $FlowFixMe This is okay but Flow doesn't know it.
                     var has = Function.call.bind(hasOwnProperty);
-                    for(var typeSpecName in typeSpecs){
+                    for (var typeSpecName in typeSpecs) {
                         if (has(typeSpecs, typeSpecName)) {
                             var error$1 = undefined; // Prop type validation may throw. In case they do, we don't want to
                             // fail the render phase where it didn't fail before. So we log it.
@@ -9190,7 +9192,7 @@ function requireReactReconciler_development() {
                         return instance.__reactInternalMemoizedMaskedChildContext;
                     }
                     var context = {};
-                    for(var key in contextTypes){
+                    for (var key in contextTypes) {
                         context[key] = unmaskedContext[key];
                     }
                     {
@@ -9252,7 +9254,7 @@ function requireReactReconciler_development() {
                         return parentContext;
                     }
                     var childContext = instance.getChildContext();
-                    for(var contextKey in childContext){
+                    for (var contextKey in childContext) {
                         if (!(contextKey in childContextTypes)) {
                             throw new Error((getComponentNameFromFiber(fiber) || 'Unknown') + ".getChildContext(): key \"" + contextKey + "\" is not defined in childContextTypes.");
                         }
@@ -9309,7 +9311,7 @@ function requireReactReconciler_development() {
                     }
                     var node = fiber;
                     do {
-                        switch(node.tag){
+                        switch (node.tag) {
                             case HostRoot:
                                 return node.stateNode.context;
                             case ClassComponent:
@@ -9322,7 +9324,7 @@ function requireReactReconciler_development() {
                                 }
                         }
                         node = node.return;
-                    }while (node !== null);
+                    } while (node !== null);
                     throw new Error('Found unexpected detached subtree parent. ' + 'This error is likely caused by a bug in React. Please file an issue.');
                 }
             }
@@ -9430,7 +9432,7 @@ function requireReactReconciler_development() {
             var nextTransitionLane = TransitionLane1;
             var nextRetryLane = RetryLane1;
             function getHighestPriorityLanes(lanes) {
-                switch(getHighestPriorityLane(lanes)){
+                switch (getHighestPriorityLane(lanes)) {
                     case SyncLane:
                         return SyncLane;
                     case InputContinuousHydrationLane:
@@ -9521,15 +9523,15 @@ function requireReactReconciler_development() {
                 // it and we'll lose our progress. We should only do this if the new lanes are
                 // higher priority.
                 if (wipLanes !== NoLanes && wipLanes !== nextLanes && // If we already suspended with a delay, then interrupting is fine. Don't
-                // bother waiting until the root is complete.
-                (wipLanes & suspendedLanes) === NoLanes) {
+                    // bother waiting until the root is complete.
+                    (wipLanes & suspendedLanes) === NoLanes) {
                     var nextLane = getHighestPriorityLane(nextLanes);
                     var wipLane = getHighestPriorityLane(wipLanes);
                     if (// one. This works because the bits decrease in priority as you go left.
-                    nextLane >= wipLane || // Default priority updates should not interrupt transition updates. The
-                    // only difference between default updates and transition updates is that
-                    // default updates do not support refresh transitions.
-                    nextLane === DefaultLane && (wipLane & TransitionLanes) !== NoLanes) {
+                        nextLane >= wipLane || // Default priority updates should not interrupt transition updates. The
+                        // only difference between default updates and transition updates is that
+                        // default updates do not support refresh transitions.
+                        nextLane === DefaultLane && (wipLane & TransitionLanes) !== NoLanes) {
                         // Keep working on the existing in-progress tree. Do not interrupt.
                         return wipLanes;
                     }
@@ -9566,7 +9568,7 @@ function requireReactReconciler_development() {
                 if (entangledLanes !== NoLanes) {
                     var entanglements = root.entanglements;
                     var lanes = nextLanes & entangledLanes;
-                    while(lanes > 0){
+                    while (lanes > 0) {
                         var index = pickArbitraryLaneIndex(lanes);
                         var lane = 1 << index;
                         nextLanes |= entanglements[index];
@@ -9578,7 +9580,7 @@ function requireReactReconciler_development() {
             function getMostRecentEventTime(root, lanes) {
                 var eventTimes = root.eventTimes;
                 var mostRecentEventTime = NoTimestamp;
-                while(lanes > 0){
+                while (lanes > 0) {
                     var index = pickArbitraryLaneIndex(lanes);
                     var lane = 1 << index;
                     var eventTime = eventTimes[index];
@@ -9590,7 +9592,7 @@ function requireReactReconciler_development() {
                 return mostRecentEventTime;
             }
             function computeExpirationTime(lane, currentTime) {
-                switch(lane){
+                switch (lane) {
                     case SyncLane:
                     case InputContinuousHydrationLane:
                     case InputContinuousLane:
@@ -9659,7 +9661,7 @@ function requireReactReconciler_development() {
                 // expiration time. If so, we'll assume the update is being starved and mark
                 // it as expired to force it to finish.
                 var lanes = pendingLanes;
-                while(lanes > 0){
+                while (lanes > 0) {
                     var index = pickArbitraryLaneIndex(lanes);
                     var lane = 1 << index;
                     var expirationTime = expirationTimes[index];
@@ -9782,7 +9784,7 @@ function requireReactReconciler_development() {
                 // Intentionally pushing one by one.
                 // https://v8.dev/blog/elements-kinds#avoid-creating-holes
                 var laneMap = [];
-                for(var i = 0; i < TotalLanes; i++){
+                for (var i = 0; i < TotalLanes; i++) {
                     laneMap.push(initial);
                 }
                 return laneMap;
@@ -9814,7 +9816,7 @@ function requireReactReconciler_development() {
                 root.pingedLanes &= ~suspendedLanes; // The suspended lanes are no longer CPU-bound. Clear their expiration times.
                 var expirationTimes = root.expirationTimes;
                 var lanes = suspendedLanes;
-                while(lanes > 0){
+                while (lanes > 0) {
                     var index = pickArbitraryLaneIndex(lanes);
                     var lane = 1 << index;
                     expirationTimes[index] = NoTimestamp;
@@ -9836,7 +9838,7 @@ function requireReactReconciler_development() {
                 var eventTimes = root.eventTimes;
                 var expirationTimes = root.expirationTimes; // Clear the lanes that no longer have pending work
                 var lanes = noLongerPendingLanes;
-                while(lanes > 0){
+                while (lanes > 0) {
                     var index = pickArbitraryLaneIndex(lanes);
                     var lane = 1 << index;
                     entanglements[index] = NoLanes;
@@ -9860,11 +9862,11 @@ function requireReactReconciler_development() {
                 var rootEntangledLanes = root.entangledLanes |= entangledLanes;
                 var entanglements = root.entanglements;
                 var lanes = rootEntangledLanes;
-                while(lanes){
+                while (lanes) {
                     var index = pickArbitraryLaneIndex(lanes);
                     var lane = 1 << index;
                     if (lane & entangledLanes | // Is this lane transitively entangled with the newly entangled lanes?
-                    entanglements[index] & entangledLanes) {
+                        entanglements[index] & entangledLanes) {
                         entanglements[index] |= entangledLanes;
                     }
                     lanes &= ~lane;
@@ -9873,7 +9875,7 @@ function requireReactReconciler_development() {
             function getBumpedLaneForHydration(root, renderLanes) {
                 var renderLane = getHighestPriorityLane(renderLanes);
                 var lane;
-                switch(renderLane){
+                switch (renderLane) {
                     case InputContinuousLane:
                         lane = InputContinuousHydrationLane;
                         break;
@@ -9925,7 +9927,7 @@ function requireReactReconciler_development() {
                     return;
                 }
                 var pendingUpdatersLaneMap = root.pendingUpdatersLaneMap;
-                while(lanes > 0){
+                while (lanes > 0) {
                     var index = laneToIndex(lanes);
                     var lane = 1 << index;
                     var updaters = pendingUpdatersLaneMap[index];
@@ -9939,12 +9941,12 @@ function requireReactReconciler_development() {
                 }
                 var pendingUpdatersLaneMap = root.pendingUpdatersLaneMap;
                 var memoizedUpdaters = root.memoizedUpdaters;
-                while(lanes > 0){
+                while (lanes > 0) {
                     var index = laneToIndex(lanes);
                     var lane = 1 << index;
                     var updaters = pendingUpdatersLaneMap[index];
                     if (updaters.size > 0) {
-                        updaters.forEach(function(fiber) {
+                        updaters.forEach(function (fiber) {
                             var alternate = fiber.alternate;
                             if (alternate === null || !memoizedUpdaters.has(alternate)) {
                                 memoizedUpdaters.add(fiber);
@@ -9976,7 +9978,7 @@ function requireReactReconciler_development() {
                 try {
                     currentUpdatePriority = priority;
                     return fn();
-                } finally{
+                } finally {
                     currentUpdatePriority = previousPriority;
                 }
             }
@@ -10085,7 +10087,7 @@ function requireReactReconciler_development() {
                         var didError = (root.current.flags & DidCapture) === DidCapture;
                         if (enableProfilerTimer) {
                             var schedulerPriority;
-                            switch(eventPriority){
+                            switch (eventPriority) {
                                 case DiscreteEventPriority:
                                     schedulerPriority = ImmediatePriority;
                                     break;
@@ -10172,7 +10174,7 @@ function requireReactReconciler_development() {
                 {
                     var map = new Map();
                     var lane = 1;
-                    for(var index = 0; index < TotalLanes; index++){
+                    for (var index = 0; index < TotalLanes; index++) {
                         var label = getLabelForLane(lane);
                         map.set(lane, label);
                         lane *= 2;
@@ -10353,7 +10355,7 @@ function requireReactReconciler_development() {
 	 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
 	 */ function is(x, y) {
                 return x === y && (x !== 0 || 1 / x === 1 / y) || x !== x && y !== y // eslint-disable-line no-self-compare
-                ;
+                    ;
             }
             var objectIs = typeof Object.is === 'function' ? Object.is : is;
             var syncQueue = null;
@@ -10397,11 +10399,11 @@ function requireReactReconciler_development() {
                         var queue = syncQueue; // TODO: Is this necessary anymore? The only user code that runs in this
                         // queue is in the render or commit phases.
                         setCurrentUpdatePriority(DiscreteEventPriority);
-                        for(; i < queue.length; i++){
+                        for (; i < queue.length; i++) {
                             var callback = queue[i];
                             do {
                                 callback = callback(isSync);
-                            }while (callback !== null);
+                            } while (callback !== null);
                         }
                         syncQueue = null;
                         includesLegacySyncCallbacks = false;
@@ -10412,7 +10414,7 @@ function requireReactReconciler_development() {
                         } // Resume flushing in the next tick
                         scheduleCallback(ImmediatePriority, flushSyncCallbacks);
                         throw error;
-                    } finally{
+                    } finally {
                         setCurrentUpdatePriority(previousUpdatePriority);
                         isFlushingSyncQueue = false;
                     }
@@ -10546,13 +10548,13 @@ function requireReactReconciler_development() {
                 // because the same Fiber may appear on the stack multiple times and for
                 // different reasons. We have to keep popping until the work-in-progress is
                 // no longer at the top of the stack.
-                while(workInProgress === treeForkProvider){
+                while (workInProgress === treeForkProvider) {
                     treeForkProvider = forkStack[--forkStackIndex];
                     forkStack[forkStackIndex] = null;
                     treeForkCount = forkStack[--forkStackIndex];
                     forkStack[forkStackIndex] = null;
                 }
-                while(workInProgress === treeContextProvider){
+                while (workInProgress === treeContextProvider) {
                     treeContextProvider = idStack[--idStackIndex];
                     idStack[idStackIndex] = null;
                     treeContextOverflow = idStack[--idStackIndex];
@@ -10640,7 +10642,7 @@ function requireReactReconciler_development() {
             }
             function warnUnhydratedInstance(returnFiber, instance) {
                 {
-                    switch(returnFiber.tag){
+                    switch (returnFiber.tag) {
                         case HostRoot:
                             {
                                 didNotHydrateInstanceWithinContainer(returnFiber.stateNode.containerInfo, instance);
@@ -10684,11 +10686,11 @@ function requireReactReconciler_development() {
                         // data, so it's probably a false positive.
                         return;
                     }
-                    switch(returnFiber.tag){
+                    switch (returnFiber.tag) {
                         case HostRoot:
                             {
                                 var parentContainer = returnFiber.stateNode.containerInfo;
-                                switch(fiber.tag){
+                                switch (fiber.tag) {
                                     case HostComponent:
                                         var type = fiber.type;
                                         var props = fiber.pendingProps;
@@ -10709,7 +10711,7 @@ function requireReactReconciler_development() {
                                 var parentType = returnFiber.type;
                                 var parentProps = returnFiber.memoizedProps;
                                 var parentInstance = returnFiber.stateNode;
-                                switch(fiber.tag){
+                                switch (fiber.tag) {
                                     case HostComponent:
                                         {
                                             var _type = fiber.type;
@@ -10737,7 +10739,7 @@ function requireReactReconciler_development() {
                             {
                                 var suspenseState = returnFiber.memoizedState;
                                 var _parentInstance = suspenseState.dehydrated;
-                                if (_parentInstance !== null) switch(fiber.tag){
+                                if (_parentInstance !== null) switch (fiber.tag) {
                                     case HostComponent:
                                         var _type2 = fiber.type;
                                         var _props2 = fiber.pendingProps;
@@ -10763,7 +10765,7 @@ function requireReactReconciler_development() {
                 warnNonhydratedInstance(returnFiber, fiber);
             }
             function tryHydrate(fiber, nextInstance) {
-                switch(fiber.tag){
+                switch (fiber.tag) {
                     case HostComponent:
                         {
                             var type = fiber.type;
@@ -10887,7 +10889,7 @@ function requireReactReconciler_development() {
                     // hydration parent is the parent host component of this host text.
                     var returnFiber = hydrationParentFiber;
                     if (returnFiber !== null) {
-                        switch(returnFiber.tag){
+                        switch (returnFiber.tag) {
                             case HostRoot:
                                 {
                                     var parentContainer = returnFiber.stateNode.containerInfo;
@@ -10933,7 +10935,7 @@ function requireReactReconciler_development() {
             }
             function popToNextHostParent(fiber) {
                 var parent = fiber.return;
-                while(parent !== null && parent.tag !== HostComponent && parent.tag !== HostRoot && parent.tag !== SuspenseComponent){
+                while (parent !== null && parent.tag !== HostComponent && parent.tag !== HostRoot && parent.tag !== SuspenseComponent) {
                     parent = parent.return;
                 }
                 hydrationParentFiber = parent;
@@ -10965,7 +10967,7 @@ function requireReactReconciler_development() {
                             warnIfUnhydratedTailNodes(fiber);
                             throwOnHydrationMismatch();
                         } else {
-                            while(nextInstance){
+                            while (nextInstance) {
                                 deleteHydratableInstance(fiber, nextInstance);
                                 nextInstance = getNextHydratableSibling(nextInstance);
                             }
@@ -10985,7 +10987,7 @@ function requireReactReconciler_development() {
             }
             function warnIfUnhydratedTailNodes(fiber) {
                 var nextInstance = nextHydratableInstance;
-                while(nextInstance){
+                while (nextInstance) {
                     warnUnhydratedInstance(fiber, nextInstance);
                     nextInstance = getNextHydratableSibling(nextInstance);
                 }
@@ -11041,7 +11043,7 @@ function requireReactReconciler_development() {
                 if (keysA.length !== keysB.length) {
                     return false;
                 } // Test for A's keys different from B.
-                for(var i = 0; i < keysA.length; i++){
+                for (var i = 0; i < keysA.length; i++) {
                     var currentKey = keysA[i];
                     if (!hasOwnProperty.call(objB, currentKey) || !objectIs(objA[currentKey], objB[currentKey])) {
                         return false;
@@ -11052,7 +11054,7 @@ function requireReactReconciler_development() {
             function describeFiber(fiber) {
                 fiber._debugOwner ? fiber._debugOwner.type : null;
                 fiber._debugSource;
-                switch(fiber.tag){
+                switch (fiber.tag) {
                     case HostComponent:
                         return describeBuiltInComponentFrame(fiber.type);
                     case LazyComponent:
@@ -11080,7 +11082,7 @@ function requireReactReconciler_development() {
                     do {
                         info += describeFiber(node);
                         node = node.return;
-                    }while (node);
+                    } while (node);
                     return info;
                 } catch (x) {
                     return '\nError generating stack: ' + x.message + '\n' + x.stack;
@@ -11135,17 +11137,17 @@ function requireReactReconciler_development() {
                 }
             }
             var ReactStrictModeWarnings = {
-                recordUnsafeLifecycleWarnings: function recordUnsafeLifecycleWarnings(fiber, instance) {},
-                flushPendingUnsafeLifecycleWarnings: function flushPendingUnsafeLifecycleWarnings() {},
-                recordLegacyContextWarning: function recordLegacyContextWarning(fiber, instance) {},
-                flushLegacyContextWarning: function flushLegacyContextWarning() {},
-                discardPendingWarnings: function discardPendingWarnings() {}
+                recordUnsafeLifecycleWarnings: function recordUnsafeLifecycleWarnings(fiber, instance) { },
+                flushPendingUnsafeLifecycleWarnings: function flushPendingUnsafeLifecycleWarnings() { },
+                recordLegacyContextWarning: function recordLegacyContextWarning(fiber, instance) { },
+                flushLegacyContextWarning: function flushLegacyContextWarning() { },
+                discardPendingWarnings: function discardPendingWarnings() { }
             };
             {
                 var findStrictRoot = function findStrictRoot(fiber) {
                     var maybeStrictRoot = null;
                     var node = fiber;
-                    while(node !== null){
+                    while (node !== null) {
                         if (node.mode & StrictLegacyMode) {
                             maybeStrictRoot = node;
                         }
@@ -11155,7 +11157,7 @@ function requireReactReconciler_development() {
                 };
                 var setToSortedString = function setToSortedString(set) {
                     var array = [];
-                    set.forEach(function(value) {
+                    set.forEach(function (value) {
                         array.push(value);
                     });
                     return array.sort().join(', ');
@@ -11167,13 +11169,13 @@ function requireReactReconciler_development() {
                 var pendingComponentWillUpdateWarnings = [];
                 var pendingUNSAFE_ComponentWillUpdateWarnings = []; // Tracks components we have already warned about.
                 var didWarnAboutUnsafeLifecycles = new Set();
-                ReactStrictModeWarnings.recordUnsafeLifecycleWarnings = function(fiber, instance) {
+                ReactStrictModeWarnings.recordUnsafeLifecycleWarnings = function (fiber, instance) {
                     // Dedupe strategy: Warn once per component.
                     if (didWarnAboutUnsafeLifecycles.has(fiber.type)) {
                         return;
                     }
                     if (typeof instance.componentWillMount === 'function' && // Don't warn about react-lifecycles-compat polyfilled components.
-                    instance.componentWillMount.__suppressDeprecationWarning !== true) {
+                        instance.componentWillMount.__suppressDeprecationWarning !== true) {
                         pendingComponentWillMountWarnings.push(fiber);
                     }
                     if (fiber.mode & StrictLegacyMode && typeof instance.UNSAFE_componentWillMount === 'function') {
@@ -11192,11 +11194,11 @@ function requireReactReconciler_development() {
                         pendingUNSAFE_ComponentWillUpdateWarnings.push(fiber);
                     }
                 };
-                ReactStrictModeWarnings.flushPendingUnsafeLifecycleWarnings = function() {
+                ReactStrictModeWarnings.flushPendingUnsafeLifecycleWarnings = function () {
                     // We do an initial pass to gather component names
                     var componentWillMountUniqueNames = new Set();
                     if (pendingComponentWillMountWarnings.length > 0) {
-                        pendingComponentWillMountWarnings.forEach(function(fiber) {
+                        pendingComponentWillMountWarnings.forEach(function (fiber) {
                             componentWillMountUniqueNames.add(getComponentNameFromFiber(fiber) || 'Component');
                             didWarnAboutUnsafeLifecycles.add(fiber.type);
                         });
@@ -11204,7 +11206,7 @@ function requireReactReconciler_development() {
                     }
                     var UNSAFE_componentWillMountUniqueNames = new Set();
                     if (pendingUNSAFE_ComponentWillMountWarnings.length > 0) {
-                        pendingUNSAFE_ComponentWillMountWarnings.forEach(function(fiber) {
+                        pendingUNSAFE_ComponentWillMountWarnings.forEach(function (fiber) {
                             UNSAFE_componentWillMountUniqueNames.add(getComponentNameFromFiber(fiber) || 'Component');
                             didWarnAboutUnsafeLifecycles.add(fiber.type);
                         });
@@ -11212,7 +11214,7 @@ function requireReactReconciler_development() {
                     }
                     var componentWillReceivePropsUniqueNames = new Set();
                     if (pendingComponentWillReceivePropsWarnings.length > 0) {
-                        pendingComponentWillReceivePropsWarnings.forEach(function(fiber) {
+                        pendingComponentWillReceivePropsWarnings.forEach(function (fiber) {
                             componentWillReceivePropsUniqueNames.add(getComponentNameFromFiber(fiber) || 'Component');
                             didWarnAboutUnsafeLifecycles.add(fiber.type);
                         });
@@ -11220,7 +11222,7 @@ function requireReactReconciler_development() {
                     }
                     var UNSAFE_componentWillReceivePropsUniqueNames = new Set();
                     if (pendingUNSAFE_ComponentWillReceivePropsWarnings.length > 0) {
-                        pendingUNSAFE_ComponentWillReceivePropsWarnings.forEach(function(fiber) {
+                        pendingUNSAFE_ComponentWillReceivePropsWarnings.forEach(function (fiber) {
                             UNSAFE_componentWillReceivePropsUniqueNames.add(getComponentNameFromFiber(fiber) || 'Component');
                             didWarnAboutUnsafeLifecycles.add(fiber.type);
                         });
@@ -11228,7 +11230,7 @@ function requireReactReconciler_development() {
                     }
                     var componentWillUpdateUniqueNames = new Set();
                     if (pendingComponentWillUpdateWarnings.length > 0) {
-                        pendingComponentWillUpdateWarnings.forEach(function(fiber) {
+                        pendingComponentWillUpdateWarnings.forEach(function (fiber) {
                             componentWillUpdateUniqueNames.add(getComponentNameFromFiber(fiber) || 'Component');
                             didWarnAboutUnsafeLifecycles.add(fiber.type);
                         });
@@ -11236,7 +11238,7 @@ function requireReactReconciler_development() {
                     }
                     var UNSAFE_componentWillUpdateUniqueNames = new Set();
                     if (pendingUNSAFE_ComponentWillUpdateWarnings.length > 0) {
-                        pendingUNSAFE_ComponentWillUpdateWarnings.forEach(function(fiber) {
+                        pendingUNSAFE_ComponentWillUpdateWarnings.forEach(function (fiber) {
                             UNSAFE_componentWillUpdateUniqueNames.add(getComponentNameFromFiber(fiber) || 'Component');
                             didWarnAboutUnsafeLifecycles.add(fiber.type);
                         });
@@ -11270,7 +11272,7 @@ function requireReactReconciler_development() {
                 };
                 var pendingLegacyContextWarning = new Map(); // Tracks components we have already warned about.
                 var didWarnAboutLegacyContext = new Set();
-                ReactStrictModeWarnings.recordLegacyContextWarning = function(fiber, instance) {
+                ReactStrictModeWarnings.recordLegacyContextWarning = function (fiber, instance) {
                     var strictRoot = findStrictRoot(fiber);
                     if (strictRoot === null) {
                         error('Expected to find a StrictMode component in a strict mode tree. ' + 'This error is likely caused by a bug in React. Please file an issue.');
@@ -11288,14 +11290,14 @@ function requireReactReconciler_development() {
                         warningsForRoot.push(fiber);
                     }
                 };
-                ReactStrictModeWarnings.flushLegacyContextWarning = function() {
-                    pendingLegacyContextWarning.forEach(function(fiberArray, strictRoot) {
+                ReactStrictModeWarnings.flushLegacyContextWarning = function () {
+                    pendingLegacyContextWarning.forEach(function (fiberArray, strictRoot) {
                         if (fiberArray.length === 0) {
                             return;
                         }
                         var firstFiber = fiberArray[0];
                         var uniqueNames = new Set();
-                        fiberArray.forEach(function(fiber) {
+                        fiberArray.forEach(function (fiber) {
                             uniqueNames.add(getComponentNameFromFiber(fiber) || 'Component');
                             didWarnAboutLegacyContext.add(fiber.type);
                         });
@@ -11303,12 +11305,12 @@ function requireReactReconciler_development() {
                         try {
                             setCurrentFiber(firstFiber);
                             error('Legacy context API has been detected within a strict-mode tree.' + '\n\nThe old API will be supported in all 16.x releases, but applications ' + 'using it should migrate to the new version.' + '\n\nPlease update the following components: %s' + '\n\nLearn more about this warning here: https://reactjs.org/link/legacy-context', sortedNames);
-                        } finally{
+                        } finally {
                             resetCurrentFiber();
                         }
                     });
                 };
-                ReactStrictModeWarnings.discardPendingWarnings = function() {
+                ReactStrictModeWarnings.discardPendingWarnings = function () {
                     pendingComponentWillMountWarnings = [];
                     pendingUNSAFE_ComponentWillMountWarnings = [];
                     pendingComponentWillReceivePropsWarnings = [];
@@ -11319,14 +11321,14 @@ function requireReactReconciler_development() {
                 };
             }
             /*
-	 * The `'' + value` pattern (used in in perf-sensitive code) throws for Symbol
-	 * and Temporal.* types. See https://github.com/facebook/react/pull/22064.
-	 *
-	 * The functions in this module will throw an easier-to-understand,
-	 * easier-to-debug exception with a clear errors message message explaining the
-	 * problem. (Instead of a confusing exception thrown inside the implementation
-	 * of the `value` object).
-	 */ // $FlowFixMe only called in DEV, so void return is not possible.
+     * The `'' + value` pattern (used in in perf-sensitive code) throws for Symbol
+     * and Temporal.* types. See https://github.com/facebook/react/pull/22064.
+     *
+     * The functions in this module will throw an easier-to-understand,
+     * easier-to-debug exception with a clear errors message message explaining the
+     * problem. (Instead of a confusing exception thrown inside the implementation
+     * of the `value` object).
+     */ // $FlowFixMe only called in DEV, so void return is not possible.
             function typeName(value) {
                 {
                     // toStringTag is needed for namespaced types like Temporal.Instant
@@ -11392,7 +11394,7 @@ function requireReactReconciler_development() {
             var didWarnAboutStringRefs;
             var ownerHasKeyUseWarning;
             var ownerHasFunctionTypeWarning;
-            var warnForMissingKey = function warnForMissingKey(child, returnFiber) {};
+            var warnForMissingKey = function warnForMissingKey(child, returnFiber) { };
             {
                 didWarnAboutMaps = false;
                 didWarnAboutGenerators = false;
@@ -11432,12 +11434,12 @@ function requireReactReconciler_development() {
                         // TODO: Clean this up once we turn on the string ref warning for
                         // everyone, because the strict mode case will no longer be relevant
                         if ((returnFiber.mode & StrictLegacyMode || warnAboutStringRefs) && // We warn in ReactElement.js if owner and self are equal for string refs
-                        // because these cannot be automatically converted to an arrow function
-                        // using a codemod. Therefore, we don't have to warn about string refs again.
-                        !(element._owner && element._self && element._owner.stateNode !== element._self) && // Will already throw with "Function components cannot have string refs"
-                        !(element._owner && element._owner.tag !== ClassComponent) && // Will already warn with "Function components cannot be given refs"
-                        !(typeof element.type === 'function' && !isReactClass(element.type)) && // Will already throw with "Element ref was specified as a string (someStringRef) but no owner was set"
-                        element._owner) {
+                            // because these cannot be automatically converted to an arrow function
+                            // using a codemod. Therefore, we don't have to warn about string refs again.
+                            !(element._owner && element._self && element._owner.stateNode !== element._self) && // Will already throw with "Function components cannot have string refs"
+                            !(element._owner && element._owner.tag !== ClassComponent) && // Will already warn with "Function components cannot be given refs"
+                            !(typeof element.type === 'function' && !isReactClass(element.type)) && // Will already throw with "Element ref was specified as a string (someStringRef) but no owner was set"
+                            element._owner) {
                             var componentName = getComponentNameFromFiber(returnFiber) || 'Component';
                             if (!didWarnAboutStringRefs[componentName]) {
                                 {
@@ -11534,7 +11536,7 @@ function requireReactReconciler_development() {
                     } // TODO: For the shouldClone case, this could be micro-optimized a bit by
                     // assuming that after the first child we've already added everything.
                     var childToDelete = currentFirstChild;
-                    while(childToDelete !== null){
+                    while (childToDelete !== null) {
                         deleteChild(returnFiber, childToDelete);
                         childToDelete = childToDelete.sibling;
                     }
@@ -11546,7 +11548,7 @@ function requireReactReconciler_development() {
                     // instead.
                     var existingChildren = new Map();
                     var existingChild = currentFirstChild;
-                    while(existingChild !== null){
+                    while (existingChild !== null) {
                         if (existingChild.key !== null) {
                             existingChildren.set(existingChild.key, existingChild);
                         } else {
@@ -11617,10 +11619,10 @@ function requireReactReconciler_development() {
                     }
                     if (current !== null) {
                         if (current.elementType === elementType || isCompatibleFamilyForHotReloading(current, element) || // Lazy types should reconcile their resolved type.
-                        // We need to do this after the Hot Reloading check above,
-                        // because hot reloading has different semantics than prod because
-                        // it doesn't resuspend. So we can't let the call below suspend.
-                        (typeof elementType === "undefined" ? "undefined" : _type_of(elementType)) === 'object' && elementType !== null && elementType.$$typeof === REACT_LAZY_TYPE && resolveLazy(elementType) === current.type) {
+                            // We need to do this after the Hot Reloading check above,
+                            // because hot reloading has different semantics than prod because
+                            // it doesn't resuspend. So we can't let the call below suspend.
+                            (typeof elementType === "undefined" ? "undefined" : _type_of(elementType)) === 'object' && elementType !== null && elementType.$$typeof === REACT_LAZY_TYPE && resolveLazy(elementType) === current.type) {
                             // Move based on index
                             var existing = useFiber(current, element.props);
                             existing.ref = coerceRef(returnFiber, current, element);
@@ -11673,7 +11675,7 @@ function requireReactReconciler_development() {
                         return created;
                     }
                     if ((typeof newChild === "undefined" ? "undefined" : _type_of(newChild)) === 'object' && newChild !== null) {
-                        switch(newChild.$$typeof){
+                        switch (newChild.$$typeof) {
                             case REACT_ELEMENT_TYPE:
                                 {
                                     var _created = createFiberFromElement(newChild, returnFiber.mode, lanes);
@@ -11721,7 +11723,7 @@ function requireReactReconciler_development() {
                         return updateTextNode(returnFiber, oldFiber, '' + newChild, lanes);
                     }
                     if ((typeof newChild === "undefined" ? "undefined" : _type_of(newChild)) === 'object' && newChild !== null) {
-                        switch(newChild.$$typeof){
+                        switch (newChild.$$typeof) {
                             case REACT_ELEMENT_TYPE:
                                 {
                                     if (newChild.key === key) {
@@ -11768,7 +11770,7 @@ function requireReactReconciler_development() {
                         return updateTextNode(returnFiber, matchedFiber, '' + newChild, lanes);
                     }
                     if ((typeof newChild === "undefined" ? "undefined" : _type_of(newChild)) === 'object' && newChild !== null) {
-                        switch(newChild.$$typeof){
+                        switch (newChild.$$typeof) {
                             case REACT_ELEMENT_TYPE:
                                 {
                                     var _matchedFiber = existingChildren.get(newChild.key === null ? newIdx : newChild.key) || null;
@@ -11804,7 +11806,7 @@ function requireReactReconciler_development() {
                         if ((typeof child === "undefined" ? "undefined" : _type_of(child)) !== 'object' || child === null) {
                             return knownKeys;
                         }
-                        switch(child.$$typeof){
+                        switch (child.$$typeof) {
                             case REACT_ELEMENT_TYPE:
                             case REACT_PORTAL_TYPE:
                                 warnForMissingKey(child, returnFiber);
@@ -11851,7 +11853,7 @@ function requireReactReconciler_development() {
                     {
                         // First, validate keys.
                         var knownKeys = null;
-                        for(var i = 0; i < newChildren.length; i++){
+                        for (var i = 0; i < newChildren.length; i++) {
                             var child = newChildren[i];
                             knownKeys = warnOnInvalidKey(child, knownKeys, returnFiber);
                         }
@@ -11862,7 +11864,7 @@ function requireReactReconciler_development() {
                     var lastPlacedIndex = 0;
                     var newIdx = 0;
                     var nextOldFiber = null;
-                    for(; oldFiber !== null && newIdx < newChildren.length; newIdx++){
+                    for (; oldFiber !== null && newIdx < newChildren.length; newIdx++) {
                         if (oldFiber.index > newIdx) {
                             nextOldFiber = oldFiber;
                             oldFiber = null;
@@ -11913,7 +11915,7 @@ function requireReactReconciler_development() {
                     if (oldFiber === null) {
                         // If we don't have any more existing children we can choose a fast path
                         // since the rest will all be insertions.
-                        for(; newIdx < newChildren.length; newIdx++){
+                        for (; newIdx < newChildren.length; newIdx++) {
                             var _newFiber = createChild(returnFiber, newChildren[newIdx], lanes);
                             if (_newFiber === null) {
                                 continue;
@@ -11934,7 +11936,7 @@ function requireReactReconciler_development() {
                         return resultingFirstChild;
                     } // Add all children to a key map for quick lookups.
                     var existingChildren = mapRemainingChildren(returnFiber, oldFiber); // Keep scanning and use the map to restore deleted items as moves.
-                    for(; newIdx < newChildren.length; newIdx++){
+                    for (; newIdx < newChildren.length; newIdx++) {
                         var _newFiber2 = updateFromMap(existingChildren, returnFiber, newIdx, newChildren[newIdx], lanes);
                         if (_newFiber2 !== null) {
                             if (shouldTrackSideEffects) {
@@ -11958,7 +11960,7 @@ function requireReactReconciler_development() {
                     if (shouldTrackSideEffects) {
                         // Any existing children that weren't consumed above were deleted. We need
                         // to add them to the deletion list.
-                        existingChildren.forEach(function(child) {
+                        existingChildren.forEach(function (child) {
                             return deleteChild(returnFiber, child);
                         });
                     }
@@ -11979,7 +11981,7 @@ function requireReactReconciler_development() {
                         // We don't support rendering Generators because it's a mutation.
                         // See https://github.com/facebook/react/issues/12995
                         if (typeof Symbol === 'function' && // $FlowFixMe Flow doesn't know about toStringTag
-                        newChildrenIterable[Symbol.toStringTag] === 'Generator') {
+                            newChildrenIterable[Symbol.toStringTag] === 'Generator') {
                             if (!didWarnAboutGenerators) {
                                 error('Using Generators as children is unsupported and will likely yield ' + 'unexpected results because enumerating a generator mutates it. ' + 'You may convert it to an array with `Array.from()` or the ' + '`[...spread]` operator before rendering. Keep in mind ' + 'you might need to polyfill these features for older browsers.');
                             }
@@ -11996,7 +11998,7 @@ function requireReactReconciler_development() {
                         if (_newChildren) {
                             var knownKeys = null;
                             var _step = _newChildren.next();
-                            for(; !_step.done; _step = _newChildren.next()){
+                            for (; !_step.done; _step = _newChildren.next()) {
                                 var child = _step.value;
                                 knownKeys = warnOnInvalidKey(child, knownKeys, returnFiber);
                             }
@@ -12013,7 +12015,7 @@ function requireReactReconciler_development() {
                     var newIdx = 0;
                     var nextOldFiber = null;
                     var step = newChildren.next();
-                    for(; oldFiber !== null && !step.done; newIdx++, step = newChildren.next()){
+                    for (; oldFiber !== null && !step.done; newIdx++, step = newChildren.next()) {
                         if (oldFiber.index > newIdx) {
                             nextOldFiber = oldFiber;
                             oldFiber = null;
@@ -12064,7 +12066,7 @@ function requireReactReconciler_development() {
                     if (oldFiber === null) {
                         // If we don't have any more existing children we can choose a fast path
                         // since the rest will all be insertions.
-                        for(; !step.done; newIdx++, step = newChildren.next()){
+                        for (; !step.done; newIdx++, step = newChildren.next()) {
                             var _newFiber3 = createChild(returnFiber, step.value, lanes);
                             if (_newFiber3 === null) {
                                 continue;
@@ -12085,7 +12087,7 @@ function requireReactReconciler_development() {
                         return resultingFirstChild;
                     } // Add all children to a key map for quick lookups.
                     var existingChildren = mapRemainingChildren(returnFiber, oldFiber); // Keep scanning and use the map to restore deleted items as moves.
-                    for(; !step.done; newIdx++, step = newChildren.next()){
+                    for (; !step.done; newIdx++, step = newChildren.next()) {
                         var _newFiber4 = updateFromMap(existingChildren, returnFiber, newIdx, step.value, lanes);
                         if (_newFiber4 !== null) {
                             if (shouldTrackSideEffects) {
@@ -12109,7 +12111,7 @@ function requireReactReconciler_development() {
                     if (shouldTrackSideEffects) {
                         // Any existing children that weren't consumed above were deleted. We need
                         // to add them to the deletion list.
-                        existingChildren.forEach(function(child) {
+                        existingChildren.forEach(function (child) {
                             return deleteChild(returnFiber, child);
                         });
                     }
@@ -12139,7 +12141,7 @@ function requireReactReconciler_development() {
                 function reconcileSingleElement(returnFiber, currentFirstChild, element, lanes) {
                     var key = element.key;
                     var child = currentFirstChild;
-                    while(child !== null){
+                    while (child !== null) {
                         // TODO: If key === null and child.key === null, then this only applies to
                         // the first item in the list.
                         if (child.key === key) {
@@ -12157,10 +12159,10 @@ function requireReactReconciler_development() {
                                 }
                             } else {
                                 if (child.elementType === elementType || isCompatibleFamilyForHotReloading(child, element) || // Lazy types should reconcile their resolved type.
-                                // We need to do this after the Hot Reloading check above,
-                                // because hot reloading has different semantics than prod because
-                                // it doesn't resuspend. So we can't let the call below suspend.
-                                (typeof elementType === "undefined" ? "undefined" : _type_of(elementType)) === 'object' && elementType !== null && elementType.$$typeof === REACT_LAZY_TYPE && resolveLazy(elementType) === child.type) {
+                                    // We need to do this after the Hot Reloading check above,
+                                    // because hot reloading has different semantics than prod because
+                                    // it doesn't resuspend. So we can't let the call below suspend.
+                                    (typeof elementType === "undefined" ? "undefined" : _type_of(elementType)) === 'object' && elementType !== null && elementType.$$typeof === REACT_LAZY_TYPE && resolveLazy(elementType) === child.type) {
                                     deleteRemainingChildren(returnFiber, child.sibling);
                                     var _existing = useFiber(child, element.props);
                                     _existing.ref = coerceRef(returnFiber, child, element);
@@ -12193,7 +12195,7 @@ function requireReactReconciler_development() {
                 function reconcileSinglePortal(returnFiber, currentFirstChild, portal, lanes) {
                     var key = portal.key;
                     var child = currentFirstChild;
-                    while(child !== null){
+                    while (child !== null) {
                         // TODO: If key === null and child.key === null, then this only applies to
                         // the first item in the list.
                         if (child.key === key) {
@@ -12230,7 +12232,7 @@ function requireReactReconciler_development() {
                         newChild = newChild.props.children;
                     } // Handle object types
                     if ((typeof newChild === "undefined" ? "undefined" : _type_of(newChild)) === 'object' && newChild !== null) {
-                        switch(newChild.$$typeof){
+                        switch (newChild.$$typeof) {
                             case REACT_ELEMENT_TYPE:
                                 return placeSingleChild(reconcileSingleElement(returnFiber, currentFirstChild, newChild, lanes));
                             case REACT_PORTAL_TYPE:
@@ -12273,7 +12275,7 @@ function requireReactReconciler_development() {
                 var newChild = createWorkInProgress(currentChild, currentChild.pendingProps);
                 workInProgress.child = newChild;
                 newChild.return = workInProgress;
-                while(currentChild.sibling !== null){
+                while (currentChild.sibling !== null) {
                     currentChild = currentChild.sibling;
                     newChild = newChild.sibling = createWorkInProgress(currentChild, currentChild.pendingProps);
                     newChild.return = workInProgress;
@@ -12282,7 +12284,7 @@ function requireReactReconciler_development() {
             } // Reset a workInProgress child set to prepare it for a second pass.
             function resetChildFibers(workInProgress, lanes) {
                 var child = workInProgress.child;
-                while(child !== null){
+                while (child !== null) {
                     resetWorkInProgress(child, lanes);
                     child = child.sibling;
                 }
@@ -12354,7 +12356,7 @@ function requireReactReconciler_development() {
             function scheduleContextWorkOnParentPath(parent, renderLanes, propagationRoot) {
                 // Update the child lanes of all the ancestors, including the alternates.
                 var node = parent;
-                while(node !== null){
+                while (node !== null) {
                     var alternate = node.alternate;
                     if (!isSubsetOfLanes(node.childLanes, renderLanes)) {
                         node.childLanes = mergeLanes(node.childLanes, renderLanes);
@@ -12386,13 +12388,13 @@ function requireReactReconciler_development() {
                     // Set the return pointer of the child to the work-in-progress fiber.
                     fiber.return = workInProgress;
                 }
-                while(fiber !== null){
+                while (fiber !== null) {
                     var nextFiber = undefined; // Visit this fiber.
                     var list = fiber.dependencies;
                     if (list !== null) {
                         nextFiber = fiber.child;
                         var dependency = list.firstContext;
-                        while(dependency !== null){
+                        while (dependency !== null) {
                             // Check if the context matches.
                             if (dependency.context === context) {
                                 // Match! Schedule an update on this fiber.
@@ -12406,7 +12408,7 @@ function requireReactReconciler_development() {
                                     // worth fixing.
                                     // Inlined `enqueueUpdate` to remove interleaved update check
                                     var updateQueue = fiber.updateQueue;
-                                    if (updateQueue === null) ;
+                                    if (updateQueue === null);
                                     else {
                                         var sharedQueue = updateQueue.shared;
                                         var pending = sharedQueue.pending;
@@ -12462,7 +12464,7 @@ function requireReactReconciler_development() {
                     } else {
                         // No child. Traverse to next sibling.
                         nextFiber = fiber;
-                        while(nextFiber !== null){
+                        while (nextFiber !== null) {
                             if (nextFiber === workInProgress) {
                                 // We're back to the root of this subtree. Exit.
                                 nextFiber = null;
@@ -12508,7 +12510,7 @@ function requireReactReconciler_development() {
                     }
                 }
                 var value = isPrimaryRenderer ? context._currentValue : context._currentValue2;
-                if (lastFullyObservedContext === context) ;
+                if (lastFullyObservedContext === context);
                 else {
                     var contextItem = {
                         context: context,
@@ -12551,7 +12553,7 @@ function requireReactReconciler_development() {
                 // interleaved list to the end of the pending list by joining them into a
                 // single, circular list.
                 if (concurrentQueues !== null) {
-                    for(var i = 0; i < concurrentQueues.length; i++){
+                    for (var i = 0; i < concurrentQueues.length; i++) {
                         var queue = concurrentQueues[i];
                         var lastInterleavedUpdate = queue.interleaved;
                         if (lastInterleavedUpdate !== null) {
@@ -12629,7 +12631,7 @@ function requireReactReconciler_development() {
                 }
                 var node = sourceFiber;
                 var parent = sourceFiber.return;
-                while(parent !== null){
+                while (parent !== null) {
                     parent.childLanes = mergeLanes(parent.childLanes, lane);
                     alternate = parent.alternate;
                     if (alternate !== null) {
@@ -12795,7 +12797,7 @@ function requireReactReconciler_development() {
                                     newLast = clone;
                                 }
                                 update = update.next;
-                            }while (update !== null); // Append the captured update the end of the cloned list.
+                            } while (update !== null); // Append the captured update the end of the cloned list.
                             if (newLast === null) {
                                 newFirst = newLast = capturedUpdate;
                             } else {
@@ -12826,7 +12828,7 @@ function requireReactReconciler_development() {
                 queue.lastBaseUpdate = capturedUpdate;
             }
             function getStateFromUpdate(workInProgress, queue, update, prevState, nextProps, instance) {
-                switch(update.tag){
+                switch (update.tag) {
                     case ReplaceState:
                         {
                             var payload = update.payload;
@@ -12841,7 +12843,7 @@ function requireReactReconciler_development() {
                                         setIsStrictModeForDevtools(true);
                                         try {
                                             payload.call(instance, prevState, nextProps);
-                                        } finally{
+                                        } finally {
                                             setIsStrictModeForDevtools(false);
                                         }
                                     }
@@ -12871,7 +12873,7 @@ function requireReactReconciler_development() {
                                         setIsStrictModeForDevtools(true);
                                         try {
                                             _payload.call(instance, prevState, nextProps);
-                                        } finally{
+                                        } finally {
                                             setIsStrictModeForDevtools(false);
                                         }
                                     }
@@ -12986,8 +12988,8 @@ function requireReactReconciler_development() {
                             newState = getStateFromUpdate(workInProgress, queue, update, newState, props, instance);
                             var callback = update.callback;
                             if (callback !== null && // If the update was already committed, we should not queue its
-                            // callback again.
-                            update.lane !== NoLane) {
+                                // callback again.
+                                update.lane !== NoLane) {
                                 workInProgress.flags |= Callback;
                                 var effects = queue.effects;
                                 if (effects === null) {
@@ -13016,7 +13018,7 @@ function requireReactReconciler_development() {
                                 queue.shared.pending = null;
                             }
                         }
-                    }while (true);
+                    } while (true);
                     if (newLastBaseUpdate === null) {
                         newBaseState = newState;
                     }
@@ -13031,7 +13033,7 @@ function requireReactReconciler_development() {
                         do {
                             newLanes = mergeLanes(newLanes, interleaved.lane);
                             interleaved = interleaved.next;
-                        }while (interleaved !== lastInterleaved);
+                        } while (interleaved !== lastInterleaved);
                     } else if (firstBaseUpdate === null) {
                         // `queue.lanes` is used for entangling transitions. We can set it back to
                         // zero once the queue is empty.
@@ -13068,7 +13070,7 @@ function requireReactReconciler_development() {
                 var effects = finishedQueue.effects;
                 finishedQueue.effects = null;
                 if (effects !== null) {
-                    for(var i = 0; i < effects.length; i++){
+                    for (var i = 0; i < effects.length; i++) {
                         var effect = effects[i];
                         var callback = effect.callback;
                         if (callback !== null) {
@@ -13188,7 +13190,7 @@ function requireReactReconciler_development() {
             }
             function findFirstSuspended(row) {
                 var node = row;
-                while(node !== null){
+                while (node !== null) {
                     if (node.tag === SuspenseComponent) {
                         var state = node.memoizedState;
                         if (state !== null) {
@@ -13198,8 +13200,8 @@ function requireReactReconciler_development() {
                             }
                         }
                     } else if (node.tag === SuspenseListComponent && // revealOrder undefined can't be trusted because it don't
-                    // keep track of whether it suspended or not.
-                    node.memoizedProps.revealOrder !== undefined) {
+                        // keep track of whether it suspended or not.
+                        node.memoizedProps.revealOrder !== undefined) {
                         var didSuspend = (node.flags & DidCapture) !== NoFlags;
                         if (didSuspend) {
                             return node;
@@ -13212,7 +13214,7 @@ function requireReactReconciler_development() {
                     if (node === row) {
                         return null;
                     }
-                    while(node.sibling === null){
+                    while (node.sibling === null) {
                         if (node.return === null || node.return === row) {
                             return null;
                         }
@@ -13232,7 +13234,7 @@ function requireReactReconciler_development() {
             // This tracks which mutable sources need to be reset after a render.
             var workInProgressSources = [];
             function resetWorkInProgressVersions() {
-                for(var i = 0; i < workInProgressSources.length; i++){
+                for (var i = 0; i < workInProgressSources.length; i++) {
                     var mutableSource = workInProgressSources[i];
                     if (isPrimaryRenderer) {
                         mutableSource._workInProgressVersionPrimary = null;
@@ -13334,12 +13336,12 @@ function requireReactReconciler_development() {
                         if (hookTypesDev !== null) {
                             var table = '';
                             var secondColumnStart = 30;
-                            for(var i = 0; i <= hookTypesUpdateIndexDev; i++){
+                            for (var i = 0; i <= hookTypesUpdateIndexDev; i++) {
                                 var oldHookName = hookTypesDev[i];
                                 var newHookName = i === hookTypesUpdateIndexDev ? currentHookName : oldHookName;
                                 var row = i + 1 + ". " + oldHookName; // Extra space so second column lines up
                                 // lol @ IE not supporting String#repeat
-                                while(row.length < secondColumnStart){
+                                while (row.length < secondColumnStart) {
                                     row += ' ';
                                 }
                                 row += newHookName + '\n';
@@ -13373,7 +13375,7 @@ function requireReactReconciler_development() {
                         error('The final argument passed to %s changed size between renders. The ' + 'order and size of this array must remain constant.\n\n' + 'Previous: %s\n' + 'Incoming: %s', currentHookNameInDev, "[" + prevDeps.join(', ') + "]", "[" + nextDeps.join(', ') + "]");
                     }
                 }
-                for(var i = 0; i < prevDeps.length && i < nextDeps.length; i++){
+                for (var i = 0; i < prevDeps.length && i < nextDeps.length; i++) {
                     if (objectIs(nextDeps[i], prevDeps[i])) {
                         continue;
                     }
@@ -13442,7 +13444,7 @@ function requireReactReconciler_development() {
                         }
                         ReactCurrentDispatcher$1.current = HooksDispatcherOnRerenderInDEV;
                         children = Component(props, secondArg);
-                    }while (didScheduleRenderPhaseUpdateDuringThisPass);
+                    } while (didScheduleRenderPhaseUpdateDuringThisPass);
                 } // We can assume the previous dispatcher is always this one, since we set it
                 // at the beginning of the render phase and there's no re-entrance.
                 ReactCurrentDispatcher$1.current = ContextOnlyDispatcher;
@@ -13463,11 +13465,11 @@ function requireReactReconciler_development() {
                     // flags in some other part of the codebase. This has happened before, for
                     // example, in the SuspenseList implementation.
                     if (current !== null && (current.flags & StaticMask) !== (workInProgress.flags & StaticMask) && // Disable this warning in legacy mode, because legacy Suspense is weird
-                    // and creates false positives. To make this work in legacy mode, we'd
-                    // need to mark fibers that commit in an incomplete state, somehow. For
-                    // now I'll disable the warning that most of the bugs that would trigger
-                    // it are either exclusive to concurrent mode or exist in both.
-                    (current.mode & ConcurrentMode) !== NoMode) {
+                        // and creates false positives. To make this work in legacy mode, we'd
+                        // need to mark fibers that commit in an incomplete state, somehow. For
+                        // now I'll disable the warning that most of the bugs that would trigger
+                        // it are either exclusive to concurrent mode or exist in both.
+                        (current.mode & ConcurrentMode) !== NoMode) {
                         error('Internal React error: Expected static flag was missing. Please ' + 'notify the React team.');
                     }
                 }
@@ -13510,7 +13512,7 @@ function requireReactReconciler_development() {
                     // not have a clone, that means it wasn't processed, and the updates were
                     // scheduled before we entered the render phase.
                     var hook = currentlyRenderingFiber$1.memoizedState;
-                    while(hook !== null){
+                    while (hook !== null) {
                         var queue = hook.queue;
                         if (queue !== null) {
                             queue.pending = null;
@@ -13720,7 +13722,7 @@ function requireReactReconciler_development() {
                             }
                         }
                         update = update.next;
-                    }while (update !== null && update !== first);
+                    } while (update !== null && update !== first);
                     if (newBaseQueueLast === null) {
                         newBaseState = newState;
                     } else {
@@ -13745,7 +13747,7 @@ function requireReactReconciler_development() {
                         currentlyRenderingFiber$1.lanes = mergeLanes(currentlyRenderingFiber$1.lanes, interleavedLane);
                         markSkippedUpdateLanes(interleavedLane);
                         interleaved = interleaved.next;
-                    }while (interleaved !== lastInterleaved);
+                    } while (interleaved !== lastInterleaved);
                 } else if (baseQueue === null) {
                     // `queue.lanes` is used for entangling transitions. We can set it back to
                     // zero once the queue is empty.
@@ -13780,7 +13782,7 @@ function requireReactReconciler_development() {
                         var action = update.action;
                         newState = reducer(newState, action);
                         update = update.next;
-                    }while (update !== firstRenderPhaseUpdate); // Mark that the fiber performed work, but only if the new state is
+                    } while (update !== firstRenderPhaseUpdate); // Mark that the fiber performed work, but only if the new state is
                     // different from the current state.
                     if (!objectIs(newState, hook.memoizedState)) {
                         markWorkInProgressReceivedUpdate();
@@ -13902,8 +13904,8 @@ function requireReactReconciler_development() {
                 // this can happen all the time, but even in synchronous mode, an earlier
                 // effect may have mutated the store.
                 if (inst.getSnapshot !== getSnapshot || snapshotChanged || // Check if the susbcribe function changed. We can save some memory by
-                // checking whether we scheduled a subscription effect above.
-                workInProgressHook !== null && workInProgressHook.memoizedState.tag & HasEffect) {
+                    // checking whether we scheduled a subscription effect above.
+                    workInProgressHook !== null && workInProgressHook.memoizedState.tag & HasEffect) {
                     fiber.flags |= Passive;
                     pushEffect(HasEffect | Passive$1, updateStoreInstance.bind(null, fiber, inst, nextSnapshot, getSnapshot), undefined, null); // Unless we're rendering a blocking lane, schedule a consistency check.
                     // Right before committing, we will walk the tree and check if any of the
@@ -14108,7 +14110,7 @@ function requireReactReconciler_development() {
                     var refCallback = ref;
                     var _inst = create();
                     refCallback(_inst);
-                    return function() {
+                    return function () {
                         refCallback(null);
                     };
                 } else if (ref !== null && ref !== undefined) {
@@ -14120,7 +14122,7 @@ function requireReactReconciler_development() {
                     }
                     var _inst2 = create();
                     refObject.current = _inst2;
-                    return function() {
+                    return function () {
                         refObject.current = null;
                     };
                 }
@@ -14155,8 +14157,8 @@ function requireReactReconciler_development() {
                 return updateEffectImpl(Update, Layout, imperativeHandleEffect.bind(null, create, ref), effectDeps);
             }
             function mountDebugValue(value, formatterFn) {
-            // The react-debug-hooks package injects its own implementation
-            // so that e.g. DevTools can display custom hook values.
+                // The react-debug-hooks package injects its own implementation
+                // so that e.g. DevTools can display custom hook values.
             }
             var updateDebugValue = mountDebugValue;
             function mountCallback(callback, deps) {
@@ -14286,7 +14288,7 @@ function requireReactReconciler_development() {
                 try {
                     setPending(false);
                     callback();
-                } finally{
+                } finally {
                     setCurrentUpdatePriority(previousPriority);
                     ReactCurrentBatchConfig$1.transition = prevTransition;
                     {
@@ -14438,7 +14440,7 @@ function requireReactReconciler_development() {
                                     enqueueConcurrentHookUpdateAndEagerlyBailout(fiber, queue, update, lane);
                                     return;
                                 }
-                            } catch (error) {} finally{
+                            } catch (error) { } finally {
                                 {
                                     ReactCurrentDispatcher$1.current = prevDispatcher;
                                 }
@@ -14574,7 +14576,7 @@ function requireReactReconciler_development() {
                         ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
                         try {
                             return mountMemo(create, deps);
-                        } finally{
+                        } finally {
                             ReactCurrentDispatcher$1.current = prevDispatcher;
                         }
                     },
@@ -14585,7 +14587,7 @@ function requireReactReconciler_development() {
                         ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
                         try {
                             return mountReducer(reducer, initialArg, init);
-                        } finally{
+                        } finally {
                             ReactCurrentDispatcher$1.current = prevDispatcher;
                         }
                     },
@@ -14601,7 +14603,7 @@ function requireReactReconciler_development() {
                         ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
                         try {
                             return mountState(initialState);
-                        } finally{
+                        } finally {
                             ReactCurrentDispatcher$1.current = prevDispatcher;
                         }
                     },
@@ -14678,7 +14680,7 @@ function requireReactReconciler_development() {
                         ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
                         try {
                             return mountMemo(create, deps);
-                        } finally{
+                        } finally {
                             ReactCurrentDispatcher$1.current = prevDispatcher;
                         }
                     },
@@ -14689,7 +14691,7 @@ function requireReactReconciler_development() {
                         ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
                         try {
                             return mountReducer(reducer, initialArg, init);
-                        } finally{
+                        } finally {
                             ReactCurrentDispatcher$1.current = prevDispatcher;
                         }
                     },
@@ -14705,7 +14707,7 @@ function requireReactReconciler_development() {
                         ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
                         try {
                             return mountState(initialState);
-                        } finally{
+                        } finally {
                             ReactCurrentDispatcher$1.current = prevDispatcher;
                         }
                     },
@@ -14782,7 +14784,7 @@ function requireReactReconciler_development() {
                         ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
                         try {
                             return updateMemo(create, deps);
-                        } finally{
+                        } finally {
                             ReactCurrentDispatcher$1.current = prevDispatcher;
                         }
                     },
@@ -14793,7 +14795,7 @@ function requireReactReconciler_development() {
                         ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
                         try {
                             return updateReducer(reducer, initialArg, init);
-                        } finally{
+                        } finally {
                             ReactCurrentDispatcher$1.current = prevDispatcher;
                         }
                     },
@@ -14809,7 +14811,7 @@ function requireReactReconciler_development() {
                         ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
                         try {
                             return updateState(initialState);
-                        } finally{
+                        } finally {
                             ReactCurrentDispatcher$1.current = prevDispatcher;
                         }
                     },
@@ -14886,7 +14888,7 @@ function requireReactReconciler_development() {
                         ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnRerenderInDEV;
                         try {
                             return updateMemo(create, deps);
-                        } finally{
+                        } finally {
                             ReactCurrentDispatcher$1.current = prevDispatcher;
                         }
                     },
@@ -14897,7 +14899,7 @@ function requireReactReconciler_development() {
                         ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnRerenderInDEV;
                         try {
                             return rerenderReducer(reducer, initialArg, init);
-                        } finally{
+                        } finally {
                             ReactCurrentDispatcher$1.current = prevDispatcher;
                         }
                     },
@@ -14913,7 +14915,7 @@ function requireReactReconciler_development() {
                         ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnRerenderInDEV;
                         try {
                             return rerenderState(initialState);
-                        } finally{
+                        } finally {
                             ReactCurrentDispatcher$1.current = prevDispatcher;
                         }
                     },
@@ -14998,7 +15000,7 @@ function requireReactReconciler_development() {
                         ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
                         try {
                             return mountMemo(create, deps);
-                        } finally{
+                        } finally {
                             ReactCurrentDispatcher$1.current = prevDispatcher;
                         }
                     },
@@ -15010,7 +15012,7 @@ function requireReactReconciler_development() {
                         ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
                         try {
                             return mountReducer(reducer, initialArg, init);
-                        } finally{
+                        } finally {
                             ReactCurrentDispatcher$1.current = prevDispatcher;
                         }
                     },
@@ -15028,7 +15030,7 @@ function requireReactReconciler_development() {
                         ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV;
                         try {
                             return mountState(initialState);
-                        } finally{
+                        } finally {
                             ReactCurrentDispatcher$1.current = prevDispatcher;
                         }
                     },
@@ -15119,7 +15121,7 @@ function requireReactReconciler_development() {
                         ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
                         try {
                             return updateMemo(create, deps);
-                        } finally{
+                        } finally {
                             ReactCurrentDispatcher$1.current = prevDispatcher;
                         }
                     },
@@ -15131,7 +15133,7 @@ function requireReactReconciler_development() {
                         ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
                         try {
                             return updateReducer(reducer, initialArg, init);
-                        } finally{
+                        } finally {
                             ReactCurrentDispatcher$1.current = prevDispatcher;
                         }
                     },
@@ -15149,7 +15151,7 @@ function requireReactReconciler_development() {
                         ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
                         try {
                             return updateState(initialState);
-                        } finally{
+                        } finally {
                             ReactCurrentDispatcher$1.current = prevDispatcher;
                         }
                     },
@@ -15240,7 +15242,7 @@ function requireReactReconciler_development() {
                         ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
                         try {
                             return updateMemo(create, deps);
-                        } finally{
+                        } finally {
                             ReactCurrentDispatcher$1.current = prevDispatcher;
                         }
                     },
@@ -15252,7 +15254,7 @@ function requireReactReconciler_development() {
                         ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
                         try {
                             return rerenderReducer(reducer, initialArg, init);
-                        } finally{
+                        } finally {
                             ReactCurrentDispatcher$1.current = prevDispatcher;
                         }
                     },
@@ -15270,7 +15272,7 @@ function requireReactReconciler_development() {
                         ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
                         try {
                             return rerenderState(initialState);
-                        } finally{
+                        } finally {
                             ReactCurrentDispatcher$1.current = prevDispatcher;
                         }
                     },
@@ -15386,8 +15388,8 @@ function requireReactReconciler_development() {
                     layoutEffectStartTime = -1; // Store duration on the next nearest Profiler ancestor
                     // Or the root (for the DevTools Profiler to read)
                     var parentFiber = fiber.return;
-                    while(parentFiber !== null){
-                        switch(parentFiber.tag){
+                    while (parentFiber !== null) {
+                        switch (parentFiber.tag) {
                             case HostRoot:
                                 var root = parentFiber.stateNode;
                                 root.effectDuration += elapsedTime;
@@ -15407,8 +15409,8 @@ function requireReactReconciler_development() {
                     passiveEffectStartTime = -1; // Store duration on the next nearest Profiler ancestor
                     // Or the root (for the DevTools Profiler to read)
                     var parentFiber = fiber.return;
-                    while(parentFiber !== null){
-                        switch(parentFiber.tag){
+                    while (parentFiber !== null) {
+                        switch (parentFiber.tag) {
                             case HostRoot:
                                 var root = parentFiber.stateNode;
                                 if (root !== null) {
@@ -15440,7 +15442,7 @@ function requireReactReconciler_development() {
                 // after we rerender. This is used as a helper in special cases
                 // where we should count the work of multiple passes.
                 var child = fiber.child;
-                while(child){
+                while (child) {
                     fiber.actualDuration += child.actualDuration;
                     child = child.sibling;
                 }
@@ -15450,7 +15452,7 @@ function requireReactReconciler_development() {
                     // Resolve default props. Taken from ReactElement
                     var props = assign({}, baseProps);
                     var defaultProps = Component.defaultProps;
-                    for(var propName in defaultProps){
+                    for (var propName in defaultProps) {
                         if (props[propName] === undefined) {
                             props[propName] = defaultProps[propName];
                         }
@@ -15522,7 +15524,7 @@ function requireReactReconciler_development() {
                         try {
                             // Invoke the function an extra time to help detect side-effects.
                             partialState = getDerivedStateFromProps(nextProps, prevState);
-                        } finally{
+                        } finally {
                             setIsStrictModeForDevtools(false);
                         }
                     }
@@ -15614,7 +15616,7 @@ function requireReactReconciler_development() {
                             try {
                                 // Invoke the function an extra time to help detect side-effects.
                                 shouldUpdate = instance.shouldComponentUpdate(newProps, newState, nextContext);
-                            } finally{
+                            } finally {
                                 setIsStrictModeForDevtools(false);
                             }
                         }
@@ -15655,14 +15657,14 @@ function requireReactReconciler_development() {
                     }
                     {
                         if (ctor.childContextTypes && !didWarnAboutLegacyContext$1.has(ctor) && // Strict Mode has its own warning for legacy context, so we can skip
-                        // this one.
-                        (workInProgress.mode & StrictLegacyMode) === NoMode) {
+                            // this one.
+                            (workInProgress.mode & StrictLegacyMode) === NoMode) {
                             didWarnAboutLegacyContext$1.add(ctor);
                             error('%s uses the legacy childContextTypes API which is no longer ' + 'supported and will be removed in the next major release. Use ' + 'React.createContext() instead\n\n.' + 'Learn more about this warning here: https://reactjs.org/link/legacy-context', name);
                         }
                         if (ctor.contextTypes && !didWarnAboutLegacyContext$1.has(ctor) && // Strict Mode has its own warning for legacy context, so we can skip
-                        // this one.
-                        (workInProgress.mode & StrictLegacyMode) === NoMode) {
+                            // this one.
+                            (workInProgress.mode & StrictLegacyMode) === NoMode) {
                             didWarnAboutLegacyContext$1.add(ctor);
                             error('%s uses the legacy contextTypes API which is no longer supported ' + 'and will be removed in the next major release. Use ' + 'React.createContext() with static contextType instead.\n\n' + 'Learn more about this warning here: https://reactjs.org/link/legacy-context', name);
                         }
@@ -15770,7 +15772,7 @@ function requireReactReconciler_development() {
                         setIsStrictModeForDevtools(true);
                         try {
                             instance = new ctor(props, context); // eslint-disable-line no-new
-                        } finally{
+                        } finally {
                             setIsStrictModeForDevtools(false);
                         }
                     }
@@ -16056,10 +16058,10 @@ function requireReactReconciler_development() {
                     newState = workInProgress.memoizedState;
                 }
                 var shouldUpdate = checkHasForceUpdateAfterProcessing() || checkShouldComponentUpdate(workInProgress, ctor, oldProps, newProps, oldState, newState, nextContext) || // TODO: In some cases, we'll end up checking if context has changed twice,
-                // both before and after `shouldComponentUpdate` has been called. Not ideal,
-                // but I'm loath to refactor this function. This only happens for memoized
-                // components so it's not that common.
-                enableLazyContextPropagation;
+                    // both before and after `shouldComponentUpdate` has been called. Not ideal,
+                    // but I'm loath to refactor this function. This only happens for memoized
+                    // components so it's not that common.
+                    enableLazyContextPropagation;
                 if (shouldUpdate) {
                     // In order to support react-lifecycles-compat polyfilled components,
                     // Unsafe lifecycles should not be invoked for components using the new APIs.
@@ -16149,8 +16151,8 @@ function requireReactReconciler_development() {
                             // However, the browser would have silenced the original error
                             // so we'll print it first, and then print the stack addendum.
                             console['error'](error); // Don't transform to our wrapper
-                        // For a more detailed description of this block, see:
-                        // https://github.com/facebook/react/pull/13384
+                            // For a more detailed description of this block, see:
+                            // https://github.com/facebook/react/pull/13384
                         }
                         var componentName = source ? getComponentNameFromFiber(source) : null;
                         var componentNameMessage = componentName ? "The above error occurred in the <" + componentName + "> component:" : 'The above error occurred in one of your React components:';
@@ -16172,7 +16174,7 @@ function requireReactReconciler_development() {
                     // If console.error is overridden, or logCapturedError() shows a dialog that throws,
                     // we want to report this error outside of the normal stack as a last resort.
                     // https://github.com/facebook/react/issues/13188
-                    setTimeout(function() {
+                    setTimeout(function () {
                         throw e;
                     });
                 }
@@ -16186,7 +16188,7 @@ function requireReactReconciler_development() {
                     element: null
                 };
                 var error = errorInfo.value;
-                update.callback = function() {
+                update.callback = function () {
                     onUncaughtError(error);
                     logCapturedError(fiber, errorInfo);
                 };
@@ -16198,10 +16200,10 @@ function requireReactReconciler_development() {
                 var getDerivedStateFromError = fiber.type.getDerivedStateFromError;
                 if (typeof getDerivedStateFromError === 'function') {
                     var error$1 = errorInfo.value;
-                    update.payload = function() {
+                    update.payload = function () {
                         return getDerivedStateFromError(error$1);
                     };
-                    update.callback = function() {
+                    update.callback = function () {
                         {
                             markFailedErrorBoundaryForHotReloading(fiber);
                         }
@@ -16325,7 +16327,7 @@ function requireReactReconciler_development() {
                     } // This boundary already captured during this render. Continue to the next
                     // boundary.
                     node = node.return;
-                }while (node !== null);
+                } while (node !== null);
                 return null;
             }
             function markSuspenseBoundaryShouldCapture(suspenseBoundary, returnFiber, sourceFiber, root, rootRenderLanes) {
@@ -16502,7 +16504,7 @@ function requireReactReconciler_development() {
                 // as an error.
                 var workInProgress = returnFiber;
                 do {
-                    switch(workInProgress.tag){
+                    switch (workInProgress.tag) {
                         case HostRoot:
                             {
                                 var _errorInfo = value;
@@ -16529,7 +16531,7 @@ function requireReactReconciler_development() {
                             break;
                     }
                     workInProgress = workInProgress.return;
-                }while (workInProgress !== null);
+                } while (workInProgress !== null);
             }
             function getSuspendedCache() {
                 {
@@ -16621,7 +16623,7 @@ function requireReactReconciler_development() {
                         try {
                             nextChildren = renderWithHooks(current, workInProgress, render, nextProps, ref, renderLanes);
                             hasId = checkDidRenderIdHook();
-                        } finally{
+                        } finally {
                             setIsStrictModeForDevtools(false);
                         }
                     }
@@ -16645,7 +16647,7 @@ function requireReactReconciler_development() {
                 if (current === null) {
                     var type = Component.type;
                     if (isSimpleFunctionComponent(type) && Component.compare === null && // SimpleMemoComponent codepath doesn't resolve outer props either.
-                    Component.defaultProps === undefined) {
+                        Component.defaultProps === undefined) {
                         var resolvedType = type;
                         {
                             resolvedType = resolveFunctionForHotReloading(type);
@@ -16916,7 +16918,7 @@ function requireReactReconciler_development() {
                         try {
                             nextChildren = renderWithHooks(current, workInProgress, Component, nextProps, context, renderLanes);
                             hasId = checkDidRenderIdHook();
-                        } finally{
+                        } finally {
                             setIsStrictModeForDevtools(false);
                         }
                     }
@@ -16939,7 +16941,7 @@ function requireReactReconciler_development() {
             function updateClassComponent(current, workInProgress, Component, nextProps, renderLanes) {
                 {
                     // This is used by DevTools to force a boundary to error.
-                    switch(shouldError(workInProgress)){
+                    switch (shouldError(workInProgress)) {
                         case false:
                             {
                                 var _instance = workInProgress.stateNode;
@@ -17041,7 +17043,7 @@ function requireReactReconciler_development() {
                             setIsStrictModeForDevtools(true);
                             try {
                                 instance.render();
-                            } finally{
+                            } finally {
                                 setIsStrictModeForDevtools(false);
                             }
                         }
@@ -17122,7 +17124,7 @@ function requireReactReconciler_development() {
                         var child = mountChildFibers(workInProgress, null, nextChildren, renderLanes);
                         workInProgress.child = child;
                         var node = child;
-                        while(node){
+                        while (node) {
                             // Mark each child as hydrating. This is a fast path to know whether this
                             // tree is part of a hydrating tree. This is used to determine if a child
                             // node has fully mounted yet, and for scheduling event replaying.
@@ -17195,7 +17197,7 @@ function requireReactReconciler_development() {
                 var resolvedTag = workInProgress.tag = resolveLazyComponentTag(Component);
                 var resolvedProps = resolveDefaultProps(Component, props);
                 var child;
-                switch(resolvedTag){
+                switch (resolvedTag) {
                     case FunctionComponent:
                         {
                             {
@@ -17310,7 +17312,7 @@ function requireReactReconciler_development() {
                     }
                 }
                 if (// Eventually we'll delete this branch altogether.
-                (typeof value === "undefined" ? "undefined" : _type_of(value)) === 'object' && value !== null && typeof value.render === 'function' && value.$$typeof === undefined) {
+                    (typeof value === "undefined" ? "undefined" : _type_of(value)) === 'object' && value !== null && typeof value.render === 'function' && value.$$typeof === undefined) {
                     {
                         var _componentName2 = getComponentNameFromType(Component) || 'Unknown';
                         if (!didWarnAboutModulePatternComponent[_componentName2]) {
@@ -17344,7 +17346,7 @@ function requireReactReconciler_development() {
                             try {
                                 value = renderWithHooks(null, workInProgress, Component, props, context, renderLanes);
                                 hasId = checkDidRenderIdHook();
-                            } finally{
+                            } finally {
                                 setIsStrictModeForDevtools(false);
                             }
                         }
@@ -17640,13 +17642,13 @@ function requireReactReconciler_development() {
                 };
                 var primaryChildFragment;
                 if (// completed, even though it's in an inconsistent state.
-                (mode & ConcurrentMode) === NoMode && // Make sure we're on the second pass, i.e. the primary child fragment was
-                // already cloned. In legacy mode, the only case where this isn't true is
-                // when DevTools forces us to display a fallback; we skip the first render
-                // pass entirely and go straight to rendering the fallback. (In Concurrent
-                // Mode, SuspenseList can also trigger this scenario, but this is a legacy-
-                // only codepath.)
-                workInProgress.child !== currentPrimaryChildFragment) {
+                    (mode & ConcurrentMode) === NoMode && // Make sure we're on the second pass, i.e. the primary child fragment was
+                    // already cloned. In legacy mode, the only case where this isn't true is
+                    // when DevTools forces us to display a fallback; we skip the first render
+                    // pass entirely and go straight to rendering the fallback. (In Concurrent
+                    // Mode, SuspenseList can also trigger this scenario, but this is a legacy-
+                    // only codepath.)
+                    workInProgress.child !== currentPrimaryChildFragment) {
                     var progressedPrimaryFragment = workInProgress.child;
                     primaryChildFragment = progressedPrimaryFragment;
                     primaryChildFragment.childLanes = NoLanes;
@@ -17761,8 +17763,8 @@ function requireReactReconciler_development() {
                     warnIfHydrating();
                     if ((workInProgress.mode & ConcurrentMode) === NoMode) {
                         return retrySuspenseComponentWithoutHydrating(current, workInProgress, renderLanes, // required — every concurrent mode path that causes hydration to
-                        // de-opt to client rendering should have an error message.
-                        null);
+                            // de-opt to client rendering should have an error message.
+                            null);
                     }
                     if (isSuspenseInstanceFallback(suspenseInstance)) {
                         // This boundary is in a permanent fallback state. In this case, we'll never
@@ -17879,7 +17881,7 @@ function requireReactReconciler_development() {
                 // If they were previously forced into fallbacks, they may now be able
                 // to unblock.
                 var node = firstChild;
-                while(node !== null){
+                while (node !== null) {
                     if (node.tag === SuspenseComponent) {
                         var state = node.memoizedState;
                         if (state !== null) {
@@ -17900,7 +17902,7 @@ function requireReactReconciler_development() {
                     if (node === workInProgress) {
                         return;
                     }
-                    while(node.sibling === null){
+                    while (node.sibling === null) {
                         if (node.return === null || node.return === workInProgress) {
                             return;
                         }
@@ -17920,7 +17922,7 @@ function requireReactReconciler_development() {
                 // order may not be the same as the new order. We use the new order.
                 var row = firstChild;
                 var lastContentRow = null;
-                while(row !== null){
+                while (row !== null) {
                     var currentRow = row.alternate; // New rows can't be content rows.
                     if (currentRow !== null && findFirstSuspended(currentRow) === null) {
                         lastContentRow = row;
@@ -17934,7 +17936,7 @@ function requireReactReconciler_development() {
                     if (revealOrder !== undefined && revealOrder !== 'forwards' && revealOrder !== 'backwards' && revealOrder !== 'together' && !didWarnAboutRevealOrder[revealOrder]) {
                         didWarnAboutRevealOrder[revealOrder] = true;
                         if (typeof revealOrder === 'string') {
-                            switch(revealOrder.toLowerCase()){
+                            switch (revealOrder.toLowerCase()) {
                                 case 'together':
                                 case 'forwards':
                                 case 'backwards':
@@ -17987,7 +17989,7 @@ function requireReactReconciler_development() {
                 {
                     if ((revealOrder === 'forwards' || revealOrder === 'backwards') && children !== undefined && children !== null && children !== false) {
                         if (isArray(children)) {
-                            for(var i = 0; i < children.length; i++){
+                            for (var i = 0; i < children.length; i++) {
                                 if (!validateSuspenseListNestedChild(children[i], i)) {
                                     return;
                                 }
@@ -17999,7 +18001,7 @@ function requireReactReconciler_development() {
                                 if (childrenIterator) {
                                     var step = childrenIterator.next();
                                     var _i = 0;
-                                    for(; !step.done; step = childrenIterator.next()){
+                                    for (; !step.done; step = childrenIterator.next()) {
                                         if (!validateSuspenseListNestedChild(step.value, _i)) {
                                             return;
                                         }
@@ -18070,7 +18072,7 @@ function requireReactReconciler_development() {
                     // use make it a noop by treating it as the default revealOrder.
                     workInProgress.memoizedState = null;
                 } else {
-                    switch(revealOrder){
+                    switch (revealOrder) {
                         case 'forwards':
                             {
                                 var lastContentRow = findLastContentRow(workInProgress.child);
@@ -18098,7 +18100,7 @@ function requireReactReconciler_development() {
                                 var _tail = null;
                                 var row = workInProgress.child;
                                 workInProgress.child = null;
-                                while(row !== null){
+                                while (row !== null) {
                                     var currentRow = row.alternate; // New rows can't be content rows.
                                     if (currentRow !== null && findFirstSuspended(currentRow) === null) {
                                         // This is the beginning of the main content.
@@ -18292,7 +18294,7 @@ function requireReactReconciler_development() {
                             // eslint-disable-next-line react-internal/prod-error-codes
                             throw new Error('Expected parent to have a child.');
                         }
-                        while(prevSibling.sibling !== oldWorkInProgress){
+                        while (prevSibling.sibling !== oldWorkInProgress) {
                             prevSibling = prevSibling.sibling;
                             if (prevSibling === null) {
                                 // eslint-disable-next-line react-internal/prod-error-codes
@@ -18328,7 +18330,7 @@ function requireReactReconciler_development() {
                 // This fiber does not have any pending work. Bailout without entering
                 // the begin phase. There's still some bookkeeping we that needs to be done
                 // in this optimized path, mostly pushing stuff onto the stack.
-                switch(workInProgress.tag){
+                switch (workInProgress.tag) {
                     case HostRoot:
                         pushHostRootContext(workInProgress);
                         workInProgress.stateNode;
@@ -18487,8 +18489,8 @@ function requireReactReconciler_development() {
                         // update or context change.
                         var hasScheduledUpdateOrContext = checkScheduledUpdateOrContext(current, renderLanes);
                         if (!hasScheduledUpdateOrContext && // If this is the second pass of an error or suspense boundary, there
-                        // may not be work scheduled on `current`, so we check for this flag.
-                        (workInProgress.flags & DidCapture) === NoFlags) {
+                            // may not be work scheduled on `current`, so we check for this flag.
+                            (workInProgress.flags & DidCapture) === NoFlags) {
                             // No pending updates or context. Bail out now.
                             didReceiveUpdate = false;
                             return attemptEarlyBailoutIfNoScheduledUpdate(current, workInProgress, renderLanes);
@@ -18527,7 +18529,7 @@ function requireReactReconciler_development() {
                 // sometimes bails out later in the begin phase. This indicates that we should
                 // move this assignment out of the common path and into each branch.
                 workInProgress.lanes = NoLanes;
-                switch(workInProgress.tag){
+                switch (workInProgress.tag) {
                     case IndeterminateComponent:
                         {
                             return mountIndeterminateComponent(current, workInProgress, workInProgress.type, renderLanes);
@@ -18641,7 +18643,7 @@ function requireReactReconciler_development() {
                 } // TODO: If we move the `hadNoMutationsEffects` call after `bubbleProperties`
                 // then we only have to check the `completedWork.subtreeFlags`.
                 var child = completedWork.child;
-                while(child !== null){
+                while (child !== null) {
                     if ((child.flags & MutationMask) !== NoFlags || (child.subtreeFlags & MutationMask) !== NoFlags) {
                         return false;
                     }
@@ -18659,10 +18661,10 @@ function requireReactReconciler_development() {
                     // We only have the top Fiber that was created but we need recurse down its
                     // children to find all the terminal nodes.
                     var node = workInProgress.child;
-                    while(node !== null){
+                    while (node !== null) {
                         if (node.tag === HostComponent || node.tag === HostText) {
                             appendInitialChild(parent, node.stateNode);
-                        } else if (node.tag === HostPortal) ;
+                        } else if (node.tag === HostPortal);
                         else if (node.child !== null) {
                             node.child.return = node;
                             node = node.child;
@@ -18671,7 +18673,7 @@ function requireReactReconciler_development() {
                         if (node === workInProgress) {
                             return;
                         }
-                        while(node.sibling === null){
+                        while (node.sibling === null) {
                             if (node.return === null || node.return === workInProgress) {
                                 return;
                             }
@@ -18681,7 +18683,7 @@ function requireReactReconciler_development() {
                         node = node.sibling;
                     }
                 };
-                updateHostContainer = function updateHostContainer(current, workInProgress) {};
+                updateHostContainer = function updateHostContainer(current, workInProgress) { };
                 updateHostComponent$1 = function updateHostComponent$1(current, workInProgress, type, newProps, rootContainerInstance) {
                     // If we have an alternate, that means this is an update and we need to
                     // schedule a side-effect to do the updates.
@@ -18713,11 +18715,11 @@ function requireReactReconciler_development() {
                 };
             } else if (supportsPersistence) {
                 // Persistent host tree mode
-                appendAllChildren = function(parent, workInProgress, needsVisibilityToggle, isHidden) {
+                appendAllChildren = function (parent, workInProgress, needsVisibilityToggle, isHidden) {
                     // We only have the top Fiber that was created but we need recurse down its
                     // children to find all the terminal nodes.
                     var node = workInProgress.child;
-                    while(node !== null){
+                    while (node !== null) {
                         // eslint-disable-next-line no-labels
                         if (node.tag === HostComponent) {
                             var instance = node.stateNode;
@@ -18736,7 +18738,7 @@ function requireReactReconciler_development() {
                                 _instance = cloneHiddenTextInstance(_instance, text, node);
                             }
                             appendInitialChild(parent, _instance);
-                        } else if (node.tag === HostPortal) ;
+                        } else if (node.tag === HostPortal);
                         else if (node.tag === OffscreenComponent && node.memoizedState !== null) {
                             // The children in this boundary are hidden. Toggle their visibility
                             // before appending.
@@ -18754,7 +18756,7 @@ function requireReactReconciler_development() {
                         if (node === workInProgress) {
                             return;
                         }
-                        while(node.sibling === null){
+                        while (node.sibling === null) {
                             if (node.return === null || node.return === workInProgress) {
                                 return;
                             }
@@ -18768,7 +18770,7 @@ function requireReactReconciler_development() {
                     // We only have the top Fiber that was created but we need recurse down its
                     // children to find all the terminal nodes.
                     var node = workInProgress.child;
-                    while(node !== null){
+                    while (node !== null) {
                         // eslint-disable-next-line no-labels
                         if (node.tag === HostComponent) {
                             var instance = node.stateNode;
@@ -18787,7 +18789,7 @@ function requireReactReconciler_development() {
                                 _instance2 = cloneHiddenTextInstance(_instance2, text, node);
                             }
                             appendChildToContainerChildSet(containerChildSet, _instance2);
-                        } else if (node.tag === HostPortal) ;
+                        } else if (node.tag === HostPortal);
                         else if (node.tag === OffscreenComponent && node.memoizedState !== null) {
                             // The children in this boundary are hidden. Toggle their visibility
                             // before appending.
@@ -18805,7 +18807,7 @@ function requireReactReconciler_development() {
                         if (node === workInProgress) {
                             return;
                         }
-                        while(node.sibling === null){
+                        while (node.sibling === null) {
                             if (node.return === null || node.return === workInProgress) {
                                 return;
                             }
@@ -18818,7 +18820,7 @@ function requireReactReconciler_development() {
                 updateHostContainer = function updateHostContainer(current, workInProgress) {
                     var portalOrRoot = workInProgress.stateNode;
                     var childrenUnchanged = hadNoMutationsEffects(current, workInProgress);
-                    if (childrenUnchanged) ;
+                    if (childrenUnchanged);
                     else {
                         var container = portalOrRoot.containerInfo;
                         var newChildSet = createContainerChildSet(container); // If children might have changed, we have to add them all to the set.
@@ -18880,9 +18882,9 @@ function requireReactReconciler_development() {
                 };
             } else {
                 // No host operations
-                updateHostContainer = function updateHostContainer(current, workInProgress) {};
-                updateHostComponent$1 = function updateHostComponent$1(current, workInProgress, type, newProps, rootContainerInstance) {};
-                updateHostText$1 = function updateHostText$1(current, workInProgress, oldText, newText) {};
+                updateHostContainer = function updateHostContainer(current, workInProgress) { };
+                updateHostComponent$1 = function updateHostComponent$1(current, workInProgress, type, newProps, rootContainerInstance) { };
+                updateHostText$1 = function updateHostText$1(current, workInProgress, oldText, newText) { };
             }
             function cutOffTailIfNeeded(renderState, hasRenderedATailFallback) {
                 if (getIsHydrating()) {
@@ -18890,7 +18892,7 @@ function requireReactReconciler_development() {
                     // so we don't leave any behind.
                     return;
                 }
-                switch(renderState.tailMode){
+                switch (renderState.tailMode) {
                     case 'hidden':
                         {
                             // Any insertions at the end of the tail list after this point
@@ -18900,7 +18902,7 @@ function requireReactReconciler_development() {
                             // there are any.
                             var tailNode = renderState.tail;
                             var lastTailNode = null;
-                            while(tailNode !== null){
+                            while (tailNode !== null) {
                                 if (tailNode.alternate !== null) {
                                     lastTailNode = tailNode;
                                 }
@@ -18926,7 +18928,7 @@ function requireReactReconciler_development() {
                             // there are any.
                             var _tailNode = renderState.tail;
                             var _lastTailNode = null;
-                            while(_tailNode !== null){
+                            while (_tailNode !== null) {
                                 if (_tailNode.alternate !== null) {
                                     _lastTailNode = _tailNode;
                                 }
@@ -18963,7 +18965,7 @@ function requireReactReconciler_development() {
                         var actualDuration = completedWork.actualDuration;
                         var treeBaseDuration = completedWork.selfBaseDuration;
                         var child = completedWork.child;
-                        while(child !== null){
+                        while (child !== null) {
                             newChildLanes = mergeLanes(newChildLanes, mergeLanes(child.lanes, child.childLanes));
                             subtreeFlags |= child.subtreeFlags;
                             subtreeFlags |= child.flags; // When a fiber is cloned, its actualDuration is reset to 0. This value will
@@ -18981,7 +18983,7 @@ function requireReactReconciler_development() {
                         completedWork.treeBaseDuration = treeBaseDuration;
                     } else {
                         var _child = completedWork.child;
-                        while(_child !== null){
+                        while (_child !== null) {
                             newChildLanes = mergeLanes(newChildLanes, mergeLanes(_child.lanes, _child.childLanes));
                             subtreeFlags |= _child.subtreeFlags;
                             subtreeFlags |= _child.flags; // Update the return pointer so the tree is consistent. This is a code
@@ -18999,7 +19001,7 @@ function requireReactReconciler_development() {
                         // profiler durations.
                         var _treeBaseDuration = completedWork.selfBaseDuration;
                         var _child2 = completedWork.child;
-                        while(_child2 !== null){
+                        while (_child2 !== null) {
                             newChildLanes = mergeLanes(newChildLanes, mergeLanes(_child2.lanes, _child2.childLanes)); // "Static" flags share the lifetime of the fiber/hook they belong to,
                             // so we should bubble those up even during a bailout. All the other
                             // flags have a lifetime only of a single render + commit, so we should
@@ -19012,7 +19014,7 @@ function requireReactReconciler_development() {
                         completedWork.treeBaseDuration = _treeBaseDuration;
                     } else {
                         var _child3 = completedWork.child;
-                        while(_child3 !== null){
+                        while (_child3 !== null) {
                             newChildLanes = mergeLanes(newChildLanes, mergeLanes(_child3.lanes, _child3.childLanes)); // "Static" flags share the lifetime of the fiber/hook they belong to,
                             // so we should bubble those up even during a bailout. All the other
                             // flags have a lifetime only of a single render + commit, so we should
@@ -19105,7 +19107,7 @@ function requireReactReconciler_development() {
                 // Ideally we would have a special version of the work loop only
                 // for hydration.
                 popTreeContext(workInProgress);
-                switch(workInProgress.tag){
+                switch (workInProgress.tag) {
                     case IndeterminateComponent:
                     case LazyComponent:
                     case SimpleMemoComponent:
@@ -19149,7 +19151,7 @@ function requireReactReconciler_development() {
                                     if (current !== null) {
                                         var prevState = current.memoizedState;
                                         if (!prevState.isDehydrated || // Check if we reverted to client rendering (e.g. due to an error)
-                                        (workInProgress.flags & ForceClientRender) !== NoFlags) {
+                                            (workInProgress.flags & ForceClientRender) !== NoFlags) {
                                             // Schedule an effect to clear this container at the start of the
                                             // next commit. This handles the case of React rendering into a
                                             // container with previous children. It's also safe to do for
@@ -19387,7 +19389,7 @@ function requireReactReconciler_development() {
                                     var cannotBeSuspended = renderHasNotSuspendedYet() && (current === null || (current.flags & DidCapture) === NoFlags);
                                     if (!cannotBeSuspended) {
                                         var row = workInProgress.child;
-                                        while(row !== null){
+                                        while (row !== null) {
                                             var suspended = findFirstSuspended(row);
                                             if (suspended !== null) {
                                                 didSuspendAlready = true;
@@ -19461,8 +19463,8 @@ function requireReactReconciler_development() {
                                             return null;
                                         }
                                     } else if (// time we have to render. So rendering one more row would likely
-                                    // exceed it.
-                                    now() * 2 - renderState.renderingStartTime > getRenderTargetTime() && renderLanes !== OffscreenLane) {
+                                        // exceed it.
+                                        now() * 2 - renderState.renderingStartTime > getRenderTargetTime() && renderLanes !== OffscreenLane) {
                                         // We have now passed our CPU deadline and we'll just give up further
                                         // attempts to render the main content and only render fallbacks.
                                         // The assumption is that this is usually faster.
@@ -19573,7 +19575,7 @@ function requireReactReconciler_development() {
                 // Ideally we would have a special version of the work loop only
                 // for hydration.
                 popTreeContext(workInProgress);
-                switch(workInProgress.tag){
+                switch (workInProgress.tag) {
                     case ClassComponent:
                         {
                             var Component = workInProgress.type;
@@ -19660,7 +19662,7 @@ function requireReactReconciler_development() {
                 // Ideally we would have a special version of the work loop only
                 // for hydration.
                 popTreeContext(interruptedWork);
-                switch(interruptedWork.tag){
+                switch (interruptedWork.tag) {
                     case ClassComponent:
                         {
                             var childContextTypes = interruptedWork.type.childContextTypes;
@@ -19802,7 +19804,7 @@ function requireReactReconciler_development() {
                                 if (error != null && (typeof error === "undefined" ? "undefined" : _type_of(error)) === 'object') {
                                     try {
                                         error._suppressLogging = true;
-                                    } catch (inner) {}
+                                    } catch (inner) { }
                                 }
                             }
                         } // Create a fake event type.
@@ -19896,7 +19898,7 @@ function requireReactReconciler_development() {
                 // (https://github.com/facebook/react/issues/21712).
                 // As a compromise, rethrow only caught errors in a guard.
                 {
-                    invokeGuardedCallback(null, function() {
+                    invokeGuardedCallback(null, function () {
                         throw error;
                     });
                     clearCaughtError();
@@ -19909,7 +19911,7 @@ function requireReactReconciler_development() {
                     try {
                         startLayoutEffectTimer();
                         instance.componentWillUnmount();
-                    } finally{
+                    } finally {
                         recordLayoutEffectDuration(current);
                     }
                 } else {
@@ -19954,7 +19956,7 @@ function requireReactReconciler_development() {
                                 try {
                                     startLayoutEffectTimer();
                                     retVal = ref(null);
-                                } finally{
+                                } finally {
                                     recordLayoutEffectDuration(current);
                                 }
                             } else {
@@ -19990,7 +19992,7 @@ function requireReactReconciler_development() {
                 return shouldFire;
             }
             function commitBeforeMutationEffects_begin() {
-                while(nextEffect !== null){
+                while (nextEffect !== null) {
                     var fiber = nextEffect; // This phase is only used for beforeActiveInstanceBlur.
                     var child = fiber.child;
                     if ((fiber.subtreeFlags & BeforeMutationMask) !== NoFlags && child !== null) {
@@ -20002,7 +20004,7 @@ function requireReactReconciler_development() {
                 }
             }
             function commitBeforeMutationEffects_complete() {
-                while(nextEffect !== null){
+                while (nextEffect !== null) {
                     var fiber = nextEffect;
                     setCurrentFiber(fiber);
                     try {
@@ -20025,7 +20027,7 @@ function requireReactReconciler_development() {
                 var flags = finishedWork.flags;
                 if ((flags & Snapshot) !== NoFlags) {
                     setCurrentFiber(finishedWork);
-                    switch(finishedWork.tag){
+                    switch (finishedWork.tag) {
                         case FunctionComponent:
                         case ForwardRef:
                         case SimpleMemoComponent:
@@ -20123,7 +20125,7 @@ function requireReactReconciler_development() {
                             }
                         }
                         effect = effect.next;
-                    }while (effect !== firstEffect);
+                    } while (effect !== firstEffect);
                 }
             }
             function commitHookEffectListMount(flags, finishedWork) {
@@ -20184,14 +20186,14 @@ function requireReactReconciler_development() {
                             }
                         }
                         effect = effect.next;
-                    }while (effect !== firstEffect);
+                    } while (effect !== firstEffect);
                 }
             }
             function commitPassiveEffectDurations(finishedRoot, finishedWork) {
                 {
                     // Only Profilers with work in their subtree will have an Update effect scheduled.
                     if ((finishedWork.flags & Update) !== NoFlags) {
-                        switch(finishedWork.tag){
+                        switch (finishedWork.tag) {
                             case Profiler:
                                 {
                                     var passiveEffectDuration = finishedWork.stateNode.passiveEffectDuration;
@@ -20209,8 +20211,8 @@ function requireReactReconciler_development() {
                                     } // Bubble times to the next nearest ancestor Profiler.
                                     // After we process that Profiler, we'll bubble further up.
                                     var parentFiber = finishedWork.return;
-                                    outer: while(parentFiber !== null){
-                                        switch(parentFiber.tag){
+                                    outer: while (parentFiber !== null) {
+                                        switch (parentFiber.tag) {
                                             case HostRoot:
                                                 var root = parentFiber.stateNode;
                                                 root.passiveEffectDuration += passiveEffectDuration;
@@ -20230,7 +20232,7 @@ function requireReactReconciler_development() {
             }
             function commitLayoutEffectOnFiber(finishedRoot, current, finishedWork, committedLanes) {
                 if ((finishedWork.flags & LayoutMask) !== NoFlags) {
-                    switch(finishedWork.tag){
+                    switch (finishedWork.tag) {
                         case FunctionComponent:
                         case ForwardRef:
                         case SimpleMemoComponent:
@@ -20244,7 +20246,7 @@ function requireReactReconciler_development() {
                                         try {
                                             startLayoutEffectTimer();
                                             commitHookEffectListMount(Layout | HasEffect, finishedWork);
-                                        } finally{
+                                        } finally {
                                             recordLayoutEffectDuration(finishedWork);
                                         }
                                     } else {
@@ -20276,7 +20278,7 @@ function requireReactReconciler_development() {
                                                 try {
                                                     startLayoutEffectTimer();
                                                     instance.componentDidMount();
-                                                } finally{
+                                                } finally {
                                                     recordLayoutEffectDuration(finishedWork);
                                                 }
                                             } else {
@@ -20301,7 +20303,7 @@ function requireReactReconciler_development() {
                                                 try {
                                                     startLayoutEffectTimer();
                                                     instance.componentDidUpdate(prevProps, prevState, instance.__reactInternalSnapshotBeforeUpdate);
-                                                } finally{
+                                                } finally {
                                                     recordLayoutEffectDuration(finishedWork);
                                                 }
                                             } else {
@@ -20337,7 +20339,7 @@ function requireReactReconciler_development() {
                                 if (_updateQueue !== null) {
                                     var _instance = null;
                                     if (finishedWork.child !== null) {
-                                        switch(finishedWork.child.tag){
+                                        switch (finishedWork.child.tag) {
                                             case HostComponent:
                                                 _instance = getPublicInstance(finishedWork.child.stateNode);
                                                 break;
@@ -20395,8 +20397,8 @@ function requireReactReconciler_development() {
                                         enqueuePendingPassiveProfilerEffect(finishedWork); // Propagate layout effect durations to the next nearest Profiler ancestor.
                                         // Do not reset these values until the next render so DevTools has a chance to read them first.
                                         var parentFiber = finishedWork.return;
-                                        outer: while(parentFiber !== null){
-                                            switch(parentFiber.tag){
+                                        outer: while (parentFiber !== null) {
+                                            switch (parentFiber.tag) {
                                                 case HostRoot:
                                                     var root = parentFiber.stateNode;
                                                     root.effectDuration += effectDuration;
@@ -20441,7 +20443,7 @@ function requireReactReconciler_development() {
             function reappearLayoutEffectsOnFiber(node) {
                 // Turn on layout effects in a tree that previously disappeared.
                 // TODO (Offscreen) Check: flags & LayoutStatic
-                switch(node.tag){
+                switch (node.tag) {
                     case FunctionComponent:
                     case ForwardRef:
                     case SimpleMemoComponent:
@@ -20450,7 +20452,7 @@ function requireReactReconciler_development() {
                                 try {
                                     startLayoutEffectTimer();
                                     safelyCallCommitHookLayoutEffectListMount(node, node.return);
-                                } finally{
+                                } finally {
                                     recordLayoutEffectDuration(node);
                                 }
                             } else {
@@ -20481,7 +20483,7 @@ function requireReactReconciler_development() {
                     // We only have the top Fiber that was inserted but we need to recurse down its
                     // children to find all the terminal nodes.
                     var node = finishedWork;
-                    while(true){
+                    while (true) {
                         if (node.tag === HostComponent) {
                             if (hostSubtreeRoot === null) {
                                 hostSubtreeRoot = node;
@@ -20509,7 +20511,7 @@ function requireReactReconciler_development() {
                                     captureCommitPhaseError(finishedWork, finishedWork.return, error);
                                 }
                             }
-                        } else if ((node.tag === OffscreenComponent || node.tag === LegacyHiddenComponent) && node.memoizedState !== null && node !== finishedWork) ;
+                        } else if ((node.tag === OffscreenComponent || node.tag === LegacyHiddenComponent) && node.memoizedState !== null && node !== finishedWork);
                         else if (node.child !== null) {
                             node.child.return = node;
                             node = node.child;
@@ -20518,7 +20520,7 @@ function requireReactReconciler_development() {
                         if (node === finishedWork) {
                             return;
                         }
-                        while(node.sibling === null){
+                        while (node.sibling === null) {
                             if (node.return === null || node.return === finishedWork) {
                                 return;
                             }
@@ -20540,7 +20542,7 @@ function requireReactReconciler_development() {
                 if (ref !== null) {
                     var instance = finishedWork.stateNode;
                     var instanceToUse;
-                    switch(finishedWork.tag){
+                    switch (finishedWork.tag) {
                         case HostComponent:
                             instanceToUse = getPublicInstance(instance);
                             break;
@@ -20553,7 +20555,7 @@ function requireReactReconciler_development() {
                             try {
                                 startLayoutEffectTimer();
                                 retVal = ref(instanceToUse);
-                            } finally{
+                            } finally {
                                 recordLayoutEffectDuration(finishedWork);
                             }
                         } else {
@@ -20660,7 +20662,7 @@ function requireReactReconciler_development() {
             }
             function getHostParentFiber(fiber) {
                 var parent = fiber.return;
-                while(parent !== null){
+                while (parent !== null) {
                     if (isHostParent(parent)) {
                         return parent;
                     }
@@ -20677,9 +20679,9 @@ function requireReactReconciler_development() {
                 // search past them. This leads to exponential search for the next sibling.
                 // TODO: Find a more efficient way to do this.
                 var node = fiber;
-                siblings: while(true){
+                siblings: while (true) {
                     // If we didn't find anything, let's try the next sibling.
-                    while(node.sibling === null){
+                    while (node.sibling === null) {
                         if (node.return === null || isHostParent(node.return)) {
                             // If we pop out of the root or hit the parent the fiber we are the
                             // last sibling.
@@ -20689,7 +20691,7 @@ function requireReactReconciler_development() {
                     }
                     node.sibling.return = node.return;
                     node = node.sibling;
-                    while(node.tag !== HostComponent && node.tag !== HostText && node.tag !== DehydratedFragment){
+                    while (node.tag !== HostComponent && node.tag !== HostText && node.tag !== DehydratedFragment) {
                         // If it is not host node and, we might have a host node inside it.
                         // Try to search down until we find one.
                         if (node.flags & Placement) {
@@ -20714,7 +20716,7 @@ function requireReactReconciler_development() {
                     return;
                 } // Recursively insert all host nodes into the parent.
                 var parentFiber = getHostParentFiber(finishedWork); // Note: these two variables *must* always be updated together.
-                switch(parentFiber.tag){
+                switch (parentFiber.tag) {
                     case HostComponent:
                         {
                             var parent = parentFiber.stateNode;
@@ -20751,13 +20753,13 @@ function requireReactReconciler_development() {
                     } else {
                         appendChildToContainer(parent, stateNode);
                     }
-                } else if (tag === HostPortal) ;
+                } else if (tag === HostPortal);
                 else {
                     var child = node.child;
                     if (child !== null) {
                         insertOrAppendPlacementNodeIntoContainer(child, before, parent);
                         var sibling = child.sibling;
-                        while(sibling !== null){
+                        while (sibling !== null) {
                             insertOrAppendPlacementNodeIntoContainer(sibling, before, parent);
                             sibling = sibling.sibling;
                         }
@@ -20774,13 +20776,13 @@ function requireReactReconciler_development() {
                     } else {
                         appendChild(parent, stateNode);
                     }
-                } else if (tag === HostPortal) ;
+                } else if (tag === HostPortal);
                 else {
                     var child = node.child;
                     if (child !== null) {
                         insertOrAppendPlacementNode(child, before, parent);
                         var sibling = child.sibling;
-                        while(sibling !== null){
+                        while (sibling !== null) {
                             insertOrAppendPlacementNode(sibling, before, parent);
                             sibling = sibling.sibling;
                         }
@@ -20810,8 +20812,8 @@ function requireReactReconciler_development() {
                     // can track the nearest host component on the JS stack as we traverse the
                     // tree during the commit phase. This would make insertions faster, too.
                     var parent = returnFiber;
-                    findParent: while(parent !== null){
-                        switch(parent.tag){
+                    findParent: while (parent !== null) {
+                        switch (parent.tag) {
                             case HostComponent:
                                 {
                                     hostParent = parent.stateNode;
@@ -20848,7 +20850,7 @@ function requireReactReconciler_development() {
             function recursivelyTraverseDeletionEffects(finishedRoot, nearestMountedAncestor, parent) {
                 // TODO: Use a static flag to skip trees that don't have unmount effects
                 var child = parent.child;
-                while(child !== null){
+                while (child !== null) {
                     commitDeletionEffectsOnFiber(finishedRoot, nearestMountedAncestor, child);
                     child = child.sibling;
                 }
@@ -20857,7 +20859,7 @@ function requireReactReconciler_development() {
                 onCommitUnmount(deletedFiber); // The cases in this outer switch modify the stack before they traverse
                 // into their subtree. There are simpler cases in the inner switch
                 // that don't modify the stack.
-                switch(deletedFiber.tag){
+                switch (deletedFiber.tag) {
                     case HostComponent:
                         {
                             if (!offscreenSubtreeWasHidden) {
@@ -20956,7 +20958,7 @@ function requireReactReconciler_development() {
                                                 }
                                             }
                                             effect = effect.next;
-                                        }while (effect !== firstEffect);
+                                        } while (effect !== firstEffect);
                                     }
                                 }
                             }
@@ -21041,7 +21043,7 @@ function requireReactReconciler_development() {
                     if (retryCache === null) {
                         retryCache = finishedWork.stateNode = new PossiblyWeakSet();
                     }
-                    wakeables.forEach(function(wakeable) {
+                    wakeables.forEach(function (wakeable) {
                         // Memoize using the boundary fiber to prevent redundant listeners.
                         var retry = resolveRetryWakeable.bind(null, finishedWork, wakeable);
                         if (!retryCache.has(wakeable)) {
@@ -21075,7 +21077,7 @@ function requireReactReconciler_development() {
                 // before the children effects hae fired.
                 var deletions = parentFiber.deletions;
                 if (deletions !== null) {
-                    for(var i = 0; i < deletions.length; i++){
+                    for (var i = 0; i < deletions.length; i++) {
                         var childToDelete = deletions[i];
                         try {
                             commitDeletionEffects(root, parentFiber, childToDelete);
@@ -21087,7 +21089,7 @@ function requireReactReconciler_development() {
                 var prevDebugFiber = getCurrentFiber();
                 if (parentFiber.subtreeFlags & MutationMask) {
                     var child = parentFiber.child;
-                    while(child !== null){
+                    while (child !== null) {
                         setCurrentFiber(child);
                         commitMutationEffectsOnFiber(child, root);
                         child = child.sibling;
@@ -21100,7 +21102,7 @@ function requireReactReconciler_development() {
                 var flags = finishedWork.flags; // The effect flag should be checked *after* we refine the type of fiber,
                 // because the fiber tag is more specific. An exception is any flag related
                 // to reconcilation, because those can be set on all fiber types.
-                switch(finishedWork.tag){
+                switch (finishedWork.tag) {
                     case FunctionComponent:
                     case ForwardRef:
                     case MemoComponent:
@@ -21322,7 +21324,7 @@ function requireReactReconciler_development() {
                                             if ((offscreenBoundary.mode & ConcurrentMode) !== NoMode) {
                                                 nextEffect = offscreenBoundary;
                                                 var offscreenChild = offscreenBoundary.child;
-                                                while(offscreenChild !== null){
+                                                while (offscreenChild !== null) {
                                                     nextEffect = offscreenChild;
                                                     disappearLayoutEffects_begin(offscreenChild);
                                                     offscreenChild = offscreenChild.sibling;
@@ -21391,7 +21393,7 @@ function requireReactReconciler_development() {
             function commitLayoutEffects_begin(subtreeRoot, root, committedLanes) {
                 // Suspense layout effects semantics don't change for legacy roots.
                 var isModernRoot = (subtreeRoot.mode & ConcurrentMode) !== NoMode;
-                while(nextEffect !== null){
+                while (nextEffect !== null) {
                     var fiber = nextEffect;
                     var firstChild = fiber.child;
                     if (fiber.tag === OffscreenComponent && isModernRoot) {
@@ -21418,7 +21420,7 @@ function requireReactReconciler_development() {
                                 reappearLayoutEffects_begin(fiber);
                             }
                             var child = firstChild;
-                            while(child !== null){
+                            while (child !== null) {
                                 nextEffect = child;
                                 commitLayoutEffects_begin(child, root, committedLanes);
                                 child = child.sibling;
@@ -21439,7 +21441,7 @@ function requireReactReconciler_development() {
                 }
             }
             function commitLayoutMountEffects_complete(subtreeRoot, root, committedLanes) {
-                while(nextEffect !== null){
+                while (nextEffect !== null) {
                     var fiber = nextEffect;
                     if ((fiber.flags & LayoutMask) !== NoFlags) {
                         var current = fiber.alternate;
@@ -21465,10 +21467,10 @@ function requireReactReconciler_development() {
                 }
             }
             function disappearLayoutEffects_begin(subtreeRoot) {
-                while(nextEffect !== null){
+                while (nextEffect !== null) {
                     var fiber = nextEffect;
                     var firstChild = fiber.child; // TODO (Offscreen) Check: flags & (RefStatic | LayoutStatic)
-                    switch(fiber.tag){
+                    switch (fiber.tag) {
                         case FunctionComponent:
                         case ForwardRef:
                         case MemoComponent:
@@ -21478,7 +21480,7 @@ function requireReactReconciler_development() {
                                     try {
                                         startLayoutEffectTimer();
                                         commitHookEffectListUnmount(Layout, fiber, fiber.return);
-                                    } finally{
+                                    } finally {
                                         recordLayoutEffectDuration(fiber);
                                     }
                                 } else {
@@ -21523,7 +21525,7 @@ function requireReactReconciler_development() {
                 }
             }
             function disappearLayoutEffects_complete(subtreeRoot) {
-                while(nextEffect !== null){
+                while (nextEffect !== null) {
                     var fiber = nextEffect;
                     if (fiber === subtreeRoot) {
                         nextEffect = null;
@@ -21539,7 +21541,7 @@ function requireReactReconciler_development() {
                 }
             }
             function reappearLayoutEffects_begin(subtreeRoot) {
-                while(nextEffect !== null){
+                while (nextEffect !== null) {
                     var fiber = nextEffect;
                     var firstChild = fiber.child;
                     if (fiber.tag === OffscreenComponent) {
@@ -21561,7 +21563,7 @@ function requireReactReconciler_development() {
                 }
             }
             function reappearLayoutEffects_complete(subtreeRoot) {
-                while(nextEffect !== null){
+                while (nextEffect !== null) {
                     var fiber = nextEffect; // TODO (Offscreen) Check: flags & LayoutStatic
                     setCurrentFiber(fiber);
                     try {
@@ -21590,7 +21592,7 @@ function requireReactReconciler_development() {
                 commitPassiveMountEffects_begin(finishedWork, root, committedLanes, committedTransitions);
             }
             function commitPassiveMountEffects_begin(subtreeRoot, root, committedLanes, committedTransitions) {
-                while(nextEffect !== null){
+                while (nextEffect !== null) {
                     var fiber = nextEffect;
                     var firstChild = fiber.child;
                     if ((fiber.subtreeFlags & PassiveMask) !== NoFlags && firstChild !== null) {
@@ -21602,7 +21604,7 @@ function requireReactReconciler_development() {
                 }
             }
             function commitPassiveMountEffects_complete(subtreeRoot, root, committedLanes, committedTransitions) {
-                while(nextEffect !== null){
+                while (nextEffect !== null) {
                     var fiber = nextEffect;
                     if ((fiber.flags & Passive) !== NoFlags) {
                         setCurrentFiber(fiber);
@@ -21627,7 +21629,7 @@ function requireReactReconciler_development() {
                 }
             }
             function commitPassiveMountOnFiber(finishedRoot, finishedWork, committedLanes, committedTransitions) {
-                switch(finishedWork.tag){
+                switch (finishedWork.tag) {
                     case FunctionComponent:
                     case ForwardRef:
                     case SimpleMemoComponent:
@@ -21636,7 +21638,7 @@ function requireReactReconciler_development() {
                                 startPassiveEffectTimer();
                                 try {
                                     commitHookEffectListMount(Passive$1 | HasEffect, finishedWork);
-                                } finally{
+                                } finally {
                                     recordPassiveEffectDuration(finishedWork);
                                 }
                             } else {
@@ -21651,13 +21653,13 @@ function requireReactReconciler_development() {
                 commitPassiveUnmountEffects_begin();
             }
             function commitPassiveUnmountEffects_begin() {
-                while(nextEffect !== null){
+                while (nextEffect !== null) {
                     var fiber = nextEffect;
                     var child = fiber.child;
                     if ((nextEffect.flags & ChildDeletion) !== NoFlags) {
                         var deletions = fiber.deletions;
                         if (deletions !== null) {
-                            for(var i = 0; i < deletions.length; i++){
+                            for (var i = 0; i < deletions.length; i++) {
                                 var fiberToDelete = deletions[i];
                                 nextEffect = fiberToDelete;
                                 commitPassiveUnmountEffectsInsideOfDeletedTree_begin(fiberToDelete, fiber);
@@ -21683,7 +21685,7 @@ function requireReactReconciler_development() {
                                             var detachedSibling = detachedChild.sibling;
                                             detachedChild.sibling = null;
                                             detachedChild = detachedSibling;
-                                        }while (detachedChild !== null);
+                                        } while (detachedChild !== null);
                                     }
                                 }
                             }
@@ -21699,7 +21701,7 @@ function requireReactReconciler_development() {
                 }
             }
             function commitPassiveUnmountEffects_complete() {
-                while(nextEffect !== null){
+                while (nextEffect !== null) {
                     var fiber = nextEffect;
                     if ((fiber.flags & Passive) !== NoFlags) {
                         setCurrentFiber(fiber);
@@ -21716,7 +21718,7 @@ function requireReactReconciler_development() {
                 }
             }
             function commitPassiveUnmountOnFiber(finishedWork) {
-                switch(finishedWork.tag){
+                switch (finishedWork.tag) {
                     case FunctionComponent:
                     case ForwardRef:
                     case SimpleMemoComponent:
@@ -21733,7 +21735,7 @@ function requireReactReconciler_development() {
                 }
             }
             function commitPassiveUnmountEffectsInsideOfDeletedTree_begin(deletedSubtreeRoot, nearestMountedAncestor) {
-                while(nextEffect !== null){
+                while (nextEffect !== null) {
                     var fiber = nextEffect; // Deletion effects fire in parent -> child order
                     // TODO: Check if fiber has a PassiveStatic flag
                     setCurrentFiber(fiber);
@@ -21750,7 +21752,7 @@ function requireReactReconciler_development() {
                 }
             }
             function commitPassiveUnmountEffectsInsideOfDeletedTree_complete(deletedSubtreeRoot) {
-                while(nextEffect !== null){
+                while (nextEffect !== null) {
                     var fiber = nextEffect;
                     var sibling = fiber.sibling;
                     var returnFiber = fiber.return;
@@ -21773,7 +21775,7 @@ function requireReactReconciler_development() {
                 }
             }
             function commitPassiveUnmountInsideDeletedTreeOnFiber(current, nearestMountedAncestor) {
-                switch(current.tag){
+                switch (current.tag) {
                     case FunctionComponent:
                     case ForwardRef:
                     case SimpleMemoComponent:
@@ -21793,7 +21795,7 @@ function requireReactReconciler_development() {
                 {
                     // We don't need to re-check StrictEffectsMode here.
                     // This function is only called if that check has already passed.
-                    switch(fiber.tag){
+                    switch (fiber.tag) {
                         case FunctionComponent:
                         case ForwardRef:
                         case SimpleMemoComponent:
@@ -21822,7 +21824,7 @@ function requireReactReconciler_development() {
                 {
                     // We don't need to re-check StrictEffectsMode here.
                     // This function is only called if that check has already passed.
-                    switch(fiber.tag){
+                    switch (fiber.tag) {
                         case FunctionComponent:
                         case ForwardRef:
                         case SimpleMemoComponent:
@@ -21841,7 +21843,7 @@ function requireReactReconciler_development() {
                 {
                     // We don't need to re-check StrictEffectsMode here.
                     // This function is only called if that check has already passed.
-                    switch(fiber.tag){
+                    switch (fiber.tag) {
                         case FunctionComponent:
                         case ForwardRef:
                         case SimpleMemoComponent:
@@ -21868,7 +21870,7 @@ function requireReactReconciler_development() {
                 {
                     // We don't need to re-check StrictEffectsMode here.
                     // This function is only called if that check has already passed.
-                    switch(fiber.tag){
+                    switch (fiber.tag) {
                         case FunctionComponent:
                         case ForwardRef:
                         case SimpleMemoComponent:
@@ -21942,7 +21944,7 @@ function requireReactReconciler_development() {
                 }
             }
             function matchSelector(fiber, selector) {
-                switch(selector.$$typeof){
+                switch (selector.$$typeof) {
                     case COMPONENT_TYPE:
                         if (fiber.type === selector.value) {
                             return true;
@@ -21980,7 +21982,7 @@ function requireReactReconciler_development() {
                 return false;
             }
             function selectorToString(selector) {
-                switch(selector.$$typeof){
+                switch (selector.$$typeof) {
                     case COMPONENT_TYPE:
                         var displayName = getComponentNameFromType(selector.value) || 'Unknown';
                         return "<" + displayName + ">";
@@ -22003,14 +22005,14 @@ function requireReactReconciler_development() {
                     0
                 ];
                 var index = 0;
-                while(index < stack.length){
+                while (index < stack.length) {
                     var fiber = stack[index++];
                     var selectorIndex = stack[index++];
                     var selector = selectors[selectorIndex];
                     if (fiber.tag === HostComponent && isHiddenSubtree(fiber)) {
                         continue;
                     } else {
-                        while(selector != null && matchSelector(fiber, selector)){
+                        while (selector != null && matchSelector(fiber, selector)) {
                             selectorIndex++;
                             selector = selectors[selectorIndex];
                         }
@@ -22019,7 +22021,7 @@ function requireReactReconciler_development() {
                         matchingFibers.push(fiber);
                     } else {
                         var child = fiber.child;
-                        while(child !== null){
+                        while (child !== null) {
                             stack.push(child, selectorIndex);
                             child = child.sibling;
                         }
@@ -22033,14 +22035,14 @@ function requireReactReconciler_development() {
                     0
                 ];
                 var index = 0;
-                while(index < stack.length){
+                while (index < stack.length) {
                     var fiber = stack[index++];
                     var selectorIndex = stack[index++];
                     var selector = selectors[selectorIndex];
                     if (fiber.tag === HostComponent && isHiddenSubtree(fiber)) {
                         continue;
                     } else {
-                        while(selector != null && matchSelector(fiber, selector)){
+                        while (selector != null && matchSelector(fiber, selector)) {
                             selectorIndex++;
                             selector = selectors[selectorIndex];
                         }
@@ -22049,7 +22051,7 @@ function requireReactReconciler_development() {
                         return true;
                     } else {
                         var child = fiber.child;
-                        while(child !== null){
+                        while (child !== null) {
                             stack.push(child, selectorIndex);
                             child = child.sibling;
                         }
@@ -22066,7 +22068,7 @@ function requireReactReconciler_development() {
                 var instanceRoots = [];
                 var stack = Array.from(matchingFibers);
                 var index = 0;
-                while(index < stack.length){
+                while (index < stack.length) {
                     var node = stack[index++];
                     if (node.tag === HostComponent) {
                         if (isHiddenSubtree(node)) {
@@ -22075,7 +22077,7 @@ function requireReactReconciler_development() {
                         instanceRoots.push(node.stateNode);
                     } else {
                         var child = node.child;
-                        while(child !== null){
+                        while (child !== null) {
                             stack.push(child);
                             child = child.sibling;
                         }
@@ -22095,7 +22097,7 @@ function requireReactReconciler_development() {
                     0
                 ];
                 var index = 0;
-                while(index < stack.length){
+                while (index < stack.length) {
                     var fiber = stack[index++];
                     var selectorIndex = stack[index++];
                     var selector = selectors[selectorIndex];
@@ -22110,7 +22112,7 @@ function requireReactReconciler_development() {
                     }
                     if (selectorIndex < selectors.length) {
                         var child = fiber.child;
-                        while(child !== null){
+                        while (child !== null) {
                             stack.push(child, selectorIndex);
                             child = child.sibling;
                         }
@@ -22118,7 +22120,7 @@ function requireReactReconciler_development() {
                 }
                 if (maxSelectorIndex < selectors.length) {
                     var unmatchedNames = [];
-                    for(var i = maxSelectorIndex; i < selectors.length; i++){
+                    for (var i = maxSelectorIndex; i < selectors.length; i++) {
                         unmatchedNames.push(selectorToString(selectors[i]));
                     }
                     return 'findAllNodes was able to match part of the selector:\n' + ("  " + matchedNames.join(' > ') + "\n\n") + 'No matching component was found for:\n' + ("  " + unmatchedNames.join(' > '));
@@ -22131,16 +22133,16 @@ function requireReactReconciler_development() {
                 }
                 var instanceRoots = findAllNodes(hostRoot, selectors);
                 var boundingRects = [];
-                for(var i = 0; i < instanceRoots.length; i++){
+                for (var i = 0; i < instanceRoots.length; i++) {
                     boundingRects.push(getBoundingRect(instanceRoots[i]));
                 }
-                for(var _i = boundingRects.length - 1; _i > 0; _i--){
+                for (var _i = boundingRects.length - 1; _i > 0; _i--) {
                     var targetRect = boundingRects[_i];
                     var targetLeft = targetRect.x;
                     var targetRight = targetLeft + targetRect.width;
                     var targetTop = targetRect.y;
                     var targetBottom = targetTop + targetRect.height;
-                    for(var j = _i - 1; j >= 0; j--){
+                    for (var j = _i - 1; j >= 0; j--) {
                         if (_i !== j) {
                             var otherRect = boundingRects[j];
                             var otherLeft = otherRect.x;
@@ -22194,7 +22196,7 @@ function requireReactReconciler_development() {
                 var matchingFibers = findPaths(root, selectors);
                 var stack = Array.from(matchingFibers);
                 var index = 0;
-                while(index < stack.length){
+                while (index < stack.length) {
                     var fiber = stack[index++];
                     if (isHiddenSubtree(fiber)) {
                         continue;
@@ -22206,7 +22208,7 @@ function requireReactReconciler_development() {
                         }
                     }
                     var child = fiber.child;
-                    while(child !== null){
+                    while (child !== null) {
                         stack.push(child);
                         child = child.sibling;
                     }
@@ -22216,7 +22218,7 @@ function requireReactReconciler_development() {
             var commitHooks = [];
             function onCommitRoot$1() {
                 if (supportsTestSelectors) {
-                    commitHooks.forEach(function(commitHook) {
+                    commitHooks.forEach(function (commitHook) {
                         return commitHook();
                     });
                 }
@@ -22229,12 +22231,12 @@ function requireReactReconciler_development() {
                 var _setupIntersectionObs = setupIntersectionObserver(instanceRoots, callback, options), disconnect = _setupIntersectionObs.disconnect, observe = _setupIntersectionObs.observe, unobserve = _setupIntersectionObs.unobserve; // When React mutates the host environment, we may need to change what we're listening to.
                 var commitHook = function commitHook() {
                     var nextInstanceRoots = findAllNodes(hostRoot, selectors);
-                    instanceRoots.forEach(function(target) {
+                    instanceRoots.forEach(function (target) {
                         if (nextInstanceRoots.indexOf(target) < 0) {
                             unobserve(target);
                         }
                     });
-                    nextInstanceRoots.forEach(function(target) {
+                    nextInstanceRoots.forEach(function (target) {
                         if (instanceRoots.indexOf(target) < 0) {
                             observe(target);
                         }
@@ -22475,7 +22477,7 @@ function requireReactReconciler_development() {
                     }
                     ensureRootIsScheduled(root, eventTime);
                     if (lane === SyncLane && executionContext === NoContext && (fiber.mode & ConcurrentMode) === NoMode && // Treat `act` as if it's inside `batchedUpdates`, even in legacy mode.
-                    !ReactCurrentActQueue$1.isBatchingLegacy) {
+                        !ReactCurrentActQueue$1.isBatchingLegacy) {
                         // Flush the synchronous work now, unless we're already working or inside
                         // a batch. This is intentionally inside scheduleUpdateOnFiber instead of
                         // scheduleCallbackForFiber to preserve the ability to schedule a callback
@@ -22504,8 +22506,8 @@ function requireReactReconciler_development() {
             function isUnsafeClassRenderPhaseUpdate(fiber) {
                 // Check if this is a render phase update. Only called by class components,
                 // which special (deprecated) behavior for UNSAFE_componentWillReceive props.
-                return(// decided not to enable it.
-                (executionContext & RenderContext) !== NoContext);
+                return (// decided not to enable it.
+                    (executionContext & RenderContext) !== NoContext);
             } // Use this function to schedule a task for a root. There's only one task per
             // root; if a task was already scheduled, we'll check to make sure the priority
             // of the existing task is the same as the priority of the next level that the
@@ -22528,9 +22530,9 @@ function requireReactReconciler_development() {
                 var newCallbackPriority = getHighestPriorityLane(nextLanes); // Check if there's an existing task. We may be able to reuse it.
                 var existingCallbackPriority = root.callbackPriority;
                 if (existingCallbackPriority === newCallbackPriority && // Special case related to `act`. If the currently scheduled task is a
-                // Scheduler task, rather than an `act` task, cancel it and re-scheduled
-                // on the `act` queue.
-                !(ReactCurrentActQueue$1.current !== null && existingCallbackNode !== fakeActCallbackNode)) {
+                    // Scheduler task, rather than an `act` task, cancel it and re-scheduled
+                    // on the `act` queue.
+                    !(ReactCurrentActQueue$1.current !== null && existingCallbackNode !== fakeActCallbackNode)) {
                     {
                         // If we're going to re-use an existing task, it needs to exist.
                         // Assume that discrete update microtasks are non-cancellable and null.
@@ -22565,7 +22567,7 @@ function requireReactReconciler_development() {
                             // of `act`.
                             ReactCurrentActQueue$1.current.push(flushSyncCallbacks);
                         } else {
-                            scheduleMicrotask(function() {
+                            scheduleMicrotask(function () {
                                 // In Safari, appending an iframe forces microtasks to run.
                                 // https://github.com/facebook/react/issues/22459
                                 // We don't support running callbacks in the middle of render
@@ -22584,7 +22586,7 @@ function requireReactReconciler_development() {
                     newCallbackNode = null;
                 } else {
                     var schedulerPriorityLevel;
-                    switch(lanesToEventPriority(nextLanes)){
+                    switch (lanesToEventPriority(nextLanes)) {
                         case DiscreteEventPriority:
                             schedulerPriorityLevel = ImmediatePriority;
                             break;
@@ -22689,7 +22691,7 @@ function requireReactReconciler_development() {
                                 if (_errorRetryLanes !== NoLanes) {
                                     lanes = _errorRetryLanes;
                                     exitStatus = recoverFromConcurrentError(root, _errorRetryLanes); // We assume the tree is now consistent because we didn't yield to any
-                                // concurrent events.
+                                    // concurrent events.
                                 }
                             }
                             if (exitStatus === RootFatalErrored) {
@@ -22760,7 +22762,7 @@ function requireReactReconciler_development() {
                 }
             }
             function finishConcurrentRender(root, exitStatus, lanes) {
-                switch(exitStatus){
+                switch (exitStatus) {
                     case RootInProgress:
                     case RootFatalErrored:
                         {
@@ -22781,7 +22783,7 @@ function requireReactReconciler_development() {
                             markRootSuspended$1(root, lanes); // We have an acceptable loading state. We need to figure out if we
                             // should immediately commit it or wait a bit.
                             if (includesOnlyRetries(lanes) && // do not delay if we're inside an act() scope
-                            !shouldForceFlushFallbacksInDEV()) {
+                                !shouldForceFlushFallbacksInDEV()) {
                                 // This render only included retries, no updates. Throttle committing
                                 // retries so that we don't show too many loading states too quickly.
                                 var msUntilTimeout = globalMostRecentFallbackTime + FALLBACK_THROTTLE_MS - now(); // Don't bother with a very short suspense time.
@@ -22853,13 +22855,13 @@ function requireReactReconciler_development() {
                 // stores were mutated in a concurrent event. Intentionally using an iterative
                 // loop instead of recursion so we can exit early.
                 var node = finishedWork;
-                while(true){
+                while (true) {
                     if (node.flags & StoreConsistency) {
                         var updateQueue = node.updateQueue;
                         if (updateQueue !== null) {
                             var checks = updateQueue.stores;
                             if (checks !== null) {
-                                for(var i = 0; i < checks.length; i++){
+                                for (var i = 0; i < checks.length; i++) {
                                     var check = checks[i];
                                     var getSnapshot = check.getSnapshot;
                                     var renderedValue = check.value;
@@ -22886,7 +22888,7 @@ function requireReactReconciler_development() {
                     if (node === finishedWork) {
                         return true;
                     }
-                    while(node.sibling === null){
+                    while (node.sibling === null) {
                         if (node.return === null || node.return === finishedWork) {
                             return true;
                         }
@@ -22970,7 +22972,7 @@ function requireReactReconciler_development() {
                     ReactCurrentBatchConfig$2.transition = null;
                     setCurrentUpdatePriority(DefaultEventPriority);
                     return fn();
-                } finally{
+                } finally {
                     setCurrentUpdatePriority(previousPriority);
                     ReactCurrentBatchConfig$2.transition = prevTransition;
                 }
@@ -22980,11 +22982,11 @@ function requireReactReconciler_development() {
                 executionContext |= BatchedContext;
                 try {
                     return fn(a);
-                } finally{
+                } finally {
                     executionContext = prevExecutionContext; // If there were legacy sync updates, flush them at the end of the outer
                     // most batchedUpdates-like method.
                     if (executionContext === NoContext && // Treat `act` as if it's inside `batchedUpdates`, even in legacy mode.
-                    !ReactCurrentActQueue$1.isBatchingLegacy) {
+                        !ReactCurrentActQueue$1.isBatchingLegacy) {
                         resetRenderTimer();
                         flushSyncCallbacksOnlyInLegacyMode();
                     }
@@ -22997,7 +22999,7 @@ function requireReactReconciler_development() {
                     ReactCurrentBatchConfig$2.transition = null;
                     setCurrentUpdatePriority(DiscreteEventPriority);
                     return fn(a, b, c, d);
-                } finally{
+                } finally {
                     setCurrentUpdatePriority(previousPriority);
                     ReactCurrentBatchConfig$2.transition = prevTransition;
                     if (executionContext === NoContext) {
@@ -23025,7 +23027,7 @@ function requireReactReconciler_development() {
                     } else {
                         return undefined;
                     }
-                } finally{
+                } finally {
                     setCurrentUpdatePriority(previousPriority);
                     ReactCurrentBatchConfig$2.transition = prevTransition;
                     executionContext = prevExecutionContext; // Flush the immediate callbacks that were scheduled during this batch.
@@ -23050,7 +23052,7 @@ function requireReactReconciler_development() {
                     ReactCurrentBatchConfig$2.transition = null;
                     setCurrentUpdatePriority(DiscreteEventPriority);
                     fn();
-                } finally{
+                } finally {
                     setCurrentUpdatePriority(previousPriority);
                     ReactCurrentBatchConfig$2.transition = prevTransition;
                     executionContext = prevExecutionContext;
@@ -23081,7 +23083,7 @@ function requireReactReconciler_development() {
                 }
                 if (workInProgress !== null) {
                     var interruptedWork = workInProgress.return;
-                    while(interruptedWork !== null){
+                    while (interruptedWork !== null) {
                         var current = interruptedWork.alternate;
                         unwindInterruptedWork(current, interruptedWork);
                         interruptedWork = interruptedWork.return;
@@ -23160,7 +23162,7 @@ function requireReactReconciler_development() {
                         continue;
                     } // Return to the normal work loop.
                     return;
-                }while (true);
+                } while (true);
             }
             function pushDispatcher() {
                 var prevDispatcher = ReactCurrentDispatcher$2.current;
@@ -23254,7 +23256,7 @@ function requireReactReconciler_development() {
                     } catch (thrownValue) {
                         handleError(root, thrownValue);
                     }
-                }while (true);
+                } while (true);
                 resetContextDependencies();
                 executionContext = prevExecutionContext;
                 popDispatcher(prevDispatcher);
@@ -23271,7 +23273,7 @@ function requireReactReconciler_development() {
             } // The work loop is an extremely hot path. Tell Closure not to inline it.
             /** @noinline */ function workLoopSync() {
                 // Already timed out, so perform work without checking if we need to yield.
-                while(workInProgress !== null){
+                while (workInProgress !== null) {
                     performUnitOfWork(workInProgress);
                 }
             }
@@ -23308,7 +23310,7 @@ function requireReactReconciler_development() {
                     } catch (thrownValue) {
                         handleError(root, thrownValue);
                     }
-                }while (true);
+                } while (true);
                 resetContextDependencies();
                 popDispatcher(prevDispatcher);
                 executionContext = prevExecutionContext;
@@ -23330,7 +23332,7 @@ function requireReactReconciler_development() {
             }
             /** @noinline */ function workLoopConcurrent() {
                 // Perform work until Scheduler asks us to yield
-                while(workInProgress !== null && !shouldYield()){
+                while (workInProgress !== null && !shouldYield()) {
                     performUnitOfWork(workInProgress);
                 }
             }
@@ -23403,7 +23405,7 @@ function requireReactReconciler_development() {
                             stopProfilerTimerIfRunningAndRecordDelta(completedWork, false); // Include the time spent working on failed children before continuing.
                             var actualDuration = completedWork.actualDuration;
                             var child = completedWork.child;
-                            while(child !== null){
+                            while (child !== null) {
                                 actualDuration += child.actualDuration;
                                 child = child.sibling;
                             }
@@ -23429,7 +23431,7 @@ function requireReactReconciler_development() {
                     } // Otherwise, return to the parent
                     completedWork = returnFiber; // Update the next thing we're working on in case something throws.
                     workInProgress = completedWork;
-                }while (completedWork !== null); // We've reached the root.
+                } while (completedWork !== null); // We've reached the root.
                 if (workInProgressRootExitStatus === RootInProgress) {
                     workInProgressRootExitStatus = RootCompleted;
                 }
@@ -23443,7 +23445,7 @@ function requireReactReconciler_development() {
                     ReactCurrentBatchConfig$2.transition = null;
                     setCurrentUpdatePriority(DiscreteEventPriority);
                     commitRootImpl(root, recoverableErrors, transitions, previousUpdateLanePriority);
-                } finally{
+                } finally {
                     ReactCurrentBatchConfig$2.transition = prevTransition;
                     setCurrentUpdatePriority(previousUpdateLanePriority);
                 }
@@ -23458,7 +23460,7 @@ function requireReactReconciler_development() {
                     // TODO: Might be better if `flushPassiveEffects` did not automatically
                     // flush synchronous work at the end, to avoid factoring hazards like this.
                     flushPassiveEffects();
-                }while (rootWithPendingPassiveEffects !== null);
+                } while (rootWithPendingPassiveEffects !== null);
                 flushRenderPhaseStrictModeWarningsInDEV();
                 if ((executionContext & (RenderContext | CommitContext)) !== NoContext) {
                     throw new Error('Should not already be working.');
@@ -23510,7 +23512,7 @@ function requireReactReconciler_development() {
                         // the previous render and commit if we throttle the commit
                         // with setTimeout
                         pendingPassiveTransitions = transitions;
-                        scheduleCallback$1(NormalPriority, function() {
+                        scheduleCallback$1(NormalPriority, function () {
                             flushPassiveEffects(); // This render triggered passive effects: release the root cache pool
                             // *after* passive effects fire to avoid freeing a cache pool that may
                             // be referenced by a node in the tree (HostRoot, Cache boundary etc)
@@ -23618,7 +23620,7 @@ function requireReactReconciler_development() {
                     // There were errors during this render, but recovered from them without
                     // needing to surface it to the UI. We log them here.
                     var onRecoverableError = root.onRecoverableError;
-                    for(var i = 0; i < recoverableErrors.length; i++){
+                    for (var i = 0; i < recoverableErrors.length; i++) {
                         var recoverableError = recoverableErrors[i];
                         var componentStack = recoverableError.stack;
                         var digest = recoverableError.digest;
@@ -23681,7 +23683,7 @@ function requireReactReconciler_development() {
                         ReactCurrentBatchConfig$2.transition = null;
                         setCurrentUpdatePriority(priority);
                         return flushPassiveEffectsImpl();
-                    } finally{
+                    } finally {
                         setCurrentUpdatePriority(previousPriority);
                         ReactCurrentBatchConfig$2.transition = prevTransition; // Once passive effects have run for the tree - giving components a
                     }
@@ -23693,7 +23695,7 @@ function requireReactReconciler_development() {
                     pendingPassiveProfilerEffects.push(fiber);
                     if (!rootDoesHavePassiveEffects) {
                         rootDoesHavePassiveEffects = true;
-                        scheduleCallback$1(NormalPriority, function() {
+                        scheduleCallback$1(NormalPriority, function () {
                             flushPassiveEffects();
                             return null;
                         });
@@ -23729,7 +23731,7 @@ function requireReactReconciler_development() {
                 {
                     var profilerEffects = pendingPassiveProfilerEffects;
                     pendingPassiveProfilerEffects = [];
-                    for(var i = 0; i < profilerEffects.length; i++){
+                    for (var i = 0; i < profilerEffects.length; i++) {
                         var _fiber = profilerEffects[i];
                         commitPassiveEffectDurations(root, _fiber);
                     }
@@ -23810,7 +23812,7 @@ function requireReactReconciler_development() {
                 {
                     fiber = nearestMountedAncestor;
                 }
-                while(fiber !== null){
+                while (fiber !== null) {
                     if (fiber.tag === HostRoot) {
                         captureCommitPhaseErrorOnRoot(fiber, sourceFiber, error$1);
                         return;
@@ -23897,7 +23899,7 @@ function requireReactReconciler_development() {
             function resolveRetryWakeable(boundaryFiber, wakeable) {
                 var retryLane = NoLane; // Default
                 var retryCache;
-                switch(boundaryFiber.tag){
+                switch (boundaryFiber.tag) {
                     case SuspenseComponent:
                         retryCache = boundaryFiber.stateNode;
                         var suspenseState = boundaryFiber.memoizedState;
@@ -23974,7 +23976,7 @@ function requireReactReconciler_development() {
                     // This function is only called if that check has already passed.
                     var current = firstChild;
                     var subtreeRoot = null;
-                    while(current !== null){
+                    while (current !== null) {
                         var primarySubtreeFlag = current.subtreeFlags & fiberFlags;
                         if (current !== subtreeRoot && current.child !== null && primarySubtreeFlag !== NoFlags) {
                             current = current.child;
@@ -24022,7 +24024,7 @@ function requireReactReconciler_development() {
                     try {
                         setCurrentFiber(fiber);
                         error("Can't perform a React state update on a component that hasn't mounted yet. " + 'This indicates that you have a side-effect in your render function that ' + 'asynchronously later calls tries to update the component. Move this work to ' + 'useEffect instead.');
-                    } finally{
+                    } finally {
                         if (previousFiber) {
                             setCurrentFiber(fiber);
                         } else {
@@ -24081,7 +24083,7 @@ function requireReactReconciler_development() {
             function warnAboutRenderPhaseUpdatesInDEV(fiber) {
                 {
                     if (isRendering && !getIsUpdatingOpaqueValueInRenderPhaseInDEV()) {
-                        switch(fiber.tag){
+                        switch (fiber.tag) {
                             case FunctionComponent:
                             case ForwardRef:
                             case SimpleMemoComponent:
@@ -24111,11 +24113,11 @@ function requireReactReconciler_development() {
                 {
                     if (isDevToolsPresent) {
                         var memoizedUpdaters = root.memoizedUpdaters;
-                        memoizedUpdaters.forEach(function(schedulingFiber) {
+                        memoizedUpdaters.forEach(function (schedulingFiber) {
                             addFiberToLanesMap(root, schedulingFiber, lanes);
                         }); // This function intentionally does not clear memoized updaters.
-                    // Those may still be relevant to the current commit
-                    // and a future one (e.g. Suspense).
+                        // Those may still be relevant to the current commit
+                        // and a future one (e.g. Suspense).
                     }
                 }
             }
@@ -24172,7 +24174,7 @@ function requireReactReconciler_development() {
                         try {
                             setCurrentFiber(fiber);
                             error('An update to %s inside a test was not wrapped in act(...).\n\n' + 'When testing, code that causes React state updates should be ' + 'wrapped into act(...):\n\n' + 'act(() => {\n' + '  /* fire events that update state */\n' + '});\n' + '/* assert on the output */\n\n' + "This ensures that you're testing the behavior the user would see " + 'in the browser.' + ' Learn more at https://reactjs.org/link/wrap-tests-with-act', getComponentNameFromFiber(fiber));
-                        } finally{
+                        } finally {
                             if (previousFiber) {
                                 setCurrentFiber(fiber);
                             } else {
@@ -24258,7 +24260,7 @@ function requireReactReconciler_development() {
                     var nextType = element.type; // If we got here, we know types aren't === equal.
                     var needsCompareFamilies = false;
                     var $$typeofNextType = (typeof nextType === "undefined" ? "undefined" : _type_of(nextType)) === 'object' && nextType !== null ? nextType.$$typeof : null;
-                    switch(fiber.tag){
+                    switch (fiber.tag) {
                         case ClassComponent:
                             {
                                 if (typeof nextType === 'function') {
@@ -24340,7 +24342,7 @@ function requireReactReconciler_development() {
                     }
                     var staleFamilies = update.staleFamilies, updatedFamilies = update.updatedFamilies;
                     flushPassiveEffects();
-                    flushSync(function() {
+                    flushSync(function () {
                         scheduleFibersWithFamiliesRecursively(root.current, updatedFamilies, staleFamilies);
                     });
                 }
@@ -24354,7 +24356,7 @@ function requireReactReconciler_development() {
                         return;
                     }
                     flushPassiveEffects();
-                    flushSync(function() {
+                    flushSync(function () {
                         updateContainer(element, root, null, null);
                     });
                 }
@@ -24363,7 +24365,7 @@ function requireReactReconciler_development() {
                 {
                     var alternate = fiber.alternate, child = fiber.child, sibling = fiber.sibling, tag = fiber.tag, type = fiber.type;
                     var candidateType = null;
-                    switch(tag){
+                    switch (tag) {
                         case FunctionComponent:
                         case SimpleMemoComponent:
                         case ClassComponent:
@@ -24417,7 +24419,7 @@ function requireReactReconciler_development() {
             var findHostInstancesForRefresh = function findHostInstancesForRefresh(root, families) {
                 {
                     var hostInstances = new Set();
-                    var types = new Set(families.map(function(family) {
+                    var types = new Set(families.map(function (family) {
                         return family.current;
                     }));
                     findHostInstancesForMatchingFibersRecursively(root.current, types, hostInstances);
@@ -24428,7 +24430,7 @@ function requireReactReconciler_development() {
                 {
                     var child = fiber.child, sibling = fiber.sibling, tag = fiber.tag, type = fiber.type;
                     var candidateType = null;
-                    switch(tag){
+                    switch (tag) {
                         case FunctionComponent:
                         case SimpleMemoComponent:
                         case ClassComponent:
@@ -24467,8 +24469,8 @@ function requireReactReconciler_development() {
                         return;
                     } // If we didn't find any host children, fallback to closest host parent.
                     var node = fiber;
-                    while(true){
-                        switch(node.tag){
+                    while (true) {
+                        switch (node.tag) {
                             case HostComponent:
                                 hostInstances.add(node.stateNode);
                                 return;
@@ -24490,7 +24492,7 @@ function requireReactReconciler_development() {
                 {
                     var node = fiber;
                     var foundHostInstances = false;
-                    while(true){
+                    while (true) {
                         if (node.tag === HostComponent) {
                             // We got a match.
                             foundHostInstances = true;
@@ -24503,7 +24505,7 @@ function requireReactReconciler_development() {
                         if (node === fiber) {
                             return foundHostInstances;
                         }
-                        while(node.sibling === null){
+                        while (node.sibling === null) {
                             if (node.return === null || node.return === fiber) {
                                 return foundHostInstances;
                             }
@@ -24529,7 +24531,8 @@ function requireReactReconciler_development() {
                     new Set([
                         nonExtensibleObject
                     ]);
-                /* eslint-enable no-new */ } catch (e) {
+                    /* eslint-enable no-new */
+} catch (e) {
                     // TODO: Consider warning about bad polyfills
                     hasBadMapPolyfill = true;
                 }
@@ -24689,7 +24692,7 @@ function requireReactReconciler_development() {
                 }
                 {
                     workInProgress._debugNeedsRemount = current._debugNeedsRemount;
-                    switch(workInProgress.tag){
+                    switch (workInProgress.tag) {
                         case IndeterminateComponent:
                         case FunctionComponent:
                         case SimpleMemoComponent:
@@ -24797,7 +24800,7 @@ function requireReactReconciler_development() {
                 } else if (typeof type === 'string') {
                     fiberTag = HostComponent;
                 } else {
-                    getTag: switch(type){
+                    getTag: switch (type) {
                         case REACT_FRAGMENT_TYPE:
                             return createFiberFromFragment(pendingProps.children, mode, lanes, key);
                         case REACT_STRICT_MODE_TYPE:
@@ -24829,7 +24832,7 @@ function requireReactReconciler_development() {
                         default:
                             {
                                 if ((typeof type === "undefined" ? "undefined" : _type_of(type)) === 'object' && type !== null) {
-                                    switch(type.$$typeof){
+                                    switch (type.$$typeof) {
                                         case REACT_PROVIDER_TYPE:
                                             fiberTag = ContextProvider;
                                             break getTag;
@@ -25039,12 +25042,12 @@ function requireReactReconciler_development() {
                 {
                     this.memoizedUpdaters = new Set();
                     var pendingUpdatersLaneMap = this.pendingUpdatersLaneMap = [];
-                    for(var _i = 0; _i < TotalLanes; _i++){
+                    for (var _i = 0; _i < TotalLanes; _i++) {
                         pendingUpdatersLaneMap.push(new Set());
                     }
                 }
                 {
-                    switch(tag){
+                    switch (tag) {
                         case ConcurrentRoot:
                             this._debugRootType = hydrate ? 'hydrateRoot()' : 'createRoot()';
                             break;
@@ -25055,9 +25058,9 @@ function requireReactReconciler_development() {
                 }
             }
             function createFiberRoot(containerInfo, tag, hydrate, initialChildren, hydrationCallbacks, isStrictMode, concurrentUpdatesByDefaultOverride, // host config, but because they are passed in at runtime, we have to thread
-            // them through the root constructor. Perhaps we should put them all into a
-            // single type, like a DynamicHostConfig that is defined by the renderer.
-            identifierPrefix, onRecoverableError, transitionCallbacks) {
+                // them through the root constructor. Perhaps we should put them all into a
+                // single type, like a DynamicHostConfig that is defined by the renderer.
+                identifierPrefix, onRecoverableError, transitionCallbacks) {
                 var root = new FiberRootNode(containerInfo, tag, hydrate, identifierPrefix, onRecoverableError);
                 // stateNode is any.
                 var uninitializedFiber = createHostRootFiber(tag, isStrictMode);
@@ -25155,7 +25158,7 @@ function requireReactReconciler_development() {
                                 } else {
                                     error('%s is deprecated in StrictMode. ' + '%s was passed an instance of %s which renders StrictMode children. ' + 'Instead, add a ref directly to the element you want to reference. ' + 'Learn more about using refs safely here: ' + 'https://reactjs.org/link/strict-mode-find-node', methodName, methodName, componentName);
                                 }
-                            } finally{
+                            } finally {
                                 // Ideally this should reset to previous but this shouldn't be called in
                                 // render and there's another warning for that anyway.
                                 if (previousFiber) {
@@ -25240,7 +25243,7 @@ function requireReactReconciler_development() {
                 if (!containerFiber.child) {
                     return null;
                 }
-                switch(containerFiber.child.tag){
+                switch (containerFiber.child.tag) {
                     case HostComponent:
                         return getPublicInstance(containerFiber.child.stateNode);
                     default:
@@ -25248,7 +25251,7 @@ function requireReactReconciler_development() {
                 }
             }
             function attemptSynchronousHydration(fiber) {
-                switch(fiber.tag){
+                switch (fiber.tag) {
                     case HostRoot:
                         {
                             var root = fiber.stateNode;
@@ -25261,7 +25264,7 @@ function requireReactReconciler_development() {
                         }
                     case SuspenseComponent:
                         {
-                            flushSync(function() {
+                            flushSync(function () {
                                 var root = enqueueConcurrentRenderForLane(fiber, SyncLane);
                                 if (root !== null) {
                                     var eventTime = requestEventTime();
@@ -25403,7 +25406,7 @@ function requireReactReconciler_development() {
                         warn('copyWithRename() expects paths of the same length');
                         return;
                     } else {
-                        for(var i = 0; i < newPath.length - 1; i++){
+                        for (var i = 0; i < newPath.length - 1; i++) {
                             if (oldPath[i] !== newPath[i]) {
                                 warn('copyWithRename() expects paths to be the same except for the deepest key');
                                 return;
@@ -25428,7 +25431,7 @@ function requireReactReconciler_development() {
                     // For now, the "id" of stateful hooks is just the stateful hook index.
                     // This may change in the future with e.g. nested hooks.
                     var currentHook = fiber.memoizedState;
-                    while(currentHook !== null && id > 0){
+                    while (currentHook !== null && id > 0) {
                         currentHook = currentHook.next;
                         id--;
                     }
@@ -25664,7 +25667,7 @@ function requireReactReconcilerConstants_development() {
     if (hasRequiredReactReconcilerConstants_development) return reactReconcilerConstants_development;
     hasRequiredReactReconcilerConstants_development = 1;
     if (process.env.NODE_ENV !== "production") {
-        (function() {
+        (function () {
             var SyncLane = /*                        */ 1;
             var InputContinuousLane = /*             */ 4;
             var DefaultLane = /*                     */ 16;
@@ -25740,12 +25743,12 @@ function eastAsianWidth(codePoint) {
     }
     return 1;
 }
-var emojiRegex = function() {
+var emojiRegex = function () {
     // https://mths.be/emoji
     return /[#*0-9]\uFE0F?\u20E3|[\xA9\xAE\u203C\u2049\u2122\u2139\u2194-\u2199\u21A9\u21AA\u231A\u231B\u2328\u23CF\u23ED-\u23EF\u23F1\u23F2\u23F8-\u23FA\u24C2\u25AA\u25AB\u25B6\u25C0\u25FB\u25FC\u25FE\u2600-\u2604\u260E\u2611\u2614\u2615\u2618\u2620\u2622\u2623\u2626\u262A\u262E\u262F\u2638-\u263A\u2640\u2642\u2648-\u2653\u265F\u2660\u2663\u2665\u2666\u2668\u267B\u267E\u267F\u2692\u2694-\u2697\u2699\u269B\u269C\u26A0\u26A7\u26AA\u26B0\u26B1\u26BD\u26BE\u26C4\u26C8\u26CF\u26D1\u26E9\u26F0-\u26F5\u26F7\u26F8\u26FA\u2702\u2708\u2709\u270F\u2712\u2714\u2716\u271D\u2721\u2733\u2734\u2744\u2747\u2757\u2763\u27A1\u2934\u2935\u2B05-\u2B07\u2B1B\u2B1C\u2B55\u3030\u303D\u3297\u3299]\uFE0F?|[\u261D\u270C\u270D](?:\uD83C[\uDFFB-\uDFFF]|\uFE0F)?|[\u270A\u270B](?:\uD83C[\uDFFB-\uDFFF])?|[\u23E9-\u23EC\u23F0\u23F3\u25FD\u2693\u26A1\u26AB\u26C5\u26CE\u26D4\u26EA\u26FD\u2705\u2728\u274C\u274E\u2753-\u2755\u2795-\u2797\u27B0\u27BF\u2B50]|\u26D3\uFE0F?(?:\u200D\uD83D\uDCA5)?|\u26F9(?:\uD83C[\uDFFB-\uDFFF]|\uFE0F)?(?:\u200D[\u2640\u2642]\uFE0F?)?|\u2764\uFE0F?(?:\u200D(?:\uD83D\uDD25|\uD83E\uDE79))?|\uD83C(?:[\uDC04\uDD70\uDD71\uDD7E\uDD7F\uDE02\uDE37\uDF21\uDF24-\uDF2C\uDF36\uDF7D\uDF96\uDF97\uDF99-\uDF9B\uDF9E\uDF9F\uDFCD\uDFCE\uDFD4-\uDFDF\uDFF5\uDFF7]\uFE0F?|[\uDF85\uDFC2\uDFC7](?:\uD83C[\uDFFB-\uDFFF])?|[\uDFC4\uDFCA](?:\uD83C[\uDFFB-\uDFFF])?(?:\u200D[\u2640\u2642]\uFE0F?)?|[\uDFCB\uDFCC](?:\uD83C[\uDFFB-\uDFFF]|\uFE0F)?(?:\u200D[\u2640\u2642]\uFE0F?)?|[\uDCCF\uDD8E\uDD91-\uDD9A\uDE01\uDE1A\uDE2F\uDE32-\uDE36\uDE38-\uDE3A\uDE50\uDE51\uDF00-\uDF20\uDF2D-\uDF35\uDF37-\uDF43\uDF45-\uDF4A\uDF4C-\uDF7C\uDF7E-\uDF84\uDF86-\uDF93\uDFA0-\uDFC1\uDFC5\uDFC6\uDFC8\uDFC9\uDFCF-\uDFD3\uDFE0-\uDFF0\uDFF8-\uDFFF]|\uDDE6\uD83C[\uDDE8-\uDDEC\uDDEE\uDDF1\uDDF2\uDDF4\uDDF6-\uDDFA\uDDFC\uDDFD\uDDFF]|\uDDE7\uD83C[\uDDE6\uDDE7\uDDE9-\uDDEF\uDDF1-\uDDF4\uDDF6-\uDDF9\uDDFB\uDDFC\uDDFE\uDDFF]|\uDDE8\uD83C[\uDDE6\uDDE8\uDDE9\uDDEB-\uDDEE\uDDF0-\uDDF7\uDDFA-\uDDFF]|\uDDE9\uD83C[\uDDEA\uDDEC\uDDEF\uDDF0\uDDF2\uDDF4\uDDFF]|\uDDEA\uD83C[\uDDE6\uDDE8\uDDEA\uDDEC\uDDED\uDDF7-\uDDFA]|\uDDEB\uD83C[\uDDEE-\uDDF0\uDDF2\uDDF4\uDDF7]|\uDDEC\uD83C[\uDDE6\uDDE7\uDDE9-\uDDEE\uDDF1-\uDDF3\uDDF5-\uDDFA\uDDFC\uDDFE]|\uDDED\uD83C[\uDDF0\uDDF2\uDDF3\uDDF7\uDDF9\uDDFA]|\uDDEE\uD83C[\uDDE8-\uDDEA\uDDF1-\uDDF4\uDDF6-\uDDF9]|\uDDEF\uD83C[\uDDEA\uDDF2\uDDF4\uDDF5]|\uDDF0\uD83C[\uDDEA\uDDEC-\uDDEE\uDDF2\uDDF3\uDDF5\uDDF7\uDDFC\uDDFE\uDDFF]|\uDDF1\uD83C[\uDDE6-\uDDE8\uDDEE\uDDF0\uDDF7-\uDDFB\uDDFE]|\uDDF2\uD83C[\uDDE6\uDDE8-\uDDED\uDDF0-\uDDFF]|\uDDF3\uD83C[\uDDE6\uDDE8\uDDEA-\uDDEC\uDDEE\uDDF1\uDDF4\uDDF5\uDDF7\uDDFA\uDDFF]|\uDDF4\uD83C\uDDF2|\uDDF5\uD83C[\uDDE6\uDDEA-\uDDED\uDDF0-\uDDF3\uDDF7-\uDDF9\uDDFC\uDDFE]|\uDDF6\uD83C\uDDE6|\uDDF7\uD83C[\uDDEA\uDDF4\uDDF8\uDDFA\uDDFC]|\uDDF8\uD83C[\uDDE6-\uDDEA\uDDEC-\uDDF4\uDDF7-\uDDF9\uDDFB\uDDFD-\uDDFF]|\uDDF9\uD83C[\uDDE6\uDDE8\uDDE9\uDDEB-\uDDED\uDDEF-\uDDF4\uDDF7\uDDF9\uDDFB\uDDFC\uDDFF]|\uDDFA\uD83C[\uDDE6\uDDEC\uDDF2\uDDF3\uDDF8\uDDFE\uDDFF]|\uDDFB\uD83C[\uDDE6\uDDE8\uDDEA\uDDEC\uDDEE\uDDF3\uDDFA]|\uDDFC\uD83C[\uDDEB\uDDF8]|\uDDFD\uD83C\uDDF0|\uDDFE\uD83C[\uDDEA\uDDF9]|\uDDFF\uD83C[\uDDE6\uDDF2\uDDFC]|\uDF44(?:\u200D\uD83D\uDFEB)?|\uDF4B(?:\u200D\uD83D\uDFE9)?|\uDFC3(?:\uD83C[\uDFFB-\uDFFF])?(?:\u200D(?:[\u2640\u2642]\uFE0F?(?:\u200D\u27A1\uFE0F?)?|\u27A1\uFE0F?))?|\uDFF3\uFE0F?(?:\u200D(?:\u26A7\uFE0F?|\uD83C\uDF08))?|\uDFF4(?:\u200D\u2620\uFE0F?|\uDB40\uDC67\uDB40\uDC62\uDB40(?:\uDC65\uDB40\uDC6E\uDB40\uDC67|\uDC73\uDB40\uDC63\uDB40\uDC74|\uDC77\uDB40\uDC6C\uDB40\uDC73)\uDB40\uDC7F)?)|\uD83D(?:[\uDC3F\uDCFD\uDD49\uDD4A\uDD6F\uDD70\uDD73\uDD76-\uDD79\uDD87\uDD8A-\uDD8D\uDDA5\uDDA8\uDDB1\uDDB2\uDDBC\uDDC2-\uDDC4\uDDD1-\uDDD3\uDDDC-\uDDDE\uDDE1\uDDE3\uDDE8\uDDEF\uDDF3\uDDFA\uDECB\uDECD-\uDECF\uDEE0-\uDEE5\uDEE9\uDEF0\uDEF3]\uFE0F?|[\uDC42\uDC43\uDC46-\uDC50\uDC66\uDC67\uDC6B-\uDC6D\uDC72\uDC74-\uDC76\uDC78\uDC7C\uDC83\uDC85\uDC8F\uDC91\uDCAA\uDD7A\uDD95\uDD96\uDE4C\uDE4F\uDEC0\uDECC](?:\uD83C[\uDFFB-\uDFFF])?|[\uDC6E\uDC70\uDC71\uDC73\uDC77\uDC81\uDC82\uDC86\uDC87\uDE45-\uDE47\uDE4B\uDE4D\uDE4E\uDEA3\uDEB4\uDEB5](?:\uD83C[\uDFFB-\uDFFF])?(?:\u200D[\u2640\u2642]\uFE0F?)?|[\uDD74\uDD90](?:\uD83C[\uDFFB-\uDFFF]|\uFE0F)?|[\uDC00-\uDC07\uDC09-\uDC14\uDC16-\uDC25\uDC27-\uDC3A\uDC3C-\uDC3E\uDC40\uDC44\uDC45\uDC51-\uDC65\uDC6A\uDC79-\uDC7B\uDC7D-\uDC80\uDC84\uDC88-\uDC8E\uDC90\uDC92-\uDCA9\uDCAB-\uDCFC\uDCFF-\uDD3D\uDD4B-\uDD4E\uDD50-\uDD67\uDDA4\uDDFB-\uDE2D\uDE2F-\uDE34\uDE37-\uDE41\uDE43\uDE44\uDE48-\uDE4A\uDE80-\uDEA2\uDEA4-\uDEB3\uDEB7-\uDEBF\uDEC1-\uDEC5\uDED0-\uDED2\uDED5-\uDED7\uDEDC-\uDEDF\uDEEB\uDEEC\uDEF4-\uDEFC\uDFE0-\uDFEB\uDFF0]|\uDC08(?:\u200D\u2B1B)?|\uDC15(?:\u200D\uD83E\uDDBA)?|\uDC26(?:\u200D(?:\u2B1B|\uD83D\uDD25))?|\uDC3B(?:\u200D\u2744\uFE0F?)?|\uDC41\uFE0F?(?:\u200D\uD83D\uDDE8\uFE0F?)?|\uDC68(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:\uDC8B\u200D\uD83D)?\uDC68|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D(?:[\uDC68\uDC69]\u200D\uD83D(?:\uDC66(?:\u200D\uD83D\uDC66)?|\uDC67(?:\u200D\uD83D[\uDC66\uDC67])?)|[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uDC66(?:\u200D\uD83D\uDC66)?|\uDC67(?:\u200D\uD83D[\uDC66\uDC67])?)|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]))|\uD83C(?:\uDFFB(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:\uDC8B\u200D\uD83D)?\uDC68\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83D\uDC68\uD83C[\uDFFC-\uDFFF])))?|\uDFFC(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:\uDC8B\u200D\uD83D)?\uDC68\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83D\uDC68\uD83C[\uDFFB\uDFFD-\uDFFF])))?|\uDFFD(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:\uDC8B\u200D\uD83D)?\uDC68\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83D\uDC68\uD83C[\uDFFB\uDFFC\uDFFE\uDFFF])))?|\uDFFE(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:\uDC8B\u200D\uD83D)?\uDC68\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83D\uDC68\uD83C[\uDFFB-\uDFFD\uDFFF])))?|\uDFFF(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:\uDC8B\u200D\uD83D)?\uDC68\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83D\uDC68\uD83C[\uDFFB-\uDFFE])))?))?|\uDC69(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:\uDC8B\u200D\uD83D)?[\uDC68\uDC69]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D(?:[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uDC66(?:\u200D\uD83D\uDC66)?|\uDC67(?:\u200D\uD83D[\uDC66\uDC67])?|\uDC69\u200D\uD83D(?:\uDC66(?:\u200D\uD83D\uDC66)?|\uDC67(?:\u200D\uD83D[\uDC66\uDC67])?))|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]))|\uD83C(?:\uDFFB(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:[\uDC68\uDC69]|\uDC8B\u200D\uD83D[\uDC68\uDC69])\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83D[\uDC68\uDC69]\uD83C[\uDFFC-\uDFFF])))?|\uDFFC(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:[\uDC68\uDC69]|\uDC8B\u200D\uD83D[\uDC68\uDC69])\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83D[\uDC68\uDC69]\uD83C[\uDFFB\uDFFD-\uDFFF])))?|\uDFFD(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:[\uDC68\uDC69]|\uDC8B\u200D\uD83D[\uDC68\uDC69])\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83D[\uDC68\uDC69]\uD83C[\uDFFB\uDFFC\uDFFE\uDFFF])))?|\uDFFE(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:[\uDC68\uDC69]|\uDC8B\u200D\uD83D[\uDC68\uDC69])\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83D[\uDC68\uDC69]\uD83C[\uDFFB-\uDFFD\uDFFF])))?|\uDFFF(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D\uD83D(?:[\uDC68\uDC69]|\uDC8B\u200D\uD83D[\uDC68\uDC69])\uD83C[\uDFFB-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83D[\uDC68\uDC69]\uD83C[\uDFFB-\uDFFE])))?))?|\uDC6F(?:\u200D[\u2640\u2642]\uFE0F?)?|\uDD75(?:\uD83C[\uDFFB-\uDFFF]|\uFE0F)?(?:\u200D[\u2640\u2642]\uFE0F?)?|\uDE2E(?:\u200D\uD83D\uDCA8)?|\uDE35(?:\u200D\uD83D\uDCAB)?|\uDE36(?:\u200D\uD83C\uDF2B\uFE0F?)?|\uDE42(?:\u200D[\u2194\u2195]\uFE0F?)?|\uDEB6(?:\uD83C[\uDFFB-\uDFFF])?(?:\u200D(?:[\u2640\u2642]\uFE0F?(?:\u200D\u27A1\uFE0F?)?|\u27A1\uFE0F?))?)|\uD83E(?:[\uDD0C\uDD0F\uDD18-\uDD1F\uDD30-\uDD34\uDD36\uDD77\uDDB5\uDDB6\uDDBB\uDDD2\uDDD3\uDDD5\uDEC3-\uDEC5\uDEF0\uDEF2-\uDEF8](?:\uD83C[\uDFFB-\uDFFF])?|[\uDD26\uDD35\uDD37-\uDD39\uDD3D\uDD3E\uDDB8\uDDB9\uDDCD\uDDCF\uDDD4\uDDD6-\uDDDD](?:\uD83C[\uDFFB-\uDFFF])?(?:\u200D[\u2640\u2642]\uFE0F?)?|[\uDDDE\uDDDF](?:\u200D[\u2640\u2642]\uFE0F?)?|[\uDD0D\uDD0E\uDD10-\uDD17\uDD20-\uDD25\uDD27-\uDD2F\uDD3A\uDD3F-\uDD45\uDD47-\uDD76\uDD78-\uDDB4\uDDB7\uDDBA\uDDBC-\uDDCC\uDDD0\uDDE0-\uDDFF\uDE70-\uDE7C\uDE80-\uDE89\uDE8F-\uDEC2\uDEC6\uDECE-\uDEDC\uDEDF-\uDEE9]|\uDD3C(?:\u200D[\u2640\u2642]\uFE0F?|\uD83C[\uDFFB-\uDFFF])?|\uDDCE(?:\uD83C[\uDFFB-\uDFFF])?(?:\u200D(?:[\u2640\u2642]\uFE0F?(?:\u200D\u27A1\uFE0F?)?|\u27A1\uFE0F?))?|\uDDD1(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\uD83C[\uDF3E\uDF73\uDF7C\uDF84\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83E\uDDD1|\uDDD1\u200D\uD83E\uDDD2(?:\u200D\uD83E\uDDD2)?|\uDDD2(?:\u200D\uD83E\uDDD2)?))|\uD83C(?:\uDFFB(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D(?:\uD83D\uDC8B\u200D)?\uD83E\uDDD1\uD83C[\uDFFC-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF84\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83E\uDDD1\uD83C[\uDFFB-\uDFFF])))?|\uDFFC(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D(?:\uD83D\uDC8B\u200D)?\uD83E\uDDD1\uD83C[\uDFFB\uDFFD-\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF84\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83E\uDDD1\uD83C[\uDFFB-\uDFFF])))?|\uDFFD(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D(?:\uD83D\uDC8B\u200D)?\uD83E\uDDD1\uD83C[\uDFFB\uDFFC\uDFFE\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF84\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83E\uDDD1\uD83C[\uDFFB-\uDFFF])))?|\uDFFE(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D(?:\uD83D\uDC8B\u200D)?\uD83E\uDDD1\uD83C[\uDFFB-\uDFFD\uDFFF]|\uD83C[\uDF3E\uDF73\uDF7C\uDF84\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83E\uDDD1\uD83C[\uDFFB-\uDFFF])))?|\uDFFF(?:\u200D(?:[\u2695\u2696\u2708]\uFE0F?|\u2764\uFE0F?\u200D(?:\uD83D\uDC8B\u200D)?\uD83E\uDDD1\uD83C[\uDFFB-\uDFFE]|\uD83C[\uDF3E\uDF73\uDF7C\uDF84\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\uD83E(?:[\uDDAF\uDDBC\uDDBD](?:\u200D\u27A1\uFE0F?)?|[\uDDB0-\uDDB3]|\uDD1D\u200D\uD83E\uDDD1\uD83C[\uDFFB-\uDFFF])))?))?|\uDEF1(?:\uD83C(?:\uDFFB(?:\u200D\uD83E\uDEF2\uD83C[\uDFFC-\uDFFF])?|\uDFFC(?:\u200D\uD83E\uDEF2\uD83C[\uDFFB\uDFFD-\uDFFF])?|\uDFFD(?:\u200D\uD83E\uDEF2\uD83C[\uDFFB\uDFFC\uDFFE\uDFFF])?|\uDFFE(?:\u200D\uD83E\uDEF2\uD83C[\uDFFB-\uDFFD\uDFFF])?|\uDFFF(?:\u200D\uD83E\uDEF2\uD83C[\uDFFB-\uDFFE])?))?)/g;
 };
 var segmenter = new IntlSegmenter();
-var dicpregex; try { dicpregex = RegExp("^\p{Default_Ignorable_Code_Point}$", "u"); } catch(_) { dicpregex = RegExp("^\p{Default_Ignorable_Code_Point}$", "g"); }
+var dicpregex; try { dicpregex = RegExp("^\p{Default_Ignorable_Code_Point}$", "u"); } catch (_) { dicpregex = RegExp("^\p{Default_Ignorable_Code_Point}$", "g"); }
 function stringWidth(string) {
     var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
     if (typeof string !== 'string' || string.length === 0) {
@@ -25764,7 +25767,7 @@ function stringWidth(string) {
     };
     var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
     try {
-        for(var _iterator = segmenter.segment(string)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+        for (var _iterator = segmenter.segment(string)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var _step_value = _step.value, character = _step_value.segment;
             var codePoint = character.codePointAt(0);
             // Ignore control characters
@@ -25773,16 +25776,16 @@ function stringWidth(string) {
             }
             // Ignore zero-width characters
             if (codePoint >= 0x200B && codePoint <= 0x200F // Zero-width space, non-joiner, joiner, left-to-right mark, right-to-left mark
-             || codePoint === 0xFEFF // Zero-width no-break space
+                || codePoint === 0xFEFF // Zero-width no-break space
             ) {
                 continue;
             }
             // Ignore combining characters
             if (codePoint >= 0x300 && codePoint <= 0x36F // Combining diacritical marks
-             || codePoint >= 0x1AB0 && codePoint <= 0x1AFF // Combining diacritical marks extended
-             || codePoint >= 0x1DC0 && codePoint <= 0x1DFF // Combining diacritical marks supplement
-             || codePoint >= 0x20D0 && codePoint <= 0x20FF // Combining diacritical marks for symbols
-             || codePoint >= 0xFE20 && codePoint <= 0xFE2F // Combining half marks
+                || codePoint >= 0x1AB0 && codePoint <= 0x1AFF // Combining diacritical marks extended
+                || codePoint >= 0x1DC0 && codePoint <= 0x1DFF // Combining diacritical marks supplement
+                || codePoint >= 0x20D0 && codePoint <= 0x20FF // Combining diacritical marks for symbols
+                || codePoint >= 0xFE20 && codePoint <= 0xFE2F // Combining half marks
             ) {
                 continue;
             }
@@ -25808,12 +25811,12 @@ function stringWidth(string) {
     } catch (err) {
         _didIteratorError = true;
         _iteratorError = err;
-    } finally{
+    } finally {
         try {
             if (!_iteratorNormalCompletion && _iterator.return != null) {
                 _iterator.return();
             }
-        } finally{
+        } finally {
             if (_didIteratorError) {
                 throw _iteratorError;
             }
@@ -25825,19 +25828,19 @@ function widestLine(string) {
     var lineWidth = 0;
     var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
     try {
-        for(var _iterator = string.split('\n')[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+        for (var _iterator = string.split('\n')[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var line = _step.value;
             lineWidth = Math.max(lineWidth, stringWidth(line));
         }
     } catch (err) {
         _didIteratorError = true;
         _iteratorError = err;
-    } finally{
+    } finally {
         try {
             if (!_iteratorNormalCompletion && _iterator.return != null) {
                 _iterator.return();
             }
-        } finally{
+        } finally {
             if (_didIteratorError) {
                 throw _iteratorError;
             }
@@ -25846,7 +25849,7 @@ function widestLine(string) {
     return lineWidth;
 }
 var cache$1 = {};
-var measureText = function(text) {
+var measureText = function (text) {
     if (text.length === 0) {
         return {
             width: 0,
@@ -25869,21 +25872,21 @@ var measureText = function(text) {
     };
 };
 var ANSI_BACKGROUND_OFFSET = 10;
-var wrapAnsi16 = function() {
+var wrapAnsi16 = function () {
     var offset = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0;
-    return function(code) {
+    return function (code) {
         return "\x1b[".concat(code + offset, "m");
     };
 };
-var wrapAnsi256 = function() {
+var wrapAnsi256 = function () {
     var offset = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0;
-    return function(code) {
+    return function (code) {
         return "\x1b[".concat(38 + offset, ";5;").concat(code, "m");
     };
 };
-var wrapAnsi16m = function() {
+var wrapAnsi16m = function () {
     var offset = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : 0;
-    return function(red, green, blue) {
+    return function (red, green, blue) {
         return "\x1b[".concat(38 + offset, ";2;").concat(red, ";").concat(green, ";").concat(blue, "m");
     };
 };
@@ -26087,11 +26090,11 @@ function assembleStyles() {
     var codes = new Map();
     var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
     try {
-        for(var _iterator = Object.entries(styles$1)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+        for (var _iterator = Object.entries(styles$1)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var _step_value = _sliced_to_array(_step.value, 2), groupName = _step_value[0], group = _step_value[1];
             var _iteratorNormalCompletion1 = true, _didIteratorError1 = false, _iteratorError1 = undefined;
             try {
-                for(var _iterator1 = Object.entries(group)[Symbol.iterator](), _step1; !(_iteratorNormalCompletion1 = (_step1 = _iterator1.next()).done); _iteratorNormalCompletion1 = true){
+                for (var _iterator1 = Object.entries(group)[Symbol.iterator](), _step1; !(_iteratorNormalCompletion1 = (_step1 = _iterator1.next()).done); _iteratorNormalCompletion1 = true) {
                     var _step_value1 = _sliced_to_array(_step1.value, 2), styleName = _step_value1[0], style = _step_value1[1];
                     styles$1[styleName] = {
                         open: "\x1b[".concat(style[0], "m"),
@@ -26103,12 +26106,12 @@ function assembleStyles() {
             } catch (err) {
                 _didIteratorError1 = true;
                 _iteratorError1 = err;
-            } finally{
+            } finally {
                 try {
                     if (!_iteratorNormalCompletion1 && _iterator1.return != null) {
                         _iterator1.return();
                     }
-                } finally{
+                } finally {
                     if (_didIteratorError1) {
                         throw _iteratorError1;
                     }
@@ -26122,12 +26125,12 @@ function assembleStyles() {
     } catch (err) {
         _didIteratorError = true;
         _iteratorError = err;
-    } finally{
+    } finally {
         try {
             if (!_iteratorNormalCompletion && _iterator.return != null) {
                 _iterator.return();
             }
-        } finally{
+        } finally {
             if (_didIteratorError) {
                 throw _iteratorError;
             }
@@ -26148,7 +26151,7 @@ function assembleStyles() {
     // From https://github.com/Qix-/color-convert/blob/3f0e0d4e92e235796ccb17f6e85c72094a651f49/conversions.js
     Object.defineProperties(styles$1, {
         rgbToAnsi256: {
-            value: function(red, green, blue) {
+            value: function (red, green, blue) {
                 // We use the extended greyscale palette here, with the exception of
                 // black and white. normal palette only has 4 greyscale shades.
                 if (red === green && green === blue) {
@@ -26165,7 +26168,7 @@ function assembleStyles() {
             enumerable: false
         },
         hexToRgb: {
-            value: function(hex) {
+            value: function (hex) {
                 var matches = /[a-f\d]{6}|[a-f\d]{3}/i.exec(hex.toString(16));
                 if (!matches) {
                     return [
@@ -26176,7 +26179,7 @@ function assembleStyles() {
                 }
                 var _matches = _sliced_to_array(matches, 1), colorString = _matches[0];
                 if (colorString.length === 3) {
-                    colorString = _to_consumable_array(colorString).map(function(character) {
+                    colorString = _to_consumable_array(colorString).map(function (character) {
                         return character + character;
                     }).join('');
                 }
@@ -26190,13 +26193,13 @@ function assembleStyles() {
             enumerable: false
         },
         hexToAnsi256: {
-            value: function(hex) {
+            value: function (hex) {
                 return (_styles$1 = styles$1).rgbToAnsi256.apply(_styles$1, _to_consumable_array(styles$1.hexToRgb(hex)));
             },
             enumerable: false
         },
         ansi256ToAnsi: {
-            value: function(code) {
+            value: function (code) {
                 if (code < 8) {
                     return 30 + code;
                 }
@@ -26231,13 +26234,13 @@ function assembleStyles() {
             enumerable: false
         },
         rgbToAnsi: {
-            value: function(red, green, blue) {
+            value: function (red, green, blue) {
                 return styles$1.ansi256ToAnsi(styles$1.rgbToAnsi256(red, green, blue));
             },
             enumerable: false
         },
         hexToAnsi: {
-            value: function(hex) {
+            value: function (hex) {
                 return styles$1.ansi256ToAnsi(styles$1.hexToAnsi256(hex));
             },
             enumerable: false
@@ -26256,29 +26259,29 @@ var ANSI_CSI = '[';
 var ANSI_OSC = ']';
 var ANSI_SGR_TERMINATOR = 'm';
 var ANSI_ESCAPE_LINK = "".concat(ANSI_OSC, "8;;");
-var wrapAnsiCode = function(code) {
+var wrapAnsiCode = function (code) {
     return "".concat(ESCAPES$3.values().next().value).concat(ANSI_CSI).concat(code).concat(ANSI_SGR_TERMINATOR);
 };
-var wrapAnsiHyperlink = function(url) {
+var wrapAnsiHyperlink = function (url) {
     return "".concat(ESCAPES$3.values().next().value).concat(ANSI_ESCAPE_LINK).concat(url).concat(ANSI_ESCAPE_BELL);
 };
 // Calculate the length of words split on ' ', ignoring
 // the extra characters added by ansi escape codes
-var wordLengths = function(string) {
-    return string.split(' ').map(function(character) {
+var wordLengths = function (string) {
+    return string.split(' ').map(function (character) {
         return stringWidth(character);
     });
 };
 // Wrap a long word across multiple rows
 // Ansi escape codes do not count towards length
-var wrapWord = function(rows, word, columns) {
+var wrapWord = function (rows, word, columns) {
     var characters = _to_consumable_array(word);
     var isInsideEscape = false;
     var isInsideLinkEscape = false;
     var visible = stringWidth(stripAnsi(rows.at(-1)));
     var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
     try {
-        for(var _iterator = characters.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+        for (var _iterator = characters.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var _step_value = _sliced_to_array(_step.value, 2), index = _step_value[0], character = _step_value[1];
             var characterLength = stringWidth(character);
             if (visible + characterLength <= columns) {
@@ -26312,12 +26315,12 @@ var wrapWord = function(rows, word, columns) {
     } catch (err) {
         _didIteratorError = true;
         _iteratorError = err;
-    } finally{
+    } finally {
         try {
             if (!_iteratorNormalCompletion && _iterator.return != null) {
                 _iterator.return();
             }
-        } finally{
+        } finally {
             if (_didIteratorError) {
                 throw _iteratorError;
             }
@@ -26330,10 +26333,10 @@ var wrapWord = function(rows, word, columns) {
     }
 };
 // Trims spaces from a string ignoring invisible sequences
-var stringVisibleTrimSpacesRight = function(string) {
+var stringVisibleTrimSpacesRight = function (string) {
     var words = string.split(' ');
     var last = words.length;
-    while(last > 0){
+    while (last > 0) {
         if (stringWidth(words[last - 1]) > 0) {
             break;
         }
@@ -26349,7 +26352,7 @@ var stringVisibleTrimSpacesRight = function(string) {
 // 'hard' will never allow a string to take up more than columns characters.
 //
 // 'soft' allows long words to expand past the column length.
-var exec = function(string, columns) {
+var exec = function (string, columns) {
     var options = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
     if (options.trim !== false && string.trim() === '') {
         return '';
@@ -26363,7 +26366,7 @@ var exec = function(string, columns) {
     ];
     var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
     try {
-        for(var _iterator = string.split(' ').entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+        for (var _iterator = string.split(' ').entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var _step_value = _sliced_to_array(_step.value, 2), index = _step_value[0], word = _step_value[1];
             if (options.trim !== false) {
                 rows[rows.length - 1] = rows.at(-1).trimStart();
@@ -26407,19 +26410,19 @@ var exec = function(string, columns) {
     } catch (err) {
         _didIteratorError = true;
         _iteratorError = err;
-    } finally{
+    } finally {
         try {
             if (!_iteratorNormalCompletion && _iterator.return != null) {
                 _iterator.return();
             }
-        } finally{
+        } finally {
             if (_didIteratorError) {
                 throw _iteratorError;
             }
         }
     }
     if (options.trim !== false) {
-        rows = rows.map(function(row) {
+        rows = rows.map(function (row) {
             return stringVisibleTrimSpacesRight(row);
         });
     }
@@ -26429,7 +26432,7 @@ var exec = function(string, columns) {
     var preStringIndex = 0;
     var _iteratorNormalCompletion1 = true, _didIteratorError1 = false, _iteratorError1 = undefined;
     try {
-        for(var _iterator1 = pre.entries()[Symbol.iterator](), _step1; !(_iteratorNormalCompletion1 = (_step1 = _iterator1.next()).done); _iteratorNormalCompletion1 = true){
+        for (var _iterator1 = pre.entries()[Symbol.iterator](), _step1; !(_iteratorNormalCompletion1 = (_step1 = _iterator1.next()).done); _iteratorNormalCompletion1 = true) {
             var _step_value1 = _sliced_to_array(_step1.value, 2), index1 = _step_value1[0], character = _step_value1[1];
             returnValue += character;
             if (ESCAPES$3.has(character)) {
@@ -26464,12 +26467,12 @@ var exec = function(string, columns) {
     } catch (err) {
         _didIteratorError1 = true;
         _iteratorError1 = err;
-    } finally{
+    } finally {
         try {
             if (!_iteratorNormalCompletion1 && _iterator1.return != null) {
                 _iterator1.return();
             }
-        } finally{
+        } finally {
             if (_didIteratorError1) {
                 throw _iteratorError1;
             }
@@ -26479,7 +26482,7 @@ var exec = function(string, columns) {
 };
 // For each newline, invoke the method separately
 function wrapAnsi$1(string, columns, options) {
-    return String(string).normalize().replaceAll('\r\n', '\n').split('\n').map(function(line) {
+    return String(string).normalize().replaceAll('\r\n', '\n').split('\n').map(function (line) {
         return exec(line, columns, options);
     }).join('\n');
 }
@@ -26490,36 +26493,36 @@ function wrapAnsi$1(string, columns, options) {
     // Code points are derived from:
     // https://unicode.org/Public/UNIDATA/EastAsianWidth.txt
     return codePoint >= 0x1100 && (codePoint <= 0x115F || // Hangul Jamo
-    codePoint === 0x2329 || // LEFT-POINTING ANGLE BRACKET
-    codePoint === 0x232A || // RIGHT-POINTING ANGLE BRACKET
-    // CJK Radicals Supplement .. Enclosed CJK Letters and Months
-    0x2E80 <= codePoint && codePoint <= 0x3247 && codePoint !== 0x303F || // Enclosed CJK Letters and Months .. CJK Unified Ideographs Extension A
-    0x3250 <= codePoint && codePoint <= 0x4DBF || // CJK Unified Ideographs .. Yi Radicals
-    0x4E00 <= codePoint && codePoint <= 0xA4C6 || // Hangul Jamo Extended-A
-    0xA960 <= codePoint && codePoint <= 0xA97C || // Hangul Syllables
-    0xAC00 <= codePoint && codePoint <= 0xD7A3 || // CJK Compatibility Ideographs
-    0xF900 <= codePoint && codePoint <= 0xFAFF || // Vertical Forms
-    0xFE10 <= codePoint && codePoint <= 0xFE19 || // CJK Compatibility Forms .. Small Form Variants
-    0xFE30 <= codePoint && codePoint <= 0xFE6B || // Halfwidth and Fullwidth Forms
-    0xFF01 <= codePoint && codePoint <= 0xFF60 || 0xFFE0 <= codePoint && codePoint <= 0xFFE6 || // Kana Supplement
-    0x1B000 <= codePoint && codePoint <= 0x1B001 || // Enclosed Ideographic Supplement
-    0x1F200 <= codePoint && codePoint <= 0x1F251 || // CJK Unified Ideographs Extension B .. Tertiary Ideographic Plane
-    0x20000 <= codePoint && codePoint <= 0x3FFFD);
+        codePoint === 0x2329 || // LEFT-POINTING ANGLE BRACKET
+        codePoint === 0x232A || // RIGHT-POINTING ANGLE BRACKET
+        // CJK Radicals Supplement .. Enclosed CJK Letters and Months
+        0x2E80 <= codePoint && codePoint <= 0x3247 && codePoint !== 0x303F || // Enclosed CJK Letters and Months .. CJK Unified Ideographs Extension A
+        0x3250 <= codePoint && codePoint <= 0x4DBF || // CJK Unified Ideographs .. Yi Radicals
+        0x4E00 <= codePoint && codePoint <= 0xA4C6 || // Hangul Jamo Extended-A
+        0xA960 <= codePoint && codePoint <= 0xA97C || // Hangul Syllables
+        0xAC00 <= codePoint && codePoint <= 0xD7A3 || // CJK Compatibility Ideographs
+        0xF900 <= codePoint && codePoint <= 0xFAFF || // Vertical Forms
+        0xFE10 <= codePoint && codePoint <= 0xFE19 || // CJK Compatibility Forms .. Small Form Variants
+        0xFE30 <= codePoint && codePoint <= 0xFE6B || // Halfwidth and Fullwidth Forms
+        0xFF01 <= codePoint && codePoint <= 0xFF60 || 0xFFE0 <= codePoint && codePoint <= 0xFFE6 || // Kana Supplement
+        0x1B000 <= codePoint && codePoint <= 0x1B001 || // Enclosed Ideographic Supplement
+        0x1F200 <= codePoint && codePoint <= 0x1F251 || // CJK Unified Ideographs Extension B .. Tertiary Ideographic Plane
+        0x20000 <= codePoint && codePoint <= 0x3FFFD);
 }
 var astralRegex = /^[\uD800-\uDBFF][\uDC00-\uDFFF]$/;
 var ESCAPES$2 = [
     '\u001B',
     '\u009B'
 ];
-var wrapAnsi = function(code) {
+var wrapAnsi = function (code) {
     return "".concat(ESCAPES$2[0], "[").concat(code, "m");
 };
-var checkAnsi = function(ansiCodes, isEscapes, endAnsiCode) {
+var checkAnsi = function (ansiCodes, isEscapes, endAnsiCode) {
     var output = [];
     ansiCodes = _to_consumable_array(ansiCodes);
     var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
     try {
-        for(var _iterator = ansiCodes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+        for (var _iterator = ansiCodes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var ansiCode = _step.value;
             var ansiCodeOrigin = ansiCode;
             if (ansiCode.includes(';')) {
@@ -26543,26 +26546,26 @@ var checkAnsi = function(ansiCodes, isEscapes, endAnsiCode) {
     } catch (err) {
         _didIteratorError = true;
         _iteratorError = err;
-    } finally{
+    } finally {
         try {
             if (!_iteratorNormalCompletion && _iterator.return != null) {
                 _iterator.return();
             }
-        } finally{
+        } finally {
             if (_didIteratorError) {
                 throw _iteratorError;
             }
         }
     }
     if (isEscapes) {
-        output = output.filter(function(element, index) {
+        output = output.filter(function (element, index) {
             return output.indexOf(element) === index;
         });
         if (endAnsiCode !== undefined) {
             var fistEscapeCode = wrapAnsi(ansiStyles.codes.get(Number.parseInt(endAnsiCode, 10)));
             // TODO: Remove the use of `.reduce` here.
             // eslint-disable-next-line unicorn/no-array-reduce
-            output = output.reduce(function(current, next) {
+            output = output.reduce(function (current, next) {
                 return next === fistEscapeCode ? [
                     next
                 ].concat(_to_consumable_array(current)) : _to_consumable_array(current).concat([
@@ -26583,7 +26586,7 @@ function sliceAnsi$1(string, begin, end) {
     var output = '';
     var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
     try {
-        for(var _iterator = characters.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+        for (var _iterator = characters.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var _step_value = _sliced_to_array(_step.value, 2), index = _step_value[0], character = _step_value[1];
             var leftEscape = false;
             if (ESCAPES$2.includes(character)) {
@@ -26620,12 +26623,12 @@ function sliceAnsi$1(string, begin, end) {
     } catch (err) {
         _didIteratorError = true;
         _iteratorError = err;
-    } finally{
+    } finally {
         try {
             if (!_iteratorNormalCompletion && _iterator.return != null) {
                 _iterator.return();
             }
-        } finally{
+        } finally {
             if (_didIteratorError) {
                 throw _iteratorError;
             }
@@ -26638,7 +26641,7 @@ function getIndexOfNearestSpace(string, wantedIndex, shouldSearchRight) {
         return wantedIndex;
     }
     var direction = shouldSearchRight ? 1 : -1;
-    for(var index = 0; index <= 3; index++){
+    for (var index = 0; index <= 3; index++) {
         var finalIndex = wantedIndex + index * direction;
         if (string.charAt(finalIndex) === ' ') {
             return finalIndex;
@@ -26701,7 +26704,7 @@ function cliTruncate(text, columns) {
     throw new Error("Expected `options.position` to be either `start`, `middle` or `end`, got ".concat(position));
 }
 var cache = {};
-var wrapText = function(text, maxWidth, wrapType) {
+var wrapText = function (text, maxWidth, wrapType) {
     var cacheKey = text + String(maxWidth) + String(wrapType);
     var cachedText = cache[cacheKey];
     if (cachedText) {
@@ -26735,9 +26738,9 @@ var wrapText = function(text, maxWidth, wrapType) {
 //
 // Also, this is necessary for libraries like ink-link (https://github.com/sindresorhus/ink-link),
 // which need to wrap all children at once, instead of wrapping 3 text nodes separately.
-var squashTextNodes = function(node) {
+var squashTextNodes = function (node) {
     var text = '';
-    for(var index = 0; index < node.childNodes.length; index++){
+    for (var index = 0; index < node.childNodes.length; index++) {
         var childNode = node.childNodes[index];
         if (childNode === undefined) {
             continue;
@@ -26759,7 +26762,7 @@ var squashTextNodes = function(node) {
     }
     return text;
 };
-var createNode = function(nodeName) {
+var createNode = function (nodeName) {
     var node = {
         nodeName: nodeName,
         style: {},
@@ -26774,7 +26777,7 @@ var createNode = function(nodeName) {
     }
     return node;
 };
-var appendChildNode = function(node, childNode) {
+var appendChildNode = function (node, childNode) {
     if (childNode.parentNode) {
         removeChildNode(childNode.parentNode, childNode);
     }
@@ -26788,7 +26791,7 @@ var appendChildNode = function(node, childNode) {
         markNodeAsDirty(node);
     }
 };
-var insertBeforeNode = function(node, newChildNode, beforeChildNode) {
+var insertBeforeNode = function (node, newChildNode, beforeChildNode) {
     if (newChildNode.parentNode) {
         removeChildNode(newChildNode.parentNode, newChildNode);
     }
@@ -26811,7 +26814,7 @@ var insertBeforeNode = function(node, newChildNode, beforeChildNode) {
         markNodeAsDirty(node);
     }
 };
-var removeChildNode = function(node, removeNode) {
+var removeChildNode = function (node, removeNode) {
     if (removeNode.yogaNode) {
         var _removeNode_parentNode_yogaNode, _removeNode_parentNode;
         (_removeNode_parentNode = removeNode.parentNode) === null || _removeNode_parentNode === void 0 ? void 0 : (_removeNode_parentNode_yogaNode = _removeNode_parentNode.yogaNode) === null || _removeNode_parentNode_yogaNode === void 0 ? void 0 : _removeNode_parentNode_yogaNode.removeChild(removeNode.yogaNode);
@@ -26825,13 +26828,13 @@ var removeChildNode = function(node, removeNode) {
         markNodeAsDirty(node);
     }
 };
-var setAttribute = function(node, key, value) {
+var setAttribute = function (node, key, value) {
     node.attributes[key] = value;
 };
-var setStyle = function(node, style) {
+var setStyle = function (node, style) {
     node.style = style;
 };
-var createTextNode = function(text) {
+var createTextNode = function (text) {
     var node = {
         nodeName: '#text',
         nodeValue: text,
@@ -26860,31 +26863,31 @@ var measureTextNode = function measureTextNode(node, width) {
     var wrappedText = wrapText(text, width, textWrap);
     return measureText(wrappedText);
 };
-var findClosestYogaNode = function(node) {
+var findClosestYogaNode = function (node) {
     if (!(node === null || node === void 0 ? void 0 : node.parentNode)) {
         return undefined;
     }
     var _node_yogaNode;
     return (_node_yogaNode = node.yogaNode) !== null && _node_yogaNode !== void 0 ? _node_yogaNode : findClosestYogaNode(node.parentNode);
 };
-var markNodeAsDirty = function(node) {
+var markNodeAsDirty = function (node) {
     // Mark closest Yoga node as dirty to measure text dimensions again
     var yogaNode = findClosestYogaNode(node);
     yogaNode === null || yogaNode === void 0 ? void 0 : yogaNode.markDirty();
 };
-var setTextNodeValue = function(node, text) {
+var setTextNodeValue = function (node, text) {
     if (typeof text !== 'string') {
         text = String(text);
     }
     node.nodeValue = text;
     markNodeAsDirty(node);
 };
-var applyPositionStyles = function(node, style) {
+var applyPositionStyles = function (node, style) {
     if ('position' in style) {
         node.setPositionType(style.position === 'absolute' ? Yoga.POSITION_TYPE_ABSOLUTE : Yoga.POSITION_TYPE_RELATIVE);
     }
 };
-var applyMarginStyles = function(node, style) {
+var applyMarginStyles = function (node, style) {
     if ('margin' in style) {
         var _style_margin;
         node.setMargin(Yoga.EDGE_ALL, (_style_margin = style.margin) !== null && _style_margin !== void 0 ? _style_margin : 0);
@@ -26910,7 +26913,7 @@ var applyMarginStyles = function(node, style) {
         node.setMargin(Yoga.EDGE_BOTTOM, style.marginBottom || 0);
     }
 };
-var applyPaddingStyles = function(node, style) {
+var applyPaddingStyles = function (node, style) {
     if ('padding' in style) {
         var _style_padding;
         node.setPadding(Yoga.EDGE_ALL, (_style_padding = style.padding) !== null && _style_padding !== void 0 ? _style_padding : 0);
@@ -26936,7 +26939,7 @@ var applyPaddingStyles = function(node, style) {
         node.setPadding(Yoga.EDGE_BOTTOM, style.paddingBottom || 0);
     }
 };
-var applyFlexStyles = function(node, style) {
+var applyFlexStyles = function (node, style) {
     if ('flexGrow' in style) {
         var _style_flexGrow;
         node.setFlexGrow((_style_flexGrow = style.flexGrow) !== null && _style_flexGrow !== void 0 ? _style_flexGrow : 0);
@@ -27028,7 +27031,7 @@ var applyFlexStyles = function(node, style) {
         }
     }
 };
-var applyDimensionStyles = function(node, style) {
+var applyDimensionStyles = function (node, style) {
     if ('width' in style) {
         if (typeof style.width === 'number') {
             node.setWidth(style.width);
@@ -27064,12 +27067,12 @@ var applyDimensionStyles = function(node, style) {
         }
     }
 };
-var applyDisplayStyles = function(node, style) {
+var applyDisplayStyles = function (node, style) {
     if ('display' in style) {
         node.setDisplay(style.display === 'flex' ? Yoga.DISPLAY_FLEX : Yoga.DISPLAY_NONE);
     }
 };
-var applyBorderStyles = function(node, style) {
+var applyBorderStyles = function (node, style) {
     if ('borderStyle' in style) {
         var borderWidth = style.borderStyle ? 1 : 0;
         if (style.borderTop !== false) {
@@ -27086,7 +27089,7 @@ var applyBorderStyles = function(node, style) {
         }
     }
 };
-var applyGapStyles = function(node, style) {
+var applyGapStyles = function (node, style) {
     if ('gap' in style) {
         var _style_gap;
         node.setGap(Yoga.GUTTER_ALL, (_style_gap = style.gap) !== null && _style_gap !== void 0 ? _style_gap : 0);
@@ -27100,7 +27103,7 @@ var applyGapStyles = function(node, style) {
         node.setGap(Yoga.GUTTER_ROW, (_style_rowGap = style.rowGap) !== null && _style_rowGap !== void 0 ? _style_rowGap : 0);
     }
 };
-var styles = function(node) {
+var styles = function (node) {
     var style = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
     applyPositionStyles(node, style);
     applyMarginStyles(node, style);
@@ -27114,8 +27117,8 @@ var styles = function(node) {
 // We need to conditionally perform devtools connection to avoid
 // accidentally breaking other third-party code.
 // See https://github.com/vadimdemedes/ink/issues/384
-if (_process.default.env['DEV'] === 'true') ;
-var diff = function(before, after) {
+if (_process.default.env['DEV'] === 'true');
+var diff = function (before, after) {
     if (before === after) {
         return;
     }
@@ -27126,7 +27129,7 @@ var diff = function(before, after) {
     var isChanged = false;
     var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
     try {
-        for(var _iterator = Object.keys(before)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+        for (var _iterator = Object.keys(before)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var key = _step.value;
             var isDeleted = after ? !Object.hasOwn(after, key) : true;
             if (isDeleted) {
@@ -27137,12 +27140,12 @@ var diff = function(before, after) {
     } catch (err) {
         _didIteratorError = true;
         _iteratorError = err;
-    } finally{
+    } finally {
         try {
             if (!_iteratorNormalCompletion && _iterator.return != null) {
                 _iterator.return();
             }
-        } finally{
+        } finally {
             if (_didIteratorError) {
                 throw _iteratorError;
             }
@@ -27151,7 +27154,7 @@ var diff = function(before, after) {
     if (after) {
         var _iteratorNormalCompletion1 = true, _didIteratorError1 = false, _iteratorError1 = undefined;
         try {
-            for(var _iterator1 = Object.keys(after)[Symbol.iterator](), _step1; !(_iteratorNormalCompletion1 = (_step1 = _iterator1.next()).done); _iteratorNormalCompletion1 = true){
+            for (var _iterator1 = Object.keys(after)[Symbol.iterator](), _step1; !(_iteratorNormalCompletion1 = (_step1 = _iterator1.next()).done); _iteratorNormalCompletion1 = true) {
                 var key1 = _step1.value;
                 if (after[key1] !== before[key1]) {
                     changed[key1] = after[key1];
@@ -27161,12 +27164,12 @@ var diff = function(before, after) {
         } catch (err) {
             _didIteratorError1 = true;
             _iteratorError1 = err;
-        } finally{
+        } finally {
             try {
                 if (!_iteratorNormalCompletion1 && _iterator1.return != null) {
                     _iterator1.return();
                 }
-            } finally{
+            } finally {
                 if (_didIteratorError1) {
                     throw _iteratorError1;
                 }
@@ -27175,23 +27178,23 @@ var diff = function(before, after) {
     }
     return isChanged ? changed : undefined;
 };
-var cleanupYogaNode = function(node) {
+var cleanupYogaNode = function (node) {
     node === null || node === void 0 ? void 0 : node.unsetMeasureFunc();
     node === null || node === void 0 ? void 0 : node.freeRecursive();
 };
 var reconciler = createReconciler({
-    getRootHostContext: function() {
+    getRootHostContext: function () {
         return {
             isInsideText: false
         };
     },
-    prepareForCommit: function() {
+    prepareForCommit: function () {
         return null;
     },
-    preparePortalMount: function() {
+    preparePortalMount: function () {
         return null;
     },
-    clearContainer: function() {
+    clearContainer: function () {
         return false;
     },
     resetAfterCommit: function resetAfterCommit(rootNode) {
@@ -27222,7 +27225,7 @@ var reconciler = createReconciler({
             isInsideText: isInsideText
         };
     },
-    shouldSetTextContent: function() {
+    shouldSetTextContent: function () {
         return false;
     },
     createInstance: function createInstance(originalType, newProps, _root, hostContext) {
@@ -27233,7 +27236,7 @@ var reconciler = createReconciler({
         var node = createNode(type);
         var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
         try {
-            for(var _iterator = Object.entries(newProps)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+            for (var _iterator = Object.entries(newProps)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                 var _step_value = _sliced_to_array(_step.value, 2), key = _step_value[0], value = _step_value[1];
                 if (key === 'children') {
                     continue;
@@ -27258,12 +27261,12 @@ var reconciler = createReconciler({
         } catch (err) {
             _didIteratorError = true;
             _iteratorError = err;
-        } finally{
+        } finally {
             try {
                 if (!_iteratorNormalCompletion && _iterator.return != null) {
                     _iterator.return();
                 }
-            } finally{
+            } finally {
                 if (_didIteratorError) {
                     throw _iteratorError;
                 }
@@ -27277,14 +27280,14 @@ var reconciler = createReconciler({
         }
         return createTextNode(text);
     },
-    resetTextContent: function resetTextContent() {},
+    resetTextContent: function resetTextContent() { },
     hideTextInstance: function hideTextInstance(node) {
         setTextNodeValue(node, '');
     },
     unhideTextInstance: function unhideTextInstance(node, text) {
         setTextNodeValue(node, text);
     },
-    getPublicInstance: function(instance) {
+    getPublicInstance: function (instance) {
         return instance;
     },
     hideInstance: function hideInstance(node) {
@@ -27314,17 +27317,17 @@ var reconciler = createReconciler({
     scheduleTimeout: setTimeout,
     cancelTimeout: clearTimeout,
     noTimeout: -1,
-    getCurrentEventPriority: function() {
+    getCurrentEventPriority: function () {
         return constantsExports.DefaultEventPriority;
     },
-    beforeActiveInstanceBlur: function beforeActiveInstanceBlur() {},
-    afterActiveInstanceBlur: function afterActiveInstanceBlur() {},
-    detachDeletedInstance: function detachDeletedInstance() {},
-    getInstanceFromNode: function() {
+    beforeActiveInstanceBlur: function beforeActiveInstanceBlur() { },
+    afterActiveInstanceBlur: function afterActiveInstanceBlur() { },
+    detachDeletedInstance: function detachDeletedInstance() { },
+    getInstanceFromNode: function () {
         return null;
     },
-    prepareScopeUpdate: function prepareScopeUpdate() {},
-    getInstanceFromScope: function() {
+    prepareScopeUpdate: function prepareScopeUpdate() { },
+    getInstanceFromScope: function () {
         return null;
     },
     appendChildToContainer: appendChildNode,
@@ -27352,7 +27355,7 @@ var reconciler = createReconciler({
         if (props) {
             var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
             try {
-                for(var _iterator = Object.entries(props)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+                for (var _iterator = Object.entries(props)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                     var _step_value = _sliced_to_array(_step.value, 2), key = _step_value[0], value = _step_value[1];
                     if (key === 'style') {
                         setStyle(node, value);
@@ -27371,12 +27374,12 @@ var reconciler = createReconciler({
             } catch (err) {
                 _didIteratorError = true;
                 _iteratorError = err;
-            } finally{
+            } finally {
                 try {
                     if (!_iteratorNormalCompletion && _iterator.return != null) {
                         _iterator.return();
                     }
-                } finally{
+                } finally {
                     if (_didIteratorError) {
                         throw _iteratorError;
                     }
@@ -27416,7 +27419,7 @@ function indentString(string) {
     var regex = includeEmptyLines ? /^/gm : /^(?!\s*$)/gm;
     return string.replace(regex, indent.repeat(count));
 }
-var getMaxWidth = function(yogaNode) {
+var getMaxWidth = function (yogaNode) {
     return yogaNode.getComputedWidth() - yogaNode.getComputedPadding(Yoga.EDGE_LEFT) - yogaNode.getComputedPadding(Yoga.EDGE_RIGHT) - yogaNode.getComputedBorder(Yoga.EDGE_LEFT) - yogaNode.getComputedBorder(Yoga.EDGE_RIGHT);
 };
 var cliBoxes$1 = {
@@ -27534,7 +27537,7 @@ var hasRequiredSymbols;
 function requireSymbols() {
     if (hasRequiredSymbols) return symbols.exports;
     hasRequiredSymbols = 1;
-    (function(module) {
+    (function (module) {
         var isHyper = typeof process !== 'undefined' && process.env.TERM_PROGRAM === 'Hyper';
         var isWindows = typeof process !== 'undefined' && process.platform === 'win32';
         var isLinux = typeof process !== 'undefined' && process.platform === 'linux';
@@ -27614,29 +27617,29 @@ var hasRequiredAnsiColors;
 function requireAnsiColors() {
     if (hasRequiredAnsiColors) return ansiColors.exports;
     hasRequiredAnsiColors = 1;
-    var isObject = function(val) {
+    var isObject = function (val) {
         return val !== null && (typeof val === "undefined" ? "undefined" : _type_of(val)) === 'object' && !Array.isArray(val);
     };
     /* eslint-disable no-control-regex */ // this is a modified version of https://github.com/chalk/ansi-regex (MIT License)
     var ANSI_REGEX = /[\u001b\u009b][[\]#;?()]*(?:(?:(?:[^\W_]*;?[^\W_]*)\u0007)|(?:(?:[0-9]{1,4}(;[0-9]{0,4})*)?[~0-9=<>cf-nqrtyA-PRZ]))/g;
-    var hasColor = function() {
+    var hasColor = function () {
         if (typeof process !== 'undefined') {
             return process.env.FORCE_COLOR !== '0';
         }
         return false;
     };
-    var create = function() {
+    var create = function () {
         var colors = {
             enabled: hasColor(),
             visible: true,
             styles: {},
             keys: {}
         };
-        var ansi = function(style) {
+        var ansi = function (style) {
             var open = style.open = "\x1b[".concat(style.codes[0], "m");
             var close = style.close = "\x1b[".concat(style.codes[1], "m");
             var regex = style.regex = new RegExp("\\u001b\\[".concat(style.codes[1], "m"), 'g');
-            style.wrap = function(input, newline) {
+            style.wrap = function (input, newline) {
                 if (input.includes(close)) input = input.replace(regex, close + open);
                 var output = open + input + close;
                 // see https://github.com/chalk/chalk/pull/92, thanks to the
@@ -27646,10 +27649,10 @@ function requireAnsiColors() {
             };
             return style;
         };
-        var wrap = function(style, input, newline) {
+        var wrap = function (style, input, newline) {
             return typeof style === 'function' ? style(input) : style.wrap(input, newline);
         };
-        var style = function(input, stack) {
+        var style = function (input, stack) {
             if (input === '' || input == null) return '';
             if (colors.enabled === false) return input;
             if (colors.visible === false) return '';
@@ -27661,10 +27664,10 @@ function requireAnsiColors() {
                     'unstyle'
                 ].concat(_to_consumable_array(stack)))).reverse();
             }
-            while(n-- > 0)str = wrap(colors.styles[stack[n]], str, nl);
+            while (n-- > 0) str = wrap(colors.styles[stack[n]], str, nl);
             return str;
         };
-        var define = function(name, codes, type) {
+        var define = function (name, codes, type) {
             colors.styles[name] = ansi({
                 name: name,
                 codes: codes
@@ -27678,7 +27681,7 @@ function requireAnsiColors() {
                     colors.alias(name, value);
                 },
                 get: function get() {
-                    var color = function(input) {
+                    var color = function (input) {
                         return style(input, color.stack);
                     };
                     Reflect.setPrototypeOf(color, colors);
@@ -27858,11 +27861,11 @@ function requireAnsiColors() {
             49
         ], 'bgBright');
         colors.ansiRegex = ANSI_REGEX;
-        colors.hasColor = colors.hasAnsi = function(str) {
+        colors.hasColor = colors.hasAnsi = function (str) {
             colors.ansiRegex.lastIndex = 0;
             return typeof str === 'string' && str !== '' && colors.ansiRegex.test(str);
         };
-        colors.alias = function(name, color) {
+        colors.alias = function (name, color) {
             var fn = typeof color === 'string' ? colors[color] : color;
             if (typeof fn !== 'function') {
                 throw new TypeError('Expected alias to be the name of an existing color (string) or a function');
@@ -27883,7 +27886,7 @@ function requireAnsiColors() {
                     colors.alias(name, value);
                 },
                 get: function get() {
-                    var _$color = function(input) {
+                    var _$color = function (input) {
                         return style(input, _$color.stack);
                     };
                     Reflect.setPrototypeOf(_$color, colors);
@@ -27892,23 +27895,23 @@ function requireAnsiColors() {
                 }
             });
         };
-        colors.theme = function(custom) {
+        colors.theme = function (custom) {
             if (!isObject(custom)) throw new TypeError('Expected theme to be an object');
             var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
             try {
-                for(var _iterator = Object.keys(custom)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+                for (var _iterator = Object.keys(custom)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                     var name = _step.value;
                     colors.alias(name, custom[name]);
                 }
             } catch (err) {
                 _didIteratorError = true;
                 _iteratorError = err;
-            } finally{
+            } finally {
                 try {
                     if (!_iteratorNormalCompletion && _iterator.return != null) {
                         _iterator.return();
                     }
-                } finally{
+                } finally {
                     if (_didIteratorError) {
                         throw _iteratorError;
                     }
@@ -27916,14 +27919,14 @@ function requireAnsiColors() {
             }
             return colors;
         };
-        colors.alias('unstyle', function(str) {
+        colors.alias('unstyle', function (str) {
             if (typeof str === 'string' && str !== '') {
                 colors.ansiRegex.lastIndex = 0;
                 return str.replace(colors.ansiRegex, '');
             }
             return '';
         });
-        colors.alias('noop', function(str) {
+        colors.alias('noop', function (str) {
             return str;
         });
         colors.none = colors.clear = colors.noop;
@@ -27940,10 +27943,10 @@ var ansiColorsExports = requireAnsiColors();
 var chalk = /*@__PURE__*/ getDefaultExportFromCjs(ansiColorsExports);
 var rgbRegex = /^rgb\(\s?(\d+),\s?(\d+),\s?(\d+)\s?\)$/;
 var ansiRegex = /^ansi256\(\s?(\d+)\s?\)$/;
-var isNamedColor = function(color) {
+var isNamedColor = function (color) {
     return color in chalk;
 };
-var colorize = function(str, color, type) {
+var colorize = function (str, color, type) {
     if (!color) {
         return str;
     }
@@ -27977,7 +27980,7 @@ var colorize = function(str, color, type) {
     }
     return str;
 };
-var renderBorder = function(x, y, node, output) {
+var renderBorder = function (x, y, node, output) {
     if (node.style.borderStyle) {
         var width = node.yogaNode.getComputedWidth();
         var height = node.yogaNode.getComputedHeight();
@@ -28055,7 +28058,7 @@ var renderBorder = function(x, y, node, output) {
 // and use it as offset for the rest of the nodes
 // Only first node is taken into account, because other text nodes can't have margin or padding,
 // so their coordinates will be relative to the first node anyway
-var applyPaddingToText = function(node, text) {
+var applyPaddingToText = function (node, text) {
     var _node_childNodes_;
     var yogaNode = (_node_childNodes_ = node.childNodes[0]) === null || _node_childNodes_ === void 0 ? void 0 : _node_childNodes_.yogaNode;
     if (yogaNode) {
@@ -28066,7 +28069,7 @@ var applyPaddingToText = function(node, text) {
     return text;
 };
 // After nodes are laid out, render each to output object, which later gets rendered to terminal
-var renderNodeToOutput = function(node, output, options) {
+var renderNodeToOutput = function (node, output, options) {
     var _options_offsetX = options.offsetX, offsetX = _options_offsetX === void 0 ? 0 : _options_offsetX, _options_offsetY = options.offsetY, offsetY = _options_offsetY === void 0 ? 0 : _options_offsetY, _options_transformers = options.transformers, transformers = _options_transformers === void 0 ? [] : _options_transformers, skipStaticElements = options.skipStaticElements;
     if (skipStaticElements && node.internal_static) {
         return;
@@ -28126,7 +28129,7 @@ var renderNodeToOutput = function(node, output, options) {
         if (node.nodeName === 'ink-root' || node.nodeName === 'ink-box') {
             var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
             try {
-                for(var _iterator = node.childNodes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+                for (var _iterator = node.childNodes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                     var childNode = _step.value;
                     renderNodeToOutput(childNode, output, {
                         offsetX: x,
@@ -28138,12 +28141,12 @@ var renderNodeToOutput = function(node, output, options) {
             } catch (err) {
                 _didIteratorError = true;
                 _iteratorError = err;
-            } finally{
+            } finally {
                 try {
                     if (!_iteratorNormalCompletion && _iterator.return != null) {
                         _iterator.return();
                     }
-                } finally{
+                } finally {
                     if (_didIteratorError) {
                         throw _iteratorError;
                     }
@@ -28172,7 +28175,7 @@ var endCodesSet$1 = new Set();
 var endCodesMap$1 = new Map();
 var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
 try {
-    for(var _iterator = ansiStyles.codes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+    for (var _iterator = ansiStyles.codes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
         var _step_value = _sliced_to_array(_step.value, 2), start = _step_value[0], end = _step_value[1];
         endCodesSet$1.add(ansiStyles.color.ansi(end));
         endCodesMap$1.set(ansiStyles.color.ansi(start), ansiStyles.color.ansi(end));
@@ -28180,12 +28183,12 @@ try {
 } catch (err) {
     _didIteratorError = true;
     _iteratorError = err;
-} finally{
+} finally {
     try {
         if (!_iteratorNormalCompletion && _iterator.return != null) {
             _iterator.return();
         }
-    } finally{
+    } finally {
         if (_didIteratorError) {
             throw _iteratorError;
         }
@@ -28209,7 +28212,7 @@ function getEndCode$1(code) {
     return ansiStyles.reset.open;
 }
 function findNumberIndex$1(string) {
-    for(var index = 0; index < string.length; index++){
+    for (var index = 0; index < string.length; index++) {
         var codePoint = string.codePointAt(index);
         if (codePoint >= CODE_POINT_0 && codePoint <= CODE_POINT_9) {
             return index;
@@ -28233,7 +28236,7 @@ function tokenize$1(string) {
     var returnValue = [];
     var index = 0;
     var visibleCount = 0;
-    while(index < string.length){
+    while (index < string.length) {
         var codePoint = string.codePointAt(index);
         if (ESCAPES$1.has(codePoint)) {
             var code = parseAnsiCode$1(string, index);
@@ -28266,34 +28269,34 @@ function reduceAnsiCodes$1(codes) {
     var returnValue = [];
     var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
     try {
-        var _loop = function() {
+        var _loop = function () {
             var code = _step.value;
             if (code.code === ansiStyles.reset.open) {
                 // Reset code, disable all codes
                 returnValue = [];
             } else if (endCodesSet$1.has(code.code)) {
                 // This is an end code, disable all matching start codes
-                returnValue = returnValue.filter(function(returnValueCode) {
+                returnValue = returnValue.filter(function (returnValueCode) {
                     return returnValueCode.endCode !== code.code;
                 });
             } else {
                 // This is a start code. Disable all styles this "overrides", then enable it
-                returnValue = returnValue.filter(function(returnValueCode) {
+                returnValue = returnValue.filter(function (returnValueCode) {
                     return returnValueCode.endCode !== code.endCode;
                 });
                 returnValue.push(code);
             }
         };
-        for(var _iterator = codes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true)_loop();
+        for (var _iterator = codes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true)_loop();
     } catch (err) {
         _didIteratorError = true;
         _iteratorError = err;
-    } finally{
+    } finally {
         try {
             if (!_iteratorNormalCompletion && _iterator.return != null) {
                 _iterator.return();
             }
-        } finally{
+        } finally {
             if (_didIteratorError) {
                 throw _iteratorError;
             }
@@ -28303,7 +28306,7 @@ function reduceAnsiCodes$1(codes) {
 }
 function undoAnsiCodes$1(codes) {
     var reduced = reduceAnsiCodes$1(codes);
-    var endCodes = reduced.map(function(param) {
+    var endCodes = reduced.map(function (param) {
         var endCode = param.endCode;
         return endCode;
     });
@@ -28317,7 +28320,7 @@ function sliceAnsi(string, start, end) {
     var include = false;
     var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
     try {
-        for(var _iterator = tokens[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+        for (var _iterator = tokens[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var token = _step.value;
             if (end !== undefined && position >= end) {
                 break;
@@ -28333,7 +28336,7 @@ function sliceAnsi(string, start, end) {
                     include = true;
                     // Simplify active codes
                     activeCodes = reduceAnsiCodes$1(activeCodes);
-                    returnValue = activeCodes.map(function(param) {
+                    returnValue = activeCodes.map(function (param) {
                         var code = param.code;
                         return code;
                     }).join('');
@@ -28347,12 +28350,12 @@ function sliceAnsi(string, start, end) {
     } catch (err) {
         _didIteratorError = true;
         _iteratorError = err;
-    } finally{
+    } finally {
         try {
             if (!_iteratorNormalCompletion && _iterator.return != null) {
                 _iterator.return();
             }
-        } finally{
+        } finally {
             if (_didIteratorError) {
                 throw _iteratorError;
             }
@@ -28370,7 +28373,7 @@ var endCodesSet = new Set();
 var endCodesMap = new Map();
 var _iteratorNormalCompletion1 = true, _didIteratorError1 = false, _iteratorError1 = undefined;
 try {
-    for(var _iterator1 = ansiStyles.codes[Symbol.iterator](), _step1; !(_iteratorNormalCompletion1 = (_step1 = _iterator1.next()).done); _iteratorNormalCompletion1 = true){
+    for (var _iterator1 = ansiStyles.codes[Symbol.iterator](), _step1; !(_iteratorNormalCompletion1 = (_step1 = _iterator1.next()).done); _iteratorNormalCompletion1 = true) {
         var _step_value1 = _sliced_to_array(_step1.value, 2), start1 = _step_value1[0], end1 = _step_value1[1];
         endCodesSet.add(ansiStyles.color.ansi(end1));
         endCodesMap.set(ansiStyles.color.ansi(start1), ansiStyles.color.ansi(end1));
@@ -28378,19 +28381,19 @@ try {
 } catch (err) {
     _didIteratorError1 = true;
     _iteratorError1 = err;
-} finally{
+} finally {
     try {
         if (!_iteratorNormalCompletion1 && _iterator1.return != null) {
             _iterator1.return();
         }
-    } finally{
+    } finally {
         if (_didIteratorError1) {
             throw _iteratorError1;
         }
     }
 }
 var linkStartCodePrefix = "\x1B]8;;";
-var linkStartCodePrefixCharCodes = linkStartCodePrefix.split("").map(function(char) {
+var linkStartCodePrefixCharCodes = linkStartCodePrefix.split("").map(function (char) {
     return char.charCodeAt(0);
 });
 var linkCodeSuffix = "\x07";
@@ -28411,7 +28414,7 @@ function getEndCode(code) {
     }
 }
 function ansiCodesToString(codes) {
-    return codes.map(function(code) {
+    return codes.map(function (code) {
         return code.code;
     }).join("");
 }
@@ -28422,34 +28425,34 @@ function ansiCodesToString(codes) {
     var ret = _to_consumable_array(codes);
     var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
     try {
-        var _loop = function() {
+        var _loop = function () {
             var code = _step.value;
             if (code.code === ansiStyles.reset.open) {
                 // Reset code, disable all codes
                 ret = [];
             } else if (endCodesSet.has(code.code)) {
                 // This is an end code, disable all matching start codes
-                ret = ret.filter(function(retCode) {
+                ret = ret.filter(function (retCode) {
                     return retCode.endCode !== code.code;
                 });
             } else {
                 // This is a start code. Disable all styles this "overrides", then enable it
-                ret = ret.filter(function(retCode) {
+                ret = ret.filter(function (retCode) {
                     return retCode.endCode !== code.endCode;
                 });
                 ret.push(code);
             }
         };
-        for(var _iterator = newCodes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true)_loop();
+        for (var _iterator = newCodes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true)_loop();
     } catch (err) {
         _didIteratorError = true;
         _iteratorError = err;
-    } finally{
+    } finally {
         try {
             if (!_iteratorNormalCompletion && _iterator.return != null) {
                 _iterator.return();
             }
-        } finally{
+        } finally {
             if (_didIteratorError) {
                 throw _iteratorError;
             }
@@ -28458,7 +28461,7 @@ function ansiCodesToString(codes) {
     return ret;
 }
 /** Returns the combination of ANSI codes needed to undo the given ANSI codes */ function undoAnsiCodes(codes) {
-    return reduceAnsiCodes(codes).reverse().map(function(code) {
+    return reduceAnsiCodes(codes).reverse().map(function (code) {
         return _object_spread_props(_object_spread({}, code), {
             code: code.endCode
         });
@@ -28468,27 +28471,27 @@ function ansiCodesToString(codes) {
  * Returns the minimum amount of ANSI codes necessary to get from the compound style `from` to `to`.
  * Both `from` and `to` are expected to be reduced.
  */ function diffAnsiCodes(from, to) {
-    var endCodesInTo = new Set(to.map(function(code) {
+    var endCodesInTo = new Set(to.map(function (code) {
         return code.endCode;
     }));
-    var startCodesInFrom = new Set(from.map(function(code) {
+    var startCodesInFrom = new Set(from.map(function (code) {
         return code.code;
     }));
-    return(// Ignore all styles in `from` that are not overwritten or removed by `to`
-    // Disable all styles in `from` that are removed in `to`
-    _to_consumable_array(undoAnsiCodes(from.filter(function(code) {
-        return !endCodesInTo.has(code.endCode);
-    }))).concat(// Add all styles in `to` that don't exist in `from`
-    _to_consumable_array(to.filter(function(code) {
-        return !startCodesInFrom.has(code.code);
-    }))));
+    return (// Ignore all styles in `from` that are not overwritten or removed by `to`
+        // Disable all styles in `from` that are removed in `to`
+        _to_consumable_array(undoAnsiCodes(from.filter(function (code) {
+            return !endCodesInTo.has(code.endCode);
+        }))).concat(// Add all styles in `to` that don't exist in `from`
+            _to_consumable_array(to.filter(function (code) {
+                return !startCodesInFrom.has(code.code);
+            }))));
 }
 function styledCharsFromTokens(tokens) {
     var codes = [];
     var ret = [];
     var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
     try {
-        for(var _iterator = tokens[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+        for (var _iterator = tokens[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var token = _step.value;
             if (token.type === "ansi") {
                 codes = reduceAnsiCodesIncremental(codes, [
@@ -28503,12 +28506,12 @@ function styledCharsFromTokens(tokens) {
     } catch (err) {
         _didIteratorError = true;
         _iteratorError = err;
-    } finally{
+    } finally {
         try {
             if (!_iteratorNormalCompletion && _iterator.return != null) {
                 _iterator.return();
             }
-        } finally{
+        } finally {
             if (_didIteratorError) {
                 throw _iteratorError;
             }
@@ -28518,7 +28521,7 @@ function styledCharsFromTokens(tokens) {
 }
 function styledCharsToString(chars) {
     var ret = "";
-    for(var i = 0; i < chars.length; i++){
+    for (var i = 0; i < chars.length; i++) {
         var char = chars[i];
         if (i === 0) {
             ret += ansiCodesToString(char.styles);
@@ -28534,7 +28537,7 @@ function styledCharsToString(chars) {
     return ret;
 }
 function findNumberIndex(str) {
-    for(var index = 0; index < str.length; index++){
+    for (var index = 0; index < str.length; index++) {
         var charCode = str.charCodeAt(index);
         if (charCode >= 48 && charCode <= 57) {
             return index;
@@ -28544,7 +28547,7 @@ function findNumberIndex(str) {
 }
 function parseLinkCode(string, offset) {
     string = string.slice(offset);
-    for(var index = 1; index < linkStartCodePrefixCharCodes.length; index++){
+    for (var index = 1; index < linkStartCodePrefixCharCodes.length; index++) {
         if (string.charCodeAt(index) !== linkStartCodePrefixCharCodes[index]) {
             return undefined;
         }
@@ -28570,7 +28573,7 @@ function tokenize(str) {
     var ret = [];
     var index = 0;
     var visible = 0;
-    while(index < str.length){
+    while (index < str.length) {
         var codePoint = str.codePointAt(index);
         if (ESCAPES.has(codePoint)) {
             // TODO: We should probably decide on the next character ("[" or "]") which code path to take.
@@ -28600,7 +28603,7 @@ function tokenize(str) {
     }
     return ret;
 }
-var Output = /*#__PURE__*/ function() {
+var Output = /*#__PURE__*/ function () {
     "use strict";
     function Output(options) {
         _class_call_check(this, Output);
@@ -28637,9 +28640,9 @@ var Output = /*#__PURE__*/ function() {
     _proto.get = function get() {
         // Initialize output array with a specific set of rows, so that margin/padding at the bottom is preserved
         var output = [];
-        for(var y = 0; y < this.height; y++){
+        for (var y = 0; y < this.height; y++) {
             var row = [];
-            for(var x = 0; x < this.width; x++){
+            for (var x = 0; x < this.width; x++) {
                 row.push({
                     type: 'char',
                     value: ' ',
@@ -28652,7 +28655,7 @@ var Output = /*#__PURE__*/ function() {
         var clips = [];
         var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
         try {
-            var _loop = function() {
+            var _loop = function () {
                 var operation = _step.value;
                 if (operation.type === 'clip') {
                     clips.push(operation.clip);
@@ -28683,7 +28686,7 @@ var Output = /*#__PURE__*/ function() {
                             }
                         }
                         if (clipHorizontally) {
-                            lines = lines.map(function(line) {
+                            lines = lines.map(function (line) {
                                 var from = x < clip.x1 ? clip.x1 - x : 0;
                                 var width = stringWidth(line);
                                 var to = x + width > clip.x2 ? clip.x2 - x : width;
@@ -28706,7 +28709,7 @@ var Output = /*#__PURE__*/ function() {
                     var offsetY = 0;
                     var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
                     try {
-                        for(var _iterator = lines.entries()[Symbol.iterator](), _step1; !(_iteratorNormalCompletion = (_step1 = _iterator.next()).done); _iteratorNormalCompletion = true){
+                        for (var _iterator = lines.entries()[Symbol.iterator](), _step1; !(_iteratorNormalCompletion = (_step1 = _iterator.next()).done); _iteratorNormalCompletion = true) {
                             var _step_value = _sliced_to_array(_step1.value, 2), index = _step_value[0], line = _step_value[1];
                             var currentLine = output[y + offsetY];
                             // Line can be missing if `text` is taller than height of pre-initialized `this.output`
@@ -28715,19 +28718,19 @@ var Output = /*#__PURE__*/ function() {
                             }
                             var _iteratorNormalCompletion1 = true, _didIteratorError1 = false, _iteratorError1 = undefined;
                             try {
-                                for(var _iterator1 = transformers[Symbol.iterator](), _step2; !(_iteratorNormalCompletion1 = (_step2 = _iterator1.next()).done); _iteratorNormalCompletion1 = true){
+                                for (var _iterator1 = transformers[Symbol.iterator](), _step2; !(_iteratorNormalCompletion1 = (_step2 = _iterator1.next()).done); _iteratorNormalCompletion1 = true) {
                                     var transformer = _step2.value;
                                     line = transformer(line, index);
                                 }
                             } catch (err) {
                                 _didIteratorError1 = true;
                                 _iteratorError1 = err;
-                            } finally{
+                            } finally {
                                 try {
                                     if (!_iteratorNormalCompletion1 && _iterator1.return != null) {
                                         _iterator1.return();
                                     }
-                                } finally{
+                                } finally {
                                     if (_didIteratorError1) {
                                         throw _iteratorError1;
                                     }
@@ -28737,7 +28740,7 @@ var Output = /*#__PURE__*/ function() {
                             var offsetX = x;
                             var _iteratorNormalCompletion2 = true, _didIteratorError2 = false, _iteratorError2 = undefined;
                             try {
-                                for(var _iterator2 = characters[Symbol.iterator](), _step3; !(_iteratorNormalCompletion2 = (_step3 = _iterator2.next()).done); _iteratorNormalCompletion2 = true){
+                                for (var _iterator2 = characters[Symbol.iterator](), _step3; !(_iteratorNormalCompletion2 = (_step3 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
                                     var character = _step3.value;
                                     currentLine[offsetX] = character;
                                     // Some characters take up more than one column. In that case, the following
@@ -28756,12 +28759,12 @@ var Output = /*#__PURE__*/ function() {
                             } catch (err) {
                                 _didIteratorError2 = true;
                                 _iteratorError2 = err;
-                            } finally{
+                            } finally {
                                 try {
                                     if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
                                         _iterator2.return();
                                     }
-                                } finally{
+                                } finally {
                                     if (_didIteratorError2) {
                                         throw _iteratorError2;
                                     }
@@ -28772,12 +28775,12 @@ var Output = /*#__PURE__*/ function() {
                     } catch (err) {
                         _didIteratorError = true;
                         _iteratorError = err;
-                    } finally{
+                    } finally {
                         try {
                             if (!_iteratorNormalCompletion && _iterator.return != null) {
                                 _iterator.return();
                             }
-                        } finally{
+                        } finally {
                             if (_didIteratorError) {
                                 throw _iteratorError;
                             }
@@ -28785,24 +28788,24 @@ var Output = /*#__PURE__*/ function() {
                     }
                 }
             };
-            for(var _iterator = this.operations[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true)_loop();
+            for (var _iterator = this.operations[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true)_loop();
         } catch (err) {
             _didIteratorError = true;
             _iteratorError = err;
-        } finally{
+        } finally {
             try {
                 if (!_iteratorNormalCompletion && _iterator.return != null) {
                     _iterator.return();
                 }
-            } finally{
+            } finally {
                 if (_didIteratorError) {
                     throw _iteratorError;
                 }
             }
         }
-        var generatedOutput = output.map(function(line) {
+        var generatedOutput = output.map(function (line) {
             // See https://github.com/vadimdemedes/ink/pull/564#issuecomment-1637022742
-            var lineWithoutEmptyItems = line.filter(function(item) {
+            var lineWithoutEmptyItems = line.filter(function (item) {
                 return item !== undefined;
             });
             return styledCharsToString(lineWithoutEmptyItems).trimEnd();
@@ -28814,7 +28817,7 @@ var Output = /*#__PURE__*/ function() {
     };
     return Output;
 }();
-var renderer = function(node) {
+var renderer = function (node) {
     if (node.yogaNode) {
         var _node_staticNode;
         var output = new Output({
@@ -28859,22 +28862,22 @@ var hasRequiredMimicFn;
 function requireMimicFn() {
     if (hasRequiredMimicFn) return mimicFn.exports;
     hasRequiredMimicFn = 1;
-    var mimicFn$1 = function(to, from) {
+    var mimicFn$1 = function (to, from) {
         var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
         try {
-            for(var _iterator = Reflect.ownKeys(from)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+            for (var _iterator = Reflect.ownKeys(from)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                 var prop = _step.value;
                 Object.defineProperty(to, prop, Object.getOwnPropertyDescriptor(from, prop));
             }
         } catch (err) {
             _didIteratorError = true;
             _iteratorError = err;
-        } finally{
+        } finally {
             try {
                 if (!_iteratorNormalCompletion && _iterator.return != null) {
                     _iterator.return();
                 }
-            } finally{
+            } finally {
                 if (_didIteratorError) {
                     throw _iteratorError;
                 }
@@ -28893,7 +28896,7 @@ function requireOnetime() {
     hasRequiredOnetime = 1;
     var mimicFn = requireMimicFn();
     var calledFunctions = new WeakMap();
-    var onetime = function(function_) {
+    var onetime = function (function_) {
         var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
         if (typeof function_ !== 'function') {
             throw new TypeError('Expected a function');
@@ -28902,7 +28905,7 @@ function requireOnetime() {
         var callCount = 0;
         var functionName = function_.displayName || function_.name || '<anonymous>';
         var onetime = function onetime1() {
-            for(var _len = arguments.length, arguments_ = new Array(_len), _key = 0; _key < _len; _key++){
+            for (var _len = arguments.length, arguments_ = new Array(_len), _key = 0; _key < _len; _key++) {
                 arguments_[_key] = arguments[_key];
             }
             calledFunctions.set(onetime, ++callCount);
@@ -28921,7 +28924,7 @@ function requireOnetime() {
     onetime$1.exports = onetime;
     // TODO: Remove this for the next major release
     onetime$1.exports.default = onetime;
-    onetime$1.exports.callCount = function(function_) {
+    onetime$1.exports.callCount = function (function_) {
         if (!calledFunctions.has(function_)) {
             throw new Error("The given function `".concat(function_.name, "` is not wrapped by the `onetime` package"));
         }
@@ -28931,8 +28934,8 @@ function requireOnetime() {
 }
 var onetimeExports = requireOnetime();
 var onetime = /*@__PURE__*/ getDefaultExportFromCjs(onetimeExports);
-var restoreCursor = onetime(function() {
-    signalExit(function() {
+var restoreCursor = onetime(function () {
+    signalExit(function () {
         _process.default.stderr.write('\u001B[?25h');
     }, {
         alwaysLast: true
@@ -28940,7 +28943,7 @@ var restoreCursor = onetime(function() {
 });
 var isHidden = false;
 var cliCursor = {};
-cliCursor.show = function() {
+cliCursor.show = function () {
     var writableStream = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : _process.default.stderr;
     if (!writableStream.isTTY) {
         return;
@@ -28948,7 +28951,7 @@ cliCursor.show = function() {
     isHidden = false;
     writableStream.write('\u001B[?25h');
 };
-cliCursor.hide = function() {
+cliCursor.hide = function () {
     var writableStream = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : _process.default.stderr;
     if (!writableStream.isTTY) {
         return;
@@ -28957,7 +28960,7 @@ cliCursor.hide = function() {
     isHidden = true;
     writableStream.write('\u001B[?25l');
 };
-cliCursor.toggle = function(force, writableStream) {
+cliCursor.toggle = function (force, writableStream) {
     if (force !== undefined) {
         isHidden = force;
     }
@@ -28967,12 +28970,12 @@ cliCursor.toggle = function(force, writableStream) {
         cliCursor.hide(writableStream);
     }
 };
-var create = function(stream) {
+var create = function (stream) {
     var _ref = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, _ref_showCursor = _ref.showCursor, showCursor = _ref_showCursor === void 0 ? false : _ref_showCursor;
     var previousLineCount = 0;
     var previousOutput = '';
     var hasHiddenCursor = false;
-    var render = function(str) {
+    var render = function (str) {
         if (!showCursor && !hasHiddenCursor) {
             cliCursor.hide();
             hasHiddenCursor = true;
@@ -28985,12 +28988,12 @@ var create = function(stream) {
         stream.write(eraseLines(previousLineCount) + output);
         previousLineCount = output.split('\n').length;
     };
-    render.clear = function() {
+    render.clear = function () {
         stream.write(eraseLines(previousLineCount));
         previousOutput = '';
         previousLineCount = 0;
     };
-    render.done = function() {
+    render.done = function () {
         previousOutput = '';
         previousLineCount = 0;
         if (!showCursor) {
@@ -29013,7 +29016,7 @@ var instances = new WeakMap();
  * `AppContext` is a React context, which exposes a method to manually exit the app (unmount).
  */ // eslint-disable-next-line @typescript-eslint/naming-convention
 var AppContext = (0, _react.createContext)({
-    exit: function exit() {}
+    exit: function exit() { }
 });
 AppContext.displayName = 'InternalAppContext';
 /**
@@ -29023,7 +29026,7 @@ var StdinContext = (0, _react.createContext)({
     stdin: _process.default.stdin,
     // eslint-disable-next-line @typescript-eslint/naming-convention
     internal_eventEmitter: new _events.EventEmitter(),
-    setRawMode: function setRawMode() {},
+    setRawMode: function setRawMode() { },
     isRawModeSupported: false,
     // eslint-disable-next-line @typescript-eslint/naming-convention
     internal_exitOnCtrlC: true
@@ -29034,7 +29037,7 @@ StdinContext.displayName = 'InternalStdinContext';
  */ // eslint-disable-next-line @typescript-eslint/naming-convention
 var StdoutContext = (0, _react.createContext)({
     stdout: _process.default.stdout,
-    write: function write() {}
+    write: function write() { }
 });
 StdoutContext.displayName = 'InternalStdoutContext';
 /**
@@ -29042,21 +29045,21 @@ StdoutContext.displayName = 'InternalStdoutContext';
  */ // eslint-disable-next-line @typescript-eslint/naming-convention
 var StderrContext = (0, _react.createContext)({
     stderr: _process.default.stderr,
-    write: function write() {}
+    write: function write() { }
 });
 StderrContext.displayName = 'InternalStderrContext';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 var FocusContext = (0, _react.createContext)({
     activeId: undefined,
-    add: function add() {},
-    remove: function remove() {},
-    activate: function activate() {},
-    deactivate: function deactivate() {},
-    enableFocus: function enableFocus() {},
-    disableFocus: function disableFocus() {},
-    focusNext: function focusNext() {},
-    focusPrevious: function focusPrevious() {},
-    focus: function focus() {}
+    add: function add() { },
+    remove: function remove() { },
+    activate: function activate() { },
+    deactivate: function deactivate() { },
+    enableFocus: function enableFocus() { },
+    disableFocus: function disableFocus() { },
+    focusNext: function focusNext() { },
+    focusPrevious: function focusPrevious() { },
+    focus: function focus() { }
 });
 FocusContext.displayName = 'InternalFocusContext';
 var escapeStringRegexp;
@@ -29065,7 +29068,7 @@ function requireEscapeStringRegexp() {
     if (hasRequiredEscapeStringRegexp) return escapeStringRegexp;
     hasRequiredEscapeStringRegexp = 1;
     var matchOperatorsRegex = /[|\\{}()[\]^$+*?.-]/g;
-    escapeStringRegexp = function(string) {
+    escapeStringRegexp = function (string) {
         if (typeof string !== 'string') {
             throw new TypeError('Expected a string');
         }
@@ -29080,11 +29083,11 @@ function requireStackUtils() {
     hasRequiredStackUtils = 1;
     var escapeStringRegexp = requireEscapeStringRegexp();
     var _$cwd = (typeof process === "undefined" ? "undefined" : _type_of(process)) === 'object' && process && typeof process.cwd === 'function' ? process.cwd() : '.';
-    var natives = [].concat(_module.default.builtinModules, 'bootstrap_node', 'node').map(function(n) {
+    var natives = [].concat(_module.default.builtinModules, 'bootstrap_node', 'node').map(function (n) {
         return new RegExp("(?:\\((?:node:)?".concat(n, "(?:\\.js)?:\\d+:\\d+\\)$|^\\s*at (?:node:)?").concat(n, "(?:\\.js)?:\\d+:\\d+$)"));
     });
     natives.push(/\((?:node:)?internal\/[^:]+:\d+:\d+\)$/, /\s*at (?:node:)?internal\/[^:]+:\d+:\d+$/, /\/\.node-spawn-wrap-\w+-\w+\/node:\d+:\d+\)?$/);
-    var StackUtils = /*#__PURE__*/ function() {
+    var StackUtils = /*#__PURE__*/ function () {
         "use strict";
         function StackUtils(opts) {
             _class_call_check(this, StackUtils);
@@ -29115,9 +29118,9 @@ function requireStackUtils() {
             var outdent = false;
             var lastNonAtLine = null;
             var result = [];
-            stack.forEach(function(st) {
+            stack.forEach(function (st) {
                 st = st.replace(/\\/g, '/');
-                if (_this._internals.some(function(internal) {
+                if (_this._internals.some(function (internal) {
                     return internal.test(st);
                 })) {
                     return;
@@ -29145,7 +29148,7 @@ function requireStackUtils() {
                     }
                 }
             });
-            return result.map(function(line) {
+            return result.map(function (line) {
                 return "".concat(indent).concat(line, "\n");
             }).join('');
         };
@@ -29173,7 +29176,7 @@ function requireStackUtils() {
                 limit = Infinity;
             }
             var prepareStackTrace = Error.prepareStackTrace, stackTraceLimit = Error.stackTraceLimit;
-            Error.prepareStackTrace = function(obj, site) {
+            Error.prepareStackTrace = function (obj, site) {
                 if (_this._wrapCallSite) {
                     return site.map(_this._wrapCallSite);
                 }
@@ -29218,7 +29221,7 @@ function requireStackUtils() {
             var typename;
             try {
                 typename = site.getTypeName();
-            } catch (_) {}
+            } catch (_) { }
             if (typename && typename !== 'Object' && typename !== '[object Object]') {
                 res.type = typename;
             }
@@ -29263,7 +29266,7 @@ function requireStackUtils() {
                 // should be just "xyz.js"
                 // walk backwards from the end to find the last unbalanced (
                 var closes = 0;
-                for(var i = file.length - 1; i > 0; i--){
+                for (var i = file.length - 1; i > 0; i--) {
                     if (file.charAt(i) === ')') {
                         closes++;
                     } else if (file.charAt(i) === '(' && file.charAt(i - 1) === ' ') {
@@ -29327,50 +29330,50 @@ function requireStackUtils() {
         if (ignoredPackages.length === 0) {
             return [];
         }
-        var packages = ignoredPackages.map(function(mod) {
+        var packages = ignoredPackages.map(function (mod) {
             return escapeStringRegexp(mod);
         });
         return new RegExp("[/\\\\]node_modules[/\\\\](?:".concat(packages.join('|'), ")[/\\\\][^:]+:\\d+:\\d+"));
     }
     var re = new RegExp('^' + // Sometimes we strip out the '    at' because it's noisy
-    '(?:\\s*at )?' + // $1 = ctor if 'new'
-    '(?:(new) )?' + // $2 = function name (can be literally anything)
-    // May contain method at the end as [as xyz]
-    '(?:(.*?) \\()?' + // (eval at <anonymous> (file.js:1:1),
-    // $3 = eval origin
-    // $4:$5:$6 are eval file/line/col, but not normally reported
-    '(?:eval at ([^ ]+) \\((.+?):(\\d+):(\\d+)\\), )?' + // file:line:col
-    // $7:$8:$9
-    // $10 = 'native' if native
-    '(?:(.+?):(\\d+):(\\d+)|(native))' + // maybe close the paren, then end
-    // if $11 is ), then we only allow balanced parens in the filename
-    // any imbalance is placed on the fname.  This is a heuristic, and
-    // bound to be incorrect in some edge cases.  The bet is that
-    // having weird characters in method names is more common than
-    // having weird characters in filenames, which seems reasonable.
-    '(\\)?)$');
+        '(?:\\s*at )?' + // $1 = ctor if 'new'
+        '(?:(new) )?' + // $2 = function name (can be literally anything)
+        // May contain method at the end as [as xyz]
+        '(?:(.*?) \\()?' + // (eval at <anonymous> (file.js:1:1),
+        // $3 = eval origin
+        // $4:$5:$6 are eval file/line/col, but not normally reported
+        '(?:eval at ([^ ]+) \\((.+?):(\\d+):(\\d+)\\), )?' + // file:line:col
+        // $7:$8:$9
+        // $10 = 'native' if native
+        '(?:(.+?):(\\d+):(\\d+)|(native))' + // maybe close the paren, then end
+        // if $11 is ), then we only allow balanced parens in the filename
+        // any imbalance is placed on the fname.  This is a heuristic, and
+        // bound to be incorrect in some edge cases.  The bet is that
+        // having weird characters in method names is more common than
+        // having weird characters in filenames, which seems reasonable.
+        '(\\)?)$');
     var methodRe = /^(.*?) \[as (.*?)\]$/;
     stackUtils$1 = StackUtils;
     return stackUtils$1;
 }
 var stackUtilsExports = requireStackUtils();
 var StackUtils = /*@__PURE__*/ getDefaultExportFromCjs(stackUtilsExports);
-var convertToSpaces = function(input) {
+var convertToSpaces = function (input) {
     var spaces = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 2;
-    return input.replace(/^\t+/gm, function($1) {
+    return input.replace(/^\t+/gm, function ($1) {
         return ' '.repeat($1.length * spaces);
     });
 };
-var generateLineNumbers = function(line, around) {
+var generateLineNumbers = function (line, around) {
     var lineNumbers = [];
     var min = line - around;
     var max = line + around;
-    for(var lineNumber = min; lineNumber <= max; lineNumber++){
+    for (var lineNumber = min; lineNumber <= max; lineNumber++) {
         lineNumbers.push(lineNumber);
     }
     return lineNumbers;
 };
-var codeExcerpt = function(source, line) {
+var codeExcerpt = function (source, line) {
     var options = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
     var _a;
     if (typeof source !== 'string') {
@@ -29383,9 +29386,9 @@ var codeExcerpt = function(source, line) {
     if (line > lines.length) {
         return;
     }
-    return generateLineNumbers(line, (_a = options.around) !== null && _a !== undefined ? _a : 3).filter(function(line) {
+    return generateLineNumbers(line, (_a = options.around) !== null && _a !== undefined ? _a : 3).filter(function (line) {
         return lines[line - 1] !== undefined;
-    }).map(function(line) {
+    }).map(function (line) {
         return {
             line: line,
             value: lines[line - 1]
@@ -29394,7 +29397,7 @@ var codeExcerpt = function(source, line) {
 };
 /**
  * `<Box>` is an essential Ink component to build your layout. It's like `<div style="display: flex">` in the browser.
- */ var Box = (0, _react.forwardRef)(function(_param, ref) {
+ */ var Box = (0, _react.forwardRef)(function (_param, ref) {
     var children = _param.children, style = _object_without_properties(_param, [
         "children"
     ]);
@@ -29421,7 +29424,7 @@ Box.defaultProps = {
     if (children === undefined || children === null) {
         return null;
     }
-    var transform = function(children) {
+    var transform = function (children) {
         if (dimColor) {
             children = chalk.dim(children);
         }
@@ -29460,7 +29463,7 @@ Box.defaultProps = {
 }
 // Error's source file is reported as file:///home/user/file.js
 // This function removes the file://[cwd] part
-var cleanupPath = function(path) {
+var cleanupPath = function (path) {
     return path === null || path === void 0 ? void 0 : path.replace("file://".concat((0, _process.cwd)(), "/"), '');
 };
 var stackUtils = new StackUtils({
@@ -29480,19 +29483,19 @@ function ErrorOverview(param) {
         if (excerpt) {
             var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
             try {
-                for(var _iterator = excerpt[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+                for (var _iterator = excerpt[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                     var line = _step.value.line;
                     lineWidth = Math.max(lineWidth, String(line).length);
                 }
             } catch (err) {
                 _didIteratorError = true;
                 _iteratorError = err;
-            } finally{
+            } finally {
                 try {
                     if (!_iteratorNormalCompletion && _iterator.return != null) {
                         _iterator.return();
                     }
-                } finally{
+                } finally {
                     if (_didIteratorError) {
                         throw _iteratorError;
                     }
@@ -29513,7 +29516,7 @@ function ErrorOverview(param) {
     }, filePath, ":", origin.line, ":", origin.column)), origin && excerpt && _react.default.createElement(Box, {
         marginTop: 1,
         flexDirection: "column"
-    }, excerpt.map(function(param) {
+    }, excerpt.map(function (param) {
         var line = param.line, value = param.value;
         return _react.default.createElement(Box, {
             key: line
@@ -29531,7 +29534,7 @@ function ErrorOverview(param) {
     })), error.stack && _react.default.createElement(Box, {
         marginTop: 1,
         flexDirection: "column"
-    }, error.stack.split('\n').slice(1).map(function(line) {
+    }, error.stack.split('\n').slice(1).map(function (line) {
         var parsedLine = stackUtils.parseLine(line);
         // If the line from the stack cannot be parsed, we print out the unparsed line.
         if (!parsedLine) {
@@ -29564,7 +29567,7 @@ var escape = '\u001B';
 // Root component for all Ink apps
 // It renders stdin and stdout contexts, so that children can access them if needed
 // It also handles Ctrl+C exiting and cursor visibility
-var App = /*#__PURE__*/ function(PureComponent) {
+var App = /*#__PURE__*/ function (PureComponent) {
     "use strict";
     _inherits(App, PureComponent);
     function App() {
@@ -29576,186 +29579,186 @@ var App = /*#__PURE__*/ function(PureComponent) {
             focusables: [],
             error: undefined
         }, // Count how many components enabled raw mode to avoid disabling
-        // raw mode until all components don't need it anymore
-        _this.rawModeEnabledCount = 0, // eslint-disable-next-line @typescript-eslint/naming-convention
-        _this.internal_eventEmitter = new _events.EventEmitter(), _this.handleSetRawMode = function(isEnabled) {
-            var stdin = _this.props.stdin;
-            if (!_this.isRawModeSupported()) {
-                if (stdin === _process.default.stdin) {
-                    throw new Error('Raw mode is not supported on the current process.stdin, which Ink uses as input stream by default.\nRead about how to prevent this error on https://github.com/vadimdemedes/ink/#israwmodesupported');
-                } else {
-                    throw new Error('Raw mode is not supported on the stdin provided to Ink.\nRead about how to prevent this error on https://github.com/vadimdemedes/ink/#israwmodesupported');
+            // raw mode until all components don't need it anymore
+            _this.rawModeEnabledCount = 0, // eslint-disable-next-line @typescript-eslint/naming-convention
+            _this.internal_eventEmitter = new _events.EventEmitter(), _this.handleSetRawMode = function (isEnabled) {
+                var stdin = _this.props.stdin;
+                if (!_this.isRawModeSupported()) {
+                    if (stdin === _process.default.stdin) {
+                        throw new Error('Raw mode is not supported on the current process.stdin, which Ink uses as input stream by default.\nRead about how to prevent this error on https://github.com/vadimdemedes/ink/#israwmodesupported');
+                    } else {
+                        throw new Error('Raw mode is not supported on the stdin provided to Ink.\nRead about how to prevent this error on https://github.com/vadimdemedes/ink/#israwmodesupported');
+                    }
                 }
-            }
-            stdin.setEncoding('utf8');
-            if (isEnabled) {
-                // Ensure raw mode is enabled only once
-                if (_this.rawModeEnabledCount === 0) {
-                    stdin.ref();
-                    stdin.setRawMode(true);
-                    stdin.addListener('readable', _this.handleReadable);
+                stdin.setEncoding('utf8');
+                if (isEnabled) {
+                    // Ensure raw mode is enabled only once
+                    if (_this.rawModeEnabledCount === 0) {
+                        stdin.ref();
+                        stdin.setRawMode(true);
+                        stdin.addListener('readable', _this.handleReadable);
+                    }
+                    _this.rawModeEnabledCount++;
+                    return;
                 }
-                _this.rawModeEnabledCount++;
-                return;
-            }
-            // Disable raw mode only when no components left that are using it
-            if (--_this.rawModeEnabledCount === 0) {
-                stdin.setRawMode(false);
-                stdin.removeListener('readable', _this.handleReadable);
-                stdin.unref();
-            }
-        }, _this.handleReadable = function() {
-            var chunk;
-            // eslint-disable-next-line @typescript-eslint/ban-types
-            while((chunk = _this.props.stdin.read()) !== null){
-                _this.handleInput(chunk);
-                _this.internal_eventEmitter.emit('input', chunk);
-            }
-        }, _this.handleInput = function(input) {
-            // Exit on Ctrl+C
-            // eslint-disable-next-line unicorn/no-hex-escape
-            if (input === '\x03' && _this.props.exitOnCtrlC) {
-                _this.handleExit();
-            }
-            // Reset focus when there's an active focused component on Esc
-            if (input === escape && _this.state.activeFocusId) {
+                // Disable raw mode only when no components left that are using it
+                if (--_this.rawModeEnabledCount === 0) {
+                    stdin.setRawMode(false);
+                    stdin.removeListener('readable', _this.handleReadable);
+                    stdin.unref();
+                }
+            }, _this.handleReadable = function () {
+                var chunk;
+                // eslint-disable-next-line @typescript-eslint/ban-types
+                while ((chunk = _this.props.stdin.read()) !== null) {
+                    _this.handleInput(chunk);
+                    _this.internal_eventEmitter.emit('input', chunk);
+                }
+            }, _this.handleInput = function (input) {
+                // Exit on Ctrl+C
+                // eslint-disable-next-line unicorn/no-hex-escape
+                if (input === '\x03' && _this.props.exitOnCtrlC) {
+                    _this.handleExit();
+                }
+                // Reset focus when there's an active focused component on Esc
+                if (input === escape && _this.state.activeFocusId) {
+                    _this.setState({
+                        activeFocusId: undefined
+                    });
+                }
+                if (_this.state.isFocusEnabled && _this.state.focusables.length > 0) {
+                    if (input === tab) {
+                        _this.focusNext();
+                    }
+                    if (input === shiftTab) {
+                        _this.focusPrevious();
+                    }
+                }
+            }, _this.handleExit = function (error) {
+                if (_this.isRawModeSupported()) {
+                    _this.handleSetRawMode(false);
+                }
+                _this.props.onExit(error);
+            }, _this.enableFocus = function () {
                 _this.setState({
-                    activeFocusId: undefined
+                    isFocusEnabled: true
                 });
-            }
-            if (_this.state.isFocusEnabled && _this.state.focusables.length > 0) {
-                if (input === tab) {
-                    _this.focusNext();
-                }
-                if (input === shiftTab) {
-                    _this.focusPrevious();
-                }
-            }
-        }, _this.handleExit = function(error) {
-            if (_this.isRawModeSupported()) {
-                _this.handleSetRawMode(false);
-            }
-            _this.props.onExit(error);
-        }, _this.enableFocus = function() {
-            _this.setState({
-                isFocusEnabled: true
-            });
-        }, _this.disableFocus = function() {
-            _this.setState({
-                isFocusEnabled: false
-            });
-        }, _this.focus = function(id) {
-            _this.setState(function(previousState) {
-                var hasFocusableId = previousState.focusables.some(function(focusable) {
-                    return (focusable === null || focusable === void 0 ? void 0 : focusable.id) === id;
+            }, _this.disableFocus = function () {
+                _this.setState({
+                    isFocusEnabled: false
                 });
-                if (!hasFocusableId) {
-                    return previousState;
+            }, _this.focus = function (id) {
+                _this.setState(function (previousState) {
+                    var hasFocusableId = previousState.focusables.some(function (focusable) {
+                        return (focusable === null || focusable === void 0 ? void 0 : focusable.id) === id;
+                    });
+                    if (!hasFocusableId) {
+                        return previousState;
+                    }
+                    return {
+                        activeFocusId: id
+                    };
+                });
+            }, _this.focusNext = function () {
+                _this.setState(function (previousState) {
+                    var _previousState_focusables_find;
+                    var firstFocusableId = (_previousState_focusables_find = previousState.focusables.find(function (focusable) {
+                        return focusable.isActive;
+                    })) === null || _previousState_focusables_find === void 0 ? void 0 : _previousState_focusables_find.id;
+                    var nextFocusableId = _this.findNextFocusable(previousState);
+                    return {
+                        activeFocusId: nextFocusableId !== null && nextFocusableId !== void 0 ? nextFocusableId : firstFocusableId
+                    };
+                });
+            }, _this.focusPrevious = function () {
+                _this.setState(function (previousState) {
+                    var _previousState_focusables_findLast;
+                    var lastFocusableId = (_previousState_focusables_findLast = previousState.focusables.findLast(function (focusable) {
+                        return focusable.isActive;
+                    })) === null || _previousState_focusables_findLast === void 0 ? void 0 : _previousState_focusables_findLast.id;
+                    var previousFocusableId = _this.findPreviousFocusable(previousState);
+                    return {
+                        activeFocusId: previousFocusableId !== null && previousFocusableId !== void 0 ? previousFocusableId : lastFocusableId
+                    };
+                });
+            }, _this.addFocusable = function (id, param) {
+                var autoFocus = param.autoFocus;
+                _this.setState(function (previousState) {
+                    var nextFocusId = previousState.activeFocusId;
+                    if (!nextFocusId && autoFocus) {
+                        nextFocusId = id;
+                    }
+                    return {
+                        activeFocusId: nextFocusId,
+                        focusables: _to_consumable_array(previousState.focusables).concat([
+                            {
+                                id: id,
+                                isActive: true
+                            }
+                        ])
+                    };
+                });
+            }, _this.removeFocusable = function (id) {
+                _this.setState(function (previousState) {
+                    return {
+                        activeFocusId: previousState.activeFocusId === id ? undefined : previousState.activeFocusId,
+                        focusables: previousState.focusables.filter(function (focusable) {
+                            return focusable.id !== id;
+                        })
+                    };
+                });
+            }, _this.activateFocusable = function (id) {
+                _this.setState(function (previousState) {
+                    return {
+                        focusables: previousState.focusables.map(function (focusable) {
+                            if (focusable.id !== id) {
+                                return focusable;
+                            }
+                            return {
+                                id: id,
+                                isActive: true
+                            };
+                        })
+                    };
+                });
+            }, _this.deactivateFocusable = function (id) {
+                _this.setState(function (previousState) {
+                    return {
+                        activeFocusId: previousState.activeFocusId === id ? undefined : previousState.activeFocusId,
+                        focusables: previousState.focusables.map(function (focusable) {
+                            if (focusable.id !== id) {
+                                return focusable;
+                            }
+                            return {
+                                id: id,
+                                isActive: false
+                            };
+                        })
+                    };
+                });
+            }, _this.findNextFocusable = function (state) {
+                var activeIndex = state.focusables.findIndex(function (focusable) {
+                    return focusable.id === state.activeFocusId;
+                });
+                for (var index = activeIndex + 1; index < state.focusables.length; index++) {
+                    var focusable = state.focusables[index];
+                    if (focusable === null || focusable === void 0 ? void 0 : focusable.isActive) {
+                        return focusable.id;
+                    }
                 }
-                return {
-                    activeFocusId: id
-                };
-            });
-        }, _this.focusNext = function() {
-            _this.setState(function(previousState) {
-                var _previousState_focusables_find;
-                var firstFocusableId = (_previousState_focusables_find = previousState.focusables.find(function(focusable) {
-                    return focusable.isActive;
-                })) === null || _previousState_focusables_find === void 0 ? void 0 : _previousState_focusables_find.id;
-                var nextFocusableId = _this.findNextFocusable(previousState);
-                return {
-                    activeFocusId: nextFocusableId !== null && nextFocusableId !== void 0 ? nextFocusableId : firstFocusableId
-                };
-            });
-        }, _this.focusPrevious = function() {
-            _this.setState(function(previousState) {
-                var _previousState_focusables_findLast;
-                var lastFocusableId = (_previousState_focusables_findLast = previousState.focusables.findLast(function(focusable) {
-                    return focusable.isActive;
-                })) === null || _previousState_focusables_findLast === void 0 ? void 0 : _previousState_focusables_findLast.id;
-                var previousFocusableId = _this.findPreviousFocusable(previousState);
-                return {
-                    activeFocusId: previousFocusableId !== null && previousFocusableId !== void 0 ? previousFocusableId : lastFocusableId
-                };
-            });
-        }, _this.addFocusable = function(id, param) {
-            var autoFocus = param.autoFocus;
-            _this.setState(function(previousState) {
-                var nextFocusId = previousState.activeFocusId;
-                if (!nextFocusId && autoFocus) {
-                    nextFocusId = id;
+                return undefined;
+            }, _this.findPreviousFocusable = function (state) {
+                var activeIndex = state.focusables.findIndex(function (focusable) {
+                    return focusable.id === state.activeFocusId;
+                });
+                for (var index = activeIndex - 1; index >= 0; index--) {
+                    var focusable = state.focusables[index];
+                    if (focusable === null || focusable === void 0 ? void 0 : focusable.isActive) {
+                        return focusable.id;
+                    }
                 }
-                return {
-                    activeFocusId: nextFocusId,
-                    focusables: _to_consumable_array(previousState.focusables).concat([
-                        {
-                            id: id,
-                            isActive: true
-                        }
-                    ])
-                };
-            });
-        }, _this.removeFocusable = function(id) {
-            _this.setState(function(previousState) {
-                return {
-                    activeFocusId: previousState.activeFocusId === id ? undefined : previousState.activeFocusId,
-                    focusables: previousState.focusables.filter(function(focusable) {
-                        return focusable.id !== id;
-                    })
-                };
-            });
-        }, _this.activateFocusable = function(id) {
-            _this.setState(function(previousState) {
-                return {
-                    focusables: previousState.focusables.map(function(focusable) {
-                        if (focusable.id !== id) {
-                            return focusable;
-                        }
-                        return {
-                            id: id,
-                            isActive: true
-                        };
-                    })
-                };
-            });
-        }, _this.deactivateFocusable = function(id) {
-            _this.setState(function(previousState) {
-                return {
-                    activeFocusId: previousState.activeFocusId === id ? undefined : previousState.activeFocusId,
-                    focusables: previousState.focusables.map(function(focusable) {
-                        if (focusable.id !== id) {
-                            return focusable;
-                        }
-                        return {
-                            id: id,
-                            isActive: false
-                        };
-                    })
-                };
-            });
-        }, _this.findNextFocusable = function(state) {
-            var activeIndex = state.focusables.findIndex(function(focusable) {
-                return focusable.id === state.activeFocusId;
-            });
-            for(var index = activeIndex + 1; index < state.focusables.length; index++){
-                var focusable = state.focusables[index];
-                if (focusable === null || focusable === void 0 ? void 0 : focusable.isActive) {
-                    return focusable.id;
-                }
-            }
-            return undefined;
-        }, _this.findPreviousFocusable = function(state) {
-            var activeIndex = state.focusables.findIndex(function(focusable) {
-                return focusable.id === state.activeFocusId;
-            });
-            for(var index = activeIndex - 1; index >= 0; index--){
-                var focusable = state.focusables[index];
-                if (focusable === null || focusable === void 0 ? void 0 : focusable.isActive) {
-                    return focusable.id;
-                }
-            }
-            return undefined;
-        };
+                return undefined;
+            };
         return _this;
     }
     var _proto = App.prototype;
@@ -29831,27 +29834,27 @@ var App = /*#__PURE__*/ function(PureComponent) {
     return App;
 }(_react.PureComponent);
 App.displayName = 'InternalApp';
-var noop = function() {};
-var Ink = /*#__PURE__*/ function() {
+var noop = function () { };
+var Ink = /*#__PURE__*/ function () {
     "use strict";
     function Ink(options) {
         var _this = this;
         _class_call_check(this, Ink);
-        this.resized = function() {
+        this.resized = function () {
             _this.calculateLayout();
             _this.onRender();
         };
-        this.resolveExitPromise = function() {};
-        this.rejectExitPromise = function() {};
-        this.unsubscribeExit = function() {};
-        this.calculateLayout = function() {
+        this.resolveExitPromise = function () { };
+        this.rejectExitPromise = function () { };
+        this.unsubscribeExit = function () { };
+        this.calculateLayout = function () {
             // The 'columns' property can be undefined or 0 when not using a TTY.
             // In that case we fall back to 80.
             var terminalWidth = _this.options.stdout.columns || 80;
             _this.rootNode.yogaNode.setWidth(terminalWidth);
             _this.rootNode.yogaNode.calculateLayout(undefined, undefined, Yoga.DIRECTION_LTR);
         };
-        this.onRender = function() {
+        this.onRender = function () {
             if (_this.isUnmounted) {
                 return;
             }
@@ -29914,7 +29917,7 @@ var Ink = /*#__PURE__*/ function() {
         this.fullStaticOutput = '';
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         this.container = reconciler.createContainer(this.rootNode, // Legacy mode
-        0, null, false, null, 'id', function() {}, null);
+            0, null, false, null, 'id', function () { }, null);
         // Unmount when process exits
         this.unsubscribeExit = signalExit(this.unmount, {
             alwaysLast: false
@@ -29933,7 +29936,7 @@ var Ink = /*#__PURE__*/ function() {
         }
         if (!isInCi) {
             options.stdout.on('resize', this.resized);
-            this.unsubscribeResize = function() {
+            this.unsubscribeResize = function () {
                 options.stdout.off('resize', _this.resized);
             };
         }
@@ -30016,9 +30019,9 @@ var Ink = /*#__PURE__*/ function() {
     };
     _proto.waitUntilExit = function waitUntilExit() {
         var _this = this;
-        return _async_to_generator(function() {
-            return _ts_generator(this, function(_state) {
-                _this.exitPromise || (_this.exitPromise = new Promise(function(resolve, reject) {
+        return _async_to_generator(function () {
+            return _ts_generator(this, function (_state) {
+                _this.exitPromise || (_this.exitPromise = new Promise(function (resolve, reject) {
                     _this.resolveExitPromise = resolve;
                     _this.rejectExitPromise = reject;
                 }));
@@ -30039,7 +30042,7 @@ var Ink = /*#__PURE__*/ function() {
         if (this.options.debug) {
             return;
         }
-        this.restoreConsole = patchConsole(function(stream, data) {
+        this.restoreConsole = patchConsole(function (stream, data) {
             if (stream === 'stdout') {
                 _this.writeToStdout(data);
             }
@@ -30055,7 +30058,7 @@ var Ink = /*#__PURE__*/ function() {
 }();
 /**
  * Mount a component and render the output.
- */ var render = function(node, options) {
+ */ var render = function (node, options) {
     var inkOptions = _object_spread({
         stdout: _process.default.stdout,
         stdin: _process.default.stdin,
@@ -30064,7 +30067,7 @@ var Ink = /*#__PURE__*/ function() {
         exitOnCtrlC: true,
         patchConsole: true
     }, getOptions(options));
-    var instance = getInstance(inkOptions.stdout, function() {
+    var instance = getInstance(inkOptions.stdout, function () {
         return new Ink(inkOptions);
     });
     instance.render(node);
@@ -30074,13 +30077,13 @@ var Ink = /*#__PURE__*/ function() {
             instance.unmount();
         },
         waitUntilExit: instance.waitUntilExit,
-        cleanup: function() {
+        cleanup: function () {
             return instances.delete(inkOptions.stdout);
         },
         clear: instance.clear
     };
 };
-var getOptions = function() {
+var getOptions = function () {
     var stdout = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
     if (_instanceof(stdout, _stream.Stream)) {
         return {
@@ -30090,7 +30093,7 @@ var getOptions = function() {
     }
     return stdout;
 };
-var getInstance = function(stdout, createInstance) {
+var getInstance = function (stdout, createInstance) {
     var instance = instances.get(stdout);
     if (!instance) {
         instance = createInstance();
@@ -30112,21 +30115,21 @@ var getInstance = function(stdout, createInstance) {
  */ function Static(props) {
     var items = props.items, render = props.children, customStyle = props.style;
     var _useState = _sliced_to_array((0, _react.useState)(0), 2), index = _useState[0], setIndex = _useState[1];
-    var itemsToRender = (0, _react.useMemo)(function() {
+    var itemsToRender = (0, _react.useMemo)(function () {
         return items.slice(index);
     }, [
         items,
         index
     ]);
-    (0, _react.useLayoutEffect)(function() {
+    (0, _react.useLayoutEffect)(function () {
         setIndex(items.length);
     }, [
         items.length
     ]);
-    var children = itemsToRender.map(function(item, itemIndex) {
+    var children = itemsToRender.map(function (item, itemIndex) {
         return render(item, index + itemIndex);
     });
-    var style = (0, _react.useMemo)(function() {
+    var style = (0, _react.useMemo)(function () {
         return _object_spread({
             position: 'absolute',
             flexDirection: 'column'
@@ -30248,7 +30251,7 @@ var keyName = {
 var nonAlphanumericKeys = _to_consumable_array(Object.values(keyName)).concat([
     'backspace'
 ]);
-var isShiftKey = function(code) {
+var isShiftKey = function (code) {
     return [
         '[a',
         '[b',
@@ -30264,7 +30267,7 @@ var isShiftKey = function(code) {
         '[Z'
     ].includes(code);
 };
-var isCtrlKey = function(code) {
+var isCtrlKey = function (code) {
     return [
         'Oa',
         'Ob',
@@ -30279,7 +30282,7 @@ var isCtrlKey = function(code) {
         '[8^'
     ].includes(code);
 };
-var parseKeypress = function() {
+var parseKeypress = function () {
     var s = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : '';
     var parts;
     if (_buffer.Buffer.isBuffer(s)) {
@@ -30376,7 +30379,7 @@ var parseKeypress = function() {
 };
 /**
  * `useStdin` is a React hook, which exposes stdin stream.
- */ var useStdin = function() {
+ */ var useStdin = function () {
     return (0, _react.useContext)(StdinContext);
 };
 /**
@@ -30402,27 +30405,27 @@ var parseKeypress = function() {
  *   return …
  * };
  * ```
- */ var useInput = function(inputHandler) {
+ */ var useInput = function (inputHandler) {
     var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
     // eslint-disable-next-line @typescript-eslint/naming-convention
     var _useStdin = useStdin(), stdin = _useStdin.stdin, setRawMode = _useStdin.setRawMode, internal_exitOnCtrlC = _useStdin.internal_exitOnCtrlC, internal_eventEmitter = _useStdin.internal_eventEmitter;
-    (0, _react.useEffect)(function() {
+    (0, _react.useEffect)(function () {
         if (options.isActive === false) {
             return;
         }
         setRawMode(true);
-        return function() {
+        return function () {
             setRawMode(false);
         };
     }, [
         options.isActive,
         setRawMode
     ]);
-    (0, _react.useEffect)(function() {
+    (0, _react.useEffect)(function () {
         if (options.isActive === false) {
             return;
         }
-        var handleData = function(data) {
+        var handleData = function (data) {
             var keypress = parseKeypress(data);
             var key = {
                 upArrow: keypress.name === 'up',
@@ -30459,13 +30462,13 @@ var parseKeypress = function() {
             // If app is not supposed to exit on Ctrl+C, then let input listener handle it
             if (!(input === 'c' && key.ctrl) || !internal_exitOnCtrlC) {
                 // @ts-expect-error TypeScript types for `batchedUpdates` require an argument, but React's codebase doesn't provide it and it works without it as exepected.
-                reconciler.batchedUpdates(function() {
+                reconciler.batchedUpdates(function () {
                     inputHandler(input, key);
                 });
             }
         };
         internal_eventEmitter === null || internal_eventEmitter === void 0 ? void 0 : internal_eventEmitter.on('input', handleData);
-        return function() {
+        return function () {
             internal_eventEmitter === null || internal_eventEmitter === void 0 ? void 0 : internal_eventEmitter.removeListener('input', handleData);
         };
     }, [
@@ -30477,17 +30480,17 @@ var parseKeypress = function() {
 };
 /**
  * `useApp` is a React hook, which exposes a method to manually exit the app (unmount).
- */ var useApp = function() {
+ */ var useApp = function () {
     return (0, _react.useContext)(AppContext);
 };
 /**
  * `useStdout` is a React hook, which exposes stdout stream.
- */ var useStdout = function() {
+ */ var useStdout = function () {
     return (0, _react.useContext)(StdoutContext);
 };
 /**
  * `useStderr` is a React hook, which exposes stderr stream.
- */ var useStderr = function() {
+ */ var useStderr = function () {
     return (0, _react.useContext)(StderrContext);
 };
 /**
@@ -30497,27 +30500,27 @@ var parseKeypress = function() {
  * given to them in the order that these components are rendered in.
  * This hook returns an object with `isFocused` boolean property, which
  * determines if this component is focused or not.
- */ var useFocus = function() {
+ */ var useFocus = function () {
     var _ref = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, _ref_isActive = _ref.isActive, isActive = _ref_isActive === void 0 ? true : _ref_isActive, _ref_autoFocus = _ref.autoFocus, autoFocus = _ref_autoFocus === void 0 ? false : _ref_autoFocus, customId = _ref.id;
     var _useStdin = useStdin(), isRawModeSupported = _useStdin.isRawModeSupported, setRawMode = _useStdin.setRawMode;
     var _useContext = (0, _react.useContext)(FocusContext), activeId = _useContext.activeId, add = _useContext.add, remove = _useContext.remove, activate = _useContext.activate, deactivate = _useContext.deactivate, focus = _useContext.focus;
-    var id = (0, _react.useMemo)(function() {
+    var id = (0, _react.useMemo)(function () {
         return customId !== null && customId !== void 0 ? customId : Math.random().toString().slice(2, 7);
     }, [
         customId
     ]);
-    (0, _react.useEffect)(function() {
+    (0, _react.useEffect)(function () {
         add(id, {
             autoFocus: autoFocus
         });
-        return function() {
+        return function () {
             remove(id);
         };
     }, [
         id,
         autoFocus
     ]);
-    (0, _react.useEffect)(function() {
+    (0, _react.useEffect)(function () {
         if (isActive) {
             activate(id);
         } else {
@@ -30527,12 +30530,12 @@ var parseKeypress = function() {
         isActive,
         id
     ]);
-    (0, _react.useEffect)(function() {
+    (0, _react.useEffect)(function () {
         if (!isRawModeSupported || !isActive) {
             return;
         }
         setRawMode(true);
-        return function() {
+        return function () {
             setRawMode(false);
         };
     }, [
@@ -30546,7 +30549,7 @@ var parseKeypress = function() {
 /**
  * This hook exposes methods to enable or disable focus management for all
  * components or manually switch focus to next or previous components.
- */ var useFocusManager = function() {
+ */ var useFocusManager = function () {
     var focusContext = (0, _react.useContext)(FocusContext);
     return {
         enableFocus: focusContext.enableFocus,
@@ -30558,7 +30561,7 @@ var parseKeypress = function() {
 };
 /**
  * Measure the dimensions of a particular `<Box>` element.
- */ var measureElement = function(node) {
+ */ var measureElement = function (node) {
     var _node_yogaNode, _node_yogaNode1;
     var _node_yogaNode_getComputedWidth, _node_yogaNode_getComputedHeight;
     return {
@@ -30567,4 +30570,4 @@ var parseKeypress = function() {
     };
 };
 
-/* CJS INTEROP */ if (exports.__esModule && exports.default) { try { Object.defineProperty(exports.default, '__esModule', { value: true }); for (var key in exports) { exports.default[key] = exports[key]; } } catch (_) { }; module.exports = exports.default; }
+//* CJS INTEROP */ if (exports.__esModule && exports.default) { try { Object.defineProperty(exports.default, '__esModule', { value: true }); for (var key in exports) { exports.default[key] = exports[key]; } } catch (_) { }; module.exports = exports.default; }
