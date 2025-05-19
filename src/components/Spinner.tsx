@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text } from '../ink.mjs';
+import { Text } from '../ink.js';
 
 export type SpinnerProps = {
   interval: number;

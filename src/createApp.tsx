@@ -1,11 +1,11 @@
 import React from 'react';
 import { createStore } from 'zustand';
-import App from './components/App';
-import StoreContext from './contexts/Store';
+import App from './components/App.js';
+import StoreContext from './contexts/Store.js';
 
 // @ts-ignore
-import { type Instance, initialize, render } from './ink.mjs';
-import type { AppState } from './types';
+import { type Instance, initialize, render } from './ink.js';
+import type { AppState } from './types.js';
 
 export default function createApp() {
   let refCount = 0;
