@@ -1,12 +1,12 @@
 import c from 'ansi-colors';
 import React, { memo, useMemo } from 'react';
-import { Box, Text } from '../ink.mjs';
-import ansiRegex from '../lib/ansiRegex';
-import figures from '../lib/figures';
-import Spinner from './Spinner';
+import { Box, Text } from '../ink.js';
+import ansiRegex from '../lib/ansiRegex.js';
+import figures from '../lib/figures.js';
+import Spinner from './Spinner.js';
 
-import type { ChildProcess as ChildProcessT, Line, State } from '../types';
-import { LineType } from '../types';
+import type { ChildProcess as ChildProcessT, Line, State } from '../types.js';
+import { LineType } from '../types.js';
 
 const REGEX_ANSI = ansiRegex();
 const BLANK_LINE = { type: LineType.stdout, text: '' };

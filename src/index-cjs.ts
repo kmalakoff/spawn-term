@@ -1,7 +1,7 @@
-import type { SpawnCallback, SpawnOptions, TerminalOptions } from './types';
+import type { SpawnCallback, SpawnOptions, TerminalOptions } from './types.js';
 
 function spawnTerminal(command: string, args: string[], spawnOptions: SpawnOptions, options?: TerminalOptions | SpawnCallback, callback?: SpawnCallback) {
-  const worker = require('./worker.cjs');
+  const worker = require('./worker.js');
 
   if (typeof options === 'function') {
     callback = options as SpawnCallback;
