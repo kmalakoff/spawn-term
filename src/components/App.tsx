@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { useStore } from 'zustand';
-import StoreContext from '../contexts/Store';
-import { Box } from '../ink.mjs';
-import type { AppState, ChildProcess as ChildProcessT } from '../types';
-import ChildProcess from './ChildProcess';
+import StoreContext from '../contexts/Store.js';
+import { Box } from '../ink.js';
+import type { AppState, ChildProcess as ChildProcessT } from '../types.js';
+import ChildProcess from './ChildProcess.js';
 
 export default function App() {
   const store = useContext(StoreContext);

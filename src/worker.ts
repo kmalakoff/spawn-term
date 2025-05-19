@@ -4,13 +4,13 @@ import uuid from 'lil-uuid';
 import oo from 'on-one';
 import Queue from 'queue-cb';
 
-import createApp from './createApp';
-import addLines from './lib/addLines';
-import concatWritable from './lib/concatWritable';
-import formatArguments from './lib/formatArguments';
+import createApp from './createApp.js';
+import addLines from './lib/addLines.js';
+import concatWritable from './lib/concatWritable.js';
+import formatArguments from './lib/formatArguments.js';
 
-import type { SpawnOptions, TerminalOptions } from './types';
-import { LineType } from './types';
+import type { SpawnOptions, TerminalOptions } from './types.js';
+import { LineType } from './types.js';
 
 const terminal = createApp();
 
