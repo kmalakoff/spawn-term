@@ -15,7 +15,7 @@ const BUILDS = [
   {
     in: 'ink/build/index.js', out: 'ink.cjs',
     pre: path.join(__dirname, '..', 'assets', 'pre.js'),
-    post: path.join(__dirname, '..', 'assets', 'post.js'),
+    post: path.join(__dirname, '..', 'assets', 'post.js')
   },
   {
     in: 'unicode-segmenter/intl-adapter.cjs', out: 'intl-adapter.cjs',
@@ -34,9 +34,18 @@ function patch(build, callback) {
     const res = transformSync(content, build.out, { path: configPath, config: JSON.parse(fs.readFileSync(configPath, 'utf8')) });
 
     // special case START
-    const replace = 'var dicpregex = RegExp("\^\\\\p{Default_Ignorable_Code_Point}$", "u");';
-    const start = res.code.indexOf(replace)
-    if (start > 0) res.code = res.code.replace(replace, 'var dicpregex; try { dicpregex = RegExp("^\\p{Default_Ignorable_Code_Point}$", "u"); } catch(_) { dicpregex = RegExp("^\\p{Default_Ignorable_Code_Point}$", "g"); }');
+    (() => {
+      const search = 'var dicpregex = RegExp("\^\\\\p{Default_Ignorable_Code_Point}$", "u");';
+      const replace = 'var dicpregex; try { dicpregex = RegExp("^\\p{Default_Ignorable_Code_Point}$", "u"); } catch(_) { dicpregex = RegExp("^\\p{Default_Ignorable_Code_Point}$", "g"); }'
+      const start = res.code.indexOf(search);
+      if (start > 0) res.code = res.code.replace(search, replace);
+    })();
+    (() => {
+      const search = 'var Yoga = null;\nloadYoga().then(function(_Y) {\n    Yoga = wrapAssembly(_Y);\n    _notifyInitialized();\n});\nvar Yoga$1 = Yoga;'
+      const replace = 'var Yoga$1 = null;\nloadYoga().then(function(_Y) {\n    Yoga$1 = wrapAssembly(_Y);\n    _notifyInitialized();\n});';
+      const start = res.code.indexOf(search);
+      if (start > 0) res.code = res.code.replace(search, replace);
+    })();
     // special case END
 
     fs.writeFileSync(outPath, pre + res.code + post, 'utf8');
