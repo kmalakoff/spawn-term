@@ -72,8 +72,6 @@ describe('index', () => {
 
   it('inherit multiple', async () => {
     await Promise.all([spawnTerminal(NODE, ['--version'], { stdio: 'inherit' }, { group: 'Group 1' }), spawnTerminal('ls', ['-la'], { stdio: 'inherit' }, { group: 'Group 2' })]);
-    // assert.equal(res.stdout, null);
-    // assert.equal(res.stderr, null);
   });
 
   it('encoding utf8', (done) => {

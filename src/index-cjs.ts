@@ -1,10 +1,10 @@
-import type { SpawnCallback, SpawnOptions, TerminalOptions } from './types.js';
+import type { SpawnOptions, SpawnResult, TerminalCallback, TerminalOptions } from './types.js';
 
-function spawnTerminal(command: string, args: string[], spawnOptions: SpawnOptions, options?: TerminalOptions | SpawnCallback, callback?: SpawnCallback) {
+function spawnTerminal(command: string, args: string[], spawnOptions: SpawnOptions, options?: TerminalOptions | TerminalCallback, callback?: TerminalCallback): undefined | Promise<SpawnResult> {
   const worker = require('./worker.js');
 
   if (typeof options === 'function') {
-    callback = options as SpawnCallback;
+    callback = options as TerminalCallback;
     options = {};
   }
   options = options || {};

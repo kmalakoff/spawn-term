@@ -1,10 +1,13 @@
-// @ts-ignore
-export type { SpawnOptions, SpawnCallback, SpawnResult } from 'cross-spawn-cb';
+import type { StoreApi } from 'zustand';
+export type { SpawnOptions, SpawnCallback, SpawnResult, SpawnError } from 'cross-spawn-cb';
+import type { SpawnError, SpawnResult } from 'cross-spawn-cb';
 
 export type TerminalOptions = {
   group?: string;
   expanded?: boolean;
 };
+
+export type TerminalCallback = (error?: SpawnError, result?: SpawnResult) => undefined;
 
 export const LineType = {
   stdout: 1,
@@ -23,7 +26,7 @@ export type ChildProcess = {
   title: string;
   state: State;
   lines: Line[];
-  expanded?: string;
+  expanded?: boolean;
 };
 
 export interface AppState {
@@ -31,3 +34,9 @@ export interface AppState {
   addProcess: (process: ChildProcess) => void;
   updateProcess: (process: ChildProcess) => void;
 }
+
+export interface Store extends StoreApi<AppState> {
+  onRender: () => undefined;
+}
+export type RetainCallback = (app: Store) => undefined;
+export type ReleaseCallback = () => undefined;
