@@ -31,8 +31,10 @@ export default function createApp() {
         store.renders = 0;
         store.waiting = [];
         store.onRender = () => {
-          store.renders = store.nextRenders;
-          while (store?.waiting.length) store.waiting.pop()();
+          store.renders++;
+          if (store.renders === store.nextRenders) {
+            while (store?.waiting.length) store.waiting.pop()();
+          }
         };
         inkApp = render(
           <StoreContext.Provider value={store}>
