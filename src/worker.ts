@@ -9,12 +9,12 @@ import addLines from './lib/addLines.js';
 import concatWritable from './lib/concatWritable.js';
 import formatArguments from './lib/formatArguments.js';
 
-import type { SpawnOptions, TerminalOptions } from './types.js';
+import type { SpawnError, SpawnOptions, TerminalCallback, TerminalOptions } from './types.js';
 import { LineType } from './types.js';
 
 const terminal = createApp();
 
-export default function spawnTerminal(command: string, args: string[], spawnOptions: SpawnOptions, options: TerminalOptions, callback) {
+export default function spawnTerminal(command: string, args: string[], spawnOptions: SpawnOptions, options: TerminalOptions, callback: TerminalCallback): undefined {
   const { encoding, stdio, ...csOptions } = spawnOptions;
 
   if (stdio === 'inherit') {
@@ -41,7 +41,7 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
         queue.defer(oo.bind(null, cp.stderr.pipe(outputs.stderr), ['error', 'end', 'close', 'finish']));
       }
       queue.defer(spawn.worker.bind(null, cp, { ...csOptions, encoding: 'utf8' }));
-      queue.await((err) => {
+      queue.await((err?: SpawnError) => {
         const res = (err ? err : {}) as SpawnResult;
         res.stdout = outputs.stdout ? outputs.stdout.output : null;
         res.stderr = outputs.stderr ? outputs.stderr.output : null;
@@ -49,9 +49,8 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
         const item = store.getState().processes.find((x) => x.id === id);
         store.getState().updateProcess({ ...item, state: err ? 'error' : 'success' });
 
-        // let rendering complete
-        setTimeout(() => {
-          terminal.release();
+        // ensure rendering completes
+        terminal.release(() => {
           err ? callback(err) : callback(null, res);
         });
       });
@@ -74,7 +73,7 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
       queue.defer(oo.bind(null, cp.stderr.pipe(outputs.stderr), ['error', 'end', 'close', 'finish']));
     }
     queue.defer(spawn.worker.bind(null, cp, { ...csOptions, encoding: encoding || 'utf8' }));
-    queue.await((err) => {
+    queue.await((err?: SpawnError) => {
       const res = (err ? err : {}) as SpawnResult;
       res.stdout = outputs.stdout ? outputs.stdout.output : null;
       res.stderr = outputs.stderr ? outputs.stderr.output : null;

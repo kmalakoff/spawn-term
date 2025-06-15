@@ -4,7 +4,7 @@ import StoreContext from './contexts/Store.js';
 
 // @ts-ignore
 import { type Instance, initialize, render } from './ink.js';
-import type { AppState } from './types.js';
+import type { AppState, ReleaseCallback, RetainCallback } from './types.js';
 
 export default function createApp() {
   let refCount = 0;
@@ -12,15 +12,28 @@ export default function createApp() {
   let inkApp: Instance | null = null;
 
   return {
-    retain(fn) {
+    retain(fn: RetainCallback): undefined {
       initialize(() => {
         if (++refCount > 1) return fn(store);
         if (store) throw new Error('Not expecting store');
         store = createStore<AppState>()((set) => ({
           processes: [],
-          addProcess: (process) => set((state) => ({ processes: [...state.processes, process] })),
-          updateProcess: (process) => set((state) => ({ processes: state.processes.map((x) => (x.id === process.id ? process : x)) })),
+          addProcess: (process) => {
+            store.nextRenders = store.renders + 1;
+            set((state) => ({ processes: [...state.processes, process] }));
+          },
+          updateProcess: (process) => {
+            store.nextRenders = store.renders + 1;
+            set((state) => ({ processes: state.processes.map((x) => (x.id === process.id ? process : x)) }));
+          },
         }));
+        store.nextRenders = 0;
+        store.renders = 0;
+        store.waiting = [];
+        store.onRender = () => {
+          store.renders = store.nextRenders;
+          while (store?.waiting.length) store.waiting.pop()();
+        };
         inkApp = render(
           <StoreContext.Provider value={store}>
             <App />
@@ -30,13 +43,23 @@ export default function createApp() {
         return fn(store);
       });
     },
-    release() {
-      if (--refCount > 0) return;
+    release(cb: ReleaseCallback): undefined {
+      if (--refCount > 0) {
+        if (store.renders === store.nextRenders) cb();
+        else store.waiting.push(cb);
+        return;
+      }
       if (!store) throw new Error('Expecting store');
-      store = null;
-      inkApp.unmount();
-      inkApp = null;
-      process.stdout.write('\x1b[?25h'); // show cursor
+
+      function done() {
+        inkApp.unmount();
+        inkApp = null;
+        store = null;
+        process.stdout.write('\x1b[?25h'); // show cursor
+        cb();
+      }
+      if (store.renders === store.nextRenders) done();
+      else store.waiting.push(done);
     },
   };
 }

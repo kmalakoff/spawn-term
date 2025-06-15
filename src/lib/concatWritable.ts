@@ -1,6 +1,8 @@
 import { Writable } from 'readable-stream';
 
-export default function concatWritable(callback) {
+export type Callback = (lines: Buffer) => undefined;
+
+export default function concatWritable(callback: Callback): Writable {
   const chunks = [];
   const stream = new Writable({
     write: (chunk, _encoding, next) => {

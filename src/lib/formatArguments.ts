@@ -1,1 +1,1 @@
-export default (args) => args.map((text) => (text.indexOf(' ') >= 0 ? `"${text}"` : text));
+export default (args: string[]): string[] => args.map((text) => (text.indexOf(' ') >= 0 ? `"${text}"` : text));
