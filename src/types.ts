@@ -3,7 +3,7 @@ export type { SpawnOptions, SpawnCallback, SpawnResult } from 'cross-spawn-cb';
 
 export type TerminalOptions = {
   group?: string;
-  expanded?: string;
+  expanded?: boolean;
 };
 
 export const LineType = {
