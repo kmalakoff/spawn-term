@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Text } from '../ink.js';
 
 export type SpinnerProps = {

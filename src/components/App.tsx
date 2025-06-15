@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useStore } from 'zustand';
 import StoreContext from '../contexts/Store.js';
 import { Box } from '../ink.js';

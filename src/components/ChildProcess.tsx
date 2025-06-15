@@ -1,5 +1,5 @@
 import c from 'ansi-colors';
-import React, { memo, useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { Box, Text } from '../ink.js';
 import ansiRegex from '../lib/ansiRegex.js';
 import figures from '../lib/figures.js';
