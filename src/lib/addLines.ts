@@ -2,7 +2,9 @@ import { Writable } from 'readable-stream';
 
 const REGEX_NEW_LINE = /\r?\n|\r/g;
 
-export default function addLines(fn) {
+export type Callback = (lines: string[]) => undefined;
+
+export default function addLines(fn: Callback): Writable {
   let last = '';
 
   const stream = new Writable({

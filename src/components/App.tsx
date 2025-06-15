@@ -1,19 +1,26 @@
-import { useContext } from 'react';
+import { Profiler, useContext } from 'react';
 import { useStore } from 'zustand';
 import StoreContext from '../contexts/Store.js';
 import { Box } from '../ink.js';
-import type { AppState, ChildProcess as ChildProcessT } from '../types.js';
+import type { AppState, ChildProcess as ChildProcessT, Store } from '../types.js';
 import ChildProcess from './ChildProcess.js';
 
 export default function App() {
-  const store = useContext(StoreContext);
+  const store = useContext<Store>(StoreContext);
   const appState = useStore(store) as AppState;
 
   return (
-    <Box flexDirection="column">
-      {appState.processes.map((item: ChildProcessT) => (
-        <ChildProcess key={item.id} item={item} />
-      ))}
-    </Box>
+    <Profiler
+      id="App"
+      onRender={(_id, phase) => {
+        if (phase === 'update') store?.onRender();
+      }}
+    >
+      <Box flexDirection="column">
+        {appState.processes.map((item: ChildProcessT) => (
+          <ChildProcess key={item.id} item={item} />
+        ))}
+      </Box>
+    </Profiler>
   );
 }

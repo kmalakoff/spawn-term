@@ -1,16 +1,20 @@
 import worker from './worker.js';
 
-import type { SpawnCallback, SpawnOptions, TerminalOptions } from './types.js';
+import type { SpawnOptions, SpawnResult, TerminalCallback, TerminalOptions } from './types.js';
 
-function spawnTerminal(command: string, args: string[], spawnOptions: SpawnOptions, options?: TerminalOptions | SpawnCallback, callback?: SpawnCallback) {
+function spawnTerminal(command: string, args: string[], spawnOptions: SpawnOptions, options?: TerminalOptions | TerminalCallback, callback?: TerminalCallback): undefined | Promise<SpawnResult> {
   if (typeof options === 'function') {
-    callback = options as SpawnCallback;
+    callback = options as TerminalCallback;
     options = {};
   }
   options = options || {};
 
-  if (typeof callback === 'function') return worker(command, args, spawnOptions, options, callback);
-  return new Promise((resolve, reject) => worker(command, args, spawnOptions, options, (err, result) => (err ? reject(err) : resolve(result))));
+  if (typeof callback === 'function') return worker(command, args, spawnOptions, options, callback as TerminalCallback);
+  return new Promise((resolve, reject) =>
+    worker(command, args, spawnOptions, options, (err, result) => {
+      err ? reject(err) : resolve(result);
+    })
+  );
 }
 
 const major = +process.versions.node.split('.')[0];

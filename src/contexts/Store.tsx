@@ -1,2 +1,4 @@
 import { createContext } from 'react';
-export default createContext(undefined);
+import type { Store } from '../types.js';
+
+export default createContext<Store>(undefined);
