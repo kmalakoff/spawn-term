@@ -1,4 +1,3 @@
-import React from 'react';
 import { createStore } from 'zustand';
 import App from './components/App.js';
 import StoreContext from './contexts/Store.js';

@@ -30,7 +30,10 @@ describe('index', () => {
 
   it('inherit', (done) => {
     spawnTerminal('ls', ['-la'], { stdio: 'inherit' }, (err, res) => {
-      if (err) return done(err.message);
+      if (err) {
+        done(err.message);
+        return;
+      }
       assert.equal(res.stdout, null);
       assert.equal(res.stderr, null);
       done();
@@ -57,7 +60,10 @@ describe('index', () => {
 
   it('inherit with expanded', (done) => {
     spawnTerminal('ls', ['-la'], { stdio: 'inherit' }, { expanded: true }, (err, res) => {
-      if (err) return done(err.message);
+      if (err) {
+        done(err.message);
+        return;
+      }
       assert.equal(res.stdout, null);
       assert.equal(res.stderr, null);
       done();
@@ -72,7 +78,10 @@ describe('index', () => {
 
   it('encoding utf8', (done) => {
     spawnTerminal(NODE, ['--version'], { encoding: 'utf8' }, {}, (err, res) => {
-      if (err) return done(err.message);
+      if (err) {
+        done(err.message);
+        return;
+      }
       assert.ok(isVersion(getLines(res.stdout).slice(-1)[0], 'v'));
       assert.equal(res.stderr, '');
       done();
