@@ -1,6 +1,5 @@
-import worker from './worker.js';
-
 import type { SpawnOptions, SpawnResult, TerminalCallback, TerminalOptions } from './types.js';
+import worker from './worker.js';
 
 function spawnTerminal(command: string, args: string[], spawnOptions: SpawnOptions, options?: TerminalOptions | TerminalCallback, callback?: TerminalCallback): undefined | Promise<SpawnResult> {
   if (typeof options === 'function') {
@@ -19,7 +18,7 @@ function spawnTerminal(command: string, args: string[], spawnOptions: SpawnOptio
 
 const major = +process.versions.node.split('.')[0];
 
-export * from './types.js';
 export { default as figures } from './lib/figures.js';
 export { default as formatArguments } from './lib/formatArguments.js';
+export * from './types.js';
 export default major > 10 ? spawnTerminal : undefined;
