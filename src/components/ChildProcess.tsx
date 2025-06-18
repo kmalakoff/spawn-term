@@ -3,10 +3,9 @@ import { memo, useMemo } from 'react';
 import { Box, Text } from '../ink.js';
 import ansiRegex from '../lib/ansiRegex.js';
 import figures from '../lib/figures.js';
-import Spinner from './Spinner.js';
-
 import type { ChildProcess as ChildProcessT, Line, State } from '../types.js';
 import { LineType } from '../types.js';
+import Spinner from './Spinner.js';
 
 const REGEX_ANSI = ansiRegex();
 const BLANK_LINE = { type: LineType.stdout, text: '' };

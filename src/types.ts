@@ -1,5 +1,7 @@
 import type { StoreApi } from 'zustand';
-export type { SpawnOptions, SpawnCallback, SpawnResult, SpawnError } from 'cross-spawn-cb';
+
+export type { SpawnCallback, SpawnError, SpawnOptions, SpawnResult } from 'cross-spawn-cb';
+
 import type { SpawnError, SpawnResult } from 'cross-spawn-cb';
 
 export type TerminalOptions = {
