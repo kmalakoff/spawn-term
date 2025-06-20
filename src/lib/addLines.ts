@@ -1,4 +1,4 @@
-import { Writable } from 'readable-stream';
+import { Writable } from 'stream';
 
 const REGEX_NEW_LINE = /\r?\n|\r/g;
 
