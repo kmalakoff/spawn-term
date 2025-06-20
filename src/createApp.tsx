@@ -1,64 +1,55 @@
-// @ts-ignore
 import { type Instance, render } from 'ink';
-import { createStore } from 'zustand';
+import throttle from 'lodash.throttle';
 import App from './components/App.js';
-import StoreContext from './contexts/Store.js';
-import type { AppState, ReleaseCallback, RetainCallback } from './types.js';
+import StoreContext from './store/Context.js';
+import { Store } from './store/index.js';
+
+export type RetainCallback = (app: Store) => undefined;
+export type ReleaseCallback = () => undefined;
+
+const THROTTLE = 50;
 
 export default function createApp() {
   let refCount = 0;
   let store = null;
   let inkApp: Instance | null = null;
 
+  const rerender = () => {
+    inkApp?.rerender(
+      <StoreContext.Provider value={store}>
+        <App />
+      </StoreContext.Provider>
+    );
+  };
+  const rerenderThrottled = throttle(rerender, THROTTLE);
+
   return {
     retain(fn: RetainCallback): undefined {
       if (++refCount > 1) return fn(store);
       if (store) throw new Error('Not expecting store');
-      store = createStore<AppState>()((set) => ({
-        processes: [],
-        addProcess: (process) => {
-          store.nextRenders = store.renders + 1;
-          set((state) => ({ processes: [...state.processes, process] }));
-        },
-        updateProcess: (process) => {
-          store.nextRenders = store.renders + 1;
-          set((state) => ({ processes: state.processes.map((x) => (x.id === process.id ? process : x)) }));
-        },
-      }));
-      store.nextRenders = 0;
-      store.renders = 0;
-      store.waiting = [];
-      store.onRender = () => {
-        store.renders++;
-        if (store.renders === store.nextRenders) {
-          while (store?.waiting.length) store.waiting.pop()();
-        }
-      };
+
+      store = new Store(rerenderThrottled);
       inkApp = render(
         <StoreContext.Provider value={store}>
           <App />
         </StoreContext.Provider>,
         { patchConsole: false }
       );
-      return fn(store);
+      fn(store);
     },
     release(cb: ReleaseCallback): undefined {
-      if (--refCount > 0) {
-        if (store.renders === store.nextRenders) cb();
-        else store.waiting.push(cb);
-        return;
-      }
+      if (--refCount > 0) return cb();
       if (!store) throw new Error('Expecting store');
 
-      function done() {
-        inkApp.unmount();
-        inkApp = null;
-        store = null;
-        process.stdout.write('\x1b[?25h'); // show cursor
-        cb();
-      }
-      if (store.renders === store.nextRenders) done();
-      else store.waiting.push(done);
+      rerender();
+      inkApp
+        .waitUntilExit()
+        .then(() => cb())
+        .catch(cb);
+      inkApp.unmount();
+      inkApp = null;
+      store = null;
+      process.stdout.write('\x1b[?25h'); // show cursor
     },
   };
 }
