@@ -1,18 +1,25 @@
-import { EventEmitter } from 'events';
 import type { ChildProcess, ChildProcessUpdate } from '../types.js';
 
-export default class ProcessStore extends EventEmitter {
-  processes: ChildProcess[] = [];
+export type RenderFunction = () => void;
+export type StoreData = ChildProcess[];
 
-  constructor() {
-    super();
-    if (this.setMaxListeners) this.setMaxListeners(Infinity);
+export default class ProcessStore {
+  processes: ChildProcess[];
+  onRender: RenderFunction;
+
+  constructor(onRender: RenderFunction) {
+    if (!onRender) throw new Error('missing on render');
+    this.processes = [];
+    this.onRender = onRender;
   }
 
-  add(process: ChildProcess): ChildProcess {
+  data(): StoreData {
+    return this.processes;
+  }
+
+  add(process: ChildProcess): void {
     this.processes.push(process);
-    this.emit('added', process);
-    return process;
+    this.onRender();
   }
 
   update(id: string, update: ChildProcessUpdate): void {
@@ -22,6 +29,6 @@ export default class ProcessStore extends EventEmitter {
       return;
     }
     Object.assign(found, update);
-    this.emit('changed', found);
+    this.onRender();
   }
 }
