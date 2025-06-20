@@ -28,10 +28,3 @@ export type ChildProcess = {
   lines: Line[];
   expanded?: boolean;
 };
-export type ChildProcessUpdate = {
-  group?: string;
-  title?: string;
-  state?: State;
-  lines?: Line[];
-  expanded?: boolean;
-};
