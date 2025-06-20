@@ -21,6 +21,10 @@ const ICONS = {
   running: <Spinner {...SPINNER} />,
 };
 
+type ItemProps = {
+  item: ChildProcessT;
+};
+
 type HeaderProps = {
   group?: string;
   title: string;
@@ -74,29 +78,34 @@ const Lines = memo(function Lines({ lines }: LinesProps) {
   );
 });
 
-const Expanded = memo(function Expanded(item: ChildProcessT) {
+const Expanded = memo(function Expanded({ item }: ItemProps) {
+  const { lines } = item;
+
   return (
     <Box flexDirection="column">
       <Header group={item.group} title={item.title} state={item.state} />
-      <Lines lines={item.lines} />
+      <Lines lines={lines} />
     </Box>
   );
 });
 
-const Contracted = memo(function Contracted(item: ChildProcessT) {
+const Contracted = memo(function Contracted({ item }: ItemProps) {
+  const { state, lines } = item;
+
   // remove ansi codes when displaying single lines
-  const errors = useMemo(() => item.lines.filter((line) => line.type === LineType.stderr), [item.lines]);
-  const summary = useMemo(() => item.lines.filter((line) => line.text.length > 0 && errors.indexOf(line) < 0).pop(), [item.lines, errors]);
+  const errors = useMemo(() => lines.filter((line) => line.type === LineType.stderr), [lines]);
+  const summary = useMemo(() => lines.filter((line) => line.text.length > 0 && errors.indexOf(line) < 0).pop(), [lines, errors]);
 
   return (
     <Box flexDirection="column">
       <Header group={item.group} title={item.title} state={item.state} />
-      {item.state === 'running' && <RunningSummary line={summary || BLANK_LINE} />}
+      {state === 'running' && <RunningSummary line={summary || BLANK_LINE} />}
       {errors.length > 0 && <Lines lines={errors} />}
     </Box>
   );
 });
 
-export default memo(function ChildProcess(item: ChildProcessT) {
-  return item.expanded ? <Expanded {...item} /> : <Contracted {...item} />;
+export default memo(function ChildProcess({ item }: ItemProps) {
+  const { expanded } = item;
+  return expanded ? <Expanded item={item} /> : <Contracted item={item} />;
 });
