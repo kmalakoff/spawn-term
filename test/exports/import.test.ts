@@ -7,7 +7,7 @@ import spawnTerminal, { figures } from 'spawn-term';
 
 const major = +process.versions.node.split('.')[0];
 
-describe('exports .ts', () => {
+describe('exports .js', () => {
   it('named exports', () => {
     assert.equal(typeof spawnTerminal, major > 14 ? 'function' : 'undefined');
     assert.equal(typeof figures, 'object');
