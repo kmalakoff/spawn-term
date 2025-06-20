@@ -19,7 +19,7 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
   if (stdio === 'inherit') {
     terminal.retain((store) => {
       const id = crypto.randomUUID();
-      store.getState().addProcess({ id, title: [command].concat(formatArguments(args)).join(' '), state: 'running', lines: [], ...options });
+      store.addProcess({ id, title: [command].concat(formatArguments(args)).join(' '), state: 'running', lines: [], ...options });
 
       const cp = crossSpawn(command, args, csOptions);
       const outputs = { stdout: null, stderr: null };
@@ -27,15 +27,15 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
       const queue = new Queue();
       if (cp.stdout) {
         outputs.stdout = addLines((lines) => {
-          const item = store.getState().processes.find((x) => x.id === id);
-          store.getState().updateProcess({ ...item, lines: item.lines.concat(lines.map((text) => ({ type: LineType.stdout, text }))) });
+          const item = store.processes.find((x) => x.id === id);
+          store.updateProcess({ ...item, lines: item.lines.concat(lines.map((text) => ({ type: LineType.stdout, text }))) });
         });
         queue.defer(oo.bind(null, cp.stdout.pipe(outputs.stdout), ['error', 'end', 'close', 'finish']));
       }
       if (cp.stderr) {
         outputs.stderr = addLines((lines) => {
-          const item = store.getState().processes.find((x) => x.id === id);
-          store.getState().updateProcess({ ...item, lines: item.lines.concat(lines.map((text) => ({ type: LineType.stderr, text }))) });
+          const item = store.processes.find((x) => x.id === id);
+          store.updateProcess({ ...item, lines: item.lines.concat(lines.map((text) => ({ type: LineType.stderr, text }))) });
         });
         queue.defer(oo.bind(null, cp.stderr.pipe(outputs.stderr), ['error', 'end', 'close', 'finish']));
       }
@@ -45,8 +45,8 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
         res.stdout = outputs.stdout ? outputs.stdout.output : null;
         res.stderr = outputs.stderr ? outputs.stderr.output : null;
         res.output = [res.stdout, res.stderr, null];
-        const item = store.getState().processes.find((x) => x.id === id);
-        store.getState().updateProcess({ ...item, state: err ? 'error' : 'success' });
+        const item = store.processes.find((x) => x.id === id);
+        store.updateProcess({ ...item, state: err ? 'error' : 'success' });
 
         // ensure rendering completes
         terminal.release(() => {

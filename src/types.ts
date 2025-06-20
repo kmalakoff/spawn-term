@@ -1,5 +1,3 @@
-import type { StoreApi } from 'zustand';
-
 export type { SpawnCallback, SpawnError, SpawnOptions, SpawnResult } from 'cross-spawn-cb';
 
 import type { SpawnError, SpawnResult } from 'cross-spawn-cb';
@@ -30,15 +28,3 @@ export type ChildProcess = {
   lines: Line[];
   expanded?: boolean;
 };
-
-export interface AppState {
-  processes: ChildProcess[];
-  addProcess: (process: ChildProcess) => void;
-  updateProcess: (process: ChildProcess) => void;
-}
-
-export interface Store extends StoreApi<AppState> {
-  onRender: () => undefined;
-}
-export type RetainCallback = (app: Store) => undefined;
-export type ReleaseCallback = () => undefined;
