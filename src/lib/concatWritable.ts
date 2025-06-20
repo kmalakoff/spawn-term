@@ -1,4 +1,4 @@
-import { Writable } from 'readable-stream';
+import { Writable } from 'stream';
 
 export type Callback = (lines: Buffer) => undefined;
 

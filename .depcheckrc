@@ -1,1 +1,1 @@
-ignores: ["spawn-term", "yoga-wasm-web", "react-devtools-core", "bufferutil", "utf-8-validate"]
+ignores: ["spawn-term"]
