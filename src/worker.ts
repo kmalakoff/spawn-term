@@ -1,6 +1,5 @@
-// @ts-ignore
 import spawn, { crossSpawn, type SpawnResult } from 'cross-spawn-cb';
-import uuid from 'lil-uuid';
+import crypto from 'crypto';
 import oo from 'on-one';
 import Queue from 'queue-cb';
 
@@ -19,7 +18,7 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
 
   if (stdio === 'inherit') {
     terminal.retain((store) => {
-      const id = uuid();
+      const id = crypto.randomUUID();
       store.getState().addProcess({ id, title: [command].concat(formatArguments(args)).join(' '), state: 'running', lines: [], ...options });
 
       const cp = crossSpawn(command, args, csOptions);

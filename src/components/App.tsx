@@ -1,7 +1,7 @@
+import { Box } from 'ink';
 import { Profiler, useContext } from 'react';
 import { useStore } from 'zustand';
 import StoreContext from '../contexts/Store.js';
-import { Box } from '../ink.js';
 import type { AppState, ChildProcess as ChildProcessT, Store } from '../types.js';
 import ChildProcess from './ChildProcess.js';
 

@@ -1,6 +1,6 @@
 import c from 'ansi-colors';
+import { Box, Text } from 'ink';
 import { memo, useMemo } from 'react';
-import { Box, Text } from '../ink.js';
 import ansiRegex from '../lib/ansiRegex.js';
 import figures from '../lib/figures.js';
 import type { ChildProcess as ChildProcessT, Line, State } from '../types.js';
