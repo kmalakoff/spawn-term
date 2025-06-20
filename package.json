@@ -1,6 +1,6 @@
 {
   "name": "spawn-term",
-  "version": "0.2.10",
+  "version": "1.0.0",
   "description": "Formats spawn with for terminal grouping",
   "keywords": [
     "spawn",
