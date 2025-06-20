@@ -4,6 +4,11 @@ import type { ChildProcess, ChildProcessUpdate } from '../types.js';
 export default class ProcessStore extends EventEmitter {
   processes: ChildProcess[] = [];
 
+  constructor() {
+    super();
+    if (this.setMaxListeners) this.setMaxListeners(Infinity);
+  }
+
   add(process: ChildProcess): ChildProcess {
     this.processes.push(process);
     this.emit('added', process);
