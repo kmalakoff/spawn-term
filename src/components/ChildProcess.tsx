@@ -1,4 +1,3 @@
-import c from 'ansi-colors';
 import { Box, Text } from 'ink';
 import { memo, useMemo } from 'react';
 import ansiRegex from '../lib/ansiRegex.js';
@@ -17,10 +16,8 @@ const SPINNER = {
 };
 
 const ICONS = {
-  // @ts-ignore
-  error: <ink-text>{c.red(figures.cross)}</ink-text>,
-  // @ts-ignore
-  success: <ink-text>{c.green(figures.tick)}</ink-text>,
+  error: <Text color="red">{figures.cross}</Text>,
+  success: <Text color="green">{figures.tick}</Text>,
   running: <Spinner {...SPINNER} />,
 };
 
@@ -67,11 +64,9 @@ type LinesProps = {
 
 const renderLine = (line, index) => {
   return (
-    // @ts-ignore
-    <ink-text key={index} style={{ minHeight: 1 }}>
-      {line.text}
-      {/* @ts-ignore */}
-    </ink-text>
+    <Box key={index} minHeight={1}>
+      <Text>{line.text}</Text>
+    </Box>
   );
 };
 
