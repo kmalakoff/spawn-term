@@ -40,10 +40,10 @@
     "version": "tsds version"
   },
   "dependencies": {
-    "cross-spawn-cb": "^2.2.9",
+    "cross-spawn-cb": "^2.2.10",
     "ink": "^6.0.0",
-    "on-one": "^0.1.8",
-    "queue-cb": "^1.5.3",
+    "on-one": "^0.1.9",
+    "queue-cb": "^1.5.4",
     "react": "^19.1.0"
   },
   "devDependencies": {
