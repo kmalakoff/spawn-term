@@ -1,25 +1,24 @@
 import { type Instance, render } from 'ink';
 import throttle from 'lodash.throttle';
 import App from './components/App.js';
-import StoreContext from './store/Context.js';
-import { Store } from './store/index.js';
+import { default as Store, type StoreData } from './Store.js';
 
 export type RetainCallback = (app: Store) => undefined;
 export type ReleaseCallback = () => undefined;
 
-const THROTTLE = 50;
+const THROTTLE = 100;
 
 export default function createApp() {
   let refCount = 0;
   let store = null;
   let inkApp: Instance | null = null;
 
+  let previousData: StoreData[] = null;
   const rerender = () => {
-    inkApp?.rerender(
-      <StoreContext.Provider value={store}>
-        <App />
-      </StoreContext.Provider>
-    );
+    if (!inkApp || !store) return;
+    if (store.data() === previousData) return;
+    previousData = store.data();
+    inkApp.rerender(<App store={store} />);
   };
   const rerenderThrottled = throttle(rerender, THROTTLE);
 
@@ -29,12 +28,7 @@ export default function createApp() {
       if (store) throw new Error('Not expecting store');
 
       store = new Store(rerenderThrottled);
-      inkApp = render(
-        <StoreContext.Provider value={store}>
-          <App />
-        </StoreContext.Provider>,
-        { patchConsole: false }
-      );
+      inkApp = render(<App store={store} />);
       fn(store);
     },
     release(cb: ReleaseCallback): undefined {

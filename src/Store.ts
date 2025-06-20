@@ -1,6 +1,7 @@
-import type { ChildProcess } from '../types.js';
+import type { ChildProcess } from './types.ts';
 
 export type RenderFunction = () => void;
+export type StoreData = ChildProcess[];
 
 export default class Store {
   processes: ChildProcess[];
@@ -10,6 +11,10 @@ export default class Store {
     if (!onRender) throw new Error('missing on render');
     this.processes = [];
     this.onRender = onRender;
+  }
+
+  data(): StoreData {
+    return this.processes;
   }
 
   addProcess(process: ChildProcess): void {
