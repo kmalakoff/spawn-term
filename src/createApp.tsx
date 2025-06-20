@@ -1,7 +1,7 @@
 import { type Instance, render } from 'ink';
 import throttle from 'lodash.throttle';
 import App from './components/App.js';
-import { default as Store, type StoreData } from './state/ProcessStore.js';
+import { default as Store, type StoreData } from './state/Store.js';
 
 export type RetainCallback = (app: Store) => undefined;
 export type ReleaseCallback = () => undefined;
