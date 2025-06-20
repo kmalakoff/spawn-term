@@ -28,6 +28,11 @@ export default function createApp() {
       if (--refCount > 0) return cb();
       if (!store) throw new Error('Expecting store');
 
+      inkApp.rerender(
+        <ProcessProvider store={store}>
+          <App />
+        </ProcessProvider>
+      );
       inkApp
         .waitUntilExit()
         .then(() => cb())
