@@ -1,9 +1,9 @@
-import type { ChildProcess, ChildProcessUpdate } from '../types.js';
+import type { ChildProcess } from '../types.js';
 
 export type RenderFunction = () => void;
 export type StoreData = ChildProcess[];
 
-export default class ProcessStore {
+export default class Store {
   processes: ChildProcess[];
   onRender: RenderFunction;
 
@@ -17,18 +17,13 @@ export default class ProcessStore {
     return this.processes;
   }
 
-  add(process: ChildProcess): void {
+  addProcess(process: ChildProcess): void {
     this.processes.push(process);
     this.onRender();
   }
 
-  update(id: string, update: ChildProcessUpdate): void {
-    const found = this.processes.find((x) => x.id === id);
-    if (!found) {
-      console.log(`Process ${id} not found`);
-      return;
-    }
-    Object.assign(found, update);
+  updateProcess(process: ChildProcess): void {
+    this.processes = this.processes.map((x) => (x.id === process.id ? process : x));
     this.onRender();
   }
 }
