@@ -1,6 +1,6 @@
 import { Box } from 'ink';
-import type { ChildProcess as ChildProcessT } from '../types.js';
-import ChildProcess from './ChildProcess.js';
+import type { ChildProcess as ChildProcessT } from '../types.ts';
+import ChildProcess from './ChildProcess.ts';
 
 export default function App({ store }) {
   return (

@@ -3,13 +3,13 @@ import crypto from 'crypto';
 import oo from 'on-one';
 import Queue from 'queue-cb';
 
-import createApp from './createApp.js';
-import addLines from './lib/addLines.js';
-import concatWritable from './lib/concatWritable.js';
-import formatArguments from './lib/formatArguments.js';
+import createApp from './createApp.ts';
+import addLines from './lib/addLines.ts';
+import concatWritable from './lib/concatWritable.ts';
+import formatArguments from './lib/formatArguments.ts';
 
-import type { SpawnError, SpawnOptions, TerminalCallback, TerminalOptions } from './types.js';
-import { LineType } from './types.js';
+import type { SpawnError, SpawnOptions, TerminalCallback, TerminalOptions } from './types.ts';
+import { LineType } from './types.ts';
 
 const terminal = createApp();
 

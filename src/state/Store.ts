@@ -1,4 +1,4 @@
-import type { ChildProcess } from '../types.js';
+import type { ChildProcess } from '../types.ts';
 
 export type RenderFunction = () => void;
 export type StoreData = ChildProcess[];
