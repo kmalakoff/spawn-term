@@ -1,4 +1,4 @@
-import type { SpawnOptions, SpawnResult, TerminalCallback, TerminalOptions } from './types.js';
+import type { SpawnOptions, SpawnResult, TerminalCallback, TerminalOptions } from './types.ts';
 
 function worker(command: string, args: string[], spawnOptions: SpawnOptions, options: TerminalOptions, callback: TerminalCallback): undefined {
   import('./worker.js')

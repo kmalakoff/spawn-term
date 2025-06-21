@@ -1,10 +1,10 @@
 import { Box, Text } from 'ink';
 import { memo, useMemo } from 'react';
-import ansiRegex from '../lib/ansiRegex.js';
-import figures from '../lib/figures.js';
-import type { ChildProcess as ChildProcessT, Line, State } from '../types.js';
-import { LineType } from '../types.js';
-import Spinner from './Spinner.js';
+import ansiRegex from '../lib/ansiRegex.ts';
+import figures from '../lib/figures.ts';
+import type { ChildProcess as ChildProcessT, Line, State } from '../types.ts';
+import { LineType } from '../types.ts';
+import Spinner from './Spinner.ts';
 
 const REGEX_ANSI = ansiRegex();
 const BLANK_LINE = { type: LineType.stdout, text: '' };
