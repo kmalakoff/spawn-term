@@ -3,7 +3,7 @@ import isVersion from 'is-version';
 import Pinkie from 'pinkie-promise';
 // @ts-ignore
 import spawnTerminal from 'spawn-term';
-import getLines from '../lib/getLines.cjs';
+import getLines from '../lib/getLines.ts';
 
 const isWindows = process.platform === 'win32' || /^(msys|cygwin)$/.test(process.env.OSTYPE);
 const NODE = isWindows ? 'node.exe' : 'node';
@@ -78,7 +78,7 @@ describe('index', () => {
         done(err.message);
         return;
       }
-      assert.ok(isVersion(getLines(res.stdout).slice(-1)[0], 'v'));
+      assert.ok(isVersion(getLines(res.stdout as string).slice(-1)[0], 'v'));
       assert.equal(res.stderr, '');
       done();
     });
