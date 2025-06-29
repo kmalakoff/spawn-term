@@ -40,7 +40,7 @@
     "version": "tsds version"
   },
   "dependencies": {
-    "cross-spawn-cb": "^2.3.5",
+    "cross-spawn-cb": "^2.3.6",
     "ink": "^6.0.1",
     "lodash.throttle": "^4.1.1",
     "on-one": "^0.1.9",
