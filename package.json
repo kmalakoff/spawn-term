@@ -43,7 +43,7 @@
     "cross-spawn-cb": "^2.3.9",
     "ink": "^6.0.1",
     "lodash.throttle": "^4.1.1",
-    "on-one": "^0.1.9",
+    "on-one": "^1.0.1",
     "queue-cb": "^1.5.5",
     "react": "^19.1.0"
   },
