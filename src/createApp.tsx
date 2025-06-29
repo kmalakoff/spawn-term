@@ -14,20 +14,23 @@ export default function createApp() {
   let inkApp: Instance | null = null;
 
   let previousData: StoreData[] = null;
-  const rerender = () => {
-    if (!inkApp || !store) return;
-    if (store.data() === previousData) return;
-    previousData = store.data();
-    inkApp.rerender(<App store={store} />);
-  };
-  const rerenderThrottled = throttle(rerender, THROTTLE);
+  const rerender = throttle(
+    () => {
+      if (!inkApp || !store) return;
+      if (store.data() === previousData) return;
+      previousData = store.data();
+      inkApp.rerender(<App store={store} />);
+    },
+    THROTTLE,
+    { leading: false }
+  );
 
   return {
     retain(fn: RetainCallback): undefined {
       if (++refCount > 1) return fn(store);
       if (store) throw new Error('Not expecting store');
 
-      store = new Store(rerenderThrottled);
+      store = new Store(rerender);
       inkApp = render(<App store={store} />);
       fn(store);
     },
@@ -35,7 +38,8 @@ export default function createApp() {
       if (--refCount > 0) return cb();
       if (!store) throw new Error('Expecting store');
 
-      rerender();
+      rerender.flush();
+      rerender.cancel();
       inkApp
         .waitUntilExit()
         .then(() => cb())
