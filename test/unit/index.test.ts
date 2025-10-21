@@ -1,7 +1,6 @@
 import assert from 'assert';
 import isVersion from 'is-version';
 import Pinkie from 'pinkie-promise';
-// @ts-ignore
 import spawnTerminal from 'spawn-term';
 import getLines from '../lib/getLines.ts';
 

@@ -1,8 +1,6 @@
 import assert from 'assert';
 
-// @ts-ignore
 import * as spawnTerminalStar from 'spawn-term';
-// @ts-ignore
 import spawnTerminal, { figures } from 'spawn-term';
 
 const major = +process.versions.node.split('.')[0];
