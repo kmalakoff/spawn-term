@@ -39,7 +39,9 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
         });
         queue.defer(oo.bind(null, cp.stderr.pipe(outputs.stderr), ['error', 'end', 'close', 'finish']));
       }
-      queue.defer(spawn.worker.bind(null, cp, { ...csOptions, encoding: 'utf8' }));
+      // FIX: Don't buffer output when pipes are already consuming streams
+      // Adding data listeners to already-piped streams prevents 'close' event from firing
+      queue.defer(spawn.worker.bind(null, cp, csOptions));
       queue.await((err?: SpawnError) => {
         const res = (err ? err : {}) as SpawnResult;
         res.stdout = outputs.stdout ? outputs.stdout.output : null;
@@ -71,7 +73,9 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
       });
       queue.defer(oo.bind(null, cp.stderr.pipe(outputs.stderr), ['error', 'end', 'close', 'finish']));
     }
-    queue.defer(spawn.worker.bind(null, cp, { ...csOptions, encoding: encoding || 'utf8' }));
+    // FIX: Don't buffer output when pipes are already consuming streams
+    // Adding data listeners to already-piped streams prevents 'close' event from firing
+    queue.defer(spawn.worker.bind(null, cp, csOptions));
     queue.await((err?: SpawnError) => {
       const res = (err ? err : {}) as SpawnResult;
       res.stdout = outputs.stdout ? outputs.stdout.output : null;
