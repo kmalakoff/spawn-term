@@ -5,4 +5,4 @@ export * from './types.ts';
 const major = +process.versions.node.split('.')[0];
 
 import { default as spawnTerminal } from './spawnTerminal.ts';
-export default major > 14 ? spawnTerminal : (undefined as typeof spawnTerminal);
+export default major > 18 ? spawnTerminal : (undefined as typeof spawnTerminal);
