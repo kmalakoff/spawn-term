@@ -39,8 +39,6 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
         });
         queue.defer(oo.bind(null, cp.stderr.pipe(outputs.stderr), ['error', 'end', 'close', 'finish']));
       }
-      // FIX: Don't buffer output when pipes are already consuming streams
-      // Adding data listeners to already-piped streams prevents 'close' event from firing
       queue.defer(spawn.worker.bind(null, cp, csOptions));
       queue.await((err?: SpawnError) => {
         const res = (err ? err : {}) as SpawnResult;
@@ -50,7 +48,6 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
         const item = store.processes.find((x) => x.id === id);
         store.updateProcess({ ...item, state: err ? 'error' : 'success' });
 
-        // ensure rendering completes
         terminal.release(() => {
           err ? callback(err) : callback(null, res);
         });
@@ -73,8 +70,6 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
       });
       queue.defer(oo.bind(null, cp.stderr.pipe(outputs.stderr), ['error', 'end', 'close', 'finish']));
     }
-    // FIX: Don't buffer output when pipes are already consuming streams
-    // Adding data listeners to already-piped streams prevents 'close' event from firing
     queue.defer(spawn.worker.bind(null, cp, csOptions));
     queue.await((err?: SpawnError) => {
       const res = (err ? err : {}) as SpawnResult;
