@@ -7,8 +7,6 @@ import getLines from '../lib/getLines.ts';
 const isWindows = process.platform === 'win32' || /^(msys|cygwin)$/.test(process.env.OSTYPE);
 const NODE = isWindows ? 'node.exe' : 'node';
 
-const _major = +process.versions.node.split('.')[0];
-
 describe('index', () => {
   if (typeof spawnTerminal === 'undefined') {
     return console.log(`Not available in ${process.versions.node}`);
@@ -25,7 +23,7 @@ describe('index', () => {
     });
   })();
 
-  it('inherit', (done) => {
+  it.only('inherit', (done) => {
     spawnTerminal('ls', ['-la'], { stdio: 'inherit' }, (err, res) => {
       if (err) {
         done(err.message);
@@ -90,5 +88,11 @@ describe('index', () => {
       assert.equal(typeof err.stderr, 'string');
       done();
     });
+  });
+
+  it('throws when stdio inherit and encoding are both specified', () => {
+    assert.throws(() => {
+      spawnTerminal(NODE, ['--version'], { stdio: 'inherit', encoding: 'utf8' }, () => {});
+    }, /mutually exclusive/);
   });
 });

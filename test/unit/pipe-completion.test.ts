@@ -9,16 +9,14 @@ describe('pipe completion with sustained output', () => {
   if (typeof spawnTerminal === 'undefined') {
     return console.log(`Not available in ${process.versions.node}`);
   }
+  const MAX_DURATION = 10000;
   const FIXTURE = path.join(__dirname, '..', 'fixtures', 'sustained-output.js');
 
   it('stdio=inherit pipes should complete without hanging', function (done) {
-    this.timeout(10000); // 10 second timeout
-
+    this.timeout(MAX_DURATION);
     const startTime = Date.now();
-    let callbackCalled = false;
 
     spawnTerminal('node', [FIXTURE], { stdio: 'inherit' }, (err, res) => {
-      callbackCalled = true;
       const duration = Date.now() - startTime;
 
       if (err) {
@@ -30,17 +28,9 @@ describe('pipe completion with sustained output', () => {
       assert.ok(res);
       done();
     });
-
-    setTimeout(() => {
-      if (!callbackCalled) {
-        done(new Error('Test hung - callback never called (dual consumption bug)'));
-      }
-    }, 8000);
   });
 
-  it('encoding pipes should receive complete output', function (done) {
-    this.timeout(10000);
-
+  it('encoding pipes should receive complete output', (done) => {
     spawnTerminal('node', [FIXTURE], { encoding: 'utf8' }, (err, res) => {
       if (err) return done(err);
 

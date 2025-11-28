@@ -9,6 +9,10 @@ function worker(command: string, args: string[], spawnOptions: SpawnOptions, opt
 }
 
 export default function spawnTerminal(command: string, args: string[], spawnOptions: SpawnOptions, options?: TerminalOptions | TerminalCallback, callback?: TerminalCallback): undefined | Promise<SpawnResult> {
+  if (spawnOptions.stdio === 'inherit' && spawnOptions.encoding) {
+    throw new Error("Options 'stdio: inherit' and 'encoding' are mutually exclusive. Use 'stdio: inherit' to display output, or 'encoding' to collect output.");
+  }
+
   if (typeof options === 'function') {
     callback = options as TerminalCallback;
     options = {};
