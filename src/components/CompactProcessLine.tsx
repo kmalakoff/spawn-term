@@ -2,7 +2,7 @@ import { Box, Text, useStdout } from 'ink';
 import { memo, useMemo } from 'react';
 import figures from '../lib/figures.ts';
 import { calculateColumnWidth } from '../lib/format.ts';
-import { processStore } from '../state/processStore.ts';
+import { useStore } from '../state/StoreContext.ts';
 import type { ChildProcess, Line } from '../types.ts';
 import { LineType } from '../types.ts';
 import Spinner from './Spinner.ts';
@@ -37,6 +37,7 @@ function getErrorCount(lines: Line[]): number {
 }
 
 export default memo(function CompactProcessLine({ item, isSelected = false }: Props) {
+  const store = useStore();
   const { stdout } = useStdout();
   const terminalWidth = stdout?.columns || 80;
 
@@ -48,7 +49,7 @@ export default memo(function CompactProcessLine({ item, isSelected = false }: Pr
 
   // Calculate widths - use dynamic column width based on longest name
   const iconWidth = 2; // icon + space
-  const maxGroupLength = processStore.getMaxGroupLength();
+  const maxGroupLength = store.getMaxGroupLength();
   const nameColumnWidth = calculateColumnWidth('max', terminalWidth, maxGroupLength);
   const gap = 1; // space between name and status
   const statusWidth = terminalWidth - iconWidth - nameColumnWidth - gap;

@@ -1,11 +1,11 @@
 import { DEFAULT_COLUMN_WIDTH } from '../constants.ts';
-import type { ChildProcess, Line } from '../types.ts';
+import type { ChildProcess, Line, SessionOptions } from '../types.ts';
 import { LineType } from '../types.ts';
 
 type Listener = () => void;
 type Mode = 'normal' | 'interactive' | 'errorList' | 'errorDetail';
 
-class ProcessStore {
+export class ProcessStore {
   private processes: ChildProcess[] = [];
   private completedIds: string[] = []; // Track completion order
   private listeners = new Set<Listener>();
@@ -19,8 +19,16 @@ class ProcessStore {
   private expandedId: string | null = null;
   private scrollOffset = 0;
 
-  // App-level display settings
+  // Session-level display settings (set once at session creation)
   private header: string | undefined;
+  private showStatusBar = false;
+  private isInteractive = false;
+
+  constructor(options: SessionOptions = {}) {
+    this.header = options.header;
+    this.showStatusBar = options.showStatusBar ?? false;
+    this.isInteractive = options.interactive ?? false;
+  }
 
   // useSyncExternalStore API
   subscribe = (listener: Listener): (() => void) => {
@@ -62,20 +70,14 @@ class ProcessStore {
   getSelectedErrorIndex = (): number => this.selectedErrorIndex;
   getExpandedId = (): string | null => this.expandedId;
   getScrollOffset = (): number => this.scrollOffset;
-  // Get header
+  // Session-level getters (set at session creation, immutable)
   getHeader = (): string | undefined => this.header;
-  // Show status bar only if any process sets showStatusBar: true (default: false)
-  getShowStatusBar = (): boolean => this.processes.some((p) => p.showStatusBar === true);
-  // Interactive mode if any process has interactive: true
-  getIsInteractive = (): boolean => this.processes.some((p) => p.interactive === true);
+  getShowStatusBar = (): boolean => this.showStatusBar;
+  getIsInteractive = (): boolean => this.isInteractive;
   isAllComplete = (): boolean => this.processes.length > 0 && this.processes.every((p) => p.state !== 'running');
 
   // Mutations - Ink handles render throttling at 30 FPS
   addProcess(process: ChildProcess): void {
-    // Set header on first process that provides one
-    if (this.header === undefined && process.header !== undefined) {
-      this.header = process.header;
-    }
     this.processes = [...this.processes, process];
     this.notify();
   }
@@ -230,5 +232,4 @@ class ProcessStore {
   }
 }
 
-export const processStore = new ProcessStore();
-export type { ProcessStore };
+// Note: No global singleton - session creates its own store instance
