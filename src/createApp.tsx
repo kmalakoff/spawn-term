@@ -1,5 +1,6 @@
 import { render } from 'ink';
 import App from './components/App.ts';
+import { DEFAULT_MAX_FPS } from './constants.ts';
 import { type ProcessStore, processStore } from './state/processStore.ts';
 
 export type ReleaseCallback = () => void;
@@ -13,7 +14,11 @@ export default function createApp() {
       if (++refCount > 1) return processStore;
 
       // Render once - React handles all subsequent updates via useSyncExternalStore
-      inkApp = render(<App />);
+      // Enable incremental rendering to only rewrite changed lines (reduces flicker)
+      inkApp = render(<App />, {
+        incrementalRendering: true,
+        maxFps: DEFAULT_MAX_FPS,
+      });
       return processStore;
     },
 
@@ -24,16 +29,11 @@ export default function createApp() {
       }
       if (!inkApp) throw new Error('Expecting inkApp');
 
-      // Defer signalExit to allow React's reconciliation to complete fully
-      // Using setImmediate ensures we run after I/O callbacks and microtasks,
-      // preventing the Static component from outputting the last item twice
-      // (the second notify() from signalExit can race with Static's useLayoutEffect)
-      setImmediate(() => {
-        processStore.signalExit(() => {
-          processStore.reset();
-          process.stdout.write('\x1b[?25h'); // show cursor
-          callback();
-        });
+      // Signal exit to React component
+      processStore.signalExit(() => {
+        processStore.reset();
+        process.stdout.write('\x1b[?25h'); // show cursor
+        callback();
       });
 
       // Wait for Ink to finish, then call the callback

@@ -1,8 +1,9 @@
+import { DEFAULT_COLUMN_WIDTH } from '../constants.ts';
 import type { ChildProcess, Line } from '../types.ts';
 import { LineType } from '../types.ts';
 
 type Listener = () => void;
-type Mode = 'normal' | 'errorList' | 'errorDetail';
+type Mode = 'normal' | 'interactive' | 'errorList' | 'errorDetail';
 
 class ProcessStore {
   private processes: ChildProcess[] = [];
@@ -13,7 +14,13 @@ class ProcessStore {
 
   // UI state
   private mode: Mode = 'normal';
+  private selectedIndex = 0;
   private selectedErrorIndex = 0;
+  private expandedId: string | null = null;
+  private scrollOffset = 0;
+
+  // App-level display settings
+  private header: string | undefined;
 
   // useSyncExternalStore API
   subscribe = (listener: Listener): (() => void) => {
@@ -39,6 +46,10 @@ class ProcessStore {
 
   // Counts
   getRunningCount = (): number => this.processes.filter((p) => p.state === 'running').length;
+  getMaxGroupLength = (): number => {
+    if (this.processes.length === 0) return DEFAULT_COLUMN_WIDTH;
+    return Math.max(...this.processes.map((p) => (p.group || p.title).length));
+  };
   getDoneCount = (): number => this.processes.filter((p) => p.state !== 'running').length;
   getErrorCount = (): number => this.processes.filter((p) => p.state === 'error').length;
   getErrorLineCount = (): number => {
@@ -47,10 +58,24 @@ class ProcessStore {
 
   // UI state getters
   getMode = (): Mode => this.mode;
+  getSelectedIndex = (): number => this.selectedIndex;
   getSelectedErrorIndex = (): number => this.selectedErrorIndex;
+  getExpandedId = (): string | null => this.expandedId;
+  getScrollOffset = (): number => this.scrollOffset;
+  // Get header
+  getHeader = (): string | undefined => this.header;
+  // Show status bar only if any process sets showStatusBar: true (default: false)
+  getShowStatusBar = (): boolean => this.processes.some((p) => p.showStatusBar === true);
+  // Interactive mode if any process has interactive: true
+  getIsInteractive = (): boolean => this.processes.some((p) => p.interactive === true);
+  isAllComplete = (): boolean => this.processes.length > 0 && this.processes.every((p) => p.state !== 'running');
 
   // Mutations - Ink handles render throttling at 30 FPS
   addProcess(process: ChildProcess): void {
+    // Set header on first process that provides one
+    if (this.header === undefined && process.header !== undefined) {
+      this.header = process.header;
+    }
     this.processes = [...this.processes, process];
     this.notify();
   }
@@ -84,10 +109,31 @@ class ProcessStore {
   // UI state mutations
   setMode(mode: Mode): void {
     this.mode = mode;
-    if (mode === 'errorList') {
+    if (mode === 'interactive') {
+      this.selectedIndex = 0;
+    } else if (mode === 'errorList') {
       this.selectedErrorIndex = 0;
     }
     this.notify();
+  }
+
+  // Interactive mode navigation
+  selectNext(): void {
+    if (this.processes.length > 0) {
+      this.selectedIndex = (this.selectedIndex + 1) % this.processes.length;
+      this.notify();
+    }
+  }
+
+  selectPrev(): void {
+    if (this.processes.length > 0) {
+      this.selectedIndex = (this.selectedIndex - 1 + this.processes.length) % this.processes.length;
+      this.notify();
+    }
+  }
+
+  getSelectedProcess(): ChildProcess | undefined {
+    return this.processes[this.selectedIndex];
   }
 
   selectNextError(): void {
@@ -111,6 +157,49 @@ class ProcessStore {
     return failed[this.selectedErrorIndex];
   }
 
+  // Expansion methods
+  toggleExpand(): void {
+    const selected = this.getSelectedProcess();
+    if (!selected) return;
+
+    if (this.expandedId === selected.id) {
+      // Collapse
+      this.expandedId = null;
+      this.scrollOffset = 0;
+    } else {
+      // Expand
+      this.expandedId = selected.id;
+      this.scrollOffset = 0;
+    }
+    this.notify();
+  }
+
+  collapse(): void {
+    this.expandedId = null;
+    this.scrollOffset = 0;
+    this.notify();
+  }
+
+  scrollDown(maxVisible: number): void {
+    if (!this.expandedId) return;
+    const process = this.getProcess(this.expandedId);
+    if (!process) return;
+
+    const maxOffset = Math.max(0, process.lines.length - maxVisible);
+    if (this.scrollOffset < maxOffset) {
+      this.scrollOffset++;
+      this.notify();
+    }
+  }
+
+  scrollUp(): void {
+    if (!this.expandedId) return;
+    if (this.scrollOffset > 0) {
+      this.scrollOffset--;
+      this.notify();
+    }
+  }
+
   // Exit signaling
   signalExit(callback: () => void): void {
     this.shouldExit = true;
@@ -127,7 +216,11 @@ class ProcessStore {
     this.shouldExit = false;
     this.exitCallback = null;
     this.mode = 'normal';
+    this.selectedIndex = 0;
     this.selectedErrorIndex = 0;
+    this.expandedId = null;
+    this.scrollOffset = 0;
+    this.header = undefined;
   }
 
   private notify(): void {
