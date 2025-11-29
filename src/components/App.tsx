@@ -163,16 +163,18 @@ function AppContent({ store }: AppProps): React.JSX.Element {
         </>
       )}
 
-      {/* Visible processes */}
-      {visibleProcesses.map((item) => {
-        const originalIndex = processes.indexOf(item);
-        return (
-          <Box key={item.id} flexDirection="column">
-            <CompactProcessLine item={item} isSelected={showSelection && originalIndex === selectedIndex} />
-            {expandedId === item.id && <ExpandedOutput lines={item.lines} scrollOffset={scrollOffset} />}
-          </Box>
-        );
-      })}
+      {/* Visible processes - key forces clean re-render on scroll */}
+      <Box key={`processes-${listScrollOffset}`} flexDirection="column">
+        {visibleProcesses.map((item) => {
+          const originalIndex = processes.indexOf(item);
+          return (
+            <Box key={item.id} flexDirection="column">
+              <CompactProcessLine item={item} isSelected={showSelection && originalIndex === selectedIndex} />
+              {expandedId === item.id && <ExpandedOutput lines={item.lines} scrollOffset={scrollOffset} />}
+            </Box>
+          );
+        })}
+      </Box>
 
       {/* Status bar */}
       {showStatusBar && processes.length > 0 && (
