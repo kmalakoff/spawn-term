@@ -3,7 +3,7 @@ import type { ChildProcess, Line, SessionOptions } from '../types.ts';
 import { LineType } from '../types.ts';
 
 type Listener = () => void;
-type Mode = 'normal' | 'interactive' | 'errorList' | 'errorDetail';
+type Mode = 'normal' | 'interactive';
 
 export class ProcessStore {
   private processes: ChildProcess[] = [];
@@ -15,10 +15,10 @@ export class ProcessStore {
   // UI state
   private mode: Mode = 'normal';
   private selectedIndex = 0;
-  private selectedErrorIndex = 0;
   private expandedId: string | null = null;
   private scrollOffset = 0;
   private listScrollOffset = 0; // Viewport offset for process list
+  private errorFooterExpanded = false; // For non-interactive error footer
 
   // Session-level display settings (set once at session creation)
   private header: string | undefined;
@@ -68,10 +68,10 @@ export class ProcessStore {
   // UI state getters
   getMode = (): Mode => this.mode;
   getSelectedIndex = (): number => this.selectedIndex;
-  getSelectedErrorIndex = (): number => this.selectedErrorIndex;
   getExpandedId = (): string | null => this.expandedId;
   getScrollOffset = (): number => this.scrollOffset;
   getListScrollOffset = (): number => this.listScrollOffset;
+  getErrorFooterExpanded = (): boolean => this.errorFooterExpanded;
   // Session-level getters (set at session creation, immutable)
   getHeader = (): string | undefined => this.header;
   getShowStatusBar = (): boolean => this.showStatusBar;
@@ -96,6 +96,11 @@ export class ProcessStore {
       this.completedIds = [...this.completedIds, id];
     }
 
+    // Auto-expand error footer when all complete with errors (non-interactive only)
+    if (!this.isInteractive && this.isAllComplete() && this.getErrorCount() > 0) {
+      this.errorFooterExpanded = true;
+    }
+
     this.notify();
   }
 
@@ -115,8 +120,6 @@ export class ProcessStore {
     this.mode = mode;
     if (mode === 'interactive') {
       this.selectedIndex = 0;
-    } else if (mode === 'errorList') {
-      this.selectedErrorIndex = 0;
     }
     this.notify();
   }
@@ -155,25 +158,24 @@ export class ProcessStore {
     return this.processes[this.selectedIndex];
   }
 
-  selectNextError(): void {
-    const failed = this.getFailedProcesses();
-    if (failed.length > 0) {
-      this.selectedErrorIndex = (this.selectedErrorIndex + 1) % failed.length;
+  // Error footer methods (for non-interactive mode)
+  toggleErrorFooter(): void {
+    this.errorFooterExpanded = !this.errorFooterExpanded;
+    this.notify();
+  }
+
+  expandErrorFooter(): void {
+    if (!this.errorFooterExpanded) {
+      this.errorFooterExpanded = true;
       this.notify();
     }
   }
 
-  selectPrevError(): void {
-    const failed = this.getFailedProcesses();
-    if (failed.length > 0) {
-      this.selectedErrorIndex = (this.selectedErrorIndex - 1 + failed.length) % failed.length;
-      this.notify();
-    }
-  }
-
-  getSelectedError(): ChildProcess | undefined {
-    const failed = this.getFailedProcesses();
-    return failed[this.selectedErrorIndex];
+  getErrorLines(): Array<{ processName: string; lines: Line[] }> {
+    return this.getFailedProcesses().map((p) => ({
+      processName: p.group || p.title,
+      lines: p.lines,
+    }));
   }
 
   // Expansion methods
@@ -236,10 +238,10 @@ export class ProcessStore {
     this.exitCallback = null;
     this.mode = 'normal';
     this.selectedIndex = 0;
-    this.selectedErrorIndex = 0;
     this.expandedId = null;
     this.scrollOffset = 0;
     this.listScrollOffset = 0;
+    this.errorFooterExpanded = false;
     this.header = undefined;
   }
 
