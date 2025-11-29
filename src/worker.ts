@@ -17,40 +17,42 @@ export default function spawnTerminal(command: string, args: string[], spawnOpti
   const { encoding, stdio, ...csOptions } = spawnOptions;
 
   if (stdio === 'inherit') {
-    terminal.retain((store) => {
-      const id = crypto.randomUUID();
-      store.addProcess({ id, title: [command].concat(formatArguments(args)).join(' '), state: 'running', lines: [], ...options });
+    const store = terminal.retain();
+    const id = crypto.randomUUID();
+    store.addProcess({ id, title: [command].concat(formatArguments(args)).join(' '), state: 'running', lines: [], ...options });
 
-      const cp = crossSpawn(command, args, csOptions);
-      const outputs = { stdout: null, stderr: null };
+    const cp = crossSpawn(command, args, csOptions);
+    const outputs = { stdout: null, stderr: null };
 
-      const queue = new Queue();
-      if (cp.stdout) {
-        outputs.stdout = addLines((lines) => {
-          const item = store.processes.find((x) => x.id === id);
-          store.updateProcess({ ...item, lines: item.lines.concat(lines.map((text) => ({ type: LineType.stdout, text }))) });
-        });
-        queue.defer(oo.bind(null, cp.stdout.pipe(outputs.stdout), ['error', 'end', 'close', 'finish']));
-      }
-      if (cp.stderr) {
-        outputs.stderr = addLines((lines) => {
-          const item = store.processes.find((x) => x.id === id);
-          store.updateProcess({ ...item, lines: item.lines.concat(lines.map((text) => ({ type: LineType.stderr, text }))) });
-        });
-        queue.defer(oo.bind(null, cp.stderr.pipe(outputs.stderr), ['error', 'end', 'close', 'finish']));
-      }
-      queue.defer(spawn.worker.bind(null, cp, csOptions));
-      queue.await((err?: SpawnError) => {
-        const res = (err ? err : {}) as SpawnResult;
-        res.stdout = outputs.stdout ? outputs.stdout.output : null;
-        res.stderr = outputs.stderr ? outputs.stderr.output : null;
-        res.output = [res.stdout, res.stderr, null];
-        const item = store.processes.find((x) => x.id === id);
-        store.updateProcess({ ...item, state: err ? 'error' : 'success' });
+    const queue = new Queue();
+    if (cp.stdout) {
+      outputs.stdout = addLines((lines) => {
+        store.appendLines(
+          id,
+          lines.map((text) => ({ type: LineType.stdout, text }))
+        );
+      });
+      queue.defer(oo.bind(null, cp.stdout.pipe(outputs.stdout), ['error', 'end', 'close', 'finish']));
+    }
+    if (cp.stderr) {
+      outputs.stderr = addLines((lines) => {
+        store.appendLines(
+          id,
+          lines.map((text) => ({ type: LineType.stderr, text }))
+        );
+      });
+      queue.defer(oo.bind(null, cp.stderr.pipe(outputs.stderr), ['error', 'end', 'close', 'finish']));
+    }
+    queue.defer(spawn.worker.bind(null, cp, csOptions));
+    queue.await((err?: SpawnError) => {
+      const res = (err ? err : {}) as SpawnResult;
+      res.stdout = outputs.stdout ? outputs.stdout.output : null;
+      res.stderr = outputs.stderr ? outputs.stderr.output : null;
+      res.output = [res.stdout, res.stderr, null];
+      store.updateProcess(id, { state: err ? 'error' : 'success' });
 
-        terminal.release(() => {
-          err ? callback(err) : callback(null, res);
-        });
+      terminal.release(() => {
+        err ? callback(err) : callback(null, res);
       });
     });
   } else {
