@@ -1,53 +1,49 @@
-import { type Instance, render } from 'ink';
-import throttle from 'lodash.throttle';
+import { render } from 'ink';
 import App from './components/App.ts';
-import { default as Store, type StoreData } from './state/Store.ts';
+import { type ProcessStore, processStore } from './state/processStore.ts';
 
-export type RetainCallback = (app: Store) => undefined;
-export type ReleaseCallback = () => undefined;
-
-const THROTTLE = 100;
+export type ReleaseCallback = () => void;
 
 export default function createApp() {
   let refCount = 0;
-  let store = null;
-  let inkApp: Instance | null = null;
-
-  let previousData: StoreData[] = null;
-  const rerender = throttle(
-    () => {
-      if (!inkApp || !store) return;
-      if (store.data() === previousData) return;
-      previousData = store.data();
-      inkApp.rerender(<App store={store} />);
-    },
-    THROTTLE,
-    { leading: false }
-  );
+  let inkApp: ReturnType<typeof render> | null = null;
 
   return {
-    retain(fn: RetainCallback): undefined {
-      if (++refCount > 1) return fn(store);
-      if (store) throw new Error('Not expecting store');
+    retain(): ProcessStore {
+      if (++refCount > 1) return processStore;
 
-      store = new Store(rerender);
-      inkApp = render(<App store={store} />);
-      fn(store);
+      // Render once - React handles all subsequent updates via useSyncExternalStore
+      inkApp = render(<App />);
+      return processStore;
     },
-    release(cb: ReleaseCallback): undefined {
-      if (--refCount > 0) return cb();
-      if (!store) throw new Error('Expecting store');
 
-      rerender.flush();
-      rerender.cancel();
+    release(callback: ReleaseCallback): void {
+      if (--refCount > 0) {
+        callback();
+        return;
+      }
+      if (!inkApp) throw new Error('Expecting inkApp');
+
+      // Signal exit to React component, provide callback for after cleanup
+      processStore.signalExit(() => {
+        processStore.reset();
+        process.stdout.write('\x1b[?25h'); // show cursor
+        callback();
+      });
+
+      // Wait for Ink to finish, then call the callback
       inkApp
         .waitUntilExit()
-        .then(() => cb())
-        .catch(cb);
-      inkApp.unmount();
+        .then(() => {
+          const cb = processStore.getExitCallback();
+          cb?.();
+        })
+        .catch(() => {
+          const cb = processStore.getExitCallback();
+          cb?.();
+        });
+
       inkApp = null;
-      store = null;
-      process.stdout.write('\x1b[?25h'); // show cursor
     },
   };
 }

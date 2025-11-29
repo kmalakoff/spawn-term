@@ -23,7 +23,7 @@ describe('index', () => {
     });
   })();
 
-  it.only('inherit', (done) => {
+  it('inherit', (done) => {
     spawnTerminal('ls', ['-la'], { stdio: 'inherit' }, (err, res) => {
       if (err) {
         done(err.message);

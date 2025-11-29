@@ -1,16 +1,27 @@
-import { Box } from 'ink';
-import type Store from '../state/Store.ts';
+import { Box, useApp } from 'ink';
+import { useEffect, useSyncExternalStore } from 'react';
+import { processStore } from '../state/processStore.ts';
 import type { ChildProcess as ChildProcessT } from '../types.ts';
 import ChildProcess from './ChildProcess.ts';
 
-export interface AppProps {
-  store: Store;
-}
+export default function App(): React.JSX.Element {
+  const { exit } = useApp();
 
-export default function App({ store }: AppProps): React.JSX.Element {
+  // Subscribe to process state
+  const processes = useSyncExternalStore(processStore.subscribe, processStore.getSnapshot);
+
+  // Handle exit signal
+  const shouldExit = useSyncExternalStore(processStore.subscribe, processStore.getShouldExit);
+
+  useEffect(() => {
+    if (shouldExit) {
+      exit();
+    }
+  }, [shouldExit, exit]);
+
   return (
     <Box flexDirection="column">
-      {store.processes.map((item: ChildProcessT) => (
+      {processes.map((item: ChildProcessT) => (
         <ChildProcess key={item.id} item={item} />
       ))}
     </Box>
