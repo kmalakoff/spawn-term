@@ -25,9 +25,11 @@ class SessionImpl implements Session {
   private runningCount = 0;
   private closed = false;
   private waitCallbacks: (() => void)[] = [];
+  private isInteractive: boolean;
 
   constructor(options: SessionOptions = {}) {
     this.store = new ProcessStore(options);
+    this.isInteractive = options.interactive ?? false;
 
     // Render Ink app immediately
     this.inkApp = render(<App store={this.store} />, {
@@ -132,7 +134,17 @@ class SessionImpl implements Session {
     if (callback) this.waitCallbacks.push(callback);
 
     if (this.runningCount === 0) {
-      this.closeAndCallWaitCallbacks();
+      if (this.isInteractive) {
+        // In interactive mode, wait for user to quit (press 'q')
+        const unsubscribe = this.store.subscribe(() => {
+          if (this.store.getShouldExit()) {
+            unsubscribe();
+            this.closeAndCallWaitCallbacks();
+          }
+        });
+      } else {
+        this.closeAndCallWaitCallbacks();
+      }
     }
     // If runningCount > 0, will close when it hits 0 in onProcessComplete
   }
@@ -140,7 +152,17 @@ class SessionImpl implements Session {
   private onProcessComplete(): void {
     this.runningCount--;
     if (this.runningCount === 0 && this.waitCallbacks.length > 0) {
-      this.closeAndCallWaitCallbacks();
+      if (this.isInteractive) {
+        // In interactive mode, wait for user to quit (press 'q')
+        const unsubscribe = this.store.subscribe(() => {
+          if (this.store.getShouldExit()) {
+            unsubscribe();
+            this.closeAndCallWaitCallbacks();
+          }
+        });
+      } else {
+        this.closeAndCallWaitCallbacks();
+      }
     }
   }
 

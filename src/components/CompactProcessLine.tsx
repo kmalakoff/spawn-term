@@ -1,5 +1,7 @@
 import { Box, Text, useStdout } from 'ink';
 import { memo, useMemo } from 'react';
+import { SPINNER } from '../constants.ts';
+import { clipText } from '../lib/clipText.ts';
 import figures from '../lib/figures.ts';
 import { calculateColumnWidth } from '../lib/format.ts';
 import { useStore } from '../state/StoreContext.ts';
@@ -7,21 +9,10 @@ import type { ChildProcess, Line } from '../types.ts';
 import { LineType } from '../types.ts';
 import Spinner from './Spinner.ts';
 
-// From: https://github.com/sindresorhus/cli-spinners/blob/00de8fbeee16fa49502fa4f687449f70f2c8ca2c/spinners.json#L2
-const SPINNER = {
-  interval: 80,
-  frames: ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'],
-};
-
 type Props = {
   item: ChildProcess;
   isSelected?: boolean;
 };
-
-function truncate(str: string, maxLength: number): string {
-  if (str.length <= maxLength) return str;
-  return `${str.slice(0, maxLength - 1)}…`;
-}
 
 function getLastOutputLine(lines: Line[]): string {
   for (let i = lines.length - 1; i >= 0; i--) {
@@ -48,24 +39,26 @@ export default memo(function CompactProcessLine({ item, isSelected = false }: Pr
   const displayName = group || title;
 
   // Calculate widths - use dynamic column width based on longest name
+  const selectionWidth = 1; // selection indicator
   const iconWidth = 2; // icon + space
   const maxGroupLength = store.getMaxGroupLength();
   const nameColumnWidth = calculateColumnWidth('max', terminalWidth, maxGroupLength);
   const gap = 1; // space between name and status
-  const statusWidth = terminalWidth - iconWidth - nameColumnWidth - gap;
+  const statusWidth = Math.max(0, terminalWidth - selectionWidth - iconWidth - nameColumnWidth - gap);
 
-  // Truncate name if needed and pad to column width
-  const truncatedName = truncate(displayName, nameColumnWidth).padEnd(nameColumnWidth);
+  // Clip name to column width and pad
+  const clippedName = clipText(displayName, nameColumnWidth).padEnd(nameColumnWidth);
 
-  // Status text based on state
+  // Status text based on state - clip to available width
   const statusText = useMemo(() => {
     if (state === 'running') {
       const lastLine = getLastOutputLine(lines);
-      return lastLine ? truncate(lastLine, statusWidth) : '';
+      return lastLine ? clipText(lastLine, statusWidth) : '';
     }
     if (state === 'error') {
       const errorCount = getErrorCount(lines);
-      return errorCount > 0 ? `${errorCount} error${errorCount > 1 ? 's' : ''}` : 'failed';
+      const text = errorCount > 0 ? `${errorCount} error${errorCount > 1 ? 's' : ''}` : 'failed';
+      return clipText(text, statusWidth);
     }
     return ''; // success - no status text
   }, [state, lines, statusWidth]);
@@ -86,11 +79,17 @@ export default memo(function CompactProcessLine({ item, isSelected = false }: Pr
   const statusColor = state === 'error' ? 'red' : 'gray';
 
   return (
-    <Box>
+    <Box width={terminalWidth}>
       <Text color={isSelected ? 'cyan' : undefined}>{selectionIndicator}</Text>
       <Box width={iconWidth}>{icon}</Box>
-      <Text inverse={isSelected}>{truncatedName}</Text>
-      {statusText && <Text color={statusColor}> {statusText}</Text>}
+      <Box width={nameColumnWidth}>
+        <Text inverse={isSelected}>{clippedName}</Text>
+      </Box>
+      {statusWidth > 0 && statusText && (
+        <Box width={statusWidth + gap}>
+          <Text color={statusColor}> {statusText}</Text>
+        </Box>
+      )}
     </Box>
   );
 });
