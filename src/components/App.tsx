@@ -5,8 +5,7 @@ import type { ProcessStore } from '../state/processStore.ts';
 import { StoreContext } from '../state/StoreContext.ts';
 import CompactProcessLine from './CompactProcessLine.ts';
 import Divider from './Divider.ts';
-import ErrorDetailModal from './ErrorDetailModal.ts';
-import ErrorListModal from './ErrorListModal.ts';
+import ErrorFooter from './ErrorFooter.ts';
 import ExpandedOutput from './ExpandedOutput.ts';
 import StatusBar from './StatusBar.ts';
 
@@ -25,10 +24,10 @@ function AppContent({ store }: AppProps): React.JSX.Element {
   const shouldExit = useSyncExternalStore(store.subscribe, store.getShouldExit);
   const mode = useSyncExternalStore(store.subscribe, store.getMode);
   const selectedIndex = useSyncExternalStore(store.subscribe, store.getSelectedIndex);
-  const selectedErrorIndex = useSyncExternalStore(store.subscribe, store.getSelectedErrorIndex);
   const expandedId = useSyncExternalStore(store.subscribe, store.getExpandedId);
   const scrollOffset = useSyncExternalStore(store.subscribe, store.getScrollOffset);
   const listScrollOffset = useSyncExternalStore(store.subscribe, store.getListScrollOffset);
+  const errorFooterExpanded = useSyncExternalStore(store.subscribe, store.getErrorFooterExpanded);
 
   // Subscribed state that triggers re-renders
   const header = useSyncExternalStore(store.subscribe, store.getHeader);
@@ -40,12 +39,12 @@ function AppContent({ store }: AppProps): React.JSX.Element {
   const visibleProcessCount = Math.max(1, terminalHeight - reservedLines);
 
   // Derived state (computed from processes which is already subscribed)
-  const failedProcesses = store.getFailedProcesses();
   const runningCount = store.getRunningCount();
   const doneCount = store.getDoneCount();
   const errorCount = store.getErrorCount();
   const errorLineCount = store.getErrorLineCount();
   const isAllComplete = store.isAllComplete();
+  const errorLines = store.getErrorLines();
 
   // Handle exit signal
   useEffect(() => {
@@ -65,8 +64,9 @@ function AppContent({ store }: AppProps): React.JSX.Element {
   useInput(
     (input, key) => {
       if (mode === 'normal') {
+        // In non-interactive mode, 'e' toggles error footer
         if (input === 'e' && errorCount > 0) {
-          store.setMode('errorList');
+          store.toggleErrorFooter();
         }
       } else if (mode === 'interactive') {
         if (input === 'q' || key.escape) {
@@ -101,54 +101,19 @@ function AppContent({ store }: AppProps): React.JSX.Element {
           } else {
             store.selectPrev(visibleProcessCount);
           }
-        } else if (input === 'e' && errorCount > 0) {
-          store.setMode('errorList');
-        }
-      } else if (mode === 'errorList') {
-        if (key.escape) {
-          store.setMode(isInteractive ? 'interactive' : 'normal');
-        } else if (key.downArrow) {
-          store.selectNextError();
-        } else if (key.upArrow) {
-          store.selectPrevError();
-        } else if (key.return) {
-          store.setMode('errorDetail');
-        }
-      } else if (mode === 'errorDetail') {
-        if (key.escape) {
-          store.setMode('errorList');
-        } else if (key.downArrow) {
-          store.selectNextError();
-        } else if (key.upArrow) {
-          store.selectPrevError();
         }
       }
     },
     { isActive: isRawModeSupported === true }
   );
 
-  // Slice processes to visible viewport in interactive mode (must be before early returns)
+  // Slice processes to visible viewport in interactive mode
   const visibleProcesses = useMemo(() => {
     if (mode === 'interactive') {
       return processes.slice(listScrollOffset, listScrollOffset + visibleProcessCount);
     }
     return processes;
   }, [processes, mode, listScrollOffset, visibleProcessCount]);
-
-  // Error list modal
-  if (mode === 'errorList') {
-    return <ErrorListModal errors={failedProcesses} selectedIndex={selectedErrorIndex} totalErrorLines={errorLineCount} />;
-  }
-
-  // Error detail modal
-  if (mode === 'errorDetail') {
-    const selectedError = store.getSelectedError();
-    if (selectedError) {
-      return <ErrorDetailModal error={selectedError} currentIndex={selectedErrorIndex} totalErrors={failedProcesses.length} />;
-    }
-    // Fallback if no error selected
-    store.setMode('errorList');
-  }
 
   // Normal/Interactive view - render in original registration order
   const showSelection = mode === 'interactive';
@@ -183,6 +148,9 @@ function AppContent({ store }: AppProps): React.JSX.Element {
           <StatusBar running={runningCount} done={doneCount} errors={errorCount} errorLines={errorLineCount} />
         </>
       )}
+
+      {/* Error footer (non-interactive mode only) */}
+      {!isInteractive && errorCount > 0 && <ErrorFooter errors={errorLines} isExpanded={errorFooterExpanded} />}
     </Box>
   );
 }
