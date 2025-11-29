@@ -14,9 +14,8 @@ export default function createApp() {
       if (++refCount > 1) return processStore;
 
       // Render once - React handles all subsequent updates via useSyncExternalStore
-      // Enable incremental rendering to only rewrite changed lines (reduces flicker)
       inkApp = render(<App />, {
-        incrementalRendering: true,
+        incrementalRendering: false,
         maxFps: DEFAULT_MAX_FPS,
       });
       return processStore;
