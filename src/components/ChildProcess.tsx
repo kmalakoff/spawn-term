@@ -1,5 +1,6 @@
 import { Box, Text } from 'ink';
 import { memo, useMemo } from 'react';
+import { SPINNER } from '../constants.ts';
 import ansiRegex from '../lib/ansiRegex.ts';
 import figures from '../lib/figures.ts';
 import type { ChildProcess as ChildProcessT, Line, State } from '../types.ts';
@@ -8,12 +9,6 @@ import Spinner from './Spinner.ts';
 
 const REGEX_ANSI = ansiRegex();
 const BLANK_LINE = { type: LineType.stdout, text: '' };
-
-// From: https://github.com/sindresorhus/cli-spinners/blob/00de8fbeee16fa49502fa4f687449f70f2c8ca2c/spinners.json#L2
-const SPINNER = {
-  interval: 80,
-  frames: ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'],
-};
 
 const ICONS = {
   error: <Text color="red">{figures.cross}</Text>,
