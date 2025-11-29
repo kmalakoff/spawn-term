@@ -129,25 +129,31 @@ class SessionImpl implements Session {
       return;
     }
 
+    if (callback) this.waitCallbacks.push(callback);
+
     if (this.runningCount === 0) {
-      this.close();
-      callback?.();
-    } else {
-      if (callback) this.waitCallbacks.push(callback);
-      // Will close when runningCount hits 0
+      this.closeAndCallWaitCallbacks();
     }
+    // If runningCount > 0, will close when it hits 0 in onProcessComplete
   }
 
   private onProcessComplete(): void {
     this.runningCount--;
     if (this.runningCount === 0 && this.waitCallbacks.length > 0) {
-      this.close();
-      for (const cb of this.waitCallbacks) cb();
-      this.waitCallbacks = [];
+      this.closeAndCallWaitCallbacks();
     }
   }
 
-  private cleanup(): void {
+  private closeAndCallWaitCallbacks(): void {
+    if (this.closed) return;
+    this.closed = true;
+    this.cleanup(() => {
+      for (const cb of this.waitCallbacks) cb();
+      this.waitCallbacks = [];
+    });
+  }
+
+  private cleanup(onComplete?: () => void): void {
     // Signal exit to React component
     this.store.signalExit(() => {
       this.store.reset();
@@ -161,12 +167,16 @@ class SessionImpl implements Session {
         .then(() => {
           const cb = this.store.getExitCallback();
           cb?.();
+          onComplete?.();
         })
         .catch(() => {
           const cb = this.store.getExitCallback();
           cb?.();
+          onComplete?.();
         });
       this.inkApp = null;
+    } else {
+      onComplete?.();
     }
   }
 }
