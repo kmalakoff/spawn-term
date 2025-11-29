@@ -69,6 +69,22 @@ describe('index', () => {
     await Promise.all([spawnTerminal(NODE, ['--version'], { stdio: 'inherit' }, { group: 'Group 1' }), spawnTerminal('ls', ['-la'], { stdio: 'inherit' }, { group: 'Group 2' })]);
   });
 
+  it('inherit with header and status bar', (done) => {
+    spawnTerminal('ls', ['-la'], { stdio: 'inherit' }, { header: 'Test Header', showStatusBar: true }, (err, res) => {
+      if (err) {
+        done(err.message);
+        return;
+      }
+      assert.equal(res.stdout, null);
+      assert.equal(res.stderr, null);
+      done();
+    });
+  });
+
+  it('inherit multiple with header', async () => {
+    await Promise.all([spawnTerminal(NODE, ['--version'], { stdio: 'inherit' }, { group: 'Group 1', header: 'Multi Header', showStatusBar: true }), spawnTerminal('ls', ['-la'], { stdio: 'inherit' }, { group: 'Group 2' })]);
+  });
+
   it('encoding utf8', (done) => {
     spawnTerminal(NODE, ['--version'], { encoding: 'utf8' }, {}, (err, res) => {
       if (err) {
