@@ -5,6 +5,9 @@ import type { SpawnError, SpawnResult } from 'cross-spawn-cb';
 export type TerminalOptions = {
   group?: string;
   expanded?: boolean;
+  header?: string;
+  showStatusBar?: boolean;
+  interactive?: boolean;
 };
 
 export type TerminalCallback = (error?: SpawnError, result?: SpawnResult) => undefined;
@@ -27,4 +30,7 @@ export type ChildProcess = {
   state: State;
   lines: Line[];
   expanded?: boolean;
+  header?: string;
+  showStatusBar?: boolean;
+  interactive?: boolean;
 };

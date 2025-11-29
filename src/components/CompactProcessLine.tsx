@@ -1,6 +1,8 @@
 import { Box, Text, useStdout } from 'ink';
 import { memo, useMemo } from 'react';
 import figures from '../lib/figures.ts';
+import { calculateColumnWidth } from '../lib/format.ts';
+import { processStore } from '../state/processStore.ts';
 import type { ChildProcess, Line } from '../types.ts';
 import { LineType } from '../types.ts';
 import Spinner from './Spinner.ts';
@@ -13,6 +15,7 @@ const SPINNER = {
 
 type Props = {
   item: ChildProcess;
+  isSelected?: boolean;
 };
 
 function truncate(str: string, maxLength: number): string {
@@ -33,18 +36,20 @@ function getErrorCount(lines: Line[]): number {
   return lines.filter((line) => line.type === LineType.stderr).length;
 }
 
-export default memo(function CompactProcessLine({ item }: Props) {
+export default memo(function CompactProcessLine({ item, isSelected = false }: Props) {
   const { stdout } = useStdout();
   const terminalWidth = stdout?.columns || 80;
 
   const { group, title, state, lines } = item;
+  const selectionIndicator = isSelected ? figures.pointer : ' ';
 
   // Display name: prefer group, fall back to title
   const displayName = group || title;
 
-  // Calculate widths - use fixed-width columns for alignment
+  // Calculate widths - use dynamic column width based on longest name
   const iconWidth = 2; // icon + space
-  const nameColumnWidth = 15; // fixed width for name column
+  const maxGroupLength = processStore.getMaxGroupLength();
+  const nameColumnWidth = calculateColumnWidth('max', terminalWidth, maxGroupLength);
   const gap = 1; // space between name and status
   const statusWidth = terminalWidth - iconWidth - nameColumnWidth - gap;
 
@@ -81,8 +86,9 @@ export default memo(function CompactProcessLine({ item }: Props) {
 
   return (
     <Box>
+      <Text color={isSelected ? 'cyan' : undefined}>{selectionIndicator}</Text>
       <Box width={iconWidth}>{icon}</Box>
-      <Text>{truncatedName}</Text>
+      <Text inverse={isSelected}>{truncatedName}</Text>
       {statusText && <Text color={statusColor}> {statusText}</Text>}
     </Box>
   );
