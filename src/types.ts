@@ -2,12 +2,17 @@ export type { SpawnCallback, SpawnError, SpawnOptions, SpawnResult } from 'cross
 
 import type { SpawnError, SpawnResult } from 'cross-spawn-cb';
 
-export type TerminalOptions = {
-  group?: string;
-  expanded?: boolean;
+// Session-level options (set at session creation, immutable)
+export type SessionOptions = {
   header?: string;
   showStatusBar?: boolean;
   interactive?: boolean;
+};
+
+// Per-process options (set when spawning each process)
+export type ProcessOptions = {
+  group?: string;
+  expanded?: boolean;
 };
 
 export type TerminalCallback = (error?: SpawnError, result?: SpawnResult) => undefined;
@@ -23,6 +28,8 @@ export type Line = {
 };
 
 export type State = 'running' | 'error' | 'success';
+
+// Internal representation of a child process
 export type ChildProcess = {
   id: string;
   group?: string;
@@ -30,7 +37,4 @@ export type ChildProcess = {
   state: State;
   lines: Line[];
   expanded?: boolean;
-  header?: string;
-  showStatusBar?: boolean;
-  interactive?: boolean;
 };
