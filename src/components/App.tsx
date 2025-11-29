@@ -22,15 +22,17 @@ export default function App(): React.JSX.Element {
   const expandedId = useSyncExternalStore(processStore.subscribe, processStore.getExpandedId);
   const scrollOffset = useSyncExternalStore(processStore.subscribe, processStore.getScrollOffset);
 
-  // Derived state
+  // Subscribed state that triggers re-renders
+  const header = useSyncExternalStore(processStore.subscribe, processStore.getHeader);
+  const showStatusBar = useSyncExternalStore(processStore.subscribe, processStore.getShowStatusBar);
+  const isInteractive = useSyncExternalStore(processStore.subscribe, processStore.getIsInteractive);
+
+  // Derived state (computed from processes which is already subscribed)
   const failedProcesses = processStore.getFailedProcesses();
   const runningCount = processStore.getRunningCount();
   const doneCount = processStore.getDoneCount();
   const errorCount = processStore.getErrorCount();
   const errorLineCount = processStore.getErrorLineCount();
-  const header = processStore.getHeader();
-  const showStatusBar = processStore.getShowStatusBar();
-  const isInteractive = processStore.getIsInteractive();
   const isAllComplete = processStore.isAllComplete();
 
   // Handle exit signal
@@ -132,13 +134,9 @@ export default function App(): React.JSX.Element {
   const showSelection = mode === 'interactive';
   return (
     <Box flexDirection="column">
-      {/* Header */}
-      {header && (
-        <>
-          <Text>{header}</Text>
-          <Divider />
-        </>
-      )}
+      {/* Header - always render a line */}
+      <Text>{header || '(loading...)'}</Text>
+      <Divider />
 
       {/* All processes in registration order */}
       {processes.map((item, index) => (
