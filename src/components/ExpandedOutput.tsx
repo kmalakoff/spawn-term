@@ -2,7 +2,6 @@ import { Box, Text } from 'ink';
 import { memo } from 'react';
 import { EXPANDED_MAX_VISIBLE_LINES } from '../constants.ts';
 import type { Line } from '../types.ts';
-import { LineType } from '../types.ts';
 
 type Props = {
   lines: Line[];
@@ -27,9 +26,7 @@ export default memo(function ExpandedOutput({ lines, scrollOffset, maxVisible = 
     <Box flexDirection="column" paddingLeft={2}>
       {visibleLines.map((line, i) => (
         // biome-ignore lint/suspicious/noArrayIndexKey: Lines have no unique ID, index is stable for this scrolling view
-        <Text key={scrollOffset + i} color={line.type === LineType.stderr ? 'red' : undefined}>
-          │ {line.text}
-        </Text>
+        <Text key={scrollOffset + i}>│ {line.text}</Text>
       ))}
       {hasMore && <Text dimColor>│ [+{remaining} more, j/k to scroll]</Text>}
     </Box>
