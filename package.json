@@ -43,7 +43,6 @@
   "dependencies": {
     "cross-spawn-cb": "*",
     "ink": "*",
-    "lodash.throttle": "*",
     "on-one": "*",
     "queue-cb": "*",
     "react": "*"
