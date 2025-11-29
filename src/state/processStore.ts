@@ -18,6 +18,7 @@ export class ProcessStore {
   private selectedErrorIndex = 0;
   private expandedId: string | null = null;
   private scrollOffset = 0;
+  private listScrollOffset = 0; // Viewport offset for process list
 
   // Session-level display settings (set once at session creation)
   private header: string | undefined;
@@ -70,6 +71,7 @@ export class ProcessStore {
   getSelectedErrorIndex = (): number => this.selectedErrorIndex;
   getExpandedId = (): string | null => this.expandedId;
   getScrollOffset = (): number => this.scrollOffset;
+  getListScrollOffset = (): number => this.listScrollOffset;
   // Session-level getters (set at session creation, immutable)
   getHeader = (): string | undefined => this.header;
   getShowStatusBar = (): boolean => this.showStatusBar;
@@ -120,17 +122,32 @@ export class ProcessStore {
   }
 
   // Interactive mode navigation
-  selectNext(): void {
+  selectNext(visibleCount?: number): void {
     if (this.processes.length > 0) {
       this.selectedIndex = (this.selectedIndex + 1) % this.processes.length;
+      this.adjustListScroll(visibleCount);
       this.notify();
     }
   }
 
-  selectPrev(): void {
+  selectPrev(visibleCount?: number): void {
     if (this.processes.length > 0) {
       this.selectedIndex = (this.selectedIndex - 1 + this.processes.length) % this.processes.length;
+      this.adjustListScroll(visibleCount);
       this.notify();
+    }
+  }
+
+  private adjustListScroll(visibleCount?: number): void {
+    if (!visibleCount || visibleCount <= 0) return;
+
+    // Ensure selected item is visible in viewport
+    if (this.selectedIndex < this.listScrollOffset) {
+      // Selected is above viewport - scroll up
+      this.listScrollOffset = this.selectedIndex;
+    } else if (this.selectedIndex >= this.listScrollOffset + visibleCount) {
+      // Selected is below viewport - scroll down
+      this.listScrollOffset = this.selectedIndex - visibleCount + 1;
     }
   }
 
@@ -222,6 +239,7 @@ export class ProcessStore {
     this.selectedErrorIndex = 0;
     this.expandedId = null;
     this.scrollOffset = 0;
+    this.listScrollOffset = 0;
     this.header = undefined;
   }
 

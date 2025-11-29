@@ -1,5 +1,5 @@
-import { Box, Text, useApp, useInput, useStdin } from 'ink';
-import { useEffect, useSyncExternalStore } from 'react';
+import { Box, Text, useApp, useInput, useStdin, useStdout } from 'ink';
+import { useEffect, useMemo, useSyncExternalStore } from 'react';
 import { EXPANDED_MAX_VISIBLE_LINES } from '../constants.ts';
 import type { ProcessStore } from '../state/processStore.ts';
 import { StoreContext } from '../state/StoreContext.ts';
@@ -17,6 +17,8 @@ interface AppProps {
 function AppContent({ store }: AppProps): React.JSX.Element {
   const { exit } = useApp();
   const { isRawModeSupported } = useStdin();
+  const { stdout } = useStdout();
+  const terminalHeight = stdout?.rows || 24;
 
   // Subscribe to store state
   const processes = useSyncExternalStore(store.subscribe, store.getSnapshot);
@@ -26,11 +28,16 @@ function AppContent({ store }: AppProps): React.JSX.Element {
   const selectedErrorIndex = useSyncExternalStore(store.subscribe, store.getSelectedErrorIndex);
   const expandedId = useSyncExternalStore(store.subscribe, store.getExpandedId);
   const scrollOffset = useSyncExternalStore(store.subscribe, store.getScrollOffset);
+  const listScrollOffset = useSyncExternalStore(store.subscribe, store.getListScrollOffset);
 
   // Subscribed state that triggers re-renders
   const header = useSyncExternalStore(store.subscribe, store.getHeader);
   const showStatusBar = useSyncExternalStore(store.subscribe, store.getShowStatusBar);
   const isInteractive = useSyncExternalStore(store.subscribe, store.getIsInteractive);
+
+  // Calculate visible process count (reserve lines for header, divider, status bar)
+  const reservedLines = (header ? 2 : 0) + (showStatusBar ? 2 : 0);
+  const visibleProcessCount = Math.max(1, terminalHeight - reservedLines);
 
   // Derived state (computed from processes which is already subscribed)
   const failedProcesses = store.getFailedProcesses();
@@ -74,25 +81,25 @@ function AppContent({ store }: AppProps): React.JSX.Element {
           if (expandedId) {
             store.scrollDown(EXPANDED_MAX_VISIBLE_LINES);
           } else {
-            store.selectNext();
+            store.selectNext(visibleProcessCount);
           }
         } else if (key.upArrow) {
           if (expandedId) {
             store.scrollUp();
           } else {
-            store.selectPrev();
+            store.selectPrev(visibleProcessCount);
           }
         } else if (input === 'j') {
           if (expandedId) {
             store.scrollDown(EXPANDED_MAX_VISIBLE_LINES);
           } else {
-            store.selectNext();
+            store.selectNext(visibleProcessCount);
           }
         } else if (input === 'k') {
           if (expandedId) {
             store.scrollUp();
           } else {
-            store.selectPrev();
+            store.selectPrev(visibleProcessCount);
           }
         } else if (input === 'e' && errorCount > 0) {
           store.setMode('errorList');
@@ -120,6 +127,14 @@ function AppContent({ store }: AppProps): React.JSX.Element {
     { isActive: isRawModeSupported === true }
   );
 
+  // Slice processes to visible viewport in interactive mode (must be before early returns)
+  const visibleProcesses = useMemo(() => {
+    if (mode === 'interactive') {
+      return processes.slice(listScrollOffset, listScrollOffset + visibleProcessCount);
+    }
+    return processes;
+  }, [processes, mode, listScrollOffset, visibleProcessCount]);
+
   // Error list modal
   if (mode === 'errorList') {
     return <ErrorListModal errors={failedProcesses} selectedIndex={selectedErrorIndex} totalErrorLines={errorLineCount} />;
@@ -137,6 +152,7 @@ function AppContent({ store }: AppProps): React.JSX.Element {
 
   // Normal/Interactive view - render in original registration order
   const showSelection = mode === 'interactive';
+
   return (
     <Box flexDirection="column">
       {/* Header */}
@@ -147,13 +163,16 @@ function AppContent({ store }: AppProps): React.JSX.Element {
         </>
       )}
 
-      {/* All processes in registration order */}
-      {processes.map((item, index) => (
-        <Box key={item.id} flexDirection="column">
-          <CompactProcessLine item={item} isSelected={showSelection && index === selectedIndex} />
-          {expandedId === item.id && <ExpandedOutput lines={item.lines} scrollOffset={scrollOffset} />}
-        </Box>
-      ))}
+      {/* Visible processes */}
+      {visibleProcesses.map((item) => {
+        const originalIndex = processes.indexOf(item);
+        return (
+          <Box key={item.id} flexDirection="column">
+            <CompactProcessLine item={item} isSelected={showSelection && originalIndex === selectedIndex} />
+            {expandedId === item.id && <ExpandedOutput lines={item.lines} scrollOffset={scrollOffset} />}
+          </Box>
+        );
+      })}
 
       {/* Status bar */}
       {showStatusBar && processes.length > 0 && (
