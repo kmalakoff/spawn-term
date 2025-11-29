@@ -24,11 +24,16 @@ export default function createApp() {
       }
       if (!inkApp) throw new Error('Expecting inkApp');
 
-      // Signal exit to React component, provide callback for after cleanup
-      processStore.signalExit(() => {
-        processStore.reset();
-        process.stdout.write('\x1b[?25h'); // show cursor
-        callback();
+      // Defer signalExit to allow React's reconciliation to complete fully
+      // Using setImmediate ensures we run after I/O callbacks and microtasks,
+      // preventing the Static component from outputting the last item twice
+      // (the second notify() from signalExit can race with Static's useLayoutEffect)
+      setImmediate(() => {
+        processStore.signalExit(() => {
+          processStore.reset();
+          process.stdout.write('\x1b[?25h'); // show cursor
+          callback();
+        });
       });
 
       // Wait for Ink to finish, then call the callback
