@@ -4,5 +4,6 @@ export * from './types.ts';
 
 const major = +process.versions.node.split('.')[0];
 
-import { default as spawnTerminal } from './spawnTerminal.ts';
-export default major > 18 ? spawnTerminal : (undefined as typeof spawnTerminal);
+import { createSession as createSessionImpl, type Session } from './session.ts';
+export type { Session };
+export const createSession = major > 18 ? createSessionImpl : (undefined as typeof createSessionImpl);
