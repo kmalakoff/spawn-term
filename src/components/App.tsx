@@ -1,10 +1,12 @@
-import { Box, Static, useApp, useInput, useStdin } from 'ink';
+import { Box, Text, useApp, useInput, useStdin } from 'ink';
 import { useEffect, useSyncExternalStore } from 'react';
+import { EXPANDED_MAX_VISIBLE_LINES } from '../constants.ts';
 import { processStore } from '../state/processStore.ts';
 import CompactProcessLine from './CompactProcessLine.ts';
 import Divider from './Divider.ts';
 import ErrorDetailModal from './ErrorDetailModal.ts';
 import ErrorListModal from './ErrorListModal.ts';
+import ExpandedOutput from './ExpandedOutput.ts';
 import StatusBar from './StatusBar.ts';
 
 export default function App(): React.JSX.Element {
@@ -15,16 +17,21 @@ export default function App(): React.JSX.Element {
   const processes = useSyncExternalStore(processStore.subscribe, processStore.getSnapshot);
   const shouldExit = useSyncExternalStore(processStore.subscribe, processStore.getShouldExit);
   const mode = useSyncExternalStore(processStore.subscribe, processStore.getMode);
+  const selectedIndex = useSyncExternalStore(processStore.subscribe, processStore.getSelectedIndex);
   const selectedErrorIndex = useSyncExternalStore(processStore.subscribe, processStore.getSelectedErrorIndex);
+  const expandedId = useSyncExternalStore(processStore.subscribe, processStore.getExpandedId);
+  const scrollOffset = useSyncExternalStore(processStore.subscribe, processStore.getScrollOffset);
 
   // Derived state
-  const completedProcesses = processStore.getCompletedProcesses();
-  const runningProcesses = processStore.getRunningProcesses();
   const failedProcesses = processStore.getFailedProcesses();
   const runningCount = processStore.getRunningCount();
   const doneCount = processStore.getDoneCount();
   const errorCount = processStore.getErrorCount();
   const errorLineCount = processStore.getErrorLineCount();
+  const header = processStore.getHeader();
+  const showStatusBar = processStore.getShowStatusBar();
+  const isInteractive = processStore.getIsInteractive();
+  const isAllComplete = processStore.isAllComplete();
 
   // Handle exit signal
   useEffect(() => {
@@ -33,6 +40,13 @@ export default function App(): React.JSX.Element {
     }
   }, [shouldExit, exit]);
 
+  // Auto-enter interactive mode when all complete and interactive flag is set
+  useEffect(() => {
+    if (isAllComplete && isInteractive && mode === 'normal') {
+      processStore.setMode('interactive');
+    }
+  }, [isAllComplete, isInteractive, mode]);
+
   // Keyboard handling (only active when raw mode is supported)
   useInput(
     (input, key) => {
@@ -40,9 +54,45 @@ export default function App(): React.JSX.Element {
         if (input === 'e' && errorCount > 0) {
           processStore.setMode('errorList');
         }
+      } else if (mode === 'interactive') {
+        if (input === 'q' || key.escape) {
+          if (expandedId) {
+            processStore.collapse();
+          } else {
+            processStore.signalExit(() => {});
+          }
+        } else if (key.return) {
+          processStore.toggleExpand();
+        } else if (key.downArrow) {
+          if (expandedId) {
+            processStore.scrollDown(EXPANDED_MAX_VISIBLE_LINES);
+          } else {
+            processStore.selectNext();
+          }
+        } else if (key.upArrow) {
+          if (expandedId) {
+            processStore.scrollUp();
+          } else {
+            processStore.selectPrev();
+          }
+        } else if (input === 'j') {
+          if (expandedId) {
+            processStore.scrollDown(EXPANDED_MAX_VISIBLE_LINES);
+          } else {
+            processStore.selectNext();
+          }
+        } else if (input === 'k') {
+          if (expandedId) {
+            processStore.scrollUp();
+          } else {
+            processStore.selectPrev();
+          }
+        } else if (input === 'e' && errorCount > 0) {
+          processStore.setMode('errorList');
+        }
       } else if (mode === 'errorList') {
         if (key.escape) {
-          processStore.setMode('normal');
+          processStore.setMode(isInteractive ? 'interactive' : 'normal');
         } else if (key.downArrow) {
           processStore.selectNextError();
         } else if (key.upArrow) {
@@ -78,22 +128,28 @@ export default function App(): React.JSX.Element {
     processStore.setMode('errorList');
   }
 
-  // Normal view
+  // Normal/Interactive view - render in original registration order
+  const showSelection = mode === 'interactive';
   return (
     <Box flexDirection="column">
-      {/* Static area - completed processes (completion order) */}
-      <Static items={completedProcesses}>{(item) => <CompactProcessLine key={item.id} item={item} />}</Static>
+      {/* Header */}
+      {header && (
+        <>
+          <Text>{header}</Text>
+          <Divider />
+        </>
+      )}
 
-      {/* Divider between completed and running */}
-      {completedProcesses.length > 0 && runningProcesses.length > 0 && <Divider />}
-
-      {/* Dynamic area - running processes */}
-      {runningProcesses.map((item) => (
-        <CompactProcessLine key={item.id} item={item} />
+      {/* All processes in registration order */}
+      {processes.map((item, index) => (
+        <Box key={item.id} flexDirection="column">
+          <CompactProcessLine item={item} isSelected={showSelection && index === selectedIndex} />
+          {expandedId === item.id && <ExpandedOutput lines={item.lines} scrollOffset={scrollOffset} />}
+        </Box>
       ))}
 
       {/* Status bar */}
-      {processes.length > 0 && (
+      {showStatusBar && processes.length > 0 && (
         <>
           <Divider />
           <StatusBar running={runningCount} done={doneCount} errors={errorCount} errorLines={errorLineCount} />
