@@ -246,6 +246,39 @@ export class ProcessStore {
     }
   }
 
+  // Page scrolling (scroll by maxVisible lines at once)
+  scrollPageDown(maxVisible: number): void {
+    if (!this.expandedId) return;
+    const lineCount = this.getProcessLineCount(this.expandedId);
+    if (lineCount === 0) return;
+
+    const maxOffset = Math.max(0, lineCount - maxVisible);
+    this.scrollOffset = Math.min(this.scrollOffset + maxVisible, maxOffset);
+    this.notify();
+  }
+
+  scrollPageUp(maxVisible: number): void {
+    if (!this.expandedId) return;
+    this.scrollOffset = Math.max(0, this.scrollOffset - maxVisible);
+    this.notify();
+  }
+
+  // Jump to top/bottom
+  scrollToTop(): void {
+    if (!this.expandedId) return;
+    this.scrollOffset = 0;
+    this.notify();
+  }
+
+  scrollToBottom(maxVisible: number): void {
+    if (!this.expandedId) return;
+    const lineCount = this.getProcessLineCount(this.expandedId);
+    if (lineCount === 0) return;
+
+    this.scrollOffset = Math.max(0, lineCount - maxVisible);
+    this.notify();
+  }
+
   // Exit signaling
   signalExit(callback: () => void): void {
     this.shouldExit = true;

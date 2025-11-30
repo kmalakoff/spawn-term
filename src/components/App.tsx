@@ -82,25 +82,34 @@ function AppContent({ store }: AppProps): React.JSX.Element {
           }
         } else if (key.return) {
           store.toggleExpand();
-        } else if (key.downArrow) {
+          // Jump to top - Option+↑ (detected as meta), vim: g
+          // Must check meta+arrow BEFORE plain arrow
+        } else if ((key.meta && key.upArrow) || input === 'g') {
+          if (expandedId) {
+            store.scrollToTop();
+          }
+          // Jump to bottom - Option+↓ (detected as meta), vim: G
+        } else if ((key.meta && key.downArrow) || input === 'G') {
+          if (expandedId) {
+            store.scrollToBottom(EXPANDED_MAX_VISIBLE_LINES);
+          }
+          // Page scrolling - Tab/Shift+Tab
+        } else if (key.tab && key.shift) {
+          if (expandedId) {
+            store.scrollPageUp(EXPANDED_MAX_VISIBLE_LINES);
+          }
+        } else if (key.tab && !key.shift) {
+          if (expandedId) {
+            store.scrollPageDown(EXPANDED_MAX_VISIBLE_LINES);
+          }
+          // Line scrolling - arrows and vim j/k
+        } else if (key.downArrow || input === 'j') {
           if (expandedId) {
             store.scrollDown(EXPANDED_MAX_VISIBLE_LINES);
           } else {
             store.selectNext(visibleProcessCount);
           }
-        } else if (key.upArrow) {
-          if (expandedId) {
-            store.scrollUp();
-          } else {
-            store.selectPrev(visibleProcessCount);
-          }
-        } else if (input === 'j') {
-          if (expandedId) {
-            store.scrollDown(EXPANDED_MAX_VISIBLE_LINES);
-          } else {
-            store.selectNext(visibleProcessCount);
-          }
-        } else if (input === 'k') {
+        } else if (key.upArrow || input === 'k') {
           if (expandedId) {
             store.scrollUp();
           } else {
