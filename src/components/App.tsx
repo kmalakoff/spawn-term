@@ -132,13 +132,12 @@ function AppContent({ store }: AppProps): React.JSX.Element {
   // Normal/Interactive view - render in original registration order
   const showSelection = mode === 'interactive';
 
-  // Force full re-render when layout HEIGHT changes (not content)
-  // Combined with incrementalRendering: false in session.tsx, this ensures clean redraws
-  // Note: scrollOffset is NOT included - scrolling within expansion doesn't change height
+  // Force full re-render when layout structure changes
+  // Note: scrollOffset is NOT included - scrolling within expansion doesn't change structure
   const layoutKey = `${listScrollOffset}-${expandedId}-${errorCount}-${errorFooterExpanded}`;
 
   return (
-    <Box key={layoutKey} flexDirection="column" height={terminalHeight}>
+    <Box key={layoutKey} flexDirection="column">
       {/* Header */}
       {header && (
         <>

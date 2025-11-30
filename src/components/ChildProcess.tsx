@@ -1,13 +1,11 @@
 import { Box, Text } from 'ink';
 import { memo, useMemo } from 'react';
 import { SPINNER } from '../constants.ts';
-import ansiRegex from '../lib/ansiRegex.ts';
 import figures from '../lib/figures.ts';
 import type { ChildProcess as ChildProcessT, Line, State } from '../types.ts';
 import { LineType } from '../types.ts';
 import Spinner from './Spinner.ts';
 
-const REGEX_ANSI = ansiRegex();
 const BLANK_LINE = { type: LineType.stdout, text: '' };
 
 const ICONS = {
@@ -48,7 +46,7 @@ type RunningSummaryProps = {
 const RunningSummary = memo(function RunningSummary({ line }: RunningSummaryProps) {
   return (
     <Box marginLeft={2}>
-      <Text color="gray">{line.text.replace(REGEX_ANSI, '')}</Text>
+      <Text>{line.text}</Text>
     </Box>
   );
 });

@@ -37,10 +37,7 @@ class SessionImpl implements Session {
     // Only render Ink when stdout is a real terminal
     // When piped (e.g., nested spawn-term), skip Ink to avoid cursor positioning artifacts
     if (process.stdout.isTTY) {
-      // Note: incrementalRendering disabled to prevent corruption when content shifts vertically
-      // (e.g., error footer appearing, processes completing, scroll position changes)
       this.inkApp = render(<App store={this.store} />, {
-        incrementalRendering: false,
         maxFps: DEFAULT_MAX_FPS,
       });
     }
