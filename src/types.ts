@@ -29,6 +29,9 @@ export type Line = {
 
 export type State = 'running' | 'error' | 'success';
 
+// Import type for TerminalBuffer (avoid circular dependency)
+import type { TerminalBuffer } from './lib/TerminalBuffer.ts';
+
 // Internal representation of a child process
 export type ChildProcess = {
   id: string;
@@ -36,5 +39,6 @@ export type ChildProcess = {
   title: string;
   state: State;
   lines: Line[];
+  terminalBuffer?: TerminalBuffer; // Virtual terminal for ANSI interpretation
   expanded?: boolean;
 };
