@@ -28,14 +28,18 @@ function AppContent({ store }: AppProps): React.JSX.Element {
   const scrollOffset = useSyncExternalStore(store.subscribe, store.getScrollOffset);
   const listScrollOffset = useSyncExternalStore(store.subscribe, store.getListScrollOffset);
   const errorFooterExpanded = useSyncExternalStore(store.subscribe, store.getErrorFooterExpanded);
+  // Subscribe to buffer version to trigger re-renders when terminal buffer content changes
+  const _bufferVersion = useSyncExternalStore(store.subscribe, store.getBufferVersion);
 
   // Subscribed state that triggers re-renders
   const header = useSyncExternalStore(store.subscribe, store.getHeader);
   const showStatusBar = useSyncExternalStore(store.subscribe, store.getShowStatusBar);
   const isInteractive = useSyncExternalStore(store.subscribe, store.getIsInteractive);
 
-  // Calculate visible process count (reserve lines for header, divider, status bar)
-  const reservedLines = (header ? 2 : 0) + (showStatusBar ? 2 : 0);
+  // Calculate visible process count (reserve lines for header, divider, status bar, expanded output)
+  // When a process is expanded, reserve space for the expanded output to prevent terminal scrolling
+  const expandedHeight = expandedId ? EXPANDED_MAX_VISIBLE_LINES + 1 : 0; // +1 for scroll hint
+  const reservedLines = (header ? 2 : 0) + (showStatusBar ? 2 : 0) + expandedHeight;
   const visibleProcessCount = Math.max(1, terminalHeight - reservedLines);
 
   // Derived state (computed from processes which is already subscribed)
@@ -43,7 +47,7 @@ function AppContent({ store }: AppProps): React.JSX.Element {
   const doneCount = store.getDoneCount();
   const errorCount = store.getErrorCount();
   const errorLineCount = store.getErrorLineCount();
-  const isAllComplete = store.isAllComplete();
+  const _isAllComplete = store.isAllComplete();
   const errorLines = store.getErrorLines();
 
   // Handle exit signal
@@ -53,12 +57,13 @@ function AppContent({ store }: AppProps): React.JSX.Element {
     }
   }, [shouldExit, exit]);
 
-  // Auto-enter interactive mode when all complete and interactive flag is set
+  // Auto-enter interactive mode immediately when interactive flag is set
+  // This allows selecting and viewing logs of running processes
   useEffect(() => {
-    if (isAllComplete && isInteractive && mode === 'normal') {
+    if (isInteractive && mode === 'normal') {
       store.setMode('interactive');
     }
-  }, [isAllComplete, isInteractive, mode, store]);
+  }, [isInteractive, mode, store]);
 
   // Keyboard handling (only active when raw mode is supported)
   useInput(
@@ -118,8 +123,13 @@ function AppContent({ store }: AppProps): React.JSX.Element {
   // Normal/Interactive view - render in original registration order
   const showSelection = mode === 'interactive';
 
+  // Force full re-render when layout HEIGHT changes (not content)
+  // Combined with incrementalRendering: false in session.tsx, this ensures clean redraws
+  // Note: scrollOffset is NOT included - scrolling within expansion doesn't change height
+  const layoutKey = `${listScrollOffset}-${expandedId}-${errorCount}-${errorFooterExpanded}`;
+
   return (
-    <Box flexDirection="column">
+    <Box key={layoutKey} flexDirection="column" height={terminalHeight}>
       {/* Header */}
       {header && (
         <>
@@ -128,14 +138,14 @@ function AppContent({ store }: AppProps): React.JSX.Element {
         </>
       )}
 
-      {/* Visible processes - key forces clean re-render on scroll */}
-      <Box key={`processes-${listScrollOffset}`} flexDirection="column">
+      {/* Visible processes */}
+      <Box flexDirection="column">
         {visibleProcesses.map((item) => {
           const originalIndex = processes.indexOf(item);
           return (
             <Box key={item.id} flexDirection="column">
               <CompactProcessLine item={item} isSelected={showSelection && originalIndex === selectedIndex} />
-              {expandedId === item.id && <ExpandedOutput lines={item.lines} scrollOffset={scrollOffset} />}
+              {expandedId === item.id && <ExpandedOutput lines={store.getProcessLines(item.id)} scrollOffset={scrollOffset} />}
             </Box>
           );
         })}

@@ -41,6 +41,7 @@
     "version": "tsds version"
   },
   "dependencies": {
+    "@xterm/headless": "^5.5.0",
     "cross-spawn-cb": "*",
     "ink": "*",
     "on-one": "*",

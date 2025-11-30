@@ -19,6 +19,7 @@ export class ProcessStore {
   private scrollOffset = 0;
   private listScrollOffset = 0; // Viewport offset for process list
   private errorFooterExpanded = false; // For non-interactive error footer
+  private bufferVersion = 0; // Increments on every notify() to trigger re-renders
 
   // Session-level display settings (set once at session creation)
   private header: string | undefined;
@@ -62,7 +63,7 @@ export class ProcessStore {
   getDoneCount = (): number => this.processes.filter((p) => p.state !== 'running').length;
   getErrorCount = (): number => this.processes.filter((p) => p.state === 'error').length;
   getErrorLineCount = (): number => {
-    return this.processes.filter((p) => p.state === 'error').reduce((total, p) => total + p.lines.filter((l) => l.type === LineType.stderr).length, 0);
+    return this.processes.filter((p) => p.state === 'error').reduce((total, p) => total + this.getProcessLineCount(p.id), 0);
   };
 
   // UI state getters
@@ -72,6 +73,7 @@ export class ProcessStore {
   getScrollOffset = (): number => this.scrollOffset;
   getListScrollOffset = (): number => this.listScrollOffset;
   getErrorFooterExpanded = (): boolean => this.errorFooterExpanded;
+  getBufferVersion = (): number => this.bufferVersion;
   // Session-level getters (set at session creation, immutable)
   getHeader = (): string | undefined => this.header;
   getShowStatusBar = (): boolean => this.showStatusBar;
@@ -113,6 +115,29 @@ export class ProcessStore {
 
   getProcess(id: string): ChildProcess | undefined {
     return this.processes.find((p) => p.id === id);
+  }
+
+  // Get rendered lines from terminal buffer or fallback to lines array
+  getProcessLines(id: string): Line[] {
+    const process = this.getProcess(id);
+    if (!process) return [];
+    if (process.terminalBuffer) {
+      return process.terminalBuffer.getLines().map((text) => ({
+        type: LineType.stdout,
+        text,
+      }));
+    }
+    return process.lines;
+  }
+
+  // Get line count from terminal buffer or lines array
+  getProcessLineCount(id: string): number {
+    const process = this.getProcess(id);
+    if (!process) return 0;
+    if (process.terminalBuffer) {
+      return process.terminalBuffer.lineCount;
+    }
+    return process.lines.length;
   }
 
   // UI state mutations
@@ -174,7 +199,7 @@ export class ProcessStore {
   getErrorLines(): Array<{ processName: string; lines: Line[] }> {
     return this.getFailedProcesses().map((p) => ({
       processName: p.group || p.title,
-      lines: p.lines,
+      lines: this.getProcessLines(p.id),
     }));
   }
 
@@ -203,10 +228,10 @@ export class ProcessStore {
 
   scrollDown(maxVisible: number): void {
     if (!this.expandedId) return;
-    const process = this.getProcess(this.expandedId);
-    if (!process) return;
+    const lineCount = this.getProcessLineCount(this.expandedId);
+    if (lineCount === 0) return;
 
-    const maxOffset = Math.max(0, process.lines.length - maxVisible);
+    const maxOffset = Math.max(0, lineCount - maxVisible);
     if (this.scrollOffset < maxOffset) {
       this.scrollOffset++;
       this.notify();
@@ -232,6 +257,10 @@ export class ProcessStore {
   getExitCallback = (): (() => void) | null => this.exitCallback;
 
   reset(): void {
+    // Dispose terminal buffers before clearing
+    for (const process of this.processes) {
+      process.terminalBuffer?.dispose();
+    }
     this.processes = [];
     this.completedIds = [];
     this.shouldExit = false;
@@ -245,7 +274,9 @@ export class ProcessStore {
     this.header = undefined;
   }
 
-  private notify(): void {
+  // Public notify for session to trigger updates when terminal buffer changes
+  notify(): void {
+    this.bufferVersion++;
     this.listeners.forEach((l) => {
       l();
     });
