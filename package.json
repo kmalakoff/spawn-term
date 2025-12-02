@@ -21,13 +21,14 @@
   "type": "module",
   "exports": {
     ".": {
+      "types": "./dist/cjs/src/index-cjs.d.ts",
       "import": "./dist/esm/index-esm.js",
       "require": "./dist/cjs/index-cjs.js"
     },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index-cjs.js",
-  "types": "dist/cjs/index-cjs.d.ts",
+  "types": "dist/cjs/src/index-cjs.d.ts",
   "files": [
     "dist",
     "assets"
@@ -36,7 +37,7 @@
     "build": "tsds build",
     "format": "biome check --write --unsafe",
     "prepublishOnly": "tsds validate",
-    "test": "mocha --no-timeouts test/**/*.test.*",
+    "test": "tsds test:node --no-timeouts",
     "test:engines": "nvu engines tsds test:node --no-timeouts",
     "version": "tsds version"
   },
@@ -49,12 +50,15 @@
     "react": "*"
   },
   "devDependencies": {
+    "@biomejs/biome": "*",
     "@types/mocha": "*",
     "@types/node": "*",
     "@types/react": "*",
     "cr": "*",
     "is-version": "*",
-    "pinkie-promise": "*"
+    "node-version-use": "*",
+    "pinkie-promise": "*",
+    "ts-dev-stack": "*"
   },
   "engines": {
     "node": ">=0.8"
