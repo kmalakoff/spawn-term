@@ -15,7 +15,7 @@ export type ProcessOptions = {
   expanded?: boolean;
 };
 
-export type TerminalCallback = (error?: SpawnError, result?: SpawnResult) => undefined;
+export type TerminalCallback = (error?: SpawnError, result?: SpawnResult) => void;
 
 export const LineType = {
   stdout: 1,
