@@ -29,7 +29,6 @@ class SessionImpl implements Session {
 
   constructor(options: SessionOptions = {}) {
     this.store = new ProcessStore(options);
-    this.isInteractive = options.interactive ?? false;
     // Use a very wide buffer to prevent line wrapping in xterm
     // Actual display truncation is handled by Ink components
     this.terminalWidth = 10000;
@@ -41,6 +40,10 @@ class SessionImpl implements Session {
         maxFps: DEFAULT_MAX_FPS,
       });
     }
+
+    // Interactive mode requires a TTY to capture user input (e.g., press 'q' to quit)
+    // Force non-interactive when no UI is rendered, otherwise waitAndClose would hang
+    this.isInteractive = this.inkApp ? (options.interactive ?? false) : false;
   }
 
   spawn(command: string, args: string[], spawnOptions: SpawnOptions, options: ProcessOptions, callback: TerminalCallback): void {
