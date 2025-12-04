@@ -25,6 +25,7 @@ export class ProcessStore {
   private filterMode: FilterMode = 'all';
   private searchTerm = '';
   private isSearching = false;
+  private isFullscreen = false;
 
   // === SESSION CONFIG (immutable after construction) ===
   private header: string | undefined;
@@ -175,6 +176,7 @@ export class ProcessStore {
   getFilterMode = (): FilterMode => this.filterMode;
   getSearchTerm = (): string => this.searchTerm;
   getIsSearching = (): boolean => this.isSearching;
+  getIsFullscreen = (): boolean => this.isFullscreen;
 
   // Get processes filtered by current filter mode and search term
   getFilteredProcesses = (): ChildProcess[] => {
@@ -282,6 +284,19 @@ export class ProcessStore {
   clearSearch(): void {
     this.searchTerm = '';
     this.listNav.toStart();
+    this.notify();
+  }
+
+  // Fullscreen mode (alternate screen buffer)
+  enterFullscreen(): void {
+    if (this.expandedId) {
+      this.isFullscreen = true;
+      this.notify();
+    }
+  }
+
+  exitFullscreen(): void {
+    this.isFullscreen = false;
     this.notify();
   }
 
@@ -475,6 +490,7 @@ export class ProcessStore {
     this.filterMode = 'all';
     this.searchTerm = '';
     this.isSearching = false;
+    this.isFullscreen = false;
     this.header = undefined;
   }
 
