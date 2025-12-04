@@ -39,6 +39,9 @@ export type ChildProcess = {
   title: string;
   state: State;
   lines: Line[];
-  terminalBuffer?: TerminalBuffer; // Virtual terminal for ANSI interpretation
+  /** @internal Virtual terminal for ANSI interpretation */
+  terminalBuffer?: TerminalBuffer;
   expanded?: boolean;
+  /** @internal Per-process scroll navigation state */
+  scrollNav?: import('./state/Navigator.ts').Navigator;
 };

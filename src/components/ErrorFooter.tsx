@@ -33,8 +33,7 @@ export default memo(function ErrorFooter({ errors, isExpanded }: Props) {
         <Divider />
         <Text>
           <Text color="red">{'\u25b8'}</Text>
-          {` ${summary} `}
-          <Text dimColor>[e]</Text>
+          {` ${summary}`}
         </Text>
       </>
     );
@@ -46,8 +45,7 @@ export default memo(function ErrorFooter({ errors, isExpanded }: Props) {
       <Divider />
       <Text>
         <Text color="red">{'\u25be'}</Text>
-        {' Errors '}
-        <Text dimColor>[e]</Text>
+        {' Errors'}
       </Text>
       <Box flexDirection="column">
         {errors.map((errorGroup) => {
