@@ -1,3 +1,4 @@
+import { arrayFind } from '../compat.ts';
 import { DEFAULT_COLUMN_WIDTH } from '../constants.ts';
 import type { ChildProcess, Line, SessionOptions } from '../types.ts';
 import { LineType } from '../types.ts';
@@ -47,7 +48,7 @@ export class ProcessStore {
 
   getCompletedProcesses = (): ChildProcess[] => {
     // Return in completion order
-    return this.completedIds.map((id) => this.processes.find((p) => p.id === id)).filter((p): p is ChildProcess => p !== undefined);
+    return this.completedIds.map((id) => arrayFind(this.processes, (p) => p.id === id)).filter((p): p is ChildProcess => p !== undefined);
   };
 
   getFailedProcesses = (): ChildProcess[] => {
@@ -87,7 +88,7 @@ export class ProcessStore {
   }
 
   updateProcess(id: string, update: Partial<ChildProcess>): void {
-    const oldProcess = this.processes.find((p) => p.id === id);
+    const oldProcess = arrayFind(this.processes, (p) => p.id === id);
     const wasRunning = oldProcess?.state === 'running';
     const isNowComplete = update.state && update.state !== 'running';
 
@@ -107,14 +108,14 @@ export class ProcessStore {
   }
 
   appendLines(id: string, newLines: Line[]): void {
-    const process = this.processes.find((p) => p.id === id);
+    const process = arrayFind(this.processes, (p) => p.id === id);
     if (process) {
       this.updateProcess(id, { lines: process.lines.concat(newLines) });
     }
   }
 
   getProcess(id: string): ChildProcess | undefined {
-    return this.processes.find((p) => p.id === id);
+    return arrayFind(this.processes, (p) => p.id === id);
   }
 
   // Get rendered lines from terminal buffer or fallback to lines array
