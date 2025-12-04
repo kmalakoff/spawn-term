@@ -30,10 +30,12 @@ export default memo(function ExpandedOutput({ lines, scrollOffset, maxVisible = 
         // biome-ignore lint/suspicious/noArrayIndexKey: Lines have no unique ID, index is stable for this scrolling view
         <Text key={scrollOffset + i}>│ {line.text}</Text>
       ))}
-      {hasMore && (
+      {hasMore ? (
         <Text dimColor>
-          │ [+{remaining} more, Tab/⇧Tab page, {isMac ? '⌥↑/↓' : 'g/G'} top/bottom]
+          │ [+{remaining} more, Tab/⇧Tab page, {isMac ? '⌥↑/↓' : 'g/G'} top/bottom, f fullscreen]
         </Text>
+      ) : (
+        <Text dimColor>│ [f fullscreen]</Text>
       )}
     </Box>
   );

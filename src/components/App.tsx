@@ -7,6 +7,7 @@ import CompactProcessLine from './CompactProcessLine.ts';
 import Divider from './Divider.ts';
 import ErrorFooter from './ErrorFooter.ts';
 import ExpandedOutput from './ExpandedOutput.ts';
+import FullscreenOverlay from './FullscreenOverlay.ts';
 import StatusBar from './StatusBar.ts';
 
 const isMac = process.platform === 'darwin';
@@ -33,6 +34,7 @@ function AppContent({ store }: AppProps): React.JSX.Element {
   const filterMode = useSyncExternalStore(store.subscribe, store.getFilterMode);
   const searchTerm = useSyncExternalStore(store.subscribe, store.getSearchTerm);
   const isSearching = useSyncExternalStore(store.subscribe, store.getIsSearching);
+  const isFullscreen = useSyncExternalStore(store.subscribe, store.getIsFullscreen);
   // Subscribe to buffer version to trigger re-renders when terminal buffer content changes
   const _bufferVersion = useSyncExternalStore(store.subscribe, store.getBufferVersion);
 
@@ -92,9 +94,32 @@ function AppContent({ store }: AppProps): React.JSX.Element {
     }
   }, [mode, expandedId, visibleProcessCount, store]);
 
+  // Calculate fullscreen visible lines (terminal height minus header and footer)
+  const fullscreenVisibleLines = Math.max(1, terminalHeight - 3); // -3 for title, divider, footer
+
   // Keyboard handling (only active when raw mode is supported)
   useInput(
     (input, key) => {
+      // Fullscreen mode input handling
+      if (isFullscreen) {
+        if (input === 'q' || key.escape) {
+          store.exitFullscreen();
+        } else if ((key.meta && key.upArrow) || input === 'g') {
+          store.scrollToTop();
+        } else if ((key.meta && key.downArrow) || input === 'G') {
+          store.scrollToBottom(fullscreenVisibleLines);
+        } else if (key.tab && key.shift) {
+          store.scrollPageUp(fullscreenVisibleLines);
+        } else if (key.tab && !key.shift) {
+          store.scrollPageDown(fullscreenVisibleLines);
+        } else if (key.downArrow || input === 'j') {
+          store.scrollDown(fullscreenVisibleLines);
+        } else if (key.upArrow || input === 'k') {
+          store.scrollUp();
+        }
+        return;
+      }
+
       // Search mode input handling
       if (isSearching) {
         if (key.escape) {
@@ -131,6 +156,9 @@ function AppContent({ store }: AppProps): React.JSX.Element {
           }
         } else if (key.return) {
           store.toggleExpand(visibleWhenExpanded, visibleWhenCollapsed);
+          // Fullscreen - 'f' to enter fullscreen when expanded
+        } else if (input === 'f' && expandedId) {
+          store.enterFullscreen();
           // Filter cycling - left/right arrows
         } else if (key.rightArrow && !expandedId) {
           store.cycleFilterNext();
@@ -200,6 +228,14 @@ function AppContent({ store }: AppProps): React.JSX.Element {
   // Force full re-render when layout structure changes
   // Note: scrollOffset is NOT included - scrolling within expansion doesn't change structure
   const layoutKey = `${listScrollOffset}-${expandedId}-${errorCount}-${errorFooterExpanded}-${filterMode}-${searchTerm}-${isSearching}`;
+
+  // Get expanded process info for fullscreen
+  const expandedProcess = expandedId ? store.getProcess(expandedId) : null;
+
+  // Render fullscreen overlay when active
+  if (isFullscreen && expandedProcess) {
+    return <FullscreenOverlay title={expandedProcess.group || expandedProcess.title} lines={store.getProcessLines(expandedProcess.id)} scrollOffset={scrollOffset} onExit={() => store.exitFullscreen()} />;
+  }
 
   return (
     <Box key={layoutKey} flexDirection="column">
