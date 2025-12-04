@@ -1,5 +1,6 @@
 export { default as figures } from './lib/figures.ts';
 export { default as formatArguments } from './lib/formatArguments.ts';
+export type { Navigator } from './state/Navigator.ts';
 export * from './types.ts';
 
 import type { createSession as createSessionType, Session } from './session.ts';

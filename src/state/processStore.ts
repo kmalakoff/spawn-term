@@ -2,38 +2,50 @@ import { arrayFind } from '../compat.ts';
 import { DEFAULT_COLUMN_WIDTH } from '../constants.ts';
 import type { ChildProcess, Line, SessionOptions } from '../types.ts';
 import { LineType } from '../types.ts';
+import { createNavigator, type Navigator } from './Navigator.ts';
 
 type Listener = () => void;
 type Mode = 'normal' | 'interactive';
 
 export class ProcessStore {
+  // === DATA: Process collection ===
   private processes: ChildProcess[] = [];
   private completedIds: string[] = []; // Track completion order
-  private listeners = new Set<Listener>();
-  private shouldExit = false;
-  private exitCallback: (() => void) | null = null;
 
-  // UI state
+  // === NAVIGATION: List cursor ===
+  private listNav: Navigator;
+
+  // === VIEW STATE ===
   private mode: Mode = 'normal';
-  private selectedIndex = 0;
   private expandedId: string | null = null;
-  private scrollOffset = 0;
-  private listScrollOffset = 0; // Viewport offset for process list
   private errorFooterExpanded = false; // For non-interactive error footer
-  private bufferVersion = 0; // Increments on every notify() to trigger re-renders
 
-  // Session-level display settings (set once at session creation)
+  // === SESSION CONFIG (immutable after construction) ===
   private header: string | undefined;
   private showStatusBar = false;
   private isInteractive = false;
+
+  // === INFRASTRUCTURE ===
+  private listeners = new Set<Listener>();
+  private shouldExit = false;
+  private exitCallback: (() => void) | null = null;
+  private bufferVersion = 0; // Increments on every notify() to trigger re-renders
 
   constructor(options: SessionOptions = {}) {
     this.header = options.header;
     this.showStatusBar = options.showStatusBar ?? false;
     this.isInteractive = options.interactive ?? false;
+
+    // Create list navigator with wrap-around behavior
+    this.listNav = createNavigator({
+      getLength: () => this.processes.length,
+      wrap: true,
+      onMove: () => this.notify(),
+    });
   }
 
-  // useSyncExternalStore API
+  // === SUBSCRIPTION API (useSyncExternalStore) ===
+
   subscribe = (listener: Listener): (() => void) => {
     this.listeners.add(listener);
     return () => this.listeners.delete(listener);
@@ -41,7 +53,8 @@ export class ProcessStore {
 
   getSnapshot = (): ChildProcess[] => this.processes;
 
-  // Filtered getters
+  // === DATA: Queries ===
+
   getRunningProcesses = (): ChildProcess[] => {
     return this.processes.filter((p) => p.state === 'running');
   };
@@ -67,23 +80,26 @@ export class ProcessStore {
     return this.processes.filter((p) => p.state === 'error').reduce((total, p) => total + this.getProcessLineCount(p.id), 0);
   };
 
-  // UI state getters
-  getMode = (): Mode => this.mode;
-  getSelectedIndex = (): number => this.selectedIndex;
-  getExpandedId = (): string | null => this.expandedId;
-  getScrollOffset = (): number => this.scrollOffset;
-  getListScrollOffset = (): number => this.listScrollOffset;
-  getErrorFooterExpanded = (): boolean => this.errorFooterExpanded;
-  getBufferVersion = (): number => this.bufferVersion;
-  // Session-level getters (set at session creation, immutable)
-  getHeader = (): string | undefined => this.header;
-  getShowStatusBar = (): boolean => this.showStatusBar;
-  getIsInteractive = (): boolean => this.isInteractive;
-  isAllComplete = (): boolean => this.processes.length > 0 && this.processes.every((p) => p.state !== 'running');
+  getErrorLines(): Array<{ processName: string; lines: Line[] }> {
+    return this.getFailedProcesses().map((p) => ({
+      processName: p.group || p.title,
+      lines: this.getProcessLines(p.id),
+    }));
+  }
 
-  // Mutations - Ink handles render throttling at 30 FPS
+  // === DATA: Mutations ===
+
   addProcess(process: ChildProcess): void {
-    this.processes = [...this.processes, process];
+    // Create scroll navigator for this process
+    const processWithNav: ChildProcess = {
+      ...process,
+      scrollNav: createNavigator({
+        getLength: () => this.getProcessLineCount(processWithNav.id),
+        wrap: false,
+        onMove: () => this.notify(),
+      }),
+    };
+    this.processes = [...this.processes, processWithNav];
     this.notify();
   }
 
@@ -141,47 +157,40 @@ export class ProcessStore {
     return process.lines.length;
   }
 
-  // UI state mutations
+  // === VIEW STATE: Getters ===
+
+  getMode = (): Mode => this.mode;
+  getSelectedIndex = (): number => this.listNav.position;
+  getExpandedId = (): string | null => this.expandedId;
+  getListScrollOffset = (): number => this.listNav.viewportOffset;
+  getErrorFooterExpanded = (): boolean => this.errorFooterExpanded;
+  getBufferVersion = (): number => this.bufferVersion;
+
+  // Get scroll offset for expanded process (or 0 if none)
+  getScrollOffset = (): number => {
+    if (!this.expandedId) return 0;
+    const process = this.getProcess(this.expandedId);
+    return process?.scrollNav?.position ?? 0;
+  };
+
+  // Session-level getters (set at session creation, immutable)
+  getHeader = (): string | undefined => this.header;
+  getShowStatusBar = (): boolean => this.showStatusBar;
+  getIsInteractive = (): boolean => this.isInteractive;
+  isAllComplete = (): boolean => this.processes.length > 0 && this.processes.every((p) => p.state !== 'running');
+
+  // === VIEW STATE: Mutations ===
+
   setMode(mode: Mode): void {
     this.mode = mode;
     if (mode === 'interactive') {
-      this.selectedIndex = 0;
+      this.listNav.setPosition(0);
     }
     this.notify();
   }
 
-  // Interactive mode navigation
-  selectNext(visibleCount?: number): void {
-    if (this.processes.length > 0) {
-      this.selectedIndex = (this.selectedIndex + 1) % this.processes.length;
-      this.adjustListScroll(visibleCount);
-      this.notify();
-    }
-  }
-
-  selectPrev(visibleCount?: number): void {
-    if (this.processes.length > 0) {
-      this.selectedIndex = (this.selectedIndex - 1 + this.processes.length) % this.processes.length;
-      this.adjustListScroll(visibleCount);
-      this.notify();
-    }
-  }
-
-  private adjustListScroll(visibleCount?: number): void {
-    if (!visibleCount || visibleCount <= 0) return;
-
-    // Ensure selected item is visible in viewport
-    if (this.selectedIndex < this.listScrollOffset) {
-      // Selected is above viewport - scroll up
-      this.listScrollOffset = this.selectedIndex;
-    } else if (this.selectedIndex >= this.listScrollOffset + visibleCount) {
-      // Selected is below viewport - scroll down
-      this.listScrollOffset = this.selectedIndex - visibleCount + 1;
-    }
-  }
-
   getSelectedProcess(): ChildProcess | undefined {
-    return this.processes[this.selectedIndex];
+    return this.processes[this.listNav.position];
   }
 
   // Error footer methods (for non-interactive mode)
@@ -197,90 +206,156 @@ export class ProcessStore {
     }
   }
 
-  getErrorLines(): Array<{ processName: string; lines: Line[] }> {
-    return this.getFailedProcesses().map((p) => ({
-      processName: p.group || p.title,
-      lines: this.getProcessLines(p.id),
-    }));
-  }
+  // === NAVIGATION: List (delegates to listNav) ===
 
-  // Expansion methods
-  toggleExpand(): void {
-    const selected = this.getSelectedProcess();
-    if (!selected) return;
-
-    if (this.expandedId === selected.id) {
-      // Collapse
-      this.expandedId = null;
-      this.scrollOffset = 0;
-    } else {
-      // Expand
-      this.expandedId = selected.id;
-      this.scrollOffset = 0;
+  selectNext(visibleCount?: number): void {
+    this.listNav.down();
+    if (visibleCount) {
+      this.listNav.ensureVisible(visibleCount);
     }
-    this.notify();
   }
 
-  collapse(): void {
-    this.expandedId = null;
-    this.scrollOffset = 0;
-    this.notify();
+  selectPrev(visibleCount?: number): void {
+    this.listNav.up();
+    if (visibleCount) {
+      this.listNav.ensureVisible(visibleCount);
+    }
+  }
+
+  selectPageDown(pageSize: number, visibleCount?: number): void {
+    this.listNav.pageDown(pageSize, visibleCount);
+  }
+
+  selectPageUp(pageSize: number, visibleCount?: number): void {
+    this.listNav.pageUp(pageSize, visibleCount);
+  }
+
+  selectFirst(visibleCount?: number): void {
+    this.listNav.toStart();
+    if (visibleCount) {
+      this.listNav.ensureVisible(visibleCount);
+    }
+  }
+
+  selectLast(visibleCount?: number): void {
+    this.listNav.toEnd();
+    if (visibleCount) {
+      this.listNav.ensureVisible(visibleCount);
+    }
+  }
+
+  clampListViewport(visibleCount: number): void {
+    const changed = this.listNav.clampViewport(visibleCount);
+    if (changed) {
+      this.notify();
+    }
+  }
+
+  // === NAVIGATION: Expanded content (delegates to process.scrollNav) ===
+
+  private getExpandedNav(): { nav: Navigator; id: string } | undefined {
+    if (!this.expandedId) return undefined;
+    const nav = this.getProcess(this.expandedId)?.scrollNav;
+    if (!nav) return undefined;
+    return { nav, id: this.expandedId };
   }
 
   scrollDown(maxVisible: number): void {
-    if (!this.expandedId) return;
-    const lineCount = this.getProcessLineCount(this.expandedId);
-    if (lineCount === 0) return;
+    const expanded = this.getExpandedNav();
+    if (!expanded) return;
 
+    const lineCount = this.getProcessLineCount(expanded.id);
     const maxOffset = Math.max(0, lineCount - maxVisible);
-    if (this.scrollOffset < maxOffset) {
-      this.scrollOffset++;
-      this.notify();
+
+    // Only scroll if not at bottom
+    if (expanded.nav.position < maxOffset) {
+      expanded.nav.down();
     }
   }
 
   scrollUp(): void {
-    if (!this.expandedId) return;
-    if (this.scrollOffset > 0) {
-      this.scrollOffset--;
-      this.notify();
+    const expanded = this.getExpandedNav();
+    if (!expanded) return;
+
+    if (expanded.nav.position > 0) {
+      expanded.nav.up();
     }
   }
 
-  // Page scrolling (scroll by maxVisible lines at once)
-  scrollPageDown(maxVisible: number): void {
-    if (!this.expandedId) return;
-    const lineCount = this.getProcessLineCount(this.expandedId);
-    if (lineCount === 0) return;
+  scrollPageDown(pageSize: number): void {
+    const expanded = this.getExpandedNav();
+    if (!expanded) return;
 
-    const maxOffset = Math.max(0, lineCount - maxVisible);
-    this.scrollOffset = Math.min(this.scrollOffset + maxVisible, maxOffset);
+    const lineCount = this.getProcessLineCount(expanded.id);
+    const maxOffset = Math.max(0, lineCount - pageSize);
+
+    // Clamp to max offset
+    const newPosition = Math.min(expanded.nav.position + pageSize, maxOffset);
+    expanded.nav.setPosition(newPosition);
     this.notify();
   }
 
-  scrollPageUp(maxVisible: number): void {
-    if (!this.expandedId) return;
-    this.scrollOffset = Math.max(0, this.scrollOffset - maxVisible);
+  scrollPageUp(pageSize: number): void {
+    const expanded = this.getExpandedNav();
+    if (!expanded) return;
+
+    const newPosition = Math.max(0, expanded.nav.position - pageSize);
+    expanded.nav.setPosition(newPosition);
     this.notify();
   }
 
-  // Jump to top/bottom
   scrollToTop(): void {
-    if (!this.expandedId) return;
-    this.scrollOffset = 0;
-    this.notify();
+    const expanded = this.getExpandedNav();
+    if (!expanded) return;
+    expanded.nav.toStart();
   }
 
   scrollToBottom(maxVisible: number): void {
-    if (!this.expandedId) return;
-    const lineCount = this.getProcessLineCount(this.expandedId);
-    if (lineCount === 0) return;
+    const expanded = this.getExpandedNav();
+    if (!expanded) return;
 
-    this.scrollOffset = Math.max(0, lineCount - maxVisible);
+    const lineCount = this.getProcessLineCount(expanded.id);
+    const newPosition = Math.max(0, lineCount - maxVisible);
+    expanded.nav.setPosition(newPosition);
     this.notify();
   }
 
-  // Exit signaling
+  // === EXPANSION ===
+
+  toggleExpand(visibleCountWhenExpanded?: number, visibleCountWhenCollapsed?: number): void {
+    const selected = this.getSelectedProcess();
+    if (!selected) return;
+
+    if (this.expandedId === selected.id) {
+      // Collapse (keep scroll position for later)
+      this.expandedId = null;
+      // Adjust viewport to avoid empty space at bottom
+      if (visibleCountWhenCollapsed) {
+        this.listNav.clampViewport(visibleCountWhenCollapsed);
+      }
+    } else {
+      // Expand (scroll position is preserved in process.scrollNav)
+      this.expandedId = selected.id;
+      // Adjust list scroll to keep expanded process visible
+      if (visibleCountWhenExpanded) {
+        this.listNav.ensureVisible(visibleCountWhenExpanded);
+      }
+    }
+    this.notify();
+  }
+
+  collapse(visibleCountWhenCollapsed?: number): void {
+    // Collapse but keep scroll position in process
+    this.expandedId = null;
+    // Adjust viewport to avoid empty space at bottom
+    if (visibleCountWhenCollapsed) {
+      this.listNav.clampViewport(visibleCountWhenCollapsed);
+    }
+    this.notify();
+  }
+
+  // === EXIT ===
+
   signalExit(callback: () => void): void {
     this.shouldExit = true;
     this.exitCallback = callback;
@@ -289,6 +364,8 @@ export class ProcessStore {
 
   getShouldExit = (): boolean => this.shouldExit;
   getExitCallback = (): (() => void) | null => this.exitCallback;
+
+  // === RESET ===
 
   reset(): void {
     // Dispose terminal buffers before clearing
@@ -300,15 +377,14 @@ export class ProcessStore {
     this.shouldExit = false;
     this.exitCallback = null;
     this.mode = 'normal';
-    this.selectedIndex = 0;
+    this.listNav.reset();
     this.expandedId = null;
-    this.scrollOffset = 0;
-    this.listScrollOffset = 0;
     this.errorFooterExpanded = false;
     this.header = undefined;
   }
 
-  // Public notify for session to trigger updates when terminal buffer changes
+  // === INFRASTRUCTURE ===
+
   notify(): void {
     this.bufferVersion++;
     this.listeners.forEach((l) => {
