@@ -11,7 +11,7 @@ describe('error footer', () => {
     session.spawn('ls', ['-junk'], { stdio: 'inherit' }, { group: 'TestGroup' }, (err) => {
       assert.ok(!!err);
       // Error footer should be visible in output (collapsed by default)
-      // Visual verification: "▸ X error lines in Y process [e]"
+      // Visual verification: "▸ X error lines in Y process"
       session.waitAndClose(done);
     });
   });
@@ -21,7 +21,7 @@ describe('error footer', () => {
     session.spawn('ls', ['-junk'], { stdio: 'inherit' }, { group: 'ErrorGroup' }, (err) => {
       assert.ok(!!err);
       // Error footer should auto-expand when all processes complete
-      // Visual verification: "▾ Errors [e]" followed by error lines
+      // Visual verification: "▾ Errors" followed by error lines
       session.waitAndClose(done);
     });
   });

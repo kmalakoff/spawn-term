@@ -9,6 +9,8 @@ import ErrorFooter from './ErrorFooter.ts';
 import ExpandedOutput from './ExpandedOutput.ts';
 import StatusBar from './StatusBar.ts';
 
+const isMac = process.platform === 'darwin';
+
 interface AppProps {
   store: ProcessStore;
 }
@@ -38,8 +40,10 @@ function AppContent({ store }: AppProps): React.JSX.Element {
 
   // Calculate visible process count (reserve lines for header, divider, status bar, expanded output)
   // When a process is expanded, reserve space for the expanded output to prevent terminal scrolling
+  // In interactive mode without expansion, reserve space for potential list scroll hint
   const expandedHeight = expandedId ? EXPANDED_MAX_VISIBLE_LINES + 1 : 0; // +1 for scroll hint
-  const reservedLines = (header ? 2 : 0) + (showStatusBar ? 2 : 0) + expandedHeight;
+  const listHintHeight = mode === 'interactive' && !expandedId ? 1 : 0; // Reserve for list scroll hint
+  const reservedLines = (header ? 2 : 0) + (showStatusBar ? 2 : 0) + expandedHeight + listHintHeight;
   const visibleProcessCount = Math.max(1, terminalHeight - reservedLines);
 
   // Derived state (computed from processes which is already subscribed)
@@ -65,6 +69,14 @@ function AppContent({ store }: AppProps): React.JSX.Element {
     }
   }, [isInteractive, mode, store]);
 
+  // Clamp viewport when collapsing to avoid empty space
+  // This runs after render with correct visibleProcessCount
+  useEffect(() => {
+    if (mode === 'interactive' && !expandedId) {
+      store.clampListViewport(visibleProcessCount);
+    }
+  }, [mode, expandedId, visibleProcessCount, store]);
+
   // Keyboard handling (only active when raw mode is supported)
   useInput(
     (input, key) => {
@@ -74,33 +86,46 @@ function AppContent({ store }: AppProps): React.JSX.Element {
           store.toggleErrorFooter();
         }
       } else if (mode === 'interactive') {
+        // Pre-calculate visible counts for expand/collapse transitions
+        const baseReserved = (header ? 2 : 0) + (showStatusBar ? 2 : 0);
+        const visibleWhenExpanded = Math.max(1, terminalHeight - baseReserved - EXPANDED_MAX_VISIBLE_LINES - 1);
+        const visibleWhenCollapsed = Math.max(1, terminalHeight - baseReserved - 1); // -1 for list hint
+
         if (input === 'q' || key.escape) {
           if (expandedId) {
-            store.collapse();
+            store.collapse(visibleWhenCollapsed);
           } else {
             store.signalExit(() => {});
           }
         } else if (key.return) {
-          store.toggleExpand();
+          store.toggleExpand(visibleWhenExpanded, visibleWhenCollapsed);
           // Jump to top - Option+↑ (detected as meta), vim: g
           // Must check meta+arrow BEFORE plain arrow
         } else if ((key.meta && key.upArrow) || input === 'g') {
           if (expandedId) {
             store.scrollToTop();
+          } else {
+            store.selectFirst(visibleProcessCount);
           }
           // Jump to bottom - Option+↓ (detected as meta), vim: G
         } else if ((key.meta && key.downArrow) || input === 'G') {
           if (expandedId) {
             store.scrollToBottom(EXPANDED_MAX_VISIBLE_LINES);
+          } else {
+            store.selectLast(visibleProcessCount);
           }
-          // Page scrolling - Tab/Shift+Tab
+          // Page scrolling - Tab/Shift+Tab (use same page size as expanded view)
         } else if (key.tab && key.shift) {
           if (expandedId) {
             store.scrollPageUp(EXPANDED_MAX_VISIBLE_LINES);
+          } else {
+            store.selectPageUp(EXPANDED_MAX_VISIBLE_LINES, visibleProcessCount);
           }
         } else if (key.tab && !key.shift) {
           if (expandedId) {
             store.scrollPageDown(EXPANDED_MAX_VISIBLE_LINES);
+          } else {
+            store.selectPageDown(EXPANDED_MAX_VISIBLE_LINES, visibleProcessCount);
           }
           // Line scrolling - arrows and vim j/k
         } else if (key.downArrow || input === 'j') {
@@ -157,6 +182,12 @@ function AppContent({ store }: AppProps): React.JSX.Element {
             </Box>
           );
         })}
+        {/* List scroll hint (interactive mode without expansion) */}
+        {mode === 'interactive' && !expandedId && processes.length > visibleProcessCount && (
+          <Text dimColor>
+            [+{processes.length - visibleProcessCount} more, Tab/⇧Tab page, {isMac ? '⌥↑/↓' : 'g/G'} top/bottom]
+          </Text>
+        )}
       </Box>
 
       {/* Status bar */}
