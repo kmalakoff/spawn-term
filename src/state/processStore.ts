@@ -6,6 +6,9 @@ import { createNavigator, type Navigator } from './Navigator.ts';
 
 type Listener = () => void;
 type Mode = 'normal' | 'interactive';
+type FilterMode = 'all' | 'running' | 'finished' | 'failed';
+
+const FILTER_CYCLE: FilterMode[] = ['all', 'running', 'finished', 'failed'];
 
 export class ProcessStore {
   // === DATA: Process collection ===
@@ -19,6 +22,9 @@ export class ProcessStore {
   private mode: Mode = 'normal';
   private expandedId: string | null = null;
   private errorFooterExpanded = false; // For non-interactive error footer
+  private filterMode: FilterMode = 'all';
+  private searchTerm = '';
+  private isSearching = false;
 
   // === SESSION CONFIG (immutable after construction) ===
   private header: string | undefined;
@@ -37,8 +43,9 @@ export class ProcessStore {
     this.isInteractive = options.interactive ?? false;
 
     // Create list navigator with wrap-around behavior
+    // Uses filtered processes count so selection works correctly with filters
     this.listNav = createNavigator({
-      getLength: () => this.processes.length,
+      getLength: () => this.getFilteredProcesses().length,
       wrap: true,
       onMove: () => this.notify(),
     });
@@ -165,6 +172,35 @@ export class ProcessStore {
   getListScrollOffset = (): number => this.listNav.viewportOffset;
   getErrorFooterExpanded = (): boolean => this.errorFooterExpanded;
   getBufferVersion = (): number => this.bufferVersion;
+  getFilterMode = (): FilterMode => this.filterMode;
+  getSearchTerm = (): string => this.searchTerm;
+  getIsSearching = (): boolean => this.isSearching;
+
+  // Get processes filtered by current filter mode and search term
+  getFilteredProcesses = (): ChildProcess[] => {
+    let filtered = this.processes;
+
+    // Apply filter mode
+    switch (this.filterMode) {
+      case 'running':
+        filtered = filtered.filter((p) => p.state === 'running');
+        break;
+      case 'finished':
+        filtered = filtered.filter((p) => p.state !== 'running');
+        break;
+      case 'failed':
+        filtered = filtered.filter((p) => p.state === 'error');
+        break;
+    }
+
+    // Apply search term
+    if (this.searchTerm) {
+      const term = this.searchTerm.toLowerCase();
+      filtered = filtered.filter((p) => p.title.toLowerCase().includes(term) || (p.group && p.group.toLowerCase().includes(term)));
+    }
+
+    return filtered;
+  };
 
   // Get scroll offset for expanded process (or 0 if none)
   getScrollOffset = (): number => {
@@ -190,7 +226,63 @@ export class ProcessStore {
   }
 
   getSelectedProcess(): ChildProcess | undefined {
-    return this.processes[this.listNav.position];
+    return this.getFilteredProcesses()[this.listNav.position];
+  }
+
+  // Filter mode cycling (left/right arrows)
+  cycleFilterNext(): void {
+    const currentIndex = FILTER_CYCLE.indexOf(this.filterMode);
+    this.filterMode = FILTER_CYCLE[(currentIndex + 1) % FILTER_CYCLE.length] as FilterMode;
+    // Reset selection when filter changes
+    this.listNav.toStart();
+    // Collapse any expanded process when filter changes
+    this.expandedId = null;
+    this.notify();
+  }
+
+  cycleFilterPrev(): void {
+    const currentIndex = FILTER_CYCLE.indexOf(this.filterMode);
+    this.filterMode = FILTER_CYCLE[(currentIndex - 1 + FILTER_CYCLE.length) % FILTER_CYCLE.length] as FilterMode;
+    // Reset selection when filter changes
+    this.listNav.toStart();
+    // Collapse any expanded process when filter changes
+    this.expandedId = null;
+    this.notify();
+  }
+
+  // Search mode
+  startSearch(): void {
+    this.isSearching = true;
+    this.searchTerm = '';
+    this.notify();
+  }
+
+  updateSearchTerm(term: string): void {
+    this.searchTerm = term;
+    // Reset selection when search changes
+    this.listNav.toStart();
+    this.notify();
+  }
+
+  cancelSearch(): void {
+    this.isSearching = false;
+    this.searchTerm = '';
+    // Reset selection
+    this.listNav.toStart();
+    this.notify();
+  }
+
+  confirmSearch(): void {
+    this.isSearching = false;
+    // Keep searchTerm applied, reset selection to first match
+    this.listNav.toStart();
+    this.notify();
+  }
+
+  clearSearch(): void {
+    this.searchTerm = '';
+    this.listNav.toStart();
+    this.notify();
   }
 
   // Error footer methods (for non-interactive mode)
@@ -380,6 +472,9 @@ export class ProcessStore {
     this.listNav.reset();
     this.expandedId = null;
     this.errorFooterExpanded = false;
+    this.filterMode = 'all';
+    this.searchTerm = '';
+    this.isSearching = false;
     this.header = undefined;
   }
 

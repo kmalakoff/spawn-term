@@ -22,7 +22,7 @@ function AppContent({ store }: AppProps): React.JSX.Element {
   const terminalHeight = stdout?.rows || 24;
 
   // Subscribe to store state
-  const processes = useSyncExternalStore(store.subscribe, store.getSnapshot);
+  const allProcesses = useSyncExternalStore(store.subscribe, store.getSnapshot);
   const shouldExit = useSyncExternalStore(store.subscribe, store.getShouldExit);
   const mode = useSyncExternalStore(store.subscribe, store.getMode);
   const selectedIndex = useSyncExternalStore(store.subscribe, store.getSelectedIndex);
@@ -30,8 +30,14 @@ function AppContent({ store }: AppProps): React.JSX.Element {
   const scrollOffset = useSyncExternalStore(store.subscribe, store.getScrollOffset);
   const listScrollOffset = useSyncExternalStore(store.subscribe, store.getListScrollOffset);
   const errorFooterExpanded = useSyncExternalStore(store.subscribe, store.getErrorFooterExpanded);
+  const filterMode = useSyncExternalStore(store.subscribe, store.getFilterMode);
+  const searchTerm = useSyncExternalStore(store.subscribe, store.getSearchTerm);
+  const isSearching = useSyncExternalStore(store.subscribe, store.getIsSearching);
   // Subscribe to buffer version to trigger re-renders when terminal buffer content changes
   const _bufferVersion = useSyncExternalStore(store.subscribe, store.getBufferVersion);
+
+  // Use filtered processes for display
+  const processes = store.getFilteredProcesses();
 
   // Subscribed state that triggers re-renders
   const header = useSyncExternalStore(store.subscribe, store.getHeader);
@@ -40,19 +46,28 @@ function AppContent({ store }: AppProps): React.JSX.Element {
 
   // Calculate visible process count (reserve lines for header, divider, status bar, expanded output)
   // When a process is expanded, reserve space for the expanded output to prevent terminal scrolling
-  // In interactive mode without expansion, reserve space for potential list scroll hint
+  // In interactive mode without expansion, reserve space for filter bar and list scroll hint
   const expandedHeight = expandedId ? EXPANDED_MAX_VISIBLE_LINES + 1 : 0; // +1 for scroll hint
+  const filterBarHeight = mode === 'interactive' && !expandedId ? 1 : 0; // Reserve for filter/search bar
   const listHintHeight = mode === 'interactive' && !expandedId ? 1 : 0; // Reserve for list scroll hint
-  const reservedLines = (header ? 2 : 0) + (showStatusBar ? 2 : 0) + expandedHeight + listHintHeight;
+  const reservedLines = (header ? 2 : 0) + (showStatusBar ? 2 : 0) + expandedHeight + filterBarHeight + listHintHeight;
   const visibleProcessCount = Math.max(1, terminalHeight - reservedLines);
 
-  // Derived state (computed from processes which is already subscribed)
+  // Derived state (computed from allProcesses - total counts regardless of filter)
   const runningCount = store.getRunningCount();
   const doneCount = store.getDoneCount();
   const errorCount = store.getErrorCount();
   const errorLineCount = store.getErrorLineCount();
   const _isAllComplete = store.isAllComplete();
   const errorLines = store.getErrorLines();
+
+  // Filter mode display labels
+  const filterLabels: Record<string, string> = {
+    all: 'All',
+    running: 'Running',
+    finished: 'Finished',
+    failed: 'Failed',
+  };
 
   // Handle exit signal
   useEffect(() => {
@@ -80,6 +95,20 @@ function AppContent({ store }: AppProps): React.JSX.Element {
   // Keyboard handling (only active when raw mode is supported)
   useInput(
     (input, key) => {
+      // Search mode input handling
+      if (isSearching) {
+        if (key.escape) {
+          store.cancelSearch();
+        } else if (key.return) {
+          store.confirmSearch();
+        } else if (key.backspace || key.delete) {
+          store.updateSearchTerm(searchTerm.slice(0, -1));
+        } else if (input && !key.ctrl && !key.meta) {
+          store.updateSearchTerm(searchTerm + input);
+        }
+        return;
+      }
+
       if (mode === 'normal') {
         // In non-interactive mode, 'e' toggles error footer
         if (input === 'e' && errorCount > 0) {
@@ -89,16 +118,27 @@ function AppContent({ store }: AppProps): React.JSX.Element {
         // Pre-calculate visible counts for expand/collapse transitions
         const baseReserved = (header ? 2 : 0) + (showStatusBar ? 2 : 0);
         const visibleWhenExpanded = Math.max(1, terminalHeight - baseReserved - EXPANDED_MAX_VISIBLE_LINES - 1);
-        const visibleWhenCollapsed = Math.max(1, terminalHeight - baseReserved - 1); // -1 for list hint
+        const visibleWhenCollapsed = Math.max(1, terminalHeight - baseReserved - 2); // -2 for filter bar + list hint
 
         if (input === 'q' || key.escape) {
           if (expandedId) {
             store.collapse(visibleWhenCollapsed);
+          } else if (searchTerm) {
+            // Clear search first before exiting
+            store.clearSearch();
           } else {
             store.signalExit(() => {});
           }
         } else if (key.return) {
           store.toggleExpand(visibleWhenExpanded, visibleWhenCollapsed);
+          // Filter cycling - left/right arrows
+        } else if (key.rightArrow && !expandedId) {
+          store.cycleFilterNext();
+        } else if (key.leftArrow && !expandedId) {
+          store.cycleFilterPrev();
+          // Search - '/' to start search
+        } else if (input === '/' && !expandedId) {
+          store.startSearch();
           // Jump to top - Option+↑ (detected as meta), vim: g
           // Must check meta+arrow BEFORE plain arrow
         } else if ((key.meta && key.upArrow) || input === 'g') {
@@ -159,7 +199,7 @@ function AppContent({ store }: AppProps): React.JSX.Element {
 
   // Force full re-render when layout structure changes
   // Note: scrollOffset is NOT included - scrolling within expansion doesn't change structure
-  const layoutKey = `${listScrollOffset}-${expandedId}-${errorCount}-${errorFooterExpanded}`;
+  const layoutKey = `${listScrollOffset}-${expandedId}-${errorCount}-${errorFooterExpanded}-${filterMode}-${searchTerm}-${isSearching}`;
 
   return (
     <Box key={layoutKey} flexDirection="column">
@@ -169,6 +209,35 @@ function AppContent({ store }: AppProps): React.JSX.Element {
           <Text>{header}</Text>
           <Divider />
         </>
+      )}
+
+      {/* Filter/Search bar (interactive mode only) */}
+      {mode === 'interactive' && !expandedId && (
+        <Box>
+          <Text dimColor>◀ </Text>
+          <Text color={filterMode === 'running' ? 'yellow' : filterMode === 'failed' ? 'red' : filterMode === 'finished' ? 'green' : 'cyan'} bold>
+            {filterLabels[filterMode]}
+          </Text>
+          <Text dimColor> ▶</Text>
+          {isSearching ? (
+            <Text>
+              {' '}
+              <Text dimColor>/</Text>
+              <Text>{searchTerm}</Text>
+              <Text dimColor>▋</Text>
+            </Text>
+          ) : searchTerm ? (
+            <Text dimColor> "{searchTerm}"</Text>
+          ) : (
+            <Text dimColor> (/ search)</Text>
+          )}
+          {processes.length !== allProcesses.length && (
+            <Text dimColor>
+              {' '}
+              [{processes.length}/{allProcesses.length}]
+            </Text>
+          )}
+        </Box>
       )}
 
       {/* Visible processes */}
