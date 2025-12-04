@@ -1,23 +1,14 @@
 {
+  "extends": "tsds-config/tsconfig.json",
   "compilerOptions": {
-    "skipLibCheck": true,
     "outDir": "dist",
     "rootDir": ".",
     "lib": ["es2015", "dom"],
-    "types": ["mocha", "node"],
-    "target": "es2019",
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "sourceMap": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "rewriteRelativeImportExtensions": true,
-    "erasableSyntaxOnly": true,
-    "verbatimModuleSyntax": true,
-    "downlevelIteration": true,
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "jsx": "react-jsx",
-    "allowJs": true
+    "types": ["mocha", "node"]
   },
-  "exclude": ["node_modules", "dist", "test/data"],
-  "include": ["src", "test"]
+  "include": ["src", "test"],
+  "exclude": ["node_modules", "dist", "test/data"]
 }
