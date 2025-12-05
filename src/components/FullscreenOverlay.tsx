@@ -9,6 +9,7 @@ const ENTER_ALT_SCREEN = '\x1b[?1049h';
 const EXIT_ALT_SCREEN = '\x1b[?1049l';
 const CLEAR_SCREEN = '\x1b[2J';
 const CURSOR_HOME = '\x1b[H';
+const HIDE_CURSOR = '\x1b[?25l';
 
 type Props = {
   title: string;
@@ -29,11 +30,13 @@ export default memo(function FullscreenOverlay({ title, lines, scrollOffset }: P
   // Enter alternate screen on mount, exit on unmount
   useEffect(() => {
     if (stdout) {
-      stdout.write(ENTER_ALT_SCREEN + CLEAR_SCREEN + CURSOR_HOME);
+      stdout.write(ENTER_ALT_SCREEN + CLEAR_SCREEN + CURSOR_HOME + HIDE_CURSOR);
     }
     return () => {
       if (stdout) {
-        stdout.write(EXIT_ALT_SCREEN);
+        // Exit alternate screen, then clear main screen and reset cursor
+        // This helps ink re-render cleanly to a known position
+        stdout.write(EXIT_ALT_SCREEN + CLEAR_SCREEN + CURSOR_HOME + HIDE_CURSOR);
       }
     };
   }, [stdout]);
