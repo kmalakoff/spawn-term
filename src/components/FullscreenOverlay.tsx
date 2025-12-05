@@ -1,5 +1,5 @@
 import { Box, Text, useStdout } from 'ink';
-import { memo, useEffect } from 'react';
+import { memo, useLayoutEffect } from 'react';
 import type { Line } from '../types.ts';
 
 const isMac = process.platform === 'darwin';
@@ -28,15 +28,14 @@ export default memo(function FullscreenOverlay({ title, lines, scrollOffset }: P
   const maxVisible = Math.max(1, terminalHeight - headerLines - footerLines);
 
   // Enter alternate screen on mount, exit on unmount
-  useEffect(() => {
+  // useLayoutEffect ensures cleanup runs synchronously before ink re-renders
+  useLayoutEffect(() => {
     if (stdout) {
       stdout.write(ENTER_ALT_SCREEN + CLEAR_SCREEN + CURSOR_HOME + HIDE_CURSOR);
     }
     return () => {
       if (stdout) {
-        // Exit alternate screen, then clear main screen and reset cursor
-        // This helps ink re-render cleanly to a known position
-        stdout.write(EXIT_ALT_SCREEN + CLEAR_SCREEN + CURSOR_HOME + HIDE_CURSOR);
+        stdout.write(EXIT_ALT_SCREEN);
       }
     };
   }, [stdout]);
