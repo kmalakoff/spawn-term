@@ -65,7 +65,7 @@ export default memo(function FullscreenOverlay({ title, lines, scrollOffset }: P
 
       {/* Footer */}
       <Text dimColor>
-        Lines {currentLine}-{endLine} of {totalLines} | j/k scroll | Tab/⇧Tab page | {isMac ? '⌥↑/↓' : 'g/G'} top/bottom | q exit
+        Lines {currentLine}-{endLine} of {totalLines} | j/k scroll | Tab/⇧Tab page | {isMac ? '⌥↑/↓' : 'g/G'} top/bottom | ↵/q exit
       </Text>
     </Box>
   );

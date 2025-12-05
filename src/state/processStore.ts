@@ -289,14 +289,26 @@ export class ProcessStore {
 
   // Fullscreen mode (alternate screen buffer)
   enterFullscreen(): void {
+    // If not expanded, expand the selected process first
+    if (!this.expandedId) {
+      const selected = this.getSelectedProcess();
+      if (selected) {
+        this.expandedId = selected.id;
+      }
+    }
     if (this.expandedId) {
       this.isFullscreen = true;
       this.notify();
     }
   }
 
-  exitFullscreen(): void {
+  exitFullscreen(visibleCountWhenCollapsed?: number): void {
     this.isFullscreen = false;
+    // Also collapse when exiting fullscreen
+    this.expandedId = null;
+    if (visibleCountWhenCollapsed) {
+      this.listNav.clampViewport(visibleCountWhenCollapsed);
+    }
     this.notify();
   }
 
