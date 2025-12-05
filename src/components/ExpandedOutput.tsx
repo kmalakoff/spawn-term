@@ -32,10 +32,10 @@ export default memo(function ExpandedOutput({ lines, scrollOffset, maxVisible = 
       ))}
       {hasMore ? (
         <Text dimColor>
-          │ [+{remaining} more, Tab/⇧Tab page, {isMac ? '⌥↑/↓' : 'g/G'} top/bottom, f fullscreen]
+          │ [+{remaining} more, Tab/⇧Tab page, {isMac ? '⌥↑/↓' : 'g/G'} top/bottom, ↵ fullscreen]
         </Text>
       ) : (
-        <Text dimColor>│ [f fullscreen]</Text>
+        <Text dimColor>│ [↵ fullscreen]</Text>
       )}
     </Box>
   );
