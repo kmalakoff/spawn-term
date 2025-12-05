@@ -102,8 +102,12 @@ function AppContent({ store }: AppProps): React.JSX.Element {
     (input, key) => {
       // Fullscreen mode input handling
       if (isFullscreen) {
-        if (input === 'q' || key.escape) {
-          store.exitFullscreen();
+        // Pre-calculate for viewport adjustment
+        const baseReserved = (header ? 2 : 0) + (showStatusBar ? 2 : 0);
+        const visibleWhenCollapsed = Math.max(1, terminalHeight - baseReserved - 2);
+
+        if (input === 'q' || key.escape || key.return) {
+          store.exitFullscreen(visibleWhenCollapsed);
         } else if ((key.meta && key.upArrow) || input === 'g') {
           store.scrollToTop();
         } else if ((key.meta && key.downArrow) || input === 'G') {
@@ -154,11 +158,12 @@ function AppContent({ store }: AppProps): React.JSX.Element {
           } else {
             store.signalExit(() => {});
           }
+          // Enter - fullscreen view (direct from list or from expanded)
         } else if (key.return) {
-          store.toggleExpand(visibleWhenExpanded, visibleWhenCollapsed);
-          // Fullscreen - 'f' to enter fullscreen when expanded
-        } else if (input === 'f' && expandedId) {
           store.enterFullscreen();
+          // Space - toggle small expanded preview
+        } else if (input === ' ') {
+          store.toggleExpand(visibleWhenExpanded, visibleWhenCollapsed);
           // Filter cycling - left/right arrows
         } else if (key.rightArrow && !expandedId) {
           store.cycleFilterNext();
