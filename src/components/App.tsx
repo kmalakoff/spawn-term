@@ -149,17 +149,18 @@ function AppContent({ store }: AppProps): React.JSX.Element {
         const visibleWhenExpanded = Math.max(1, terminalHeight - baseReserved - EXPANDED_MAX_VISIBLE_LINES - 1);
         const visibleWhenCollapsed = Math.max(1, terminalHeight - baseReserved - 2); // -2 for filter bar + list hint
 
-        if (input === 'q' || key.escape) {
+        if (input === 'q' || key.escape || (key.return && expandedId)) {
+          // q/Esc/Enter all exit expanded mode; q/Esc exit app when not expanded
           if (expandedId) {
             store.collapse(visibleWhenCollapsed);
-          } else if (searchTerm) {
+          } else if (key.escape && searchTerm) {
             // Clear search first before exiting
             store.clearSearch();
-          } else {
+          } else if (input === 'q' || key.escape) {
             store.signalExit(() => {});
           }
-          // Enter - fullscreen view (direct from list or from expanded)
-        } else if (key.return) {
+          // Enter - fullscreen view (from list only, not expanded)
+        } else if (key.return && !expandedId) {
           store.enterFullscreen();
           // Space - toggle small expanded preview
         } else if (input === ' ') {
