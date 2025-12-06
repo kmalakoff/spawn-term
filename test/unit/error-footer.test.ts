@@ -51,7 +51,7 @@ describe('error footer', () => {
     session.spawn('ls', ['-la'], { stdio: 'inherit' }, {}, (err, res) => {
       if (err) {
         session.close();
-        done(err.message);
+        done(err);
         return;
       }
       assert.equal(res.stdout, null);
@@ -66,7 +66,7 @@ describe('error footer', () => {
     session.spawn('ls', ['-la'], { stdio: 'inherit' }, {}, (err, res) => {
       if (err) {
         session.close();
-        done(err.message);
+        done(err);
         return;
       }
       assert.equal(res.stdout, null);

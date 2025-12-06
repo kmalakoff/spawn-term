@@ -26,7 +26,7 @@ describe('session interactive mode with non-TTY', () => {
     session.spawn(NODE, ['-e', 'console.log("hello")'], { stdio: 'inherit' }, {}, (err, res) => {
       if (err) {
         session.close();
-        done(err.message);
+        done(err);
         return;
       }
       assert.equal(res.stdout, null);
