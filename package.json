@@ -43,22 +43,22 @@
   },
   "dependencies": {
     "@xterm/headless": "^5.5.0",
-    "cross-spawn-cb": "*",
-    "ink": "*",
-    "on-one": "*",
-    "queue-cb": "*",
-    "react": "*"
+    "cross-spawn-cb": "^2.4.10",
+    "ink": "^6.5.1",
+    "on-one": "^1.0.8",
+    "queue-cb": "^1.6.1",
+    "react": "^19.2.1"
   },
   "devDependencies": {
-    "@types/mocha": "*",
-    "@types/node": "*",
-    "@types/react": "*",
-    "cr": "*",
-    "is-version": "*",
-    "node-version-use": "*",
-    "pinkie-promise": "*",
-    "ts-dev-stack": "*",
-    "tsds-config": "*"
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
+    "cr": "^0.1.0",
+    "is-version": "^1.0.7",
+    "node-version-use": "^1.9.7",
+    "pinkie-promise": "^2.0.1",
+    "ts-dev-stack": "^1.21.2",
+    "tsds-config": "^0.2.0"
   },
   "engines": {
     "node": ">=0.8"
