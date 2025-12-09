@@ -51,11 +51,11 @@
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
-    "@types/node": "^24.10.1",
+    "@types/node": "^24.10.2",
     "@types/react": "^19.2.7",
     "cr": "^0.1.0",
     "is-version": "^1.0.7",
-    "node-version-use": "^1.9.7",
+    "node-version-use": "^1.9.9",
     "pinkie-promise": "^2.0.1",
     "ts-dev-stack": "^1.21.2",
     "tsds-config": "^0.2.0"
