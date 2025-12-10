@@ -1,3 +1,4 @@
+import { loadInk } from './lib/loadInk.ts';
 import type { ProcessOptions, SessionOptions, SpawnError, SpawnOptions, TerminalCallback } from './types.ts';
 
 export interface Session {
@@ -8,48 +9,57 @@ export interface Session {
 
 export function createSession(options?: SessionOptions): Session {
   let realSession: Session | null = null;
-  let loadError: SpawnError | null = null;
+  let loadError: Error | null = null;
+  let loading: Promise<Session> | null = null;
 
-  // Start loading immediately
-  import('./session.ts')
-    .then((mod) => {
-      realSession = mod.createSession(options);
-    })
-    .catch((err) => {
-      loadError = err;
+  function getSession(): Promise<Session> {
+    if (realSession) return Promise.resolve(realSession);
+    if (loadError) return Promise.reject(loadError);
+    if (loading) return loading;
+
+    loading = new Promise((resolve, reject) => {
+      loadInk((err) => {
+        if (err) {
+          loadError = err;
+          loading = null;
+          return reject(err);
+        }
+        import('./session.ts')
+          .then((mod) => {
+            realSession = mod.createSession(options);
+            resolve(realSession);
+          })
+          .catch((err) => {
+            loadError = err;
+            loading = null;
+            reject(err);
+          });
+      });
     });
+
+    return loading;
+  }
+
+  // Start loading immediately in background
+  getSession().catch(() => {});
 
   return {
     spawn(command: string, args: string[], spawnOptions: SpawnOptions, processOptions: ProcessOptions, callback: TerminalCallback): void {
-      if (loadError) {
-        callback(loadError);
-        return;
-      }
-      if (realSession) {
-        realSession.spawn(command, args, spawnOptions, processOptions, callback);
-        return;
-      }
-      // Still loading, wait for it
-      import('./session.ts')
-        .then((mod) => {
-          if (!realSession) realSession = mod.createSession(options);
-          realSession.spawn(command, args, spawnOptions, processOptions, callback);
+      getSession()
+        .then((session) => {
+          session.spawn(command, args, spawnOptions, processOptions, callback);
         })
-        .catch(callback);
+        .catch((err) => {
+          callback(err as SpawnError);
+        });
     },
     close(): void {
       if (realSession) realSession.close();
     },
     waitAndClose(callback?: () => void): void {
-      if (realSession) {
-        realSession.waitAndClose(callback);
-        return;
-      }
-      // Still loading, wait for it
-      import('./session.ts')
-        .then((mod) => {
-          if (!realSession) realSession = mod.createSession(options);
-          realSession.waitAndClose(callback);
+      getSession()
+        .then((session) => {
+          session.waitAndClose(callback);
         })
         .catch(() => {
           callback?.();
