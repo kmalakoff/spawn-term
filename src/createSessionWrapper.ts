@@ -1,4 +1,3 @@
-import { loadInk } from './lib/loadInk.ts';
 import type { ProcessOptions, SessionOptions, SpawnError, SpawnOptions, TerminalCallback } from './types.ts';
 
 export interface Session {
@@ -17,25 +16,33 @@ export function createSession(options?: SessionOptions): Session {
     if (loadError) return Promise.reject(loadError);
     if (loading) return loading;
 
-    loading = new Promise((resolve, reject) => {
-      loadInk((err) => {
-        if (err) {
-          loadError = err;
-          loading = null;
-          return reject(err);
-        }
-        import('./session.ts')
-          .then((mod) => {
-            realSession = mod.createSession(options);
-            resolve(realSession);
-          })
-          .catch((err) => {
-            loadError = err;
-            loading = null;
-            reject(err);
+    loading = import('./lib/loadInk.ts')
+      .then((mod) => {
+        return new Promise<Session>((resolve, reject) => {
+          mod.loadInk((err) => {
+            if (err) {
+              loadError = err;
+              loading = null;
+              return reject(err);
+            }
+            import('./session.ts')
+              .then((sessionMod) => {
+                realSession = sessionMod.createSession(options);
+                resolve(realSession);
+              })
+              .catch((err) => {
+                loadError = err;
+                loading = null;
+                reject(err);
+              });
           });
+        });
+      })
+      .catch((err) => {
+        loadError = err;
+        loading = null;
+        throw err;
       });
-    });
 
     return loading;
   }
