@@ -8,13 +8,13 @@
  * - Uses native endsWith on Node 4.0+ / ES2015+
  * - Falls back to lastIndexOf on Node 0.8-3.x
  */
-var hasEndsWith = typeof String.prototype.endsWith === 'function';
+const hasEndsWith = typeof String.prototype.endsWith === 'function';
 
 export function stringEndsWith(str: string, search: string, position?: number): boolean {
   if (hasEndsWith) {
     return str.endsWith(search, position);
   }
-  var len = position === undefined ? str.length : position;
+  const len = position === undefined ? str.length : position;
   return str.lastIndexOf(search) === len - search.length;
 }
 
@@ -23,13 +23,13 @@ export function stringEndsWith(str: string, search: string, position?: number): 
  * - Uses native find on Node 4.0+ / ES2015+
  * - Falls back to loop on Node 0.8-3.x
  */
-var hasArrayFind = typeof Array.prototype.find === 'function';
+const hasArrayFind = typeof Array.prototype.find === 'function';
 
 export function arrayFind<T>(arr: T[], predicate: (item: T, index: number, arr: T[]) => boolean): T | undefined {
   if (hasArrayFind) {
     return arr.find(predicate);
   }
-  for (var i = 0; i < arr.length; i++) {
+  for (let i = 0; i < arr.length; i++) {
     if (predicate(arr[i], i, arr)) return arr[i];
   }
   return undefined;
