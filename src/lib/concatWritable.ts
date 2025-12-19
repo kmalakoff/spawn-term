@@ -2,7 +2,7 @@ import Stream from 'stream';
 
 const Writable = Stream.Writable;
 
-export type Callback = (lines: Buffer) => undefined;
+export type Callback = (lines: Buffer) => void;
 
 export default function concatWritable(callback: Callback): NodeJS.WritableStream {
   const chunks = [];

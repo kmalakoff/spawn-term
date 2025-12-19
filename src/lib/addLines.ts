@@ -3,7 +3,7 @@ import { BATCH_MAX_LINES, BATCH_MAX_WAIT_MS } from '../constants.ts';
 
 const REGEX_NEW_LINE = /\r?\n|\r/g;
 
-export type Callback = (lines: string[]) => undefined;
+export type Callback = (lines: string[]) => void;
 
 interface BatchOptions {
   maxLines?: number;
