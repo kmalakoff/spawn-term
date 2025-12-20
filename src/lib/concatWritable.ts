@@ -1,6 +1,4 @@
-import Stream from 'stream';
-
-const Writable = Stream.Writable;
+import { Writable } from '../compat.ts';
 
 export type Callback = (lines: Buffer) => void;
 
