@@ -4,7 +4,7 @@ import path from 'path';
 import url from 'url';
 
 // Get the node_modules directory relative to this file
-const _dirname = path.dirname(typeof __dirname !== 'undefined' ? __dirname : url.fileURLToPath(import.meta.url));
+const _dirname = path.dirname(typeof __filename === 'undefined' ? url.fileURLToPath(import.meta.url) : __filename);
 const nodeModules = path.join(_dirname, '..', '..', '..', 'node_modules');
 
 let installed = false;
