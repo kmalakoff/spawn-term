@@ -30,7 +30,7 @@ function getErrorCount(lines: Line[]): number {
 export default memo(function CompactProcessLine({ item, isSelected = false }: Props) {
   const store = useStore();
   const { stdout } = useStdout();
-  const terminalWidth = stdout?.columns || 80;
+  const terminalWidth = stdout?.columns || 120;
 
   const { group, title, state, lines } = item;
   const selectionIndicator = isSelected ? figures.pointer : ' ';
