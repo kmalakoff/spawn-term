@@ -35,11 +35,7 @@ class SessionImpl implements Session {
 
     // Only render Ink when stdout is a real terminal
     // When piped (e.g., nested spawn-term), skip Ink to avoid cursor positioning artifacts
-    if (process.stdout.isTTY) {
-      this.inkApp = render(<App store={this.store} />, {
-        maxFps: DEFAULT_MAX_FPS,
-      });
-    }
+    this.inkApp = render(<App store={this.store} />, { maxFps: DEFAULT_MAX_FPS });
 
     // Interactive mode requires a TTY to capture user input (e.g., press 'q' to quit)
     // Force non-interactive when no UI is rendered, otherwise waitAndClose would hang

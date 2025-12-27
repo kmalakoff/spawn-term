@@ -11,9 +11,7 @@ describe('session interactive mode with non-TTY', () => {
 
   // These tests verify behavior when stdout is NOT a TTY (e.g., CI environments).
   // When stdout IS a TTY, interactive mode legitimately waits for user input.
-  if (process.stdout.isTTY) {
-    return console.log('Skipping non-TTY tests: stdout is a TTY');
-  }
+  if (process.stdout.isTTY) return console.log('Skipping non-TTY tests: stdout is a TTY');
 
   it('should call waitAndClose callback even when interactive=true and stdout is not a TTY', function (done) {
     this.timeout(5000); // 5 second timeout - should fail fast if bug exists
