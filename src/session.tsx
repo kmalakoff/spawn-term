@@ -37,9 +37,9 @@ class SessionImpl implements Session {
     // When piped (e.g., nested spawn-term), skip Ink to avoid cursor positioning artifacts
     this.inkApp = render(<App store={this.store} />, { maxFps: DEFAULT_MAX_FPS });
 
-    // Interactive mode requires a TTY to capture user input (e.g., press 'q' to quit)
-    // Force non-interactive when no UI is rendered, otherwise waitAndClose would hang
-    this.isInteractive = this.inkApp ? (options.interactive ?? false) : false;
+    // Interactive mode requires a real TTY for user input (e.g., press 'q' to quit)
+    // Without a TTY, there's no way to receive keyboard input, so auto-exit when complete
+    this.isInteractive = process.stdout.isTTY ? (options.interactive ?? false) : false;
   }
 
   spawn(command: string, args: string[], spawnOptions: SpawnOptions, options: ProcessOptions, callback: TerminalCallback): void {
