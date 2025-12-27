@@ -13,6 +13,9 @@ import { createSession } from 'spawn-term';
  * The fix: Strip ANSI codes from statusText before displaying in compact view.
  */
 describe('color bleed', () => {
+  if (typeof createSession === 'undefined') {
+    return console.log(`Not available in ${process.versions.node}`);
+  }
   it('should not have ANSI codes in compact status text for running processes', (done) => {
     const session = createSession({ showStatusBar: true });
 
@@ -25,12 +28,12 @@ describe('color bleed', () => {
       }
 
       // The captured output contains ANSI codes
-      assert.ok(res.stdout?.includes('\x1b[96m'), 'stdout should contain cyan ANSI code');
-      assert.ok(res.stdout?.includes('\x1b[0m'), 'stdout should contain reset ANSI code');
+      assert.ok(res.stdout && res.stdout.indexOf('\x1b[96m') !== -1, 'stdout should contain cyan ANSI code');
+      assert.ok(res.stdout && res.stdout.indexOf('\x1b[0m') !== -1, 'stdout should contain reset ANSI code');
 
       // Wait a bit for the UI to render and check output
       setTimeout(() => {
-        const _output = res.stdout ?? '';
+        const _output = res.stdout || '';
 
         // The fix strips ANSI codes from the compact view status text
         // so we should NOT see raw ANSI codes in the compact line rendering
@@ -53,8 +56,8 @@ describe('color bleed', () => {
       }
 
       // Raw output has ANSI codes
-      const rawOutput = res.stdout ?? '';
-      assert.ok(rawOutput.includes('\x1b[96m'), 'Raw output should have ANSI codes');
+      const rawOutput = res.stdout || '';
+      assert.ok(rawOutput.indexOf('\x1b[96m') !== -1, 'Raw output should have ANSI codes');
 
       session.waitAndClose(done);
     });
