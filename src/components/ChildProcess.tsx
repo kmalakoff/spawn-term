@@ -46,7 +46,7 @@ type RunningSummaryProps = {
 const RunningSummary = memo(function RunningSummary({ line }: RunningSummaryProps) {
   return (
     <Box marginLeft={2}>
-      <Text>{line.text}</Text>
+      <Text>{line.text || ' '}</Text>
     </Box>
   );
 });
@@ -58,7 +58,7 @@ type LinesProps = {
 const renderLine = (line, index) => {
   return (
     <Box key={index} minHeight={1}>
-      <Text>{line.text}</Text>
+      <Text>{line.text || ' '}</Text>
     </Box>
   );
 };
@@ -87,7 +87,7 @@ const Contracted = memo(function Contracted({ item }: ItemProps) {
 
   // remove ansi codes when displaying single lines
   const errors = useMemo(() => lines.filter((line) => line.type === LineType.stderr), [lines]);
-  const summary = useMemo(() => lines.filter((line) => line.text.length > 0 && errors.indexOf(line) < 0).pop(), [lines, errors]);
+  const summary = useMemo(() => lines.filter((line) => line.type !== LineType.stderr && line.text.length > 0).pop(), [lines]);
 
   return (
     <Box flexDirection="column">

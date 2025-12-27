@@ -60,7 +60,8 @@ export default memo(function ErrorFooter({ errors, isExpanded }: Props) {
           }
           return stderrLines.map((line, index) => (
             <Text key={`${errorGroup.processName}-${index}`}>
-              <Text dimColor>[{errorGroup.processName}]</Text> {line.text}
+              <Text dimColor>[{errorGroup.processName}]</Text>
+              <Text>{` ${line.text}`}</Text>
             </Text>
           ));
         })}
