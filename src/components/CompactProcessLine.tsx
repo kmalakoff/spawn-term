@@ -1,6 +1,7 @@
 import { Box, Text, useStdout } from 'ink';
 import { memo, useMemo } from 'react';
 import { SPINNER } from '../constants.ts';
+import ansiRegex from '../lib/ansiRegex.ts';
 import { clipText } from '../lib/clipText.ts';
 import figures from '../lib/figures.ts';
 import { calculateColumnWidth } from '../lib/format.ts';
@@ -8,6 +9,26 @@ import { useStore } from '../state/StoreContext.ts';
 import type { ChildProcess, Line } from '../types.ts';
 import { LineType } from '../types.ts';
 import Spinner from './Spinner.ts';
+
+const ansi = ansiRegex();
+
+/**
+ * Strip ANSI escape codes from a string.
+ */
+function stripAnsi(str: string): string {
+  return str.replace(ansi, '');
+}
+
+/**
+ * Simple truncation for plain text (no ANSI codes).
+ * Adds ellipsis if truncated.
+ */
+function truncate(str: string, maxWidth: number): string {
+  if (maxWidth <= 0) return '';
+  if (maxWidth === 1) return '…';
+  if (str.length <= maxWidth) return str;
+  return `${str.slice(0, maxWidth - 1)}…`;
+}
 
 type Props = {
   item: ChildProcess;
@@ -53,12 +74,13 @@ export default memo(function CompactProcessLine({ item, isSelected = false }: Pr
   const statusText = useMemo(() => {
     if (state === 'running') {
       const lastLine = getLastOutputLine(lines);
-      return lastLine ? clipText(lastLine, statusWidth) : '';
+      const stripped = lastLine ? stripAnsi(lastLine) : '';
+      return stripped ? truncate(stripped, statusWidth) : '';
     }
     if (state === 'error') {
       const errorCount = getErrorCount(lines);
       const text = errorCount > 0 ? `${errorCount} error${errorCount > 1 ? 's' : ''}` : 'failed';
-      return clipText(text, statusWidth);
+      return truncate(text, statusWidth);
     }
     return ''; // success - no status text
   }, [state, lines, statusWidth]);
@@ -75,9 +97,6 @@ export default memo(function CompactProcessLine({ item, isSelected = false }: Pr
     }
   }, [state]);
 
-  // Status text color
-  const statusColor = state === 'error' ? 'red' : 'gray';
-
   return (
     <Box width={terminalWidth}>
       <Text color={isSelected ? 'cyan' : undefined}>{selectionIndicator}</Text>
@@ -87,7 +106,7 @@ export default memo(function CompactProcessLine({ item, isSelected = false }: Pr
       </Box>
       {statusWidth > 0 && statusText && (
         <Box width={statusWidth + gap}>
-          <Text color={statusColor}> {statusText}</Text>
+          <Text> {statusText}</Text>
         </Box>
       )}
     </Box>
