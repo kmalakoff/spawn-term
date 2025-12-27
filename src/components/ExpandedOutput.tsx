@@ -1,6 +1,7 @@
 import { Box, Text } from 'ink';
 import { memo } from 'react';
 import { EXPANDED_MAX_VISIBLE_LINES } from '../constants.ts';
+import AnsiText from '../lib/AnsiText.ts';
 import type { Line } from '../types.ts';
 
 const isMac = process.platform === 'darwin';
@@ -28,7 +29,9 @@ export default memo(function ExpandedOutput({ lines, scrollOffset, maxVisible = 
     <Box flexDirection="column" paddingLeft={2}>
       {visibleLines.map((line, i) => (
         // biome-ignore lint/suspicious/noArrayIndexKey: Lines have no unique ID, index is stable for this scrolling view
-        <Text key={scrollOffset + i}>│ {line.text || ' '}</Text>
+        <Text key={scrollOffset + i}>
+          │ <AnsiText>{line.text || ' '}</AnsiText>
+        </Text>
       ))}
       {hasMore ? (
         <Text dimColor>
