@@ -43,5 +43,5 @@ export function clipText(str: string, maxWidth: number): string {
     }
   }
 
-  return `${result}…`;
+  return `${result}\x1b[0m…`;
 }
