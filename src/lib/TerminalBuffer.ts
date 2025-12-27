@@ -59,7 +59,7 @@ export class TerminalBuffer {
 
     // Return copy of all lines WITHOUT trimStart() or trimming blank lines
     // Preserves all whitespace, indentation, and blank lines
-    return [...this.allLines];
+    return this.allLines.slice();
   }
 
   /**
