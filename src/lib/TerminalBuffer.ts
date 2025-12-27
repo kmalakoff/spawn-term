@@ -57,15 +57,9 @@ export class TerminalBuffer {
       this.allLines.push(line);
     }
 
-    // Return copy of all lines WITHOUT trimStart() - preserves whitespace
-    const lines = [...this.allLines];
-
-    // Trim trailing empty lines only
-    while (lines.length > 0 && lines[lines.length - 1] === '') {
-      lines.pop();
-    }
-
-    return lines;
+    // Return copy of all lines WITHOUT trimStart() or trimming blank lines
+    // Preserves all whitespace, indentation, and blank lines
+    return [...this.allLines];
   }
 
   /**
