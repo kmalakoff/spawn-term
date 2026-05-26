@@ -100,15 +100,15 @@ class SessionImpl implements Session {
       const queue = new Queue();
       if (cp.stdout) {
         const stdout = cp.stdout;
-        queue.defer((cb) => oo(stdout, ['error', 'end', 'close'], (err: Error | null) => cb(err ?? undefined)));
+        queue.defer((cb) => oo(stdout, ['error', 'end', 'close'], (err: Error | null) => cb(err)));
       }
       if (cp.stderr) {
         const stderr = cp.stderr;
-        queue.defer((cb) => oo(stderr, ['error', 'end', 'close'], (err: Error | null) => cb(err ?? undefined)));
+        queue.defer((cb) => oo(stderr, ['error', 'end', 'close'], (err: Error | null) => cb(err)));
       }
       queue.defer(spawn.worker.bind(null, cp, csOptions));
-      queue.await((err?: Error) => {
-        const spawnErr = err as SpawnError | undefined;
+      queue.await((err?: Error | null) => {
+        const spawnErr = err as SpawnError | null;
         const res = (spawnErr ? spawnErr : {}) as SpawnResult;
         res.stdout = null as unknown as string | Buffer;
         res.stderr = null as unknown as string | Buffer;
@@ -130,7 +130,7 @@ class SessionImpl implements Session {
           (outputs.stdout as unknown as { output: string }).output = output.toString(encoding || 'utf8');
         });
         outputs.stdout = stdoutHandle;
-        queue.defer((cb) => oo(cpStdout.pipe(stdoutHandle), ['error', 'end', 'close', 'finish'], (err: Error | null) => cb(err ?? undefined)));
+        queue.defer((cb) => oo(cpStdout.pipe(stdoutHandle), ['error', 'end', 'close', 'finish'], (err: Error | null) => cb(err)));
       }
       if (cp.stderr) {
         const cpStderr = cp.stderr;
@@ -138,11 +138,11 @@ class SessionImpl implements Session {
           (outputs.stderr as unknown as { output: string }).output = output.toString(encoding || 'utf8');
         });
         outputs.stderr = stderrHandle;
-        queue.defer((cb) => oo(cpStderr.pipe(stderrHandle), ['error', 'end', 'close', 'finish'], (err: Error | null) => cb(err ?? undefined)));
+        queue.defer((cb) => oo(cpStderr.pipe(stderrHandle), ['error', 'end', 'close', 'finish'], (err: Error | null) => cb(err)));
       }
       queue.defer(spawn.worker.bind(null, cp, csOptions));
-      queue.await((err?: Error) => {
-        const spawnErr = err as SpawnError | undefined;
+      queue.await((err?: Error | null) => {
+        const spawnErr = err as SpawnError | null;
         const res = (spawnErr ? spawnErr : {}) as SpawnResult;
         res.stdout = (outputs.stdout ? (outputs.stdout as unknown as { output: string }).output : null) as string | Buffer;
         res.stderr = (outputs.stderr ? (outputs.stderr as unknown as { output: string }).output : null) as string | Buffer;
