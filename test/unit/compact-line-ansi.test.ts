@@ -65,7 +65,7 @@ describe('compact line ANSI handling', () => {
 
       // The stripped text is what should be displayed
       assert.equal(strippedForDisplay, '[info] html generated at ./docs');
-      assert.ok(!strippedForDisplay.includes('\x1b'), 'No ANSI escape codes should remain');
+      assert.ok(strippedForDisplay.indexOf('\x1b') === -1, 'No ANSI escape codes should remain');
     });
 
     it('should handle complex ANSI sequences', () => {
@@ -75,7 +75,7 @@ describe('compact line ANSI handling', () => {
       const strippedForDisplay = commandOutput.replace(ansi, '');
 
       assert.equal(strippedForDisplay, '✓ Build completed in 2s [info] done');
-      assert.ok(!strippedForDisplay.includes('\x1b'), 'No ANSI escape codes should remain');
+      assert.ok(strippedForDisplay.indexOf('\x1b') === -1, 'No ANSI escape codes should remain');
     });
   });
 });
