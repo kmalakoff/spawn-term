@@ -5,6 +5,7 @@ export type { Navigator } from './state/Navigator.ts';
 export * from './types.ts';
 
 import type { createSession as createSessionType, Session } from './createSessionWrapper.ts';
+
 export type { Session };
 
 const major = +process.versions.node.split('.')[0];

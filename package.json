@@ -1,6 +1,6 @@
 {
   "name": "spawn-term",
-  "version": "3.5.7",
+  "version": "3.5.8",
   "description": "Formats spawn with for terminal grouping",
   "keywords": [
     "spawn",
@@ -21,14 +21,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/cjs/src/index-cjs.d.ts",
+      "types": "./dist/cjs/index-cjs.d.ts",
       "import": "./dist/esm/index-esm.js",
       "require": "./dist/cjs/index-cjs.js"
     },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index-cjs.js",
-  "types": "dist/cjs/src/index-cjs.d.ts",
+  "types": "dist/cjs/index-cjs.d.ts",
   "files": [
     "dist",
     "assets"
