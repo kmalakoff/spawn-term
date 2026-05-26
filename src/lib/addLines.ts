@@ -38,7 +38,7 @@ export default function addLines(fn: Callback, options: BatchOptions = {}): Writ
     write(chunk, _enc, callback) {
       const more = last + chunk.toString('utf8');
       const lines = more.split(REGEX_NEW_LINE);
-      last = lines.pop();
+      last = lines.pop() ?? '';
 
       if (lines.length > 0) {
         lineBuffer.push(...lines);

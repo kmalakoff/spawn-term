@@ -22,8 +22,7 @@ describe('pipe completion with sustained output', () => {
 
       if (err) {
         session.close();
-        done(new Error(`Process failed: ${err.message}`));
-        return;
+        return done(new Error(`Process failed: ${err.message}`));
       }
 
       assert.ok(duration < 5000, `Process took too long (${duration}ms)`);
@@ -39,6 +38,11 @@ describe('pipe completion with sustained output', () => {
       if (err) {
         session.close();
         return done(err);
+      }
+      if (!res) {
+        session.close();
+        done(new Error('No response'));
+        return;
       }
 
       assert.ok(res.stdout);

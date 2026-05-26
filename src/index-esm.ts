@@ -10,4 +10,4 @@ export type { Session };
 const major = +process.versions.node.split('.')[0];
 
 import { createSession as createSessionImpl } from './createSessionWrapper.ts';
-export const createSession = major > 18 ? createSessionImpl : (undefined as typeof createSessionType);
+export const createSession = major > 18 ? createSessionImpl : (undefined as unknown as typeof createSessionType);

@@ -5,4 +5,4 @@ export * from './types.ts';
 
 import type { createSession as createSessionType, Session } from './session.ts';
 export type { Session };
-export const createSession = undefined as typeof createSessionType;
+export const createSession = undefined as unknown as typeof createSessionType;

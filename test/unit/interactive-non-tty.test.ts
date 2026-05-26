@@ -1,7 +1,7 @@
 import assert from 'assert';
 import { createSession } from 'spawn-term';
 
-const isWindows = process.platform === 'win32' || /^(msys|cygwin)$/.test(process.env.OSTYPE);
+const isWindows = process.platform === 'win32' || /^(msys|cygwin)$/.test(process.env.OSTYPE ?? '');
 const NODE = isWindows ? 'node.exe' : 'node';
 
 describe('session interactive mode with non-TTY', () => {
@@ -24,8 +24,11 @@ describe('session interactive mode with non-TTY', () => {
     session.spawn(NODE, ['-e', 'console.log("hello")'], { stdio: 'inherit' }, {}, (err, res) => {
       if (err) {
         session.close();
-        done(err);
-        return;
+        return done(err);
+      }
+      if (!res) {
+        session.close();
+        return done(new Error('No response'));
       }
       assert.equal(res.stdout, null);
       assert.equal(res.stderr, null);

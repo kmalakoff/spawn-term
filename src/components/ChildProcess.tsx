@@ -55,7 +55,7 @@ type LinesProps = {
   lines: Line[];
 };
 
-const renderLine = (line, index) => {
+const renderLine = (line: Line, index: number) => {
   return (
     <Box key={index} minHeight={1}>
       <Text>{line.text || ' '}</Text>

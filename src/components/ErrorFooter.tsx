@@ -1,5 +1,5 @@
 import { Box, Text } from 'ink';
-import { memo } from 'react';
+import { memo, type ReactElement } from 'react';
 import type { Line } from '../types.ts';
 import { LineType } from '../types.ts';
 import Divider from './Divider.ts';
@@ -49,8 +49,8 @@ export default memo(function ErrorFooter({ errors, isExpanded }: Props) {
       </Text>
       <Box flexDirection="column">
         {errors.map((errorGroup) => {
-          const stderrLines = errorGroup.lines.filter((line) => line.type === LineType.stderr);
-          if (stderrLines.length === 0) {
+          const stderrCount = errorGroup.lines.filter((line) => line.type === LineType.stderr).length;
+          if (stderrCount === 0) {
             // No stderr output - just show process name
             return (
               <Text key={errorGroup.processName}>
@@ -58,12 +58,17 @@ export default memo(function ErrorFooter({ errors, isExpanded }: Props) {
               </Text>
             );
           }
-          return stderrLines.map((line, index) => (
-            <Text key={`${errorGroup.processName}-${index}`}>
-              <Text dimColor>[{errorGroup.processName}]</Text>
-              <Text>{` ${line.text}`}</Text>
-            </Text>
-          ));
+          return errorGroup.lines.reduce<ReactElement[]>((acc, line) => {
+            if (line.type !== LineType.stderr) return acc;
+            const lineIndex = errorGroup.lines.indexOf(line);
+            acc.push(
+              <Text key={`${errorGroup.processName}-${lineIndex}`}>
+                <Text dimColor>[{errorGroup.processName}]</Text>
+                <Text>{` ${line.text}`}</Text>
+              </Text>
+            );
+            return acc;
+          }, []);
         })}
       </Box>
     </>

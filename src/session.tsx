@@ -55,10 +55,10 @@ class SessionImpl implements Session {
         const cp = crossSpawn(command, args, { ...csOptions, stdio: 'inherit' });
         spawn.worker(cp, csOptions, (err?: SpawnError) => {
           const res = (err ? err : {}) as SpawnResult;
-          res.stdout = null;
-          res.stderr = null;
+          res.stdout = null as unknown as string | Buffer;
+          res.stderr = null as unknown as string | Buffer;
           res.output = [null, null, null];
-          err ? callback(err) : callback(null, res);
+          err ? callback(err) : callback(undefined, res);
         });
         return;
       }
@@ -99,21 +99,24 @@ class SessionImpl implements Session {
       // Wait for process to complete
       const queue = new Queue();
       if (cp.stdout) {
-        queue.defer(oo.bind(null, cp.stdout, ['error', 'end', 'close']));
+        const stdout = cp.stdout;
+        queue.defer((cb) => oo(stdout, ['error', 'end', 'close'], (err: Error | null) => cb(err ?? undefined)));
       }
       if (cp.stderr) {
-        queue.defer(oo.bind(null, cp.stderr, ['error', 'end', 'close']));
+        const stderr = cp.stderr;
+        queue.defer((cb) => oo(stderr, ['error', 'end', 'close'], (err: Error | null) => cb(err ?? undefined)));
       }
       queue.defer(spawn.worker.bind(null, cp, csOptions));
-      queue.await((err?: SpawnError) => {
-        const res = (err ? err : {}) as SpawnResult;
-        res.stdout = null; // Not collecting raw output in inherit mode
-        res.stderr = null;
+      queue.await((err?: Error) => {
+        const spawnErr = err as SpawnError | undefined;
+        const res = (spawnErr ? spawnErr : {}) as SpawnResult;
+        res.stdout = null as unknown as string | Buffer;
+        res.stderr = null as unknown as string | Buffer;
         res.output = [null, null, null];
-        this.store.updateProcess(id, { state: err ? 'error' : 'success' });
+        this.store.updateProcess(id, { state: spawnErr ? 'error' : 'success' });
 
         this.onProcessComplete();
-        err ? callback(err) : callback(null, res);
+        spawnErr ? callback(spawnErr) : callback(undefined, res);
       });
     } else {
       // Non-inherit mode: collect output but don't display in UI
@@ -122,24 +125,29 @@ class SessionImpl implements Session {
 
       const queue = new Queue();
       if (cp.stdout) {
-        outputs.stdout = concatWritable((output) => {
+        const cpStdout = cp.stdout;
+        const stdoutHandle = concatWritable((output) => {
           (outputs.stdout as unknown as { output: string }).output = output.toString(encoding || 'utf8');
         });
-        queue.defer(oo.bind(null, cp.stdout.pipe(outputs.stdout), ['error', 'end', 'close', 'finish']));
+        outputs.stdout = stdoutHandle;
+        queue.defer((cb) => oo(cpStdout.pipe(stdoutHandle), ['error', 'end', 'close', 'finish'], (err: Error | null) => cb(err ?? undefined)));
       }
       if (cp.stderr) {
-        outputs.stderr = concatWritable((output) => {
+        const cpStderr = cp.stderr;
+        const stderrHandle = concatWritable((output) => {
           (outputs.stderr as unknown as { output: string }).output = output.toString(encoding || 'utf8');
         });
-        queue.defer(oo.bind(null, cp.stderr.pipe(outputs.stderr), ['error', 'end', 'close', 'finish']));
+        outputs.stderr = stderrHandle;
+        queue.defer((cb) => oo(cpStderr.pipe(stderrHandle), ['error', 'end', 'close', 'finish'], (err: Error | null) => cb(err ?? undefined)));
       }
       queue.defer(spawn.worker.bind(null, cp, csOptions));
-      queue.await((err?: SpawnError) => {
-        const res = (err ? err : {}) as SpawnResult;
-        res.stdout = outputs.stdout ? (outputs.stdout as unknown as { output: string }).output : null;
-        res.stderr = outputs.stderr ? (outputs.stderr as unknown as { output: string }).output : null;
+      queue.await((err?: Error) => {
+        const spawnErr = err as SpawnError | undefined;
+        const res = (spawnErr ? spawnErr : {}) as SpawnResult;
+        res.stdout = (outputs.stdout ? (outputs.stdout as unknown as { output: string }).output : null) as string | Buffer;
+        res.stderr = (outputs.stderr ? (outputs.stderr as unknown as { output: string }).output : null) as string | Buffer;
         res.output = [res.stdout, res.stderr, null];
-        err ? callback(err) : callback(null, res);
+        spawnErr ? callback(spawnErr) : callback(undefined, res);
       });
     }
   }
