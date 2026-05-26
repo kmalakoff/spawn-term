@@ -4,7 +4,7 @@ import Pinkie from 'pinkie-promise';
 import { createSession } from 'spawn-term';
 import getLines from '../lib/getLines.ts';
 
-const isWindows = process.platform === 'win32' || /^(msys|cygwin)$/.test(process.env.OSTYPE);
+const isWindows = process.platform === 'win32' || /^(msys|cygwin)$/.test(process.env.OSTYPE ?? '');
 const NODE = isWindows ? 'node.exe' : 'node';
 
 describe('session', () => {
@@ -28,8 +28,11 @@ describe('session', () => {
     session.spawn('ls', ['-la'], { stdio: 'inherit' }, {}, (err, res) => {
       if (err) {
         session.close();
-        done(err);
-        return;
+        return done(err);
+      }
+      if (!res) {
+        session.close();
+        return done(new Error('No response'));
       }
       assert.equal(res.stdout, null);
       assert.equal(res.stderr, null);
@@ -62,8 +65,11 @@ describe('session', () => {
     session.spawn('ls', ['-la'], { stdio: 'inherit' }, { expanded: true }, (err, res) => {
       if (err) {
         session.close();
-        done(err);
-        return;
+        return done(err);
+      }
+      if (!res) {
+        session.close();
+        return done(new Error('No response'));
       }
       assert.equal(res.stdout, null);
       assert.equal(res.stderr, null);
@@ -89,8 +95,11 @@ describe('session', () => {
     session.spawn('ls', ['-la'], { stdio: 'inherit' }, {}, (err, res) => {
       if (err) {
         session.close();
-        done(err);
-        return;
+        return done(err);
+      }
+      if (!res) {
+        session.close();
+        return done(new Error('No response'));
       }
       assert.equal(res.stdout, null);
       assert.equal(res.stderr, null);
@@ -116,8 +125,11 @@ describe('session', () => {
     session.spawn(NODE, ['--version'], { encoding: 'utf8' }, {}, (err, res) => {
       if (err) {
         session.close();
-        done(err);
-        return;
+        return done(err);
+      }
+      if (!res) {
+        session.close();
+        return done(new Error('No response'));
       }
       assert.ok(isVersion(getLines(res.stdout as string).slice(-1)[0], 'v'));
       assert.equal(res.stderr, '');

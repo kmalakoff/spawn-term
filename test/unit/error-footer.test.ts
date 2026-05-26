@@ -51,8 +51,11 @@ describe('error footer', () => {
     session.spawn('ls', ['-la'], { stdio: 'inherit' }, {}, (err, res) => {
       if (err) {
         session.close();
-        done(err);
-        return;
+        return done(err);
+      }
+      if (!res) {
+        session.close();
+        return done(new Error('No response'));
       }
       assert.equal(res.stdout, null);
       // In interactive mode, no error footer - use Enter to expand processes
@@ -66,8 +69,11 @@ describe('error footer', () => {
     session.spawn('ls', ['-la'], { stdio: 'inherit' }, {}, (err, res) => {
       if (err) {
         session.close();
-        done(err);
-        return;
+        return done(err);
+      }
+      if (!res) {
+        session.close();
+        return done(new Error('No response'));
       }
       assert.equal(res.stdout, null);
       // No errors = no error footer
