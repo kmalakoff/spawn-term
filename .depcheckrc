@@ -1,1 +1,1 @@
-ignores: ["node-version-use", "ts-dev-stack", "spawn-term"]
+ignores: ["spawn-term", "node-version-use", "ts-dev-stack"]
