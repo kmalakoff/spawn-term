@@ -1,5 +1,5 @@
 import fs from 'fs';
-import installModule from 'install-module-linked';
+import installModule from 'install-module-linked-compat';
 import path from 'path';
 import url from 'url';
 
@@ -12,7 +12,7 @@ let installing: Promise<void> | null = null;
 
 function installDependency(name: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    // install-module-linked will:
+    // install-module-linked-compat will:
     // 1. Check if module exists locally or in ~/.iml cache
     // 2. If not, install to ~/.iml
     // 3. Create symlink in nodeModules pointing to ~/.iml/package
