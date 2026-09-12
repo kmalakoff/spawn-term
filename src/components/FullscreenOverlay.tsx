@@ -64,7 +64,7 @@ export default memo(function FullscreenOverlay({ title, lines, scrollOffset }: P
         ) : (
           visibleLines.map((line, i) => (
             // biome-ignore lint/suspicious/noArrayIndexKey: Lines have no unique ID, index is stable for this scrolling view
-            <Text key={scrollOffset + i}>{line.text}</Text>
+            <Text key={scrollOffset + i}>{line.text || ' '}</Text>
           ))
         )}
       </Box>
