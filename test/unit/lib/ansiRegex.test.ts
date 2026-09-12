@@ -1,5 +1,5 @@
 import assert from 'assert';
-import ansiRegex from '../../src/lib/ansiRegex.ts';
+import ansiRegex from '../../../src/lib/ansiRegex.ts';
 
 const ansi = ansiRegex();
 
