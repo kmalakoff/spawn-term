@@ -17,7 +17,7 @@
 </code><button type="button">Copy</button></pre>
 
 <p>The public API is named: <code>createSession</code> creates a session, <code>session.spawn</code> starts a process, and <code>waitAndClose</code> waits for active processes before cleaning up. Process options include <code>group</code> and <code>expanded</code>; session options include <code>header</code>, <code>showStatusBar</code>, and <code>interactive</code>.</p>
-<p>The ESM build provides <code>createSession</code> on Node.js 19 and newer; the CommonJS entry point and older Node.js versions expose only formatting helpers. On first use, <code>createSession</code> may download Ink into the <code>install-module-linked</code> cache and link it into the package, so it needs network access and a writable cache when Ink is not already available.</p>
+<p>Sessions using Ink 8 require Node.js 22 or newer. The ESM build exposes <code>createSession</code> on Node.js 19 and newer, but that export guard does not guarantee that Ink can run on Node.js 19 through 21. The CommonJS entry point and older Node.js versions expose only formatting helpers. On first use, <code>createSession</code> may download Ink into the <code>install-module-linked</code> cache and link it into the package, so it needs network access and a writable cache when Ink is not already available.</p>
 </div></div>
 <div class="col-sidebar">
 <div class="page-menu">
