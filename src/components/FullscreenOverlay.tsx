@@ -1,4 +1,4 @@
-import { Box, Text, useStdout } from 'ink';
+import { Box, Text, useStdout, useWindowSize } from 'ink';
 import { memo, useLayoutEffect, useRef } from 'react';
 import type { Line } from '../types.ts';
 
@@ -20,7 +20,7 @@ type Props = {
 
 export default memo(function FullscreenOverlay({ title, lines, scrollOffset }: Props) {
   const { stdout } = useStdout();
-  const terminalHeight = stdout?.rows || 24;
+  const { rows: terminalHeight, columns: terminalWidth } = useWindowSize();
   const enteredRef = useRef(false);
 
   // Reserve lines for header (title + divider) and footer (scroll hint)
@@ -55,7 +55,7 @@ export default memo(function FullscreenOverlay({ title, lines, scrollOffset }: P
       <Text bold color="cyan">
         {title}
       </Text>
-      <Text dimColor>{'─'.repeat(Math.min(80, stdout?.columns || 80))}</Text>
+      <Text dimColor>{'─'.repeat(Math.min(80, terminalWidth))}</Text>
 
       {/* Content */}
       <Box flexDirection="column" flexGrow={1}>

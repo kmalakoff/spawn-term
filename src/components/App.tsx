@@ -1,4 +1,4 @@
-import { Box, Text, useApp, useInput, useStdin, useStdout } from 'ink';
+import { Box, Text, useApp, useInput, useStdin, useWindowSize } from 'ink';
 import { useEffect, useMemo, useSyncExternalStore } from 'react';
 import { EXPANDED_MAX_VISIBLE_LINES } from '../constants.ts';
 import type { ProcessStore } from '../state/processStore.ts';
@@ -19,8 +19,7 @@ interface AppProps {
 function AppContent({ store }: AppProps): React.JSX.Element {
   const { exit } = useApp();
   const { isRawModeSupported } = useStdin();
-  const { stdout } = useStdout();
-  const terminalHeight = stdout?.rows || 24;
+  const { rows: terminalHeight } = useWindowSize();
 
   // Subscribe to store state
   const allProcesses = useSyncExternalStore(store.subscribe, store.getSnapshot);

@@ -1,9 +1,8 @@
-import { Box, Text, useStdout } from 'ink';
+import { Box, Text, useWindowSize } from 'ink';
 import { memo } from 'react';
 
 export default memo(function Divider() {
-  const { stdout } = useStdout();
-  const width = stdout?.columns || 80;
+  const { columns: width } = useWindowSize();
 
   return (
     <Box>

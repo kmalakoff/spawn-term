@@ -18,4 +18,4 @@ session.waitAndClose(() => console.log('done'));
 
 The public API is named: `createSession` creates a session, `session.spawn` starts a process, and `waitAndClose` waits for active processes before cleaning up. Process options include `group` and `expanded`; session options include `header`, `showStatusBar`, and `interactive`.
 
-The ESM build provides `createSession` on Node.js 19 and newer; the CommonJS entry point and older Node.js versions expose only formatting helpers. On first use, `createSession` may download Ink into the `install-module-linked` cache and link it into the package, so it needs network access and a writable cache when Ink is not already available.
+Sessions using Ink 8 require Node.js 22 or newer. The ESM build exposes `createSession` on Node.js 19 and newer, but that export guard does not guarantee that Ink can run on Node.js 19 through 21. The CommonJS entry point and older Node.js versions expose only formatting helpers. On first use, `createSession` may download Ink into the `install-module-linked` cache and link it into the package, so it needs network access and a writable cache when Ink is not already available.

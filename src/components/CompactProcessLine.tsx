@@ -1,4 +1,4 @@
-import { Box, Text, useStdout } from 'ink';
+import { Box, Text, useWindowSize } from 'ink';
 import { memo, useMemo } from 'react';
 import { SPINNER } from '../constants.ts';
 import ansiRegex from '../lib/ansiRegex.ts';
@@ -50,8 +50,7 @@ function getErrorCount(lines: Line[]): number {
 
 export default memo(function CompactProcessLine({ item, isSelected = false }: Props) {
   const store = useStore();
-  const { stdout } = useStdout();
-  const terminalWidth = stdout?.columns || 120;
+  const { columns: terminalWidth } = useWindowSize();
 
   const { group, title, state, lines } = item;
   const selectionIndicator = isSelected ? figures.pointer : ' ';
