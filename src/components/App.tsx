@@ -3,6 +3,7 @@ import { useEffect, useMemo, useSyncExternalStore } from 'react';
 import { EXPANDED_MAX_VISIBLE_LINES } from '../constants.ts';
 import type { ProcessStore } from '../state/processStore.ts';
 import { StoreContext } from '../state/StoreContext.ts';
+import { useSharedWindowSize, WindowSizeContext } from '../state/WindowSizeContext.ts';
 import CompactProcessLine from './CompactProcessLine.ts';
 import Divider from './Divider.ts';
 import ErrorFooter from './ErrorFooter.ts';
@@ -19,7 +20,7 @@ interface AppProps {
 function AppContent({ store }: AppProps): React.JSX.Element {
   const { exit } = useApp();
   const { isRawModeSupported } = useStdin();
-  const { rows: terminalHeight } = useWindowSize();
+  const { rows: terminalHeight } = useSharedWindowSize();
 
   // Subscribe to store state
   const allProcesses = useSyncExternalStore(store.subscribe, store.getSnapshot);
@@ -316,9 +317,13 @@ function AppContent({ store }: AppProps): React.JSX.Element {
 
 // Wrapper component that provides store context
 export default function App({ store }: AppProps): React.JSX.Element {
+  const { columns, rows } = useWindowSize();
+  const size = useMemo(() => ({ columns, rows }), [columns, rows]);
   return (
     <StoreContext.Provider value={store}>
-      <AppContent store={store} />
+      <WindowSizeContext.Provider value={size}>
+        <AppContent store={store} />
+      </WindowSizeContext.Provider>
     </StoreContext.Provider>
   );
 }

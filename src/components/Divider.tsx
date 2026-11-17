@@ -1,8 +1,9 @@
-import { Box, Text, useWindowSize } from 'ink';
+import { Box, Text } from 'ink';
 import { memo } from 'react';
+import { useSharedWindowSize } from '../state/WindowSizeContext.ts';
 
 export default memo(function Divider() {
-  const { columns: width } = useWindowSize();
+  const { columns: width } = useSharedWindowSize();
 
   return (
     <Box>

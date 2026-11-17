@@ -1,5 +1,6 @@
-import { Box, Text, useStdout, useWindowSize } from 'ink';
+import { Box, Text, useStdout } from 'ink';
 import { memo, useLayoutEffect, useRef } from 'react';
+import { useSharedWindowSize } from '../state/WindowSizeContext.ts';
 import type { Line } from '../types.ts';
 
 const isMac = process.platform === 'darwin';
@@ -20,7 +21,7 @@ type Props = {
 
 export default memo(function FullscreenOverlay({ title, lines, scrollOffset }: Props) {
   const { stdout } = useStdout();
-  const { rows: terminalHeight, columns: terminalWidth } = useWindowSize();
+  const { rows: terminalHeight, columns: terminalWidth } = useSharedWindowSize();
   const enteredRef = useRef(false);
 
   // Reserve lines for header (title + divider) and footer (scroll hint)

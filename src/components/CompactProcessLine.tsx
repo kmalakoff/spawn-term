@@ -1,4 +1,4 @@
-import { Box, Text, useWindowSize } from 'ink';
+import { Box, Text } from 'ink';
 import { memo, useMemo } from 'react';
 import { SPINNER } from '../constants.ts';
 import ansiRegex from '../lib/ansiRegex.ts';
@@ -6,6 +6,7 @@ import { clipText } from '../lib/clipText.ts';
 import figures from '../lib/figures.ts';
 import { calculateColumnWidth } from '../lib/format.ts';
 import { useStore } from '../state/StoreContext.ts';
+import { useSharedWindowSize } from '../state/WindowSizeContext.ts';
 import type { ChildProcess, Line } from '../types.ts';
 import { LineType } from '../types.ts';
 import Spinner from './Spinner.ts';
@@ -50,7 +51,7 @@ function getErrorCount(lines: Line[]): number {
 
 export default memo(function CompactProcessLine({ item, isSelected = false }: Props) {
   const store = useStore();
-  const { columns: terminalWidth } = useWindowSize();
+  const { columns: terminalWidth } = useSharedWindowSize();
 
   const { group, title, state, lines } = item;
   const selectionIndicator = isSelected ? figures.pointer : ' ';
